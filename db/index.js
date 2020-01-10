@@ -1,7 +1,6 @@
 // Initiate db connection
 
 const mongoose = require('mongoose');
-const attachModels = require('./models');
 
 const connectDb = async () => {
     try {
@@ -11,6 +10,7 @@ const connectDb = async () => {
         return await mongoose.connect(`mongodb://${process.env.DB_HOST}:27017/purchasing`, {
             useNewUrlParser: true,
             auth: { authSource: 'admin'},
+            useUnifiedTopology: true,
             user: process.env.MONGO_INITDB_ROOT_USERNAME,
             pass: process.env.MONGO_INITDB_ROOT_PASSWORD, 
         });

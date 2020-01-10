@@ -3,6 +3,7 @@ const controller = require('./controllers');
 
 router
     .route('/data')
-    .get(controller.get);
+    .get(controller.get)
+    .post(controller.post)
 
 module.exports = router;
