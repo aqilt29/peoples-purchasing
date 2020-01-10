@@ -24,7 +24,8 @@ const formSchema = new Schema({
     frieghtCost: { type: Number, required: true },
     invoiceTotal: { type: Number, required: true },
     items: [itemSchema],
-    vendor: String,
+    vendorPhone: String,
+    vendorEmail: String,
 });
 
 
@@ -48,7 +49,8 @@ const demoFormSchema = new Schema({
     frieghtCost: Number,
     invoiceTotal: Number,
     subtotal: Number,
-    itmes: [demoItemSchema]
+    itmes: [demoItemSchema],
+    pr_form_id: String,
 })
 
 module.exports = {

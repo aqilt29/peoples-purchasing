@@ -5,5 +5,6 @@ router
     .route('/data')
     .get(controller.get)
     .post(controller.post)
+    .patch(controller.patch)
 
 module.exports = router;

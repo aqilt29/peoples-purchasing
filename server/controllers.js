@@ -1,5 +1,6 @@
 const { Form } = require('../db/models');
-const sampleData = require('../db/sampleForm');
+const sampleDemoForm = require('../db/sampleDemoForm');
+const createRequestHtmlDocument= require('../documentTemplates/htmlBuilder');
 
 module.exports = {
     get: async (req, res) => {
@@ -27,6 +28,20 @@ module.exports = {
         } catch (error) {
             console.log(error);
             res.status(501).send(error);
+        }
+    },
+
+    patch: async (req, res) => {
+        try {
+            console.log(`trying to create the html document, expect uuid`);
+            const uuid = await createRequestHtmlDocument(sampleDemoForm);
+            console.log(`success uuid: ${uuid}`);
+            
+            res.status(201).send(uuid)
+        } catch(error) {
+            console.log(`failed to create html`)
+            console.log(error);
+            res.status(501).end()
         }
     }
 }

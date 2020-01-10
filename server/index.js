@@ -19,7 +19,7 @@ app.use(express.static(path.join(__dirname, '../documentTemplates')))
 
 app.get('/', async (req, res) => {
     try {
-        res.status(200).sendfile(path.join(__dirname, '../documentTemplates/prTemplate.html'));
+        res.status(200).sendfile(path.join(__dirname, '../documentTemplates/testform.html'));
     } catch (error) {
         res.status(404).end(error)
     }

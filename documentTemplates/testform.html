@@ -1,15 +1,4 @@
-// this file will compiple the HTML past on the template from form data
-const numeral = require('numeral');
-const fs = require('fs');
-const path = require('path');
-const uuidv1 = require('uuid/v1');
 
-const htmlFromBody = (body) => {
-    if (!body) {
-        return null;
-    } else {
-        return (
-            `
                 <!DOCTYPE html>
                 <html lang="en">
                 <head>
@@ -105,138 +94,39 @@ const htmlFromBody = (body) => {
                 </head>
                 <body>
                 <div class="request-page">
-                    ${body}
-                </div>
-                </body>
-                <script
-                    src="https://code.jquery.com/jquery-3.4.1.slim.js"
-                    integrity="sha256-BTlTdQO9/fascB1drekrDVkaKd9PkwBymMlHOiG+qLI="
-                    crossorigin="anonymous">
-                </script>
-                </html>
-            `
-        );
-    }
-}
-
-const body = (pageHeader, tableFrameAndTotals) => {
-    const signatureBox = `
-    <div class="signature-box">
-        <div class="approval-header">
-            <h4>Approved By</h4>
-            <br>
-            <div class="sign-line"></div>
-        </div>
-    </div>`;
-
-    return pageHeader.concat(tableFrameAndTotals, signatureBox);
-}
-
-const pageHeader = ({ requestor, dateCreated, shipTo, vendorPhone, vendorEmail }) => {
-    const headerWrapper = `
+                    
         <div class="header-wrapper">
             <h1>Purchase Requisition</h1>
             <img style="width: 25%;" src="peoples-dark.png"></img>
-        </div>`;
-
-    const purchaserAndDate = `
+        </div>
         <div class="purchase-data">
             <div class="purchaser">
                 <h3>Purchased By:</h3>
-                <p>${requestor}</p>
+                <p>Aqil Thanawala</p>
             </div>
             <div class="header-date">
                 <h3>Request Date:</h3>
-                <p>${dateCreated}</p>
+                <p>1578643310960</p>
             </div>
         </div>
-    `;
-
-    const shippingInfo = `
+    
         <div class="purchase-data">
             <div class="purchaser">
                 <h3>Ship To Address:</h3>
-                <p><i>Attn</i>: ${requestor}</p>
-                <p>${shipTo}</p>
+                <p><i>Attn</i>: Aqil Thanawala</p>
+                <p>22 Executive Park ste 250, Irvine CA 92614</p>
                 <!-- <p>Irvine CA 92614</p> -->
             </div>
             <div class="header-date">
                 <h3>Vendor Information:</h3>
-                <p><i>Email</i>: ${vendorEmail}</p>
-                <p><i>Telephone</i>: ${vendorPhone}</p>
+                <p><i>Email</i>: jeffy@amazon.com</p>
+                <p><i>Telephone</i>: 949.994.9499</p>
             </div>
         </div>
-    `;
-
-    return headerWrapper.concat(purchaserAndDate, shippingInfo);
-};
-
-const createItemRows = (i, item) => {
-    return (`
-        <tr>
-            <td>${i}</td>
-            <td>${item.vendorItemNumber}</td>
-            <td>${item.description}</td>
-            <td><a href="${item.link}" target="_blank">Item Link</a></td>
-            <td>${item.quantity}</td>
-            <td>${numeral(item.unitPrice).format('$ 0,0[.]00')}</td>
-            <td>${item.unitType}</td>
-            <td>$ ${item.extPrice}</td>
-        </tr>
-    `)
-}
-
-const createHtmlItemsAndSubtotal = (itemsList) => {
-    //  create an array for the rows
-    let rows = [];
-
-    //  count the subtotal as you see items
-    let subTotal = 0;
-
-    //  TODO intergrate freight into schema
-    // let freight = 0;
-
-    //  iterate through all the items provided
-    itemsList.forEach((item, i) => {
-        //  that function needs the index and will return a templated string
-        let row = createItemRows(i, item);
-
-        //  add those rows of html to the array
-        rows.push(row);
-
-        // add to the subtotal
-        subTotal += item.extPrice;
-    });
-
-    // join those rows to make one htmlList
-    return { htmlItemsList: rows.join(''), subTotal };
-};
-
-const createHtmlTotals = (subTotal) => {
-    return (`
-        <br>
-        <div class="totals">                 
-            <table class="totals-table">
-                <tr>
-                    <td>Subtotal</td>
-                    <td>${numeral(subTotal).format('$ 0,0[.]00')}</td>
-                </tr>
-                <tr>
-                    <td>Freight</td>
-                    <td>$ 0.00</td>
-                </tr>
-                <tr class="total-line">
-                    <td>Invoice Total</td>
-                    <td>${numeral(subTotal).format('$ 0,0[.]00')}</td>
-                </tr>
-            </table>
-        </div>
-    `)
-};
-
-const tableFrameAndTotals = (itemsList) => {
     
-    const tableHeaders = `
+        <div class="table-frame">
+            <table class="items-table">
+                
         <tr>
             <th>#</th>
             <th>Vendor Item No.</th>
@@ -247,50 +137,76 @@ const tableFrameAndTotals = (itemsList) => {
             <th>Units</th>
             <th>Ext. Amount</th>
         </tr>
-    `;
-
-    const { htmlItemsList, subTotal } = createHtmlItemsAndSubtotal(itemsList);
-
-    const htmlTotals = createHtmlTotals(subTotal);
-
-    return (`
-        <div class="table-frame">
-            <table class="items-table">
-                ${tableHeaders}
-                ${htmlItemsList}
-                </table>
-                ${htmlTotals}
-        </div>
-    `)
-}
-
-const buildRequestHtmlFromForm = async (form) => {
-    // console.log(form)
-    const { requestor, dateCreated, shipTo, vendorPhone, vendorEmail, items } = form;
-
-    const htmlPageHeader = pageHeader({ requestor, dateCreated, shipTo, vendorPhone, vendorEmail })
-
-    const htmlTableFrameAndTotals = tableFrameAndTotals(items);
-
-    const formHtml = htmlFromBody(body(htmlPageHeader, htmlTableFrameAndTotals));
-
-    return formHtml;
-}
-
-const createRequestHtmlDocument = async (form) => {
-    const uuid = uuidv1()
     
-    const html = await buildRequestHtmlFromForm(form);
-
-    try {
-        fs.writeFileSync(path.resolve(__dirname, `pr_form_${uuid}.html`), html);
-        console.log(`success of form to html file: id: ${uuid}`)
-        console.log(`save uuid to form document in db`);
-        return uuid;
-    } catch (error) {
-        console.log('something went wrong trying to make the html form', error);
-    }
-}
-
-module.exports = createRequestHtmlDocument;
-
+                
+        <tr>
+            <td>0</td>
+            <td>TS8GJF740K</td>
+            <td>USB Drive 8GB</td>
+            <td><a href="https://us.transcend-info.com/Embedded/Products/No-768" target="_blank">Item Link</a></td>
+            <td>3</td>
+            <td>$ 10</td>
+            <td>ea</td>
+            <td>$ 30</td>
+        </tr>
+    
+        <tr>
+            <td>1</td>
+            <td>TS16GJF740K</td>
+            <td>USB Drive 8GB</td>
+            <td><a href="https://us.transcend-info.com/Embedded/Products/No-768" target="_blank">Item Link</a></td>
+            <td>3</td>
+            <td>$ 20</td>
+            <td>ea</td>
+            <td>$ 60</td>
+        </tr>
+    
+        <tr>
+            <td>2</td>
+            <td>Swag Hat</td>
+            <td>A swaggy hat</td>
+            <td><a href="https://us.transcend-info.com/Embedded/Products/No-768" target="_blank">Item Link</a></td>
+            <td>1</td>
+            <td>$ 10</td>
+            <td>ea</td>
+            <td>$ 10</td>
+        </tr>
+    
+                </table>
+                
+        <br>
+        <div class="totals">                 
+            <table class="totals-table">
+                <tr>
+                    <td>Subtotal</td>
+                    <td>$ 100</td>
+                </tr>
+                <tr>
+                    <td>Freight</td>
+                    <td>$ 0.00</td>
+                </tr>
+                <tr class="total-line">
+                    <td>Invoice Total</td>
+                    <td>$ 100</td>
+                </tr>
+            </table>
+        </div>
+    
+        </div>
+    
+    <div class="signature-box">
+        <div class="approval-header">
+            <h4>Approved By</h4>
+            <br>
+            <div class="sign-line"></div>
+        </div>
+    </div>
+                </div>
+                </body>
+                <script
+                    src="https://code.jquery.com/jquery-3.4.1.slim.js"
+                    integrity="sha256-BTlTdQO9/fascB1drekrDVkaKd9PkwBymMlHOiG+qLI="
+                    crossorigin="anonymous">
+                </script>
+                </html>
+            
