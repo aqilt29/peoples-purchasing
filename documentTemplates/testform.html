@@ -1,11 +1,4 @@
-// this file will compiple the HTML past on the template from form data
 
-const htmlWithoutBody = (body) => {
-    if (!body) {
-        return null;
-    } else {
-        return (
-            `
                 <!DOCTYPE html>
                 <html lang="en">
                 <head>
@@ -97,17 +90,117 @@ const htmlWithoutBody = (body) => {
                             width: 25vw;
                         }
             
-                        .signature-box {
-                            position: absolute;
-                            top: 975px;
-                            left: 110px;
-                        }
-            
                     </style>
                 </head>
                 <body>
                 <div class="request-page">
-                    ${body}
+                    
+        <div class="header-wrapper">
+            <h1>Purchase Requisition</h1>
+            <img style="width: 25%;" src="peoples-dark.png"></img>
+        </div>
+        <div class="purchase-data">
+            <div class="purchaser">
+                <h3>Purchased By:</h3>
+                <p>Aqil Thanawala</p>
+            </div>
+            <div class="header-date">
+                <h3>Request Date:</h3>
+                <p>1578643310960</p>
+            </div>
+        </div>
+    
+        <div class="purchase-data">
+            <div class="purchaser">
+                <h3>Ship To Address:</h3>
+                <p><i>Attn</i>: Aqil Thanawala</p>
+                <p>22 Executive Park ste 250, Irvine CA 92614</p>
+                <!-- <p>Irvine CA 92614</p> -->
+            </div>
+            <div class="header-date">
+                <h3>Vendor Information:</h3>
+                <p><i>Email</i>: jeffy@amazon.com</p>
+                <p><i>Telephone</i>: 949.994.9499</p>
+            </div>
+        </div>
+    
+        <div class="table-frame">
+            <table class="items-table">
+                
+        <tr>
+            <th>#</th>
+            <th>Vendor Item No.</th>
+            <th>Description</th>
+            <th>Link</th>
+            <th>Quantity</th>
+            <th>Unit Price</th>
+            <th>Units</th>
+            <th>Ext. Amount</th>
+        </tr>
+    
+                
+        <tr>
+            <td>0</td>
+            <td>TS8GJF740K</td>
+            <td>USB Drive 8GB</td>
+            <td><a href="https://us.transcend-info.com/Embedded/Products/No-768" target="_blank">Item Link</a></td>
+            <td>3</td>
+            <td>$ 10</td>
+            <td>ea</td>
+            <td>$ 30</td>
+        </tr>
+    
+        <tr>
+            <td>1</td>
+            <td>TS16GJF740K</td>
+            <td>USB Drive 8GB</td>
+            <td><a href="https://us.transcend-info.com/Embedded/Products/No-768" target="_blank">Item Link</a></td>
+            <td>3</td>
+            <td>$ 20</td>
+            <td>ea</td>
+            <td>$ 60</td>
+        </tr>
+    
+        <tr>
+            <td>2</td>
+            <td>Swag Hat</td>
+            <td>A swaggy hat</td>
+            <td><a href="https://us.transcend-info.com/Embedded/Products/No-768" target="_blank">Item Link</a></td>
+            <td>1</td>
+            <td>$ 10</td>
+            <td>ea</td>
+            <td>$ 10</td>
+        </tr>
+    
+                </table>
+                
+        <br>
+        <div class="totals">                 
+            <table class="totals-table">
+                <tr>
+                    <td>Subtotal</td>
+                    <td>$ 100</td>
+                </tr>
+                <tr>
+                    <td>Freight</td>
+                    <td>$ 0.00</td>
+                </tr>
+                <tr class="total-line">
+                    <td>Invoice Total</td>
+                    <td>$ 100</td>
+                </tr>
+            </table>
+        </div>
+    
+        </div>
+    
+    <div class="signature-box">
+        <div class="approval-header">
+            <h4>Approved By</h4>
+            <br>
+            <div class="sign-line"></div>
+        </div>
+    </div>
                 </div>
                 </body>
                 <script
@@ -116,61 +209,4 @@ const htmlWithoutBody = (body) => {
                     crossorigin="anonymous">
                 </script>
                 </html>
-            `
-        );
-    }
-}
-
-const body = (pageHeader, tableFrame) => {
-    const signatureBox = `
-    <div class="signature-box">
-        <div class="approval-header">
-            <h4>Approved By</h4>
-            <br>
-            <div class="sign-line"></div>
-        </div>
-    </div>`;
-
-    return pageHeader.concat(tableFrame, signatureBox);
-}
-
-const pageHeader = ({ requestor, dateCreated, shipTo, vendorPhone, vendorEmail }) => {
-    const headerWrapper = `
-        <div class="header-wrapper">
-            <h1>Purchase Requisition</h1>
-            <img style="width: 25%;" src="peoples-dark.png"></img>
-        </div>`;
-
-    const purchaserAndDate = `
-        <div class="purchase-data">
-            <div class="purchaser">
-                <h3>Purchased By:</h3>
-                <p>${requestor}</p>
-            </div>
-            <div class="header-date">
-                <h3>Request Date:</h3>
-                <p>${dateCreated}</p>
-            </div>
-        </div>
-    `;
-
-    const shippingInfo = `
-        <div class="purchase-data">
-            <div class="purchaser">
-                <h3>Ship To Address:</h3>
-                <p><i>Attn</i>: ${requestor}</p>
-                <p>${shipTo}</p>
-                <!-- <p>Irvine CA 92614</p> -->
-            </div>
-            <div class="header-date">
-                <h3>Vendor Information:</h3>
-                <p><i>Email</i>: ${vendorEmail}/p>
-                <p><i>Telephone</i>: ${vendorPhone}</p>
-            </div>
-        </div>
-    `;
-
-    return headerWrapper.concat(purchaserAndDate, shippingInfo);
-
-};
-
+            

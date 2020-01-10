@@ -15,11 +15,11 @@ app.use(parser());
 app.use(morgan('dev'));
 app.use(cors());
 app.use(router);
-app.use(express.static(path.join(__dirname, '../documentTemplates')))
+app.use(express.static(path.join(__dirname, '../prHtml')))
 
 app.get('/', async (req, res) => {
     try {
-        res.status(200).sendfile(path.join(__dirname, '../documentTemplates/prTemplate.html'));
+        res.status(200).sendfile(path.join(__dirname, '../documentTemplates/testform.html'));
     } catch (error) {
         res.status(404).end(error)
     }
