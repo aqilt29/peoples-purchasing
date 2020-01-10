@@ -283,7 +283,7 @@ const createRequestHtmlDocument = async (form) => {
     const html = await buildRequestHtmlFromForm(form);
 
     try {
-        fs.writeFileSync(path.resolve(__dirname, `pr_form_${uuid}.html`), html);
+        fs.writeFileSync(path.resolve(__dirname, `../prHtml/pr_form_${uuid}.html`), html);
         console.log(`success of form to html file: id: ${uuid}`)
         console.log(`save uuid to form document in db`);
         return uuid;

@@ -1,6 +1,6 @@
 const { Form } = require('../db/models');
 const sampleDemoForm = require('../db/sampleDemoForm');
-const createRequestHtmlDocument= require('../documentTemplates/htmlBuilder');
+const createRequestHtmlDocument= require('./htmlBuilder');
 
 module.exports = {
     get: async (req, res) => {

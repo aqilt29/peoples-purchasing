@@ -15,7 +15,7 @@ app.use(parser());
 app.use(morgan('dev'));
 app.use(cors());
 app.use(router);
-app.use(express.static(path.join(__dirname, '../documentTemplates')))
+app.use(express.static(path.join(__dirname, '../prHtml')))
 
 app.get('/', async (req, res) => {
     try {
