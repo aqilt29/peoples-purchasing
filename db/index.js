@@ -12,7 +12,7 @@ const connectDb = async => {
             user: process.env.MONGO_INITDB_ROOT_USERNAME,
             pass: process.env.MONGO_INITDB_ROOT_PASSWORD, 
         });
-        
+
         await attachModels(mongoose.connection);
     } catch (error) {
         console.log(`Error on connection to DB ${error}`);
