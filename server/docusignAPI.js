@@ -6,12 +6,12 @@ const { promisify } = require('util')
 
 async function sendEnvelopeController (req, res, buffer) {
     console.log(buffer)
-    // const qp = req.query;
-    // Fill in these constants or use query parameters of ACCESS_TOKEN, ACCOUNT_ID, USER_FULLNAME, USER_EMAIL
-    // or environment variables.
+
     const basePath = "https://demo.docusign.net/restapi";
+
     // Obtain an OAuth token from https://developers.docusign.com/oauth-token-generator
     const accessToken = process.env.ACCESS_TOKEN
+
     // Obtain your accountId from demo.docusign.com -- the account id is shown in the drop down on the
     // upper right corner of the screen by your picture or the default picture. 
     const accountId = process.env.ACCOUNT_ID
@@ -29,6 +29,8 @@ async function sendEnvelopeController (req, res, buffer) {
      *  One signHere tab is added.
      *  The document path supplied is relative to the working directory 
      */
+
+
     const apiClient = new docusign.ApiClient();
     apiClient.setBasePath(basePath);
     apiClient.addDefaultHeader('Authorization', 'Bearer ' + accessToken);
@@ -38,38 +40,50 @@ async function sendEnvelopeController (req, res, buffer) {
     // Create the envelope request
     // Start with the request object
     const envDef = new docusign.EnvelopeDefinition();
+
     //Set the Email Subject line and email message
-    envDef.emailSubject = 'Please sign this document sent from the Node example';
-    envDef.emailBlurb = 'Please sign this document sent from the Node example.'
+    envDef.emailSubject = 'Please approve this purchase requisition authorization.';
+    envDef.emailBlurb = 'Please approve this purchase requisition authorization.'
   
     // Read the file from the document and convert it to a Base64String
     // const pdfBytes = fs.readFileSync(path.resolve(__dirname, fileName))
     //     , pdfBase64 = pdfBytes.toString('base64');
     
     // Create the document request object
-    const doc = docusign.Document.constructFromObject({documentBase64: buffer.toString('base64'),
-          fileExtension: 'pdf',  // You can send other types of documents too.
-          name: 'Sample document', documentId: '1'});
+    const doc = docusign.Document.constructFromObject({
+      documentBase64: buffer.toString('base64'),
+      fileExtension: 'pdf',
+      name: 'Sample document', documentId: '1'
+    });
   
     // Create a documents object array for the envelope definition and add the doc object
     envDef.documents = [doc];
   
     // Create the signer object with the previously provided name / email address
-    const signer = docusign.Signer.constructFromObject({name: signerName,
-          email: signerEmail, routingOrder: '1', recipientId: '1'});
+    const signer = docusign.Signer.constructFromObject({
+      name: signerName,
+      email: signerEmail,
+      routingOrder: '1',
+      recipientId: '1'
+    });
   
     // Create the signHere tab to be placed on the envelope
-    const signHere = docusign.SignHere.constructFromObject({documentId: '1',
-          pageNumber: '1', recipientId: '1', tabLabel: 'SignHereTab',
-          xPosition: '174', yPosition: '741'});
+    const signHere = docusign.SignHere.constructFromObject({
+      documentId: '1',
+      pageNumber: '1',
+      recipientId: '1',
+      tabLabel: 'SignHereTab',
+      xPosition: '174',
+      yPosition: '741'
+    });
   
     // Create the overall tabs object for the signer and add the signHere tabs array
     // Note that tabs are relative to receipients/signers.
-    signer.tabs = docusign.Tabs.constructFromObject({signHereTabs: [signHere]});
+    signer.tabs = docusign.Tabs.constructFromObject({ signHereTabs: [signHere] });
   
     // Add the recipients object to the envelope definition.
     // It includes an array of the signer objects. 
-    envDef.recipients = docusign.Recipients.constructFromObject({signers: [signer]});
+    envDef.recipients = docusign.Recipients.constructFromObject({ signers: [signer] });
     // Set the Envelope status. For drafts, use 'created' To send the envelope right away, use 'sent'
     envDef.status = 'sent';
     // Send the envelope
