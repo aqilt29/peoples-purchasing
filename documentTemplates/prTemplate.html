@@ -7,7 +7,8 @@
     <title>Document</title>
     <style>
         .request-page {
-            max-width: 800px;
+            max-width: 850px;
+            min-height: 1100px;
             margin: auto;
             padding: 30px;
             border: 1px solid #eee;
@@ -18,6 +19,10 @@
             color: #555;
             display: flex;
             flex-direction: column;
+        }
+
+        table {
+            border-collapse: collapse;
         }
 
         .purchase-data {
@@ -50,6 +55,39 @@
 
         .items-table td:first-child {
             color: #555;
+        }
+
+        .totals {
+            display: flex;
+            flex-direction: row-reverse;
+        }
+
+        .totals td {
+            padding-left: 10px;
+        }
+
+        .totals-table td:first-child {
+            color: #555;
+            font-weight: bold;
+        }
+
+        .total-line {
+            border-top: 2px solid #555;
+        }
+
+        .approval-header {
+            padding: 20px
+        }
+
+        .sign-line {
+            border-top: 2px black solid;
+            width: 25vw;
+        }
+
+        .signature-box {
+            position: absolute;
+            top: 975px;
+            left: 110px;
         }
 
     </style>
@@ -121,23 +159,36 @@
                     <td>$ 62680.00</td>
                 </tr>
             </table>
-            <table class="totals-table">
-                <tr>
-                    <td>Subtotal</td>
-                    <td>188,040.00</td>
-                </tr>
-                <tr>
-                    <td>Freight</td>
-                    <td>0.00</td>
-                </tr>
-                <tr class="total-line">
-                    <td>Invoice Total</td>
-                    <td>188,040.00</td>
-                </tr>
-            </table>
+            <br>
+            <div class="totals">                 
+                <table class="totals-table">
+                    <tr>
+                        <td>Subtotal</td>
+                        <td>$ 188,040.00</td>
+                    </tr>
+                    <tr>
+                        <td>Freight</td>
+                        <td>$ 0.00</td>
+                    </tr>
+                    <tr class="total-line">
+                        <td>Invoice Total</td>
+                        <td>$ 188,040.00</td>
+                    </tr>
+                </table>
+            </div>
         </div>
-        <div class="totals"></div>
-        <div class="signature-box"></div>
+        <div class="signature-box">
+            <div class="approval-header">
+                <h4>Approved By</h4>
+                <br>
+                <div class="sign-line"></div>
+            </div>
+        </div>
     </div>
 </body>
+<script
+  src="https://code.jquery.com/jquery-3.4.1.slim.js"
+  integrity="sha256-BTlTdQO9/fascB1drekrDVkaKd9PkwBymMlHOiG+qLI="
+  crossorigin="anonymous">
+</script>
 </html>
