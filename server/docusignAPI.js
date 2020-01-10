@@ -19,6 +19,8 @@ async function sendEnvelopeController (req, res, buffer) {
     // Recipient Information:
     const signerName = process.env.USER_FULLNAME
     const signerEmail = process.env.USER_EMAIL
+
+    console.log(signerEmail, signerName);
   
     // The document you wish to send. Path is relative to the root directory of this repo.
     const fileName = '../printedPR/8580a810-3390-11ea-b9df-7f69f94cf8e9.pdf';
