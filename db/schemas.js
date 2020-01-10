@@ -27,7 +27,33 @@ const formSchema = new Schema({
     vendor: String,
 });
 
+
+const demoItemSchema = new Schema({
+    vendorItemNumber: String,
+    description: String,
+    link: String,
+    quantity: Number,
+    unitPrice: Number,
+    unitType: String,
+    extPrice: Number,
+})
+
+const demoFormSchema = new Schema({
+    requestor: String,
+    dateCreated: { type: Date, default: Date.now },
+    shipTo: String,
+    vendorEmail: String,
+    vendorPhone: String,
+    requestingEntity: String,
+    frieghtCost: Number,
+    invoiceTotal: Number,
+    subtotal: Number,
+    itmes: [demoItemSchema]
+})
+
 module.exports = {
     itemSchema,
     formSchema,
+    demoItemSchema,
+    demoFormSchema,
 };

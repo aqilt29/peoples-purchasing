@@ -15,7 +15,7 @@ app.use(parser());
 app.use(morgan('dev'));
 app.use(cors());
 app.use(router);
-// app.use(express.static())
+app.use(express.static(path.join(__dirname, '../documentTemplates')))
 
 app.get('/', async (req, res) => {
     try {
