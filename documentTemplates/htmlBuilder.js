@@ -172,4 +172,5 @@ const pageHeader = ({ requestor, dateCreated, shipTo, vendorPhone, vendorEmail }
 
     return headerWrapper.concat(purchaserAndDate, shippingInfo);
 
-}
+};
+
