@@ -25,6 +25,15 @@ With the low usage expected it will be deployed on to AWS using their free tier 
 
 ## Startup Script
 
+In order for the server to start you need an env file
+```
+MONGO_INITDB_ROOT_USERNAME=*
+MONGO_INITDB_ROOT_PASSWORD=*
+DB_HOST=127.0.0.1
+PORT=*
+```
+
+
 - `npm start` — This will spawn a development server with a default port of `3000`.
 - `npm run build` — This will output a production build in the `dist` directory.
 
