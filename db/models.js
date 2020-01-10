@@ -1,19 +1,10 @@
-const mongoose = require('mongoose');
 const { formSchema, itemSchema } = require('./schemas');
+const mongoose = require('mongoose');
 
-const attachModels = async connection => {
-    try {
-        console.log('Models Attaching');
-        const Form = connection.model('Form', formSchema);
-        const Item = connection.model('Item', itemSchema);
-        console.log('Models Attached');
+const Form = mongoose.model('Form', formSchema);
+const Item = mongoose.model('Item', itemSchema);
 
-        return { Form, Item };
-    } catch (error) {
-        console.log(`Error has occured ${error}`);
-
-        return null;
-    };
+module.exports = {
+    Form,
+    Item,
 };
-
-module.exports = attachModels;
