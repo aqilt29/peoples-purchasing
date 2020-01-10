@@ -9,8 +9,9 @@ const itemSchema = new Schema({
     price: { type: Number, required: true },
     description: { type: String, required: true },
     link: { type: String, required: true },
-    vendorPartNumber: { type: String, required: true },
-    internalPartNumber: String,  
+    vendorPartNumber: String,
+    internalPartNumber: String,
+    quantity: { type: Number, required: true },  
 });
 
 const formSchema = new Schema({
