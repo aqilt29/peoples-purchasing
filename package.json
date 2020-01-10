@@ -15,8 +15,10 @@
     "express": "^4.17.1",
     "mongoose": "^5.8.6",
     "morgan": "^1.9.1",
+    "puppeteer": "^2.0.0",
     "react": "^16.9.0",
-    "react-dom": "^16.9.0"
+    "react-dom": "^16.9.0",
+    "uuid": "^3.3.3"
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",
