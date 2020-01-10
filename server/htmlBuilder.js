@@ -20,7 +20,6 @@ const htmlFromBody = (body) => {
                     <style>
                         .request-page {
                             max-width: 850px;
-                            min-height: 1100px;
                             margin: auto;
                             padding: 30px;
                             border: 1px solid #eee;
