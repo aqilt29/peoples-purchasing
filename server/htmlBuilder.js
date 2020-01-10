@@ -136,7 +136,7 @@ const pageHeader = ({ requestor, dateCreated, shipTo, vendorPhone, vendorEmail }
     const headerWrapper = `
         <div class="header-wrapper">
             <h1>Purchase Requisition</h1>
-            <img style="width: 25%;" src="peoples-dark.png"></img>
+            <img style="width: 25%;" src="https://peoplesorangecounty.com/wp-content/themes/peoples2020/images/peoples_logo.png"></img>
         </div>`;
 
     const purchaserAndDate = `

@@ -3,7 +3,7 @@ const puppeteer = require('puppeteer');
 const path = require('path');
 const fs = require('fs');
 
-const createPdfFromHtmlFile = async (uuid) => {
+const createBufferFromPdfFile = async (uuid) => {
     let content, browser, page, buffer;
 
     try {
@@ -46,30 +46,37 @@ const createPdfFromHtmlFile = async (uuid) => {
         console.log('error making pdf from buffer', error)
     }
 
-    // console.log(`buffer: ${buffer}`)
-    console.log('close the browser')
+    // this is experimental code
+    console.log(`close the browser`)
     await browser.close();
 
-    try {
-        console.log(`creating pdf with uuid ${uuid}`)
+    return buffer;
+    
 
-        fs.mkdir(path.resolve(__dirname, '../printedPR'), () => {
-            console.log('made dir')
-            fs.writeFile(path.resolve(__dirname,`../printedPR/${uuid}.pdf`), buffer, 'base64', () => {
-                console.log('callback')
-            })
-        });
-        console.log(`success ${uuid}`)
+    // // console.log(`buffer: ${buffer}`)
+    // console.log('close the browser')
+    // await browser.close();
 
-        return path.resolve(__dirname, `../printedPR/pr_${uuid}.pdf`);
-    } catch (error) {
-        console.log(`Error making the pdf ${uuid}`)
-        return error
-    }
+    // try {
+    //     console.log(`creating pdf with uuid ${uuid}`)
+
+    //     fs.mkdir(path.resolve(__dirname, '../printedPR'), () => {
+    //         console.log('made dir')
+    //         fs.writeFile(path.resolve(__dirname,`../printedPR/${uuid}.pdf`), buffer, 'base64', () => {
+    //             console.log('callback')
+    //         })
+    //     });
+    //     console.log(`success ${uuid}`)
+
+    //     return path.resolve(__dirname, `../printedPR/pr_${uuid}.pdf`);
+    // } catch (error) {
+    //     console.log(`Error making the pdf ${uuid}`)
+    //     return error
+    // }
 };
 
 
 
 module.exports = {
-    createPdfFromHtmlFile,
+    createBufferFromPdfFile,
 }
