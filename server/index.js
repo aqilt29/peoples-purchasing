@@ -11,7 +11,8 @@ const router = require('./routes');
 
 const app = express();
 
-app.use(parser());
+app.use(parser.urlencoded({ extended: true }));
+app.use(parser.json());
 app.use(morgan('dev'));
 app.use(cors());
 app.use(router);

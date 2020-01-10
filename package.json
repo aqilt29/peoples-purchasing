@@ -5,7 +5,8 @@
   "scripts": {
     "start": "parcel index.html -p 3000 ",
     "build": "parcel build index.html",
-    "dev": "nodemon server/index.js"
+    "dev": "nodemon server/index.js",
+    "dev:db": "docker-compose up"
   },
   "license": "MIT",
   "dependencies": {
