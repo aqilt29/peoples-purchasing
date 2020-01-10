@@ -4,3 +4,4 @@ dist
 *-lock.json
 .env
 dbData/
+.DS_Store
