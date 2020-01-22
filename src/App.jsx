@@ -11,6 +11,7 @@ import Dashboard from './Views/Dashboard';
 import Profile from "./Views/Profile";
 import { useAuth0 } from "./react-auth0-spa";
 import history from "./utils/history";
+import Hero from './Components/Hero'
 
 // styles
 import "./App.css";

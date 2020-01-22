@@ -29,3 +29,7 @@
   left: 0;
   right: 0;
 }
+
+.logo {
+  background-image: url('../src/assets/logo.svg');
+}
