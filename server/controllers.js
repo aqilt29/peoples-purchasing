@@ -1,6 +1,8 @@
 const { Form } = require('../db/models');
 const sampleDemoForm = require('../db/sampleDemoForm');
-const createRequestHtmlDocument= require('./htmlBuilder');
+const createRequestHtmlDocument = require('./htmlBuilder');
+const { createBufferFromPdfFile } = require('./buildpdf');
+const sendEnvelopeController = require('./docusignAPI');
 
 module.exports = {
     get: async (req, res) => {
@@ -32,16 +34,37 @@ module.exports = {
     },
 
     patch: async (req, res) => {
+
+        let uuid = null;
+
         try {
             console.log(`trying to create the html document, expect uuid`);
-            const uuid = await createRequestHtmlDocument(sampleDemoForm);
+            uuid = await createRequestHtmlDocument(sampleDemoForm);
             console.log(`success uuid: ${uuid}`);
-            
-            res.status(201).send(uuid)
-        } catch(error) {
-            console.log(`failed to create html`)
+
+            try {
+                console.log(`trying to create a pdf for ${uuid}`);
+                const buffer = await createBufferFromPdfFile(uuid)
+                // console.log(`successful pdf now at ${path}`)
+                // res.status(201).send(path)
+
+                sendEnvelopeController(req, res, buffer);
+
+                return
+            } catch (error) {
+                console.log(`failed to make pdf from ${uuid}`)
+                res.status(501).send(error)
+                return
+            }
+
+        } catch (error) {
+            console.log(`failed to create ${error}`)
             console.log(error);
-            res.status(501).end()
+            res.status(501).send(error)
+            return
         }
-    }
+        
+    },
+
+    delete: sendEnvelopeController,
 }

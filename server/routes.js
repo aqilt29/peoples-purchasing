@@ -6,5 +6,6 @@ router
     .get(controller.get)
     .post(controller.post)
     .patch(controller.patch)
+    .delete(controller.delete)
 
 module.exports = router;

@@ -5,7 +5,8 @@
   "scripts": {
     "start": "parcel index.html -p 3000 ",
     "build": "parcel build index.html",
-    "dev": "nodemon server/index.js"
+    "dev": "nodemon server/index.js",
+    "dev:db": "docker-compose up"
   },
   "license": "MIT",
   "dependencies": {
@@ -15,6 +16,7 @@
     "@fortawesome/react-fontawesome": "^0.1.4",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
+    "docusign-esign": "^5.1.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "highlight.js": "^9.18.0",
