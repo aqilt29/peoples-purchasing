@@ -12,4 +12,7 @@ prHtml/*
 
 !.gitignore
 
+auth_config.json
+
+testAuths/
 *.pdf

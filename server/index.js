@@ -1,6 +1,5 @@
 require('dotenv').config();
 const path = require('path');
-const mongoose = require('mongoose')
 const express = require('express');
 const parser = require('body-parser');
 const morgan = require('morgan');
@@ -16,9 +15,13 @@ app.use(parser.json());
 app.use(morgan('dev'));
 app.use(cors());
 app.use(router);
+
+//  this is here to send the assests of the file with it in the script tags.
 app.use(express.static(path.join(__dirname, '../prHtml')))
 app.use(express.static(path.join(__dirname, '../documentTemplates')))
 
+
+//  this was here to have access to the template HTML for the PR form.
 app.get('/', async (req, res) => {
     try {
         res.status(200).sendfile(path.join(__dirname, '../documentTemplates/testform.html'));
@@ -29,6 +32,7 @@ app.get('/', async (req, res) => {
 
 
 connectdb().then((arg) => {
+    console.log('PORT' ,process.env.PORT)
     app.listen(process.env.PORT);
 })
 
