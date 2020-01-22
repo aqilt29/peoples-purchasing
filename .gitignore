@@ -11,3 +11,5 @@ pr_form_*.html
 prHtml/*
 
 !.gitignore
+
+auth_config.json

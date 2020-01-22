@@ -265,7 +265,6 @@ const tableFrameAndTotals = (itemsList) => {
 }
 
 const buildRequestHtmlFromForm = async (form) => {
-    // console.log(form)
     const { requestor, dateCreated, shipTo, vendorPhone, vendorEmail, items } = form;
 
     const htmlPageHeader = pageHeader({ requestor, dateCreated, shipTo, vendorPhone, vendorEmail })
