@@ -1,55 +1,44 @@
-import React from 'react';
-import { Switch, Route } from 'react-router-dom';
-import Dashboard from './Pages/DashBoard';
-import PageNotFound from './Pages/PageNotFound';
-import PurchaseFormPage from './Pages/PurchaseFormPage';
-import Unauthorized from './Pages/Unauthorized';
-import LoginPage from './Pages/LoginPage'
-//implement real authentication class in a little bit
+import React from "react";
+import { Router, Route, Switch } from "react-router-dom";
+import { Container } from "reactstrap";
 
-import PrivateRoute from './utils/PrivateRoute';
+import PrivateRoute from "./Components/PrivateRoute";
+import Loading from "./Components/Loading";
+import NavBar from "./Components/NavBar";
+import Footer from "./Components/Footer";
+import Home from "./Views/Home";
+import Profile from "./Views/Profile";
+import { useAuth0 } from "./react-auth0-spa";
+import history from "./utils/history";
 
-// const fakeAuth = {
-//   isAuthenticated: false,
-//   authenticate(cb) {
-//     fakeAuth.isAuthenticated = true;
-//     setTimeout(cb, 100); // fake async
-//   },
-//   signout(cb) {
-//     fakeAuth.isAuthenticated = false;
-//     setTimeout(cb, 100);
-//   }
-// };
+// styles
+import "./App.css";
 
-// const fakeAuth = { isAuthenticated: true };
+// fontawesome
+import initFontAwesome from "./utils/initFontAwesome";
+initFontAwesome();
 
-class App extends React.Component {
+const App = () => {
+  const { loading } = useAuth0();
 
-  render() {
-    return (
-      <>
-        <div>
-          <Switch>
-            <Route path="/login">
-              <LoginPage />
-            </Route>
-            <Route path="/unauthorized" exact>
-              <Unauthorized />
-            </Route>
-            <PrivateRoute path="/purchaseform" exact>
-              <PurchaseFormPage/>
-            </PrivateRoute>
-            <PrivateRoute path="/" exact>
-              <Dashboard />
-            </PrivateRoute>
-            <PrivateRoute path="*">
-              <PageNotFound />
-            </PrivateRoute>
-          </Switch>
-        </div>
-      </>
-    )
+  if (loading) {
+    return <Loading />;
   }
+
+  return (
+    <Router history={history}>
+      <div id="app" className="d-flex flex-column h-100">
+        <NavBar />
+        <Container className="flex-grow-1 mt-5">
+          <Switch>
+            <Route path="/" exact component={Home} />
+            <PrivateRoute path="/profile" component={Profile} />
+          </Switch>
+        </Container>
+        <Footer />
+      </div>
+    </Router>
+  );
 };
 
-export default App
+export default App;
