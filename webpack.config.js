@@ -1,6 +1,7 @@
 const path = require('path');
 const SRC_DIR = path.join(__dirname, './client/src');
 const DIST_DIR = path.join(__dirname, './client/dist');
+const PUB_DIR = path.join(__dirname, './client/src/Assets');
 
 module.exports = {
 	mode: 'development',
@@ -12,7 +13,7 @@ module.exports = {
 		filename: 'bundle.js',
 	},
 	devServer: {
-    contentBase: DIST_DIR,
+		contentBase: [DIST_DIR, PUB_DIR],
     port: 9000
   },
 	module: {
@@ -43,9 +44,13 @@ module.exports = {
 				use: ['style-loader', 'css-loader'],
 			},
 			{
-        test: /\.svg$/,
-        loader: 'svg-inline-loader'
-    	}
+				test: /\.svg$/,
+				use: [
+					{
+						loader: "url-loader",
+					}
+				]
+			}
 		]
 	},
 	resolve: {
