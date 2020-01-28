@@ -32,7 +32,7 @@ The goal is to let the employee login, make purchase requests, collect the appro
 
 ## Service Design
 
-The entire service will consist of a Listener/Broker for the Api and additional Workers that will carry out the tasks queued by the broker into SQS.
+The entire service will consist of a Listener/Broker for the Api and additional Workers that will carry out the tasks queued by the broker into SQS. The worker will be a separate EC2 with all of the worker tasks.
 
 1. Listener/Broker Responsibilities
     * Exposing the REST API to the client
