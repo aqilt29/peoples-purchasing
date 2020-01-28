@@ -33,10 +33,10 @@ The goal is to let the employee login, make purchase requests, collect the appro
 The entire service will consist of a Listener/Broker for the Api and additional Workers that will carry out the tasks queued by the broker into SQS.
 
 1. Listener/Broker Responsibilities
- * Exposing the REST API to the client
- * Listen for approval requests && update state
- * Queue jobs based on state changes
- * Serve index.html to client
+  * Exposing the REST API to the client
+  * Listen for approval requests && update state
+  * Queue jobs based on state changes
+  * Serve index.html to client
 
 2. Approval Email Worker
   1. Approval Workflow
