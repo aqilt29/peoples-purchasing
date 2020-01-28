@@ -39,15 +39,14 @@ The entire service will consist of a Listener/Broker for the Api and additional 
     * Serve index.html to client
 
 2. Approval Email Worker
-  1. Approval Workflow
-      1. Take document ID from Queue
-      2. Lookup document PR on ID
-      3. Build Email
-          * HTML for email with approval API buttons
-          * Attachment PR as HTML *iOS can render the HTML*
-      4. Look up managers
-      5. Email all of the managers
-      6. Delete Item from SQS
+    1. Take document ID from Queue
+    2. Lookup document PR on ID
+    3. Build Email
+        * HTML for email with approval API buttons
+        * Attachment PR as HTML *iOS can render the HTML*
+    4. Look up managers
+    5. Email all of the managers
+    6. Delete Item from SQS
 
 3. Approval Notification Worker
   1. take document ID from Queue
