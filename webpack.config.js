@@ -11,10 +11,12 @@ module.exports = {
 	output: {
 		path: DIST_DIR,
 		filename: 'bundle.js',
+		publicPath: '/'
 	},
 	devServer: {
 		contentBase: [DIST_DIR, PUB_DIR],
-    port: 9000
+		port: 9000,
+		historyApiFallback: true,
   },
 	module: {
 		rules: [
