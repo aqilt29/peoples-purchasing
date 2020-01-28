@@ -49,27 +49,27 @@ The entire service will consist of a Listener/Broker for the Api and additional 
     6. Delete Item from SQS
 
 3. Approval Notification Worker
-  1. take document ID from Queue
-  2. Lookup document PR on ID
-  3. Build Email
-    * HTML Template with links to documents
-  4. Look up managers
-  5. Email all of the managers
-  6. Delete Item from SQS
+    1. take document ID from Queue
+    2. Lookup document PR on ID
+    3. Build Email
+        * HTML Template with links to documents
+    4. Look up managers
+    5. Email all of the managers
+    6. Delete Item from SQS
 
 4. PDF Uploader Worker
-  1. Take document ID from SQS
-  2. Lookup document PR on ID
-  3. Generate HTML templates
-    1. PR Document in HTML
-    2. PO Document in HTML
-  4. Generate PDF
-    1. PR Document in PDF
-    2. PO Document in PDF
-  5. Upload documents to S3
-  6. Update State on Document for links
-  7. Notify Broker of Completion of upload
-  8. Delete item from SQS
+    1. Take document ID from SQS
+    2. Lookup document PR on ID
+    3. Generate HTML templates
+        1. PR Document in HTML
+        2. PO Document in HTML
+    4. Generate PDF
+        1. PR Document in PDF
+        2. PO Document in PDF
+    5. Upload documents to S3
+    6. Update State on Document for links
+    7. Notify Broker of Completion of upload
+    8. Delete item from SQS
 
 
 ## Startup Script
