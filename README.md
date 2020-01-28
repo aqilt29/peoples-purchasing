@@ -1,3 +1,5 @@
+![People's Logo](https://pmoc-dev-assets.s3-us-west-1.amazonaws.com/peoples-logos/peoples-dark.png)
+
 # People's Purchasing App
 
 In the interest of good business sense and to gain clarity:
