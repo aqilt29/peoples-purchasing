@@ -3,9 +3,8 @@
   "version": "0.1.0",
   "description": "Hard to get more minimal than this React app",
   "scripts": {
-    "start": "webpack --config webpack.config.js",
-    "dev:server": "webpack-dev-server --open",
-    "build": "parcel build index.html",
+    "start": "webpack-dev-server --open",
+    "build": "webpack --config webpack.config.js",
     "dev": "nodemon server/index.js",
     "dev:db": "docker-compose up"
   },
