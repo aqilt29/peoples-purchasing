@@ -9,23 +9,23 @@ The goal is to let the employee login, make purchase requests, collect the appro
 ## The Technologies to Integrate
 
 1. MongoDB
-  * For storing the request data in a format that can be easily accessed later
-  * To allow for quick changes on the fly to future data models
-  * Will store the state of the requests throughout the life cycle
-  * One server running on a different instance will server as the single source of truth
+    * For storing the request data in a format that can be easily accessed later
+    * To allow for quick changes on the fly to future data models
+    * Will store the state of the requests throughout the life cycle
+    * One server running on a different instance will server as the single source of truth
 
 2. React
-  * An index.html will be served up by an express service that will collect a bundle from CDN
+    * An index.html will be served up by an express service that will collect a bundle from CDN
 
 3. AWS SQS
-  * SQS will be used to queue heavy jobs so the IO isn't blocked on the express server
+    * SQS will be used to queue heavy jobs so the IO isn't blocked on the express server
 
 4. AWS EC2
-  * EC2's will host each service on T2.micros
-  * Elastic IP will be necessary for each of the services.
+    * EC2's will host each service on T2.micros
+    * Elastic IP will be necessary for each of the services.
 
 5. NodeMailer
-  * For emailing all of the managers using Scanner@pmcoc.com creds.
+    * For emailing all of the managers using Scanner@pmcoc.com creds.
 
 
 ## Service Design
