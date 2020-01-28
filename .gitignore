@@ -1,8 +1,13 @@
 node_modules
-dist
+
+bundle.js
+
 .cache
+
 *-lock.json
+
 .env
+
 dbData/
 .DS_Store
 
@@ -16,3 +21,4 @@ auth_config.json
 
 testAuths/
 *.pdf
+.vscode
