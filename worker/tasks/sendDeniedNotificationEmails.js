@@ -1,0 +1,3 @@
+/*
+  This task will send out the denied emails after the worker receives the task.
+*/

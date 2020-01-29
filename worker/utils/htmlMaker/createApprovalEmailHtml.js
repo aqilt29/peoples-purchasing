@@ -1,0 +1,4 @@
+/*
+  This function will take in the information from a document and create the HTML for an email
+
+*/
