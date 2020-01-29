@@ -1,0 +1,3 @@
+/*
+  this function will return a string of html for the denied email
+*/
