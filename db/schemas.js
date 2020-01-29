@@ -11,7 +11,7 @@ const itemSchema = new Schema({
     link: { type: String, required: true },
     vendorPartNumber: String,
     internalPartNumber: String,
-    quantity: { type: Number, required: true },  
+    quantity: { type: Number, required: true },
 });
 
 const formSchema = new Schema({
@@ -21,7 +21,7 @@ const formSchema = new Schema({
     dateCreated: { type: Date, default: Date.now },
     shipTo: { type: String, required: true },
     subtotal: { type: Number, required: true },
-    frieghtCost: { type: Number, required: true },
+    freightCost: { type: Number, required: true },
     invoiceTotal: { type: Number, required: true },
     items: [itemSchema],
     vendorPhone: String,
@@ -46,10 +46,10 @@ const demoFormSchema = new Schema({
     vendorEmail: String,
     vendorPhone: String,
     requestingEntity: String,
-    frieghtCost: Number,
+    freightCost: Number,
     invoiceTotal: Number,
     subtotal: Number,
-    itmes: [demoItemSchema],
+    items: [demoItemSchema],
     pr_form_id: String,
 })
 
