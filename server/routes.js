@@ -1,11 +1,18 @@
-const router = require('express').Router();
-const controller = require('./controllers');
+const router = require('express').Router({ strict: true });
+const controller = require('./controllers/formsControllers');
 
 router
-    .route('/data')
-    .get(controller.get)
-    .post(controller.post)
-    .patch(controller.patch)
-    .delete(controller.delete)
+  .route('/forms')
+  .get(controller.getAllForms)
+
+router
+  .route('/form/:id')
+  .get(controller.getFormById)
+
+router
+  .route('/form/create')
+  .post(controller.createForm)
+
+
 
 module.exports = router;
