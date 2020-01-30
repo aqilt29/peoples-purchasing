@@ -16,7 +16,7 @@ router
   .get(controller.getFormsByUser)
 
 router
-  .route('/user/:userId/status/:status')
-  .get(controller.getFormsByStatus)
+  .route('/user/:userId/search')
+  .get(controller.searchForms)
 
 module.exports = router;

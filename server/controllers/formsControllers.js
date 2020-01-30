@@ -24,4 +24,8 @@ module.exports = {
     updateForm: (req, res) => {
         res.send('TODO API UPDATE: update form: '+ JSON.stringify(req.params) + ' ' + req.path)
     },
+
+    searchForms: (req, res) => {
+        res.send(`TODO API SEARCH: ${JSON.stringify(req.params)} ${JSON.stringify(req.query)} ${req.path}`)
+    },
 }
