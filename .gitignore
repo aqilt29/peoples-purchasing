@@ -17,7 +17,7 @@ prHtml/*
 
 !.gitignore
 
-auth_config.json
+*config.json
 
 testAuths/
 *.pdf

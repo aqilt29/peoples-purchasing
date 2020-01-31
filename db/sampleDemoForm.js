@@ -5,7 +5,7 @@ module.exports = {
     vendorEmail: 'jeffy@amazon.com',
     vendorPhone: '949.994.9499',
     requestingEntity: 'New Patriot',
-    frieghtCost: 0,
+    freightCost: 0,
     invoiceTotal: 100.00,
     subtotal: 100.00,
     items: [

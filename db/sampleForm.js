@@ -5,7 +5,7 @@ module.exports = {
     dateCreated: Date.now(),
     shipTo: '22 EP',
     subtotal: 10000,
-    frieghtCost: 0,
+    freightCost: 0,
     invoiceTotal: 10000,
     items: [{
         name: 'RGB LED Lights',
