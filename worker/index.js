@@ -19,7 +19,8 @@ const path = require('path');
 const aws = require('aws-sdk');
 const { Consumer } = require('sqs-consumer');
 const connectdb = require('../db/index');
-const Request = require('../db/models/request');
+const sendApprovalEmails = require('./tasks/sendApprovalEmails');
+
 
 //  configure aws sdk with credentials for user
 aws.config.loadFromPath(path.resolve(__dirname, '../aws_config.json'));
@@ -27,38 +28,18 @@ aws.config.loadFromPath(path.resolve(__dirname, '../aws_config.json'));
 //  instance of SQS class
 const sqs = new aws.SQS();
 
-// How to use promises with aws
-// sqs.listQueues().promise().then(console.log)
-
-function sleep(ms) {
-  return new Promise((resolve) => {
-    setTimeout(resolve, ms);
-  });
-}
-
-const queueParams = (task, documentId) => ({
-    QueueUrl: process.env.QUEUE_URL,
-    MessageBody: `${task}`,
-    MessageAttributes: {
-      'documentId': {
-        DataType: 'String',
-        StringValue: documentId,
-      }
-    },
-})
-
 const worker = Consumer.create({
   queueUrl: process.env.QUEUE_URL,
   handleMessage: async (message) => {
-    const { Body, MessageAttributes: { documentId: { StringValue: attribute }}} = message;
+    const { Body } = message;
 
-    console.log(Body)
+    if (Body === 'sendApprovalEmails') {
+      await sendApprovalEmails(message)
+      return
+    }
 
-    const requestToUpdate = Request.findById(attribute)
-
-    console.log(attribute);
-
-    await sleep(5000)
+    console.log('no match for message')
+    return
   },
   messageAttributeNames: ['All']
 })
@@ -74,6 +55,10 @@ worker.on('processing_error', (err) => {
 
 worker.on('timeout_error', (err) => {
  console.error(err.message);
+});
+
+worker.on('message_received', (message) => {
+ console.log(`received ${message.Body}`)
 });
 
 worker.on('message_processed', ({ MessageAttributes: { documentId: { StringValue: attribute }}}) => console.log('processed: ',attribute))
