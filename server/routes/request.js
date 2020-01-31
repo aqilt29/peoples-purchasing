@@ -3,20 +3,20 @@ const controller = require('../controllers/requestControllers');
 
 router
   .route('/')
-  .get(controller.getAllForms)
-  .post(controller.createForm)
+  .get(controller.getAllRequests)
+  .post(controller.createRequest)
 
 router
   .route('/:id')
-  .get(controller.getFormById)
-  .put(controller.updateForm)
+  .get(controller.getRequestById)
+  .put(controller.updateRequest)
 
 router
   .route('/user/:userId')
-  .get(controller.getFormsByUser)
+  .get(controller.getRequestsByUser)
 
 router
   .route('/user/:userId/search')
-  .get(controller.searchForms)
+  .get(controller.searchRequests)
 
 module.exports = router;

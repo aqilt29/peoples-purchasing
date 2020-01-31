@@ -11,6 +11,7 @@ const sqs = new aws.SQS();
 // How to use promises with aws
 // sqs.listQueues().promise().then(console.log)
 
+
 const queueParams = (task, documentId) => ({
   QueueUrl: process.env.QUEUE_URL,
   MessageBody: `${task}`,
@@ -23,23 +24,23 @@ const queueParams = (task, documentId) => ({
 })
 
 module.exports = {
-  getAllForms: (req, res) => {
-    res.send('TODO API Create: get all forms: '+ JSON.stringify(req.params) + ' ' + req.path)
+  getAllRequests: (req, res) => {
+    res.send('TODO API Create: get all requests: '+ JSON.stringify(req.params) + ' ' + req.path)
   },
 
-  getFormById: (req, res) => {
-    res.send('TODO API Create: get form by id: '+ JSON.stringify(req.params) + ' ' + req.path)
+  getRequestById: (req, res) => {
+    res.send('TODO API Create: get request by id: '+ JSON.stringify(req.params) + ' ' + req.path)
   },
 
-  getFormsByUser: (req, res) => {
-    res.send('TODO API Create: get forms by user: '+ JSON.stringify(req.params) + ' ' + req.path)
+  getRequestsByUser: (req, res) => {
+    res.send('TODO API Create: get requests by user: '+ JSON.stringify(req.params) + ' ' + req.path)
   },
 
-  getFormsByStatus: (req, res) => {
-    res.send('TODO API Create: get forms by status:' + JSON.stringify(req.params) + ' '+ req.path)
+  getRequestsByStatus: (req, res) => {
+    res.send('TODO API Create: get requests by status:' + JSON.stringify(req.params) + ' '+ req.path)
   },
 
-  createForm: async (req, res) => {
+  createRequest: async (req, res) => {
     //  get the document from the body
     const { body } = req;
 
@@ -53,7 +54,7 @@ module.exports = {
       saveData = await submitRequest.save()
 
     } catch (error) {
-      return res.status(404).json(error)
+      return res.status(400).json(error)
 
     }
 
@@ -61,21 +62,21 @@ module.exports = {
     try {
       console.log('sending message to queue')
 
-      await sqs.sendMessage(queueParams('Approvals', saveData.id)).promise()
+      await sqs.sendMessage(queueParams('sendApprovalEmails', saveData.id)).promise()
 
     } catch (error) {
-      return res.status(404).json({ error, doc: saveData.id })
+      return res.status(400).json({ error, doc: saveData.id })
 
     }
 
     res.status(201).json(saveData);
   },
 
-  updateForm: (req, res) => {
-      res.send('TODO API UPDATE: update form: '+ JSON.stringify(req.params) + ' ' + req.path)
+  updateRequest: (req, res) => {
+      res.send('TODO API UPDATE: update request: '+ JSON.stringify(req.params) + ' ' + req.path)
   },
 
-  searchForms: (req, res) => {
+  searchRequests: (req, res) => {
       res.send(`TODO API SEARCH: ${JSON.stringify(req.params)} ${JSON.stringify(req.query)} ${req.path}`)
   },
 }
