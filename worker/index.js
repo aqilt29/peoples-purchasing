@@ -29,7 +29,6 @@ const sqs = new aws.SQS();
 
 // How to use promises with aws
 // sqs.listQueues().promise().then(console.log)
-let counter = 0;
 
 function sleep(ms) {
   return new Promise((resolve) => {
@@ -51,10 +50,9 @@ const queueParams = (task, documentId) => ({
 const worker = Consumer.create({
   queueUrl: process.env.QUEUE_URL,
   handleMessage: async (message) => {
+    const { Body, MessageAttributes: { documentId: { StringValue: attribute }}} = message;
 
-    console.log(message, counter++, ' count')
-
-    const { MessageAttributes: { documentId: { StringValue: attribute }}} = message;
+    console.log(Body)
 
     const requestToUpdate = Request.findById(attribute)
 
@@ -77,6 +75,8 @@ worker.on('processing_error', (err) => {
 worker.on('timeout_error', (err) => {
  console.error(err.message);
 });
+
+worker.on('message_processed', ({ MessageAttributes: { documentId: { StringValue: attribute }}}) => console.log('processed: ',attribute))
 
 connectdb().then(() => {
   console.log('db connected')
