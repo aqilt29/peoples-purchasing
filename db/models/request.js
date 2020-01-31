@@ -18,7 +18,7 @@ const listOfEntities = [
   'Standard Hemp',
 ];
 
-const requestSchema = new Schema({
+const requisitionSchema = new Schema({
   user: { type: String, required: true },
   entity: { type: String, required: true, enum: listOfEntities },
   dateRequested: { type: Date, default: Date.now },
@@ -29,7 +29,9 @@ const requestSchema = new Schema({
   items: [itemSchema],
   vendorPhone: String,
   vendorEmail: String,
+  comments: String,
 });
 
 
-module.exports = mongoose.model('Request', requestSchema)
+
+module.exports = mongoose.model('Requisition', requisitionSchema)
