@@ -14,3 +14,71 @@
   sqs-consumer provides an easy API for this
 
 */
+require('dotenv').config();
+const path = require('path');
+const aws = require('aws-sdk');
+const { Consumer } = require('sqs-consumer');
+const connectdb = require('../db/index');
+const Request = require('../db/models/request');
+
+//  configure aws sdk with credentials for user
+aws.config.loadFromPath(path.resolve(__dirname, '../aws_config.json'));
+
+//  instance of SQS class
+const sqs = new aws.SQS();
+
+// How to use promises with aws
+// sqs.listQueues().promise().then(console.log)
+let counter = 0;
+
+function sleep(ms) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+}
+
+const queueParams = (task, documentId) => ({
+    QueueUrl: process.env.QUEUE_URL,
+    MessageBody: `${task}`,
+    MessageAttributes: {
+      'documentId': {
+        DataType: 'String',
+        StringValue: documentId,
+      }
+    },
+})
+
+const worker = Consumer.create({
+  queueUrl: process.env.QUEUE_URL,
+  handleMessage: async (message) => {
+
+    console.log(message, counter++, ' count')
+
+    const { MessageAttributes: { documentId: { StringValue: attribute }}} = message;
+
+    const requestToUpdate = Request.findById(attribute)
+
+    console.log(attribute);
+
+    await sleep(5000)
+  },
+  messageAttributeNames: ['All']
+})
+
+
+worker.on('error', (err) => {
+  console.error(err.message);
+});
+
+worker.on('processing_error', (err) => {
+  console.error(err.message);
+});
+
+worker.on('timeout_error', (err) => {
+ console.error(err.message);
+});
+
+connectdb().then(() => {
+  console.log('db connected')
+  worker.start()
+})
