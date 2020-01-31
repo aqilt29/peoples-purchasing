@@ -6,8 +6,8 @@ const Request = require('../../db/models/request');
 const nodemailer = require('nodemailer');
 
 const sendApprovalEmails = async ({ MessageAttributes: { documentId: { StringValue: id }}}) => {
-  const requestEntry = await Request.findById(id);
-  console.log(requestEntry.approverList)
+  const { approverList } = await Request.findById(id);
+  console.log(approverList)
 
   // create reusable transporter object using the default SMTP transport
   let transporter = nodemailer.createTransport({
@@ -23,22 +23,15 @@ const sendApprovalEmails = async ({ MessageAttributes: { documentId: { StringVal
 
   let info;
 
-  transporter.verify(function(err, succ) {
-    if (err) return console.log(err)
-    console.log('success')
-    return
-  })
-
-
-
+  //  will probably have to try iterating over the approver list to generate the correct html
   try {
     // send mail with defined transport object
     info = await transporter.sendMail({
-      from: 'scanner@pmcoc.com', // sender address
-      to: "aqil@pmcoc.com", // list of receivers
+      from: '"PMCOC Machine" scanner@pmcoc.com', // sender address
+      to: approverList, // list of receivers
       subject: "Hello", // Subject line
       text: "Hello world?", // plain text body
-      html: "<b>Hello world?</b>" // html body
+      html: "<button>Hello world?</button>" // html body
     });
 
   } catch(error) {
