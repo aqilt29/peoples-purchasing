@@ -54,7 +54,8 @@ module.exports = {
       saveData = await submitRequest.save()
 
     } catch (error) {
-      return res.status(400).json(error)
+      console.log(error)
+      return res.status(404).json(error)
 
     }
 
@@ -65,7 +66,7 @@ module.exports = {
       await sqs.sendMessage(queueParams(`sendApprovalEmails count ${counter++}`, saveData.id)).promise()
 
     } catch (error) {
-      return res.status(400).json({ error, doc: saveData.id })
+      return res.status(404).json({ error, doc: saveData.id })
 
     }
 

@@ -1,22 +1,8 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const itemSchema = require('./item');
-
-const listOfEntities = [
-  'Hero Oak',
-  'Lean Green',
-  'Monterey Ocean Grown',
-  'Monterey Valley Pride',
-  'New Patriot Holdings',
-  'Oxford Properties',
-  'People\'s Aviation',
-  'People\'s First Choice',
-  'People\'s LA',
-  'People\'s Marketing Group',
-  'People\'s Riverside',
-  'People\'s WeHo',
-  'Standard Hemp',
-];
+const listOfEntities = require('./utils/listOfEntities');
+const selectApprovalOrder = require('./utils/selectApprovalOrder');
 
 const requestSchema = new Schema({
   user: { type: String, required: true },
@@ -30,8 +16,22 @@ const requestSchema = new Schema({
   vendorPhone: String,
   vendorEmail: String,
   comments: String,
+  approverList: { type: Array, required: true }
 });
 
 
+//  assign approvers list and record
+requestSchema.pre('validate', { document: true }, function(next) {
+  if (this.approverList.length < 1) {
 
-module.exports = mongoose.model('Request', requestSchema)
+    let listName = selectApprovalOrder(this)
+
+    this.approverList = listName
+
+    console.log(listName)
+  }
+  next()
+})
+
+
+module.exports = mongoose.model('Request', requestSchema);
