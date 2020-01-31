@@ -1,12 +1,26 @@
-// import the request model
-const mongoose = require('mongoose');
+const path = require('path');
 const Request = require('../../db/models/request');
-const data = require('../../db/sampleRequest.js');
 const aws = require('aws-sdk')
 
+//  configure aws sdk with credentials for user
+aws.config.loadFromPath(path.resolve(__dirname, '../../aws_config.json'));
+
+//  instance of SQS class
 const sqs = new aws.SQS();
 
-sqs.listQueues((err, data) => console.log(err, data))
+// How to use promises with aws
+// sqs.listQueues().promise().then(console.log)
+
+const queueParams = (task, documentId) => ({
+  QueueUrl: process.env.QUEUE_URL,
+  MessageBody: `${task}`,
+  MessageAttributes: {
+    'documentId': {
+      DataType: 'String',
+      StringValue: documentId,
+    }
+  },
+})
 
 module.exports = {
   getAllForms: (req, res) => {
@@ -40,10 +54,19 @@ module.exports = {
 
     } catch (error) {
       return res.status(404).json(error)
+
     }
 
     //  try to send message to queue
+    try {
+      console.log('sending message to queue')
 
+      await sqs.sendMessage(queueParams('Approvals', saveData.id)).promise()
+
+    } catch (error) {
+      return res.status(404).json({ error, doc: saveData.id })
+
+    }
 
     res.status(201).json(saveData);
   },
