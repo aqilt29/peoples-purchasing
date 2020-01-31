@@ -1,7 +1,12 @@
 // import the request model
 const mongoose = require('mongoose');
-const Requisition = require('../../db/models/request');
+const Request = require('../../db/models/request');
 const data = require('../../db/sampleRequest.js');
+const aws = require('aws-sdk')
+
+const sqs = new aws.SQS();
+
+sqs.listQueues((err, data) => console.log(err, data))
 
 module.exports = {
   getAllForms: (req, res) => {
@@ -21,10 +26,14 @@ module.exports = {
   },
 
   createForm: async (req, res) => {
+    //  get the document from the body
+    const { body } = req;
 
-    const submitRequest = new Requisition(data)
+    //  create document model
+    const submitRequest = new Request(body)
     let saveData;
 
+    //  try to save to database
     try {
       console.log('Attempting to save document')
       saveData = await submitRequest.save()
@@ -33,15 +42,10 @@ module.exports = {
       return res.status(404).json(error)
     }
 
-    res.status(201).json(saveData)
-    // Create form needs to validate the data from the client
-      //  if invalid
-          //  send error to client
-      //  if valid
-      //  save document in db
-      //  send message to QUEUE
-      //  confirm success to client
-    //res.send('TODO API Create: create form: '+ JSON.stringify(req.params) + ' ' + req.path)
+    //  try to send message to queue
+
+
+    res.status(201).json(saveData);
   },
 
   updateForm: (req, res) => {

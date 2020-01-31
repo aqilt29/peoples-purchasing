@@ -13,9 +13,9 @@
 // });
 
 module.exports = {
-  user: 'aqil@pmcoc.com',
-  entity: 'People\'s First Choice',
-  shipTo: '22 EP',
-  subtotal: 10000,
-  invoiceTotal: '10000',
+  "user": "aqil@pmcoc.com",
+  "entity": "People\"s First Choice",
+  "shipTo": "22 EP",
+  "subtotal": 10000,
+  "invoiceTotal": "10000",
 };

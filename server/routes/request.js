@@ -1,5 +1,5 @@
 const router = require('express').Router({ strict: true });
-const controller = require('../controllers/formsControllers');
+const controller = require('../controllers/requestControllers');
 
 router
   .route('/')

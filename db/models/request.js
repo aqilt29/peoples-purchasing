@@ -18,7 +18,7 @@ const listOfEntities = [
   'Standard Hemp',
 ];
 
-const requisitionSchema = new Schema({
+const requestSchema = new Schema({
   user: { type: String, required: true },
   entity: { type: String, required: true, enum: listOfEntities },
   dateRequested: { type: Date, default: Date.now },
@@ -34,4 +34,4 @@ const requisitionSchema = new Schema({
 
 
 
-module.exports = mongoose.model('Requisition', requisitionSchema)
+module.exports = mongoose.model('Request', requestSchema)
