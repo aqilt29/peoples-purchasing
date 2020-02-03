@@ -6,17 +6,20 @@ const selectApprovalOrder = require('./utils/selectApprovalOrder');
 
 const requestSchema = new Schema({
   user: { type: String, required: true },
+  submittedFor: { type: String, required: true }, //  one email of someone with pmcoc submitted by defines routing rules
   entity: { type: String, required: true, enum: listOfEntities },
   dateRequested: { type: Date, default: Date.now },
-  shipTo: { type: String, required: true },
-  subtotal: { type: Number, required: true },
-  freightCost: { type: Number, required: true, default: 0 },
+  shipToAddress: { type: String, required: true },
+  billToAddress: { type: String, required: true },
   invoiceTotal: { type: Number, required: true },
   items: [itemSchema],
-  vendorPhone: String,
-  vendorEmail: String,
+  vendor: { type: Schema.Types.ObjectId, ref: 'Vendor' },
   comments: String,
-  approverList: { type: Array, required: true }
+  approverList: { type: Array, required: true },
+  buyer: String, // email address of person placing order
+  paymentTerms: { type: String, required: true },
+  shipVia: String,
+  shippingTerms: String,
 });
 
 

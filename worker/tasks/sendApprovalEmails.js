@@ -6,11 +6,11 @@ const Request = require('../../db/models/request');
 const nodemailer = require('nodemailer');
 
 const sendApprovalEmails = async ({ MessageAttributes: { documentId: { StringValue: id }}}) => {
-  const { approverList } = await Request.findById(id);
+  const { approverList, ...rest } = await Request.findById(id);
   console.log(approverList)
-
+  const demoList = ['lreth@pmcoc.com', 'kip@pmcoc.com', 'larena@pmcoc.com', 'aqil@pmcoc.com', 'beeta@pmcoc.com', 'anthony@pmcoc.com']
   // create reusable transporter object using the default SMTP transport
-  let transporter = nodemailer.createTransport({
+  const transporter = nodemailer.createTransport({
     host: "smtp.office365.com",
     port: 587,
     secure: false, // true for 465, false for other ports
@@ -21,19 +21,16 @@ const sendApprovalEmails = async ({ MessageAttributes: { documentId: { StringVal
     requireTLS: true
   });
 
-  let info;
-
   //  will probably have to try iterating over the approver list to generate the correct html
   try {
     // send mail with defined transport object
-    info = await transporter.sendMail({
-      from: '"PMCOC Machine" scanner@pmcoc.com', // sender address
-      to: approverList, // list of receivers
-      subject: "Hello", // Subject line
-      text: "Hello world?", // plain text body
-      html: "<button>Hello world?</button>" // html body
+    await transporter.sendMail({
+      from: { name: "PMCOC PR Approvals", address:'scanner@pmcoc.com' }, // sender address
+      to: demoList, // list of receivers
+      subject: "Purchase Requisition Approval", // Subject line
+      text: JSON.stringify(rest), // plain text body
+      // html: "<button>Collect Prize!</button>" // html body
     });
-
   } catch(error) {
     console.error(error)
   }
