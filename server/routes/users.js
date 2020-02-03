@@ -5,6 +5,7 @@ const controller = require('../controllers/userControllers');
 router
   .route('/')
   .post(controller.createUser)
+  .patch(controller.modifyUser)
   .get(controller.getAllUsers);
 
 router

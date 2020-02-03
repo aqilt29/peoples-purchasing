@@ -50,4 +50,8 @@ module.exports = {
 
     res.status(200).send(users);
   },
+
+  modifyUser: async (req, res) => {
+    res.send('TODO PATCH: modify user API')
+  },
 };
