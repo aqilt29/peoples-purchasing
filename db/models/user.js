@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const listOfEntities = require('./utils/listOfEntities');
 
 const roleTypes = [
   'Employee',
@@ -12,7 +13,11 @@ const userSchema = new Schema({
   email: { type: String, required: true },
   name: { type: String, required: true },
   auth0Id: { type: String, required: true },
-  department: String,
+  entity: {
+    type: String,
+    required: true,
+    enum: listOfEntities
+  },
   role: {
     type: String,
     default: 'Employee',

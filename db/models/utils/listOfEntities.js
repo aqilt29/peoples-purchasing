@@ -12,6 +12,7 @@ const listOfEntities = [
   'People\'s Riverside',
   'People\'s WeHo',
   'Standard Hemp',
+  'Standard Farming'
 ];
 
 module.exports = listOfEntities;
