@@ -21,12 +21,13 @@ import initFontAwesome from "./utils/initFontAwesome";
 initFontAwesome();
 
 const App = () => {
-  const { loading, isAuthenticated } = useAuth0();
+  const { loading, isAuthenticated, user, testValue } = useAuth0();
   let mainPageView = Home;
 
   if (loading) {
     return <Loading />;
   }
+  console.table(user)
 
   if (isAuthenticated) mainPageView = Dashboard;
 
