@@ -5,8 +5,12 @@ const controller = require('../controllers/userControllers');
 router
   .route('/')
   .post(controller.createUser)
-  .patch(controller.modifyUser)
   .get(controller.getAllUsers);
+
+router
+  .route('/:Id')
+  .get(controller.getUserById)
+  .patch(controller.modifyUser);
 
 router
   .route('/search')

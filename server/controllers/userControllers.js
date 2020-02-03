@@ -54,4 +54,17 @@ module.exports = {
   modifyUser: async (req, res) => {
     res.send('TODO PATCH: modify user API')
   },
+
+  getUserById: async (req, res) => {
+    const { Id: id } = req.params
+    let user;
+
+    try {
+      user = await User.findById(id)
+    } catch (error) {
+      res.status(400).send(error)
+    }
+
+    res.status(200).send(user);
+  },
 };
