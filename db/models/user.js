@@ -10,8 +10,9 @@ const roleTypes = [
 ]
 
 const userSchema = new Schema({
-  email: { type: String, required: true },
-  name: { type: String, required: true },
+  email: { type: String, required: true, unique: true },
+  firstName: { type: String, required: true },
+  lastName: { type: String, required: true },
   auth0Id: { type: String, required: true },
   entity: {
     type: String,

@@ -11,8 +11,9 @@ const connectDb = async () => {
             useNewUrlParser: true,
             auth: { authSource: 'admin'},
             useUnifiedTopology: true,
+            useCreateIndex: true,
             user: process.env.MONGO_INITDB_ROOT_USERNAME,
-            pass: process.env.MONGO_INITDB_ROOT_PASSWORD, 
+            pass: process.env.MONGO_INITDB_ROOT_PASSWORD,
         });
 
     } catch (error) {
