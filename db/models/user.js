@@ -15,7 +15,7 @@ const userSchema = new Schema({
   auth0Id: { type: String, required: true },
   entity: {
     type: String,
-    required: true,
+    default: 'New Patriot Holdings',
     enum: listOfEntities
   },
   role: {
