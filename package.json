@@ -19,6 +19,7 @@
     "@fortawesome/free-solid-svg-icons": "^5.8.1",
     "@fortawesome/react-fontawesome": "^0.1.4",
     "aws-sdk": "^2.610.0",
+    "axios": "^0.19.2",
     "babel-loader": "^8.0.6",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",

@@ -21,7 +21,7 @@ import initFontAwesome from "./utils/initFontAwesome";
 initFontAwesome();
 
 const App = () => {
-  const { loading, isAuthenticated, user, testValue } = useAuth0();
+  const { loading, isAuthenticated, user } = useAuth0();
   let mainPageView = Home;
 
   if (loading) {
