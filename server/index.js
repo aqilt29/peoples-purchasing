@@ -4,8 +4,9 @@ const parser = require('body-parser');
 const morgan = require('morgan');
 const cors = require('cors');
 
-const connectdb = require('../db');
-const requestRouter =  require('./routes/request');
+const connectDb = require('../db');
+const requestRouter =  require('./routes/requests');
+const userRouter = require('./routes/users');
 
 const app = express();
 
@@ -14,9 +15,10 @@ app.use(parser.json());
 app.use(morgan('dev'));
 app.use(cors());
 
-app.use('/api/request', requestRouter)
+app.use('/api/requests', requestRouter);
+app.use('/api/users', userRouter);
 
-connectdb().then((arg) => {
+connectDb().then((arg) => {
     console.log('PORT' ,process.env.PORT)
     app.listen(process.env.PORT);
 })

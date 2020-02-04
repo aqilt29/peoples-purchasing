@@ -14,3 +14,56 @@
   sqs-consumer provides an easy API for this
 
 */
+require('dotenv').config();
+const path = require('path');
+const aws = require('aws-sdk');
+const { Consumer } = require('sqs-consumer');
+const connectdb = require('../db/index');
+const sendApprovalEmails = require('./tasks/sendApprovalEmails');
+
+
+//  configure aws sdk with credentials for user
+aws.config.loadFromPath(path.resolve(__dirname, '../aws_config.json'));
+
+//  instance of SQS class
+const sqs = new aws.SQS();
+
+const worker = Consumer.create({
+  queueUrl: process.env.QUEUE_URL,
+  handleMessage: async (message) => {
+    const { Body } = message;
+
+    if (Body === 'sendApprovalEmails') {
+      await sendApprovalEmails(message)
+      return
+    }
+
+    console.log('no match for message')
+    return
+  },
+  messageAttributeNames: ['All']
+})
+
+
+worker.on('error', (err) => {
+  console.error(err.message);
+});
+
+worker.on('processing_error', (err) => {
+  console.error(err.message);
+});
+
+worker.on('timeout_error', (err) => {
+ console.error(err.message);
+});
+
+worker.on('message_received', (message) => {
+ console.log(`received ${message.Body}`)
+});
+
+worker.on('message_processed', ({ MessageAttributes: { documentId: { StringValue: attribute }}}) => console.log('processed: ',attribute))
+
+connectdb().then(() => {
+  console.log('db connected')
+  worker.start()
+})

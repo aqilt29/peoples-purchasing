@@ -11,7 +11,6 @@ const sqs = new aws.SQS();
 // How to use promises with aws
 // sqs.listQueues().promise().then(console.log)
 
-
 const queueParams = (task, documentId) => ({
   QueueUrl: process.env.QUEUE_URL,
   MessageBody: `${task}`,
@@ -54,7 +53,8 @@ module.exports = {
       saveData = await submitRequest.save()
 
     } catch (error) {
-      return res.status(400).json(error)
+      console.log(error)
+      return res.status(404).json(error)
 
     }
 
@@ -62,10 +62,10 @@ module.exports = {
     try {
       console.log('sending message to queue')
 
-      await sqs.sendMessage(queueParams('sendApprovalEmails', saveData.id)).promise()
+      await sqs.sendMessage(queueParams(`sendApprovalEmails`, saveData.id)).promise()
 
     } catch (error) {
-      return res.status(400).json({ error, doc: saveData.id })
+      return res.status(404).json({ error, doc: saveData.id })
 
     }
 
