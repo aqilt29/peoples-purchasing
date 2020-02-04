@@ -8,6 +8,7 @@ const vendorSchema = new Schema({
   phoneNumber: { type: String, required: true },
   hasW9: { type: Boolean, default: false },
   attn: String,
+  isDeleted: { type: Boolean, default: false },
 })
 
 module.exports = mongoose.model('Vendor', vendorSchema);
