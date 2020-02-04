@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const listOfEntities = require('./utils/listOfEntities');
+const mongoose_fuzzy_searching = require('mongoose-fuzzy-searching')
 
 const roleTypes = [
   'Employee',
@@ -26,5 +27,18 @@ const userSchema = new Schema({
     enum: roleTypes,
   },
 })
+
+userSchema.plugin(mongoose_fuzzy_searching, {
+  fields: [{
+      name: 'firstName',
+      weight: 5
+  }, {
+      name: 'lastName',
+      prefixOnly: true,
+  }, {
+      name: 'email',
+      escapeSpecialCharacters: false,
+  }]
+});
 
 module.exports = mongoose.model('User', userSchema);

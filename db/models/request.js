@@ -8,7 +8,7 @@ const statuses = ['Pending', 'Approved', 'Denied', 'Error'];
 
 const requestSchema = new Schema({
   user: {
-    userName: { type: String, required: true },
+    email: { type: String, required: true },
     _id: { type: Schema.Types.ObjectId, ref: 'User', required: true },
   },
   delegates: [
