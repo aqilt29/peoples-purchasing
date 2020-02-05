@@ -15,7 +15,7 @@ const Dashboard = () => {
     <div>
       <h3>Dashboard</h3>
       <div>
-        <h4>USER: {JSON.stringify(dbUser)}</h4>
+        <h4>USER: {JSON.stringify({'hello': 'this works'})}</h4>
         <form>
           <label>
             Name:

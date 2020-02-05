@@ -1,4 +1,6 @@
 import React from "react";
+import { hot } from 'react-hot-loader/root';
+
 import { Router, Route, Switch } from "react-router-dom";
 import { Container } from "reactstrap";
 
@@ -11,7 +13,6 @@ import Dashboard from './Views/Dashboard';
 import Profile from "./Views/Profile";
 import { useAuth0 } from "./react-auth0-spa";
 import history from "./utils/history";
-import Hero from './Components/Hero'
 
 // styles
 import "./App.css";
@@ -47,4 +48,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default hot(App);

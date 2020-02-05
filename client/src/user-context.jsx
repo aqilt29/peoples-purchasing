@@ -8,7 +8,7 @@ export const useUser = () => useContext(UserContext);
 export const UserProvider = ({ children }) => {
 
 
-  const [dbUser, setDbUser] = useState(null);
+  const [dbUser, setDbUser] = useState('true');
   console.log('user rendered')
   return (
     <UserContext.Provider

@@ -6,7 +6,7 @@ const PUB_DIR = path.join(__dirname, './client/src/Assets');
 module.exports = {
 	mode: 'development',
 	devtool: 'eval-source-map',
-	entry: SRC_DIR,
+	entry: [SRC_DIR, 'react-hot-loader/patch'],
 	output: {
 		path: DIST_DIR,
 		filename: 'bundle.js',
@@ -14,6 +14,7 @@ module.exports = {
 	},
 	devServer: {
 		contentBase: [DIST_DIR, PUB_DIR],
+		hot: true,
 		port: 9000,
 		historyApiFallback: true,
   },
@@ -54,7 +55,12 @@ module.exports = {
 			}
 		]
 	},
+
 	resolve: {
-		extensions: ['.js', '.jsx']
-	}
+		extensions: ['.js', '.jsx'],
+		alias: {
+			'react-dom': '@hot-loader/react-dom'
+		}
+	},
+
 };
