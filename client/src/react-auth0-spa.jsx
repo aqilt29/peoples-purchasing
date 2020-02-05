@@ -40,6 +40,7 @@ export const Auth0Provider = ({
       }
 
       setLoading(false);
+      console.log('auth0 hook useEffect')
     };
     initAuth0();
     // eslint-disable-next-line
@@ -67,7 +68,7 @@ export const Auth0Provider = ({
     setIsAuthenticated(true);
     setUser(user);
   };
-
+  console.log('auth rendered')
   return (
     <Auth0Context.Provider
       value={{

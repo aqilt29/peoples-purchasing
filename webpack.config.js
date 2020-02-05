@@ -5,8 +5,7 @@ const PUB_DIR = path.join(__dirname, './client/src/Assets');
 
 module.exports = {
 	mode: 'development',
-	watch: true,
-	devtool: 'inline-source-map',
+	devtool: 'eval-source-map',
 	entry: SRC_DIR,
 	output: {
 		path: DIST_DIR,
