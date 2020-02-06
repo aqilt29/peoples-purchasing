@@ -3,7 +3,6 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import { Auth0Provider } from "./react-auth0-spa";
-import { UserProvider } from './user-context';
 import config from "../../auth_config.json";
 import history from "./utils/history";
 
@@ -22,9 +21,7 @@ ReactDOM.render(
     redirect_uri={window.location.origin}
     onRedirectCallback={onRedirectCallback}
   >
-    <UserProvider>
-      <App />
-    </UserProvider>
+    <App />
   </Auth0Provider>,
   document.getElementById("root")
 );

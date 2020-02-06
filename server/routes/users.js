@@ -13,7 +13,7 @@ router
   .patch(controller.modifyUser);
 
 router
-  .route('/search')
+  .route('/search/')
   .get(controller.searchUsers);
 
 module.exports = router;

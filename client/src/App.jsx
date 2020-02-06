@@ -1,4 +1,6 @@
 import React from "react";
+import { hot } from 'react-hot-loader/root';
+
 import { Router, Route, Switch } from "react-router-dom";
 import { Container } from "reactstrap";
 
@@ -11,7 +13,7 @@ import Dashboard from './Views/Dashboard';
 import Profile from "./Views/Profile";
 import { useAuth0 } from "./react-auth0-spa";
 import history from "./utils/history";
-import Hero from './Components/Hero'
+import UserCreation from './Views/UserCreation';
 
 // styles
 import "./App.css";
@@ -21,7 +23,7 @@ import initFontAwesome from "./utils/initFontAwesome";
 initFontAwesome();
 
 const App = () => {
-  const { loading, isAuthenticated, user } = useAuth0();
+  const { loading, isAuthenticated, user, dbUser } = useAuth0();
   let mainPageView = Home;
 
   if (loading) {
@@ -30,6 +32,7 @@ const App = () => {
   console.table(user)
 
   if (isAuthenticated) mainPageView = Dashboard;
+  if (!dbUser) mainPageView = UserCreation;
 
   return (
     <Router history={history}>
@@ -47,4 +50,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default hot(App);

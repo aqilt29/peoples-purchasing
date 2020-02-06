@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import createAuth0Client from "@auth0/auth0-spa-js";
+import { getUserByEmail } from "./api/userApi";
 
 
 const DEFAULT_REDIRECT_CALLBACK = () =>
@@ -19,6 +20,8 @@ export const Auth0Provider = ({
   const [auth0Client, setAuth0] = useState();
   const [loading, setLoading] = useState(true);
   const [popupOpen, setPopupOpen] = useState(false);
+  const [dbUser, setDbUser] = useState(null);
+
 
   useEffect(() => {
     const initAuth0 = async () => {
@@ -36,10 +39,14 @@ export const Auth0Provider = ({
 
       if (isAuthenticated) {
         const user = await auth0FromHook.getUser();
+        const { data: [userInfo] } = await getUserByEmail('user.email');
         setUser(user);
+        console.log(userInfo, '<-- user info from db')
+        setDbUser(userInfo);
       }
 
       setLoading(false);
+      console.log('auth0 hook useEffect')
     };
     initAuth0();
     // eslint-disable-next-line
@@ -67,11 +74,12 @@ export const Auth0Provider = ({
     setIsAuthenticated(true);
     setUser(user);
   };
-
+  console.log('auth rendered')
   return (
     <Auth0Context.Provider
       value={{
         isAuthenticated,
+        dbUser,
         user,
         loading,
         popupOpen,

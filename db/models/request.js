@@ -7,17 +7,28 @@ const selectApprovalOrder = require('./utils/selectApprovalOrder');
 const statuses = ['Pending', 'Approved', 'Denied', 'Error'];
 
 const requestSchema = new Schema({
-  user: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+  user: {
+    email: { type: String, required: true },
+    _id: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+  },
+  delegates: [
+    { type: Schema.Types.ObjectId, ref: 'User' }
+  ],
+  vendor: {
+    vendorName: { type: String, required: true },
+    _id: { type: Schema.Types.ObjectId, ref: 'Vendor', required: true },
+  },
+  address: {
+    shipTo: { type: String, required: true },
+    billTo: { type: String, required: true },
+  },
   submittedFor: { type: String, required: true }, //  one email of someone with pmcoc submitted by defines routing rules
   entity: { type: String, required: true, enum: listOfEntities },
   dateRequested: { type: Date, default: Date.now },
-  shipToAddress: { type: String, required: true },
-  billToAddress: { type: String, required: true },
   businessNeed: { type: String, required: true },
   invoiceTotal: { type: Number, required: true },
   approverList: { type: Array, required: true },
   paymentTerms: { type: String, required: true },
-  vendor: { type: Schema.Types.ObjectId, ref: 'Vendor' },
   status: { type: String, default: 'Pending', enum: statuses },
   comments: String,
   buyer: String, // email address of person placing order
@@ -25,6 +36,8 @@ const requestSchema = new Schema({
   shippingTerms: String,
   items: [itemSchema],
 });
+
+
 
 
 //  assign approvers list and record
