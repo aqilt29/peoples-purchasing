@@ -1,15 +1,7 @@
 import React, { useState } from 'react';
-import { useUser } from '../user-context';
-import { useAuth0 } from '../react-auth0-spa';
 
 const Dashboard = () => {
-  const { dbUser, setDbUser } = useUser();
   const [userName, setUserName] = useState(false);
-
-  const handleSubmit = (e) => {
-      e.preventDefault();
-      setDbUser(userName);
-  }
 
   return (
     <div>
@@ -26,7 +18,7 @@ const Dashboard = () => {
               onChange={e => setUserName(e.target.value)}
             />
           </label>
-          <button onClick={handleSubmit} >Change Name</button>
+          <button onClick={() => {}} >Change Name</button>
         </form>
       </div>
     </div>

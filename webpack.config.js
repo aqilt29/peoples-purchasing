@@ -5,7 +5,7 @@ const PUB_DIR = path.join(__dirname, './client/src/Assets');
 
 module.exports = {
 	mode: 'development',
-	devtool: 'eval-source-map',
+	devtool: 'inline-source-map',
 	entry: [SRC_DIR, 'react-hot-loader/patch'],
 	output: {
 		path: DIST_DIR,
