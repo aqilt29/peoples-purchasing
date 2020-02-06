@@ -32,7 +32,7 @@ const App = () => {
   console.table(user)
 
   if (isAuthenticated) mainPageView = Dashboard;
-  if (!dbUser) mainPageView = UserCreation;
+  if (isAuthenticated && !dbUser) mainPageView = UserCreation;
 
   return (
     <Router history={history}>
