@@ -18,6 +18,8 @@ import {
   DropdownItem
 } from "reactstrap";
 
+import { LoginButton } from '../Styles'
+
 import { useAuth0 } from "../react-auth0-spa";
 
 const NavBar = () => {
@@ -52,14 +54,13 @@ const NavBar = () => {
             <Nav className="d-none d-md-block" navbar>
               {!isAuthenticated && (
                 <NavItem>
-                  <Button
+                  <LoginButton
                     id="qsLoginBtn"
-                    color="primary"
                     className="btn-margin"
                     onClick={() => loginWithRedirect({})}
                   >
                     Log in
-                  </Button>
+                  </LoginButton>
                 </NavItem>
               )}
               {isAuthenticated && (
