@@ -5,7 +5,7 @@ class UserCreation extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: 'sup',
+      email: '',
       firstName: '',
       lastName: '',
       auth0Id: '',
@@ -40,13 +40,7 @@ class UserCreation extends Component {
 
   render() {
     return (
-      <Container className="mb-2">
-        <h2>hi</h2>
-        <h2>hi</h2>
-        <h2>Hi</h2>
-        <h2>hi</h2>
-        <Button color="info">Hello</Button>
-      </Container>
+      <div>Hello Form</div>
     )
   }
 
