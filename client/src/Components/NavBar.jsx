@@ -6,11 +6,9 @@ import {
   Collapse,
   Container,
   Navbar,
-  NavbarToggler,
-  NavbarBrand,
   Nav,
   NavItem,
-  NavLink,
+  NavbarBrand,
   Button,
   UncontrolledDropdown,
   DropdownToggle,
@@ -18,9 +16,11 @@ import {
   DropdownItem
 } from "reactstrap";
 
-import { LoginButton } from '../Styles'
+import { LoginButton, NavContainer } from '../Styles'
 
 import { useAuth0 } from "../react-auth0-spa";
+import LogoLink from '../utils/LogoLink';
+import StyledNavBarTogglerButton from './NavBarTogglerButton';
 
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -33,24 +33,13 @@ const NavBar = () => {
     });
 
   return (
-    <div className="nav-container">
-      <Navbar color="light" light expand="md">
+    <NavContainer className="nav-container">
+      <Navbar expand="md">
         <Container>
-          <NavbarBrand className="logo" />
-          <NavbarToggler onClick={toggle} />
+          <NavbarBrand tag={LogoLink}/>
+          <StyledNavBarTogglerButton action={toggle} />
           <Collapse isOpen={isOpen} navbar>
-            <Nav className="mr-auto" navbar>
-              <NavItem>
-                <NavLink
-                  tag={RouterNavLink}
-                  to="/"
-                  exact
-                  activeClassName="router-link-exact-active"
-                >
-                  Home
-                </NavLink>
-              </NavItem>
-            </Nav>
+            <Nav className="mr-auto" navbar />
             <Nav className="d-none d-md-block" navbar>
               {!isAuthenticated && (
                 <NavItem>
@@ -59,7 +48,7 @@ const NavBar = () => {
                     className="btn-margin"
                     onClick={() => loginWithRedirect({})}
                   >
-                    Log in
+                    log in
                   </LoginButton>
                 </NavItem>
               )}
@@ -149,7 +138,7 @@ const NavBar = () => {
           </Collapse>
         </Container>
       </Navbar>
-    </div>
+    </NavContainer>
   );
 };
 
