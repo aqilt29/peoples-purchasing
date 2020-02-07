@@ -12,21 +12,30 @@ class ManageVendors extends Component {
       email: '',
       address: '',
       phoneNumber: '',
+      website: '',
       hasW9: false,
       attn: '',
+      formIsValid: false,
     }
-
   }
+
+  setValid = () => {
+    const { formIsValid } = this.state;
+    this.setState({
+      formIsValid: !formIsValid
+    })
+  };
 
   getAllVendors = () => {};
 
-  submitAVendor = () => {};
+  submitForm = () => {};
 
-  validateEmail = () => {};
-
-  validatePhoneNumber = () => {};
-
-  handleInput = () => {};
+  handleInput = (e) => {
+    const { target: { name, value } } = e;
+    this.setState({
+      [name]: value
+    })
+  };
 
   componentDidMount() {
 
@@ -35,6 +44,7 @@ class ManageVendors extends Component {
 
   render () {
     const { history } = this.props;
+    const { formIsValid } = this.state;
 
     return (
       <>
@@ -44,7 +54,7 @@ class ManageVendors extends Component {
            <Col className="text-center">
              <h4>Entry Form</h4>
              <br />
-             <VendorForm />
+             <VendorForm setValid={this.setValid} formIsValid={formIsValid} handleInput={this.handleInput} />
            </Col>
            <Col sm={6}>
             <h5>Vendor List</h5>
@@ -52,6 +62,7 @@ class ManageVendors extends Component {
           </Col>
          </Row>
          <br />
+         <BlueButton onClick={this.setValid}>Set Valid</BlueButton>
          <BlueButton onClick={() => history.goBack()}>Go back</BlueButton>
        </Container>
       </>
