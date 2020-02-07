@@ -8,7 +8,27 @@ class ManageVendors extends Component {
     super(props);
     this.state = {
       listOfVendors: [],
+      name: '',
+      email: '',
+      address: '',
+      phoneNumber: '',
+      hasW9: false,
+      attn: '',
     }
+
+  }
+
+  getAllVendors = () => {};
+
+  submitAVendor = () => {};
+
+  validateEmail = () => {};
+
+  validatePhoneNumber = () => {};
+
+  handleInput = () => {};
+
+  componentDidMount() {
 
   }
 
@@ -18,16 +38,21 @@ class ManageVendors extends Component {
 
     return (
       <>
-       <h3>Add a New Vendor to the List</h3>
+       <h3>Add a New Vendor</h3>
        <Container>
          <Row>
            <Col className="text-center">
-             <h4>Vendor Form Entry</h4>
+             <h4>Entry Form</h4>
              <br />
              <VendorForm />
            </Col>
+           <Col sm={6}>
+            <h5>Vendor List</h5>
+            <div style={{ height: '50vh', border: '3px solid black'}} />
+          </Col>
          </Row>
          <br />
+         <BlueButton onClick={() => history.goBack()}>Go back</BlueButton>
        </Container>
       </>
     )
