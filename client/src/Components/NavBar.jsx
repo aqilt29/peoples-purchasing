@@ -16,7 +16,7 @@ import {
   DropdownItem
 } from "reactstrap";
 
-import { LoginButton, NavContainer } from '../Styles'
+import { NavContainer, GoldButton } from '../Styles'
 
 import { useAuth0 } from "../react-auth0-spa";
 import LogoLink from '../utils/LogoLink';
@@ -43,13 +43,13 @@ const NavBar = () => {
             <Nav className="d-none d-md-block" navbar>
               {!isAuthenticated && (
                 <NavItem>
-                  <LoginButton
+                  <GoldButton
                     id="qsLoginBtn"
                     className="btn-margin"
                     onClick={() => loginWithRedirect({})}
                   >
                     log in
-                  </LoginButton>
+                  </GoldButton>
                 </NavItem>
               )}
               {isAuthenticated && (
@@ -86,14 +86,14 @@ const NavBar = () => {
             {!isAuthenticated && (
               <Nav className="d-md-none" navbar>
                 <NavItem>
-                  <Button
+                  <GoldButton
                     id="qsLoginBtn"
                     color="primary"
                     block
                     onClick={() => loginWithRedirect({})}
                   >
                     Log in
-                  </Button>
+                  </GoldButton>
                 </NavItem>
               </Nav>
             )}

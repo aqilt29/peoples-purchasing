@@ -11,6 +11,7 @@ import Footer from "./Components/Footer";
 import Home from "./Views/Home";
 import Dashboard from './Views/Dashboard';
 import Profile from "./Views/Profile";
+import Purchasing from './Views/Purchasing';
 import { useAuth0 } from "./react-auth0-spa";
 import history from "./utils/history";
 import UserCreation from './Views/UserCreation';
@@ -20,6 +21,7 @@ import "./App.css";
 
 // fontawesome
 import initFontAwesome from "./utils/initFontAwesome";
+import UnderConstruction from "./Views/UnderConstruction";
 initFontAwesome();
 
 const App = () => {
@@ -41,7 +43,10 @@ const App = () => {
         <Container className="flex-grow-1 mt-5">
           <Switch>
             <Route path="/" exact component={mainPageView} />
-            <PrivateRoute path="/profile" component={Profile} />
+            <PrivateRoute exact path="/profile" component={Profile} />
+            <PrivateRoute exact path="/purchasing" component={Purchasing} />
+            <PrivateRoute exact path="/purchasing/vendorlist" component={Profile} />
+            <Route component={UnderConstruction}/>
           </Switch>
         </Container>
         <Footer />

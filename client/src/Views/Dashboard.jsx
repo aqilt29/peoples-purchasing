@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Container } from 'reactstrap';
+import { Container, CardGroup, CardColumns, CardDeck } from 'reactstrap';
+import AppCard from '../Components/AppCard';
 
 const Dashboard = () => {
   const [userName, setUserName] = useState(false);
@@ -8,19 +9,9 @@ const Dashboard = () => {
     <Container>
       <h3>Dashboard</h3>
       <div>
-        <h4>USER: {JSON.stringify({'hello': 'this works'})}</h4>
-        <form>
-          <label>
-            Name:
-            <input
-              type="text"
-              name="name"
-              value={userName}
-              onChange={e => setUserName(e.target.value)}
-            />
-          </label>
-          <button onClick={() => {}} >Change Name</button>
-        </form>
+      <CardColumns>
+        <AppCard />
+      </CardColumns>
       </div>
     </Container>
   );
