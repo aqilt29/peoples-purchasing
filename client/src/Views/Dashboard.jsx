@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
+import { Container } from 'reactstrap';
 
 const Dashboard = () => {
   const [userName, setUserName] = useState(false);
 
   return (
-    <div>
+    <Container>
       <h3>Dashboard</h3>
       <div>
         <h4>USER: {JSON.stringify({'hello': 'this works'})}</h4>
@@ -21,7 +22,7 @@ const Dashboard = () => {
           <button onClick={() => {}} >Change Name</button>
         </form>
       </div>
-    </div>
+    </Container>
   );
 };
 export default Dashboard;
