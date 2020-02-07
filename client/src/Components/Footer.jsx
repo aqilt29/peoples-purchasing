@@ -1,12 +1,14 @@
 import React from "react";
+import { StyledFooter } from "../Styles";
+
 
 const Footer = () => (
-  <footer className="bg-light p-3 text-center">
+  <StyledFooter className="text-center">
     <div className="logo" />
     <p>
-      Sample project provided by <a href="https://auth0.com">Auth0</a>
+      For any questions please <a href="mailto:IT@pmcoc.com">Contact IT</a>
     </p>
-  </footer>
+  </StyledFooter>
 );
 
 export default Footer;
