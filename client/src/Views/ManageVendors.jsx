@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Container, Row, Col } from 'reactstrap';
 import { BlueButton } from '../Styles';
 import VendorForm from '../Components/VendorForm';
+import { createVendor, getVendorList } from '../api/vendorApi';
 
 class ManageVendors extends Component {
   constructor(props) {
@@ -26,9 +27,20 @@ class ManageVendors extends Component {
     })
   };
 
-  getAllVendors = () => {};
+  getAllVendors = async () => {
+    const data = await getVendorList()
+    this.setState({
+      listOfVendors: data
+    })
+  };
 
-  submitForm = () => {};
+  submitForm = async (e) => {
+    e.preventDefault();
+    console.log('called')
+    const { listOfVendors, formIsValid, ...rest } = this.state;
+    const { data } = await createVendor(rest);
+    console.log(data);
+  };
 
   handleInput = (e) => {
     const { target: { name, value } } = e;
@@ -38,7 +50,9 @@ class ManageVendors extends Component {
   };
 
   componentDidMount() {
-
+    // get all of the vendors from the db
+      //  set that to the state
+    this.getAllVendors()
   }
 
 
@@ -54,7 +68,7 @@ class ManageVendors extends Component {
            <Col className="text-center">
              <h4>Entry Form</h4>
              <br />
-             <VendorForm setValid={this.setValid} formIsValid={formIsValid} handleInput={this.handleInput} />
+             <VendorForm submitForm={this.submitForm} setValid={this.setValid} formIsValid={formIsValid} handleInput={this.handleInput} />
            </Col>
            <Col sm={6}>
             <h5>Vendor List</h5>

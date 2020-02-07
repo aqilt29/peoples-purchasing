@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Container, Row, Col, Progress, Form, FormGroup, Label, Input } from 'reactstrap';
 import { GoldButton } from '../Styles';
 
-const VendorForm = ({ handleInput, formIsValid, setValid }) => {
+const VendorForm = ({ handleInput, formIsValid, setValid, submitForm }) => {
 
   return (
     <Container>
@@ -12,6 +12,10 @@ const VendorForm = ({ handleInput, formIsValid, setValid }) => {
             <FormGroup>
               <Label for="name">Name</Label>
               <Input onChange={(e) => handleInput(e)} type="text" name="name" placeholder="Input Company Name..."/>
+            </FormGroup>
+            <FormGroup>
+              <Label for="attn">Attn:</Label>
+              <Input onChange={(e) => handleInput(e)} type="text" name="attn" placeholder="Input Company Contact Name..."/>
             </FormGroup>
             <FormGroup>
               <Label for="email">Email</Label>
@@ -44,7 +48,7 @@ const VendorForm = ({ handleInput, formIsValid, setValid }) => {
                 </Label>
               </FormGroup>
             </FormGroup>
-            <GoldButton disabled={!formIsValid ? true : false }>Submit</GoldButton>
+            <GoldButton onClick={(e) => submitForm(e)} disabled={!formIsValid ? true : false }>Submit</GoldButton>
           </Form>
         </Col>
       </Row>
