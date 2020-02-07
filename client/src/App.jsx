@@ -12,6 +12,7 @@ import Home from "./Views/Home";
 import Dashboard from './Views/Dashboard';
 import Profile from "./Views/Profile";
 import Purchasing from './Views/Purchasing';
+import PurchasingCreateForm from './Views/PurchasingCreateForm';
 import { useAuth0 } from "./react-auth0-spa";
 import history from "./utils/history";
 import UserCreation from './Views/UserCreation';
@@ -46,6 +47,7 @@ const App = () => {
             <PrivateRoute exact path="/profile" component={Profile} />
             <PrivateRoute exact path="/purchasing" component={Purchasing} />
             <PrivateRoute exact path="/purchasing/vendorlist" component={Profile} />
+            <PrivateRoute exact path="/purchasing/createform" component={PurchasingCreateForm} />
             <Route component={UnderConstruction}/>
           </Switch>
         </Container>
