@@ -40,6 +40,7 @@ class ManageVendors extends Component {
     const { listOfVendors, formIsValid, ...rest } = this.state;
     const { data } = await createVendor(rest);
     console.log(data);
+    await this.getAllVendors()
   };
 
   handleInput = (e) => {
@@ -58,7 +59,7 @@ class ManageVendors extends Component {
 
   render () {
     const { history } = this.props;
-    const { formIsValid } = this.state;
+    const { formIsValid, listOfVendors } = this.state;
 
     return (
       <>
@@ -72,7 +73,9 @@ class ManageVendors extends Component {
            </Col>
            <Col sm={6}>
             <h5>Vendor List</h5>
-            <div style={{ height: '50vh', border: '3px solid black'}} />
+            <div style={{ height: '50vh', border: '3px solid black'}}>
+              {JSON.stringify(listOfVendors)}
+            </div>
           </Col>
          </Row>
          <br />
