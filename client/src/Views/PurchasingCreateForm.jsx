@@ -9,6 +9,22 @@ class PurchasingCreateForm extends Component {
     this.state = {
       listOfVendors: [],
       listOfEntities: [],
+      listOfApprovingUsers: [],
+      listOfUsers: [],
+      vendor: {},
+      shipTo: '',
+      billTo: '',
+      submittedFor: '',
+      entity:'',
+      businessNeed: '',
+      invoiceTotal: 0,
+      approverList: [],
+      paymentTerms: '',
+      comments: '',
+      buyer: '',
+      shipVia: '',
+      shippingTerms: '',
+      items: [],
       currentStep: 0,
     }
 
