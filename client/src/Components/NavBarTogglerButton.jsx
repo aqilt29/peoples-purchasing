@@ -15,7 +15,7 @@ const StyledNavBarTogglerButton = styled(NavBarTogglerButton)`
 
   & > .navbar-toggler-icon {
     background-color: white;
-    background-image: url(./blueHamburger.svg);
+    background-image: url(/blueHamburger.svg);
   }
 `;
 

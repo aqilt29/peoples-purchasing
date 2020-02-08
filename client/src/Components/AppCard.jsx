@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Card, CardImg, CardText, CardBody,
+  Card, CardImg, CardText, CardBody, Col, Row,
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
@@ -8,7 +8,7 @@ import { BlueButton } from '../Styles';
 
 const AppCard = ({ title, subtitle, text }) => {
   return (
-    <div>
+    <>
       <Card>
         <CardImg top src="https://picsum.photos/344/150" alt="Card image cap" />
         <CardBody>
@@ -19,7 +19,7 @@ const AppCard = ({ title, subtitle, text }) => {
           </Link>
         </CardBody>
       </Card>
-    </div>
+    </>
   );
 };
 
