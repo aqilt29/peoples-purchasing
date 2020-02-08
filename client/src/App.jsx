@@ -11,6 +11,8 @@ import Footer from "./Components/Footer";
 import Home from "./Views/Home";
 import Dashboard from './Views/Dashboard';
 import Profile from "./Views/Profile";
+import Purchasing from './Views/Purchasing';
+import PurchasingCreateForm from './Views/PurchasingCreateForm';
 import { useAuth0 } from "./react-auth0-spa";
 import history from "./utils/history";
 import UserCreation from './Views/UserCreation';
@@ -20,6 +22,8 @@ import "./App.css";
 
 // fontawesome
 import initFontAwesome from "./utils/initFontAwesome";
+import UnderConstruction from "./Views/UnderConstruction";
+import ManageVendors from "./Views/ManageVendors";
 initFontAwesome();
 
 const App = () => {
@@ -32,7 +36,7 @@ const App = () => {
   console.table(user)
 
   if (isAuthenticated) mainPageView = Dashboard;
-  if (!dbUser) mainPageView = UserCreation;
+  if (isAuthenticated && !dbUser) mainPageView = UserCreation;
 
   return (
     <Router history={history}>
@@ -41,7 +45,11 @@ const App = () => {
         <Container className="flex-grow-1 mt-5">
           <Switch>
             <Route path="/" exact component={mainPageView} />
-            <PrivateRoute path="/profile" component={Profile} />
+            <PrivateRoute exact path="/profile" component={Profile} />
+            <PrivateRoute exact path="/purchasing" component={Purchasing} />
+            <PrivateRoute exact path="/purchasing/vendorlist" component={ManageVendors} />
+            <PrivateRoute exact path="/purchasing/createform" component={PurchasingCreateForm} />
+            <Route component={UnderConstruction}/>
           </Switch>
         </Container>
         <Footer />

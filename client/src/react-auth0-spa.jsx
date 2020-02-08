@@ -39,7 +39,7 @@ export const Auth0Provider = ({
 
       if (isAuthenticated) {
         const user = await auth0FromHook.getUser();
-        const { data: [userInfo] } = await getUserByEmail('user.email');
+        const { data: [userInfo] } = await getUserByEmail(user.email);
         setUser(user);
         console.log(userInfo, '<-- user info from db')
         setDbUser(userInfo);

@@ -6,19 +6,20 @@ import {
   Collapse,
   Container,
   Navbar,
-  NavbarToggler,
-  NavbarBrand,
   Nav,
   NavItem,
-  NavLink,
-  Button,
+  NavbarBrand,
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
   DropdownItem
 } from "reactstrap";
 
+import { NavContainer, GoldButton } from '../Styles'
+
 import { useAuth0 } from "../react-auth0-spa";
+import LogoLink from '../utils/LogoLink';
+import StyledNavBarTogglerButton from './NavBarTogglerButton';
 
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -31,35 +32,23 @@ const NavBar = () => {
     });
 
   return (
-    <div className="nav-container">
-      <Navbar color="light" light expand="md">
+    <NavContainer className="nav-container">
+      <Navbar expand="md">
         <Container>
-          <NavbarBrand className="logo" />
-          <NavbarToggler onClick={toggle} />
+          <NavbarBrand tag={LogoLink}/>
+          <StyledNavBarTogglerButton action={toggle} />
           <Collapse isOpen={isOpen} navbar>
-            <Nav className="mr-auto" navbar>
-              <NavItem>
-                <NavLink
-                  tag={RouterNavLink}
-                  to="/"
-                  exact
-                  activeClassName="router-link-exact-active"
-                >
-                  Home
-                </NavLink>
-              </NavItem>
-            </Nav>
+            <Nav className="mr-auto" navbar />
             <Nav className="d-none d-md-block" navbar>
               {!isAuthenticated && (
                 <NavItem>
-                  <Button
+                  <GoldButton
                     id="qsLoginBtn"
-                    color="primary"
                     className="btn-margin"
                     onClick={() => loginWithRedirect({})}
                   >
-                    Log in
-                  </Button>
+                    log in
+                  </GoldButton>
                 </NavItem>
               )}
               {isAuthenticated && (
@@ -96,14 +85,14 @@ const NavBar = () => {
             {!isAuthenticated && (
               <Nav className="d-md-none" navbar>
                 <NavItem>
-                  <Button
+                  <GoldButton
                     id="qsLoginBtn"
                     color="primary"
                     block
                     onClick={() => loginWithRedirect({})}
                   >
                     Log in
-                  </Button>
+                  </GoldButton>
                 </NavItem>
               </Nav>
             )}
@@ -148,7 +137,7 @@ const NavBar = () => {
           </Collapse>
         </Container>
       </Navbar>
-    </div>
+    </NavContainer>
   );
 };
 
