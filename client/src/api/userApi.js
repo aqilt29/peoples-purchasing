@@ -19,3 +19,27 @@ export const createNewUser = async ({ email, firstName, lastName, auth0Id, entit
 
   return user;
 }
+
+export const getAllUsers = async () => {
+  let data = null;
+
+  try {
+    data = await axios.get(`${apiPath}/`)
+  } catch (error) {
+    window.alert(error)
+  }
+
+  return data.data || []
+};
+
+export const getApprovedSigners = async () => {
+  let data = null;
+
+  try {
+    data = await axios.get(`${apiPath}/approving/`)
+  } catch (error) {
+    window.alert(error)
+  }
+
+  return data.data || []
+};

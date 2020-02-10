@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import { Container, Row, Col } from 'reactstrap';
 import { BlueButton } from '../Styles';
 import PurchaseForm from '../Components/PurchaseForm';
+import { getVendorList } from '../api/vendorApi';
+import { getApprovedSigners, getAllUsers } from '../api/userApi';
 
 class PurchasingCreateForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
       listOfVendors: [],
-      listOfEntities: [],
       listOfApprovingUsers: [],
       listOfUsers: [],
       vendor: {},
@@ -29,6 +30,53 @@ class PurchasingCreateForm extends Component {
     }
 
   }
+
+  componentDidMount() {
+    const { listOfApprovingUsers, listOfUsers, listOfVendors } = this.state;
+    // check to see if there are entries in the state and call the apis accordingly
+    if (listOfApprovingUsers.length < 1) this.getApprovingUsers();
+    if (listOfUsers.length < 1) this.getListOfUsers();
+    if (listOfVendors.length < 1) this.getListOfVendors();
+  };
+
+  getApprovingUsers = async () => {
+    let data;
+    try {
+      data = await getApprovedSigners()
+    } catch (error) {
+      window.alert(error)
+    }
+    this.setState({
+      listOfApprovingUsers: data
+    })
+    console.table(data)
+  };
+
+  getListOfUsers = async () => {
+    let data;
+    try {
+      data = await getAllUsers()
+    } catch (error) {
+      window.alert(error)
+    }
+    this.setState({
+      listOfVendors: data
+    })
+    console.table(data)
+  };
+
+  getListOfVendors = async () => {
+    let data;
+    try {
+      data = await getVendorList()
+    } catch (error) {
+      window.alert(error)
+    }
+    this.setState({
+      listOfApprovingUsers: data
+    })
+    console.table(data)
+  };
 
   getTotalProgress = () => {
     return (this.state.currentStep/4) * 100;

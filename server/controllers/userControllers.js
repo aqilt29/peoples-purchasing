@@ -51,6 +51,20 @@ module.exports = {
     res.status(200).send(users);
   },
 
+  getAllApprovingUsers: async (req, res) => {
+    let data = null;
+
+    try {
+      data = await User.where('role').ne('Employee')
+    } catch (error) {
+      console.error(error)
+      res.status(500).send(error)
+    }
+
+    res.status(200).send(data)
+
+  },
+
   modifyUser: async (req, res) => {
     res.send('TODO PATCH: modify user API')
   },
