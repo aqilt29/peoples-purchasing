@@ -12,6 +12,7 @@ module.exports = {
     try {
       newUser = await new User(body);
     } catch (error) {
+      console.error(error)
       res.status(400).send(error)
     }
 
@@ -19,6 +20,7 @@ module.exports = {
     try {
       userData = await newUser.save()
     } catch (error) {
+      console.error(error)
       res.status(400).send(error)
     }
 

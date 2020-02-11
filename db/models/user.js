@@ -28,17 +28,17 @@ const userSchema = new Schema({
   },
 })
 
-userSchema.plugin(mongoose_fuzzy_searching, {
-  fields: [{
-      name: 'firstName',
-      weight: 5
-  }, {
-      name: 'lastName',
-      prefixOnly: true,
-  }, {
-      name: 'email',
-      escapeSpecialCharacters: false,
-  }]
-});
+// userSchema.plugin(mongoose_fuzzy_searching, {
+//   fields: [{
+//       name: 'firstName',
+//       weight: 5
+//   }, {
+//       name: 'lastName',
+//       prefixOnly: true,
+//   }, {
+//       name: 'email',
+//       escapeSpecialCharacters: false,
+//   }]
+// });
 
 module.exports = mongoose.model('User', userSchema);

@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import { Container, Col, Row } from "reactstrap";
 import CreateUserForm from "../Components/CreateUserForm";
-import { useAuth0 } from '../react-auth0-spa';
+import Loading from "../Components/Loading";
+import { createNewUser } from "../api/userApi";
+
 
 class UserCreation extends Component {
   constructor(props) {
@@ -13,6 +15,8 @@ class UserCreation extends Component {
       auth0Id: this.props.user.sub,
       entity: '',
       role: '',
+      isLoading: false,
+      success: false,
     }
 
     this.roleTypes = [
@@ -40,7 +44,22 @@ class UserCreation extends Component {
     ];
   }
 
-  handleUserSubmission = () => {};
+  handleUserSubmission = () => {
+    let data = null;
+    const { email, firstName, lastName, auth0Id, role, entity } = this.state;
+
+    this.setState({ isLoading: true }, async () => {
+      try {
+        data = await createNewUser({ email, firstName, lastName, auth0Id, role, entity })
+      } catch (error) {
+        console.error(error)
+      }
+      console.log(data)
+      this.setState({ isLoading: false }, () => {
+        window.location.reload()
+      })
+    })
+  };
 
   handleInputChange = (e) => {
     const { target: { name, value } } = e;
@@ -50,6 +69,9 @@ class UserCreation extends Component {
   };
 
   render() {
+    const { isLoading } = this.state;
+    if (isLoading) return <Loading />
+
     return (
       <Container>
         <Row>
@@ -68,6 +90,7 @@ class UserCreation extends Component {
           <Col>
             <h4>Form:</h4>
             <CreateUserForm
+              handleUserSubmission={this.handleUserSubmission}
               handleInputChange={this.handleInputChange}
               entities={this.listOfEntities}
               roleTypes={this.roleTypes}
