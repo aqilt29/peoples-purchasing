@@ -65,7 +65,7 @@ class PurchasingCreateForm extends Component {
       window.alert(error)
     }
     this.setState({
-      listOfVendors: data
+      listOfUsers: data
     })
     console.table(data)
   };
@@ -78,7 +78,7 @@ class PurchasingCreateForm extends Component {
       window.alert(error)
     }
     this.setState({
-      listOfApprovingUsers: data
+      listOfVendors: data
     })
     console.table(data)
   };
