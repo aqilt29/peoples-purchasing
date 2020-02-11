@@ -48,7 +48,7 @@ const App = () => {
             <PrivateRoute exact path="/profile" component={Profile} />
             <PrivateRoute exact path="/purchasing" component={Purchasing} />
             <PrivateRoute exact path="/purchasing/vendorlist" component={ManageVendors} />
-            <PrivateRoute exact path="/purchasing/createform" component={PurchasingCreateForm} />
+            <PrivateRoute exact path="/purchasing/createform" render={(props) => <PurchasingCreateForm {...props} user={dbUser}/>} />
             <Route component={UnderConstruction}/>
           </Switch>
         </Container>

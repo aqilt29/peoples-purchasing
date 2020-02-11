@@ -86,6 +86,7 @@ class PurchasingCreateForm extends Component {
   incrementStep = (e) => {
     e.preventDefault();
     let { currentStep } = this.state;
+    if (currentStep > 2) return
     console.log(currentStep)
     this.setState({
       currentStep: currentStep += 1,
@@ -100,17 +101,21 @@ class PurchasingCreateForm extends Component {
   };
 
   render () {
-    const { history } = this.props;
+    const { history, user } = this.props;
     const { currentStep } = this.state;
-
+    console.log(user)
     return (
       <>
        <h3>Create Purchase Requisition</h3>
        <Container>
          <Row>
            <Col className="text-center">
-             <h4>Form Entry</h4>
-             <PurchaseForm handleChange={this.handleChange} />
+            <h4>Form Entry</h4>
+            <PurchaseForm
+              handleChange={this.handleChange}
+              currentStep={currentStep}
+              incrementStep={this.incrementStep}
+            />
            </Col>
          </Row>
          <br />

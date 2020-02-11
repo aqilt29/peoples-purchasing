@@ -41,17 +41,17 @@ const requestSchema = new Schema({
 
 
 //  assign approvers list and record
-requestSchema.pre('validate', { document: true }, function(next) {
-  if (this.approverList.length < 1) {
+// requestSchema.pre('validate', { document: true }, function(next) {
+//   if (this.approverList.length < 1) {
 
-    let listName = selectApprovalOrder(this)
+//     let listName = selectApprovalOrder(this)
 
-    this.approverList = listName
+//     this.approverList = listName
 
-    console.log(listName)
-  }
-  next()
-})
+//     console.log(listName)
+//   }
+//   next()
+// })
 
 
 module.exports = mongoose.model('Request', requestSchema);

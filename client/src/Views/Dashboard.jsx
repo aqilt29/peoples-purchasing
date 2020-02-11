@@ -3,7 +3,6 @@ import { Container, CardGroup, CardColumns, CardDeck, Col } from 'reactstrap';
 import AppCard from '../Components/AppCard';
 
 const Dashboard = () => {
-  const [userName, setUserName] = useState(false);
 
   return (
     <Container>
