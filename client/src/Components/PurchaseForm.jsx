@@ -1,18 +1,12 @@
 import React from 'react';
 import { Container, Row, Col, Progress } from 'reactstrap';
 
-const PurchaseForm = ({ totalProgress }) => {
+const PurchaseForm = ({ handleChange }) => {
   return (
     <Container>
       <Row>
         <Col>
-          <p>this is PurchaseForm</p>
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <p>progress bar</p>
-          <Progress animated value={totalProgress}/>
+          <h6>Form Basics</h6>
         </Col>
       </Row>
     </Container>

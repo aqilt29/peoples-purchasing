@@ -91,6 +91,13 @@ class PurchasingCreateForm extends Component {
     })
   };
 
+  handleChange = (e) => {
+    const { target: { name, value } } = e;
+    this.setState({
+      [name]: value
+    })
+  };
+
   render () {
     const { history } = this.props;
 
@@ -101,12 +108,10 @@ class PurchasingCreateForm extends Component {
          <Row>
            <Col className="text-center">
              <h4>Form Entry</h4>
-             <br />
-             <PurchaseForm totalProgress={this.getTotalProgress()}/>
+             <PurchaseForm handleChange={this.handleChange} />
            </Col>
          </Row>
          <br />
-         <BlueButton onClick={(e) => this.incrementStep(e)}>Increment Step</BlueButton>
          <BlueButton onClick={() => history.goBack()}>Go back</BlueButton>
        </Container>
       </>
