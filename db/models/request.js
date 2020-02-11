@@ -14,10 +14,7 @@ const requestSchema = new Schema({
   delegates: [
     { type: Schema.Types.ObjectId, ref: 'User' }
   ],
-  vendor: {
-    vendorName: { type: String, required: true },
-    _id: { type: Schema.Types.ObjectId, ref: 'Vendor', required: true },
-  },
+  vendor: { type: Schema.Types.ObjectId, ref: 'Vendor', required: true },
   address: {
     shipTo: { type: String, required: true },
     billTo: { type: String, required: true },

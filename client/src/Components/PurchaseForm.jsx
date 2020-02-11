@@ -8,16 +8,16 @@ import { BlueButton } from '../Styles';
 import { AvForm } from 'availity-reactstrap-validation';
 
 
-const PurchaseForm = ({ submitNewForm, handleChange, currentStep, incrementStep, decrementStep, listOfVendors, listOfApprovingUsers }) => {
+const PurchaseForm = ({ listOfEntities, submitNewForm, handleChange, currentStep, incrementStep, decrementStep, listOfVendors, listOfApprovingUsers, listOfUsers }) => {
   console.log(currentStep)
 
   return (
-    <Container>
+    <Container className="text-left">
       <Row>
         <Col sm="12" md={{ size: 6, offset: 3 }}>
           <AvForm onValidSubmit={console.log}>
             {
-              currentStep === 0 ? <RequestHeaders listOfVendors={listOfVendors} handleChange={handleChange} /> : null
+              currentStep === 0 ? <RequestHeaders listOfVendors={listOfVendors} handleChange={handleChange} listOfUsers={listOfUsers} listOfEntities={listOfEntities} /> : null
             }
             {
               currentStep === 1 ? <RequestItems handleChange={handleChange} /> : null
@@ -31,6 +31,11 @@ const PurchaseForm = ({ submitNewForm, handleChange, currentStep, incrementStep,
         </AvForm>
         { currentStep >= 1 && <BlueButton onClick={decrementStep}>...Back</BlueButton>}
         <BlueButton onClick={incrementStep}>Next...</BlueButton>
+        </Col>
+      </Row>
+      <Row>
+        <Col sm="12" className="my-2" md={{ size: 6, offset: 3 }}>
+          <Progress animated value={(currentStep / 3) * 100} />
         </Col>
       </Row>
     </Container>

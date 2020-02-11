@@ -4,7 +4,7 @@ import { BlueButton } from '../Styles';
 import PurchaseForm from '../Components/PurchaseForm';
 import { getVendorList } from '../api/vendorApi';
 import { getApprovedSigners, getAllUsers } from '../api/userApi';
-import { useAuth0 } from '../react-auth0-spa';
+import Loading from '../Components/Loading';
 
 class PurchasingCreateForm extends Component {
   constructor(props) {
@@ -13,7 +13,7 @@ class PurchasingCreateForm extends Component {
       listOfVendors: [],
       listOfApprovingUsers: [],
       listOfUsers: [],
-      vendor: {},
+      vendor: '',
       shipTo: '',
       billTo: '',
       submittedFor: '',
@@ -28,8 +28,25 @@ class PurchasingCreateForm extends Component {
       shippingTerms: '',
       items: [],
       currentStep: 0,
+      isLoading: false,
     }
 
+    this.listOfEntities = [
+      'Hero Oak',
+      'Lean Green',
+      'Monterey Ocean Grown',
+      'Monterey Valley Pride',
+      'New Patriot Holdings',
+      'Oxford Properties',
+      'People\'s Aviation',
+      'People\'s First Choice',
+      'People\'s LA',
+      'People\'s Marketing Group',
+      'People\'s Riverside',
+      'People\'s WeHo',
+      'Standard Hemp',
+      'Standard Farming'
+    ];
   }
 
   componentDidMount() {
@@ -46,41 +63,56 @@ class PurchasingCreateForm extends Component {
 
   getApprovingUsers = async () => {
     let data;
-    try {
-      data = await getApprovedSigners()
-    } catch (error) {
-      window.alert(error)
-    }
-    this.setState({
-      listOfApprovingUsers: data
+
+    this.setState({isLoading: true}, async () => {
+      try {
+        data = await getApprovedSigners()
+      } catch (error) {
+        window.alert(error)
+      }
+      this.setState({
+        listOfApprovingUsers: data
+      }, () => {
+        this.setState({isLoading: false})
+        console.table(data)
+      })
     })
-    console.table(data)
+
   };
 
   getListOfUsers = async () => {
     let data;
-    try {
-      data = await getAllUsers()
-    } catch (error) {
-      window.alert(error)
-    }
-    this.setState({
-      listOfUsers: data
+
+    this.setState({isLoading: true}, async () => {
+      try {
+        data = await getAllUsers()
+      } catch (error) {
+        window.alert(error)
+      }
+      this.setState({
+        listOfUsers: data
+      }, () => {
+        this.setState({isLoading: false})
+        console.table(data)
+      })
     })
-    console.table(data)
   };
 
   getListOfVendors = async () => {
     let data;
-    try {
-      data = await getVendorList()
-    } catch (error) {
-      window.alert(error)
-    }
-    this.setState({
-      listOfVendors: data
+    this.setState({isLoading: true}, async () => {
+      try {
+        data = await getVendorList()
+      } catch (error) {
+        window.alert(error)
+      }
+      this.setState({
+        listOfVendors: data
+      }, () => {
+        this.setState({isLoading: false})
+        console.table(data)
+      })
     })
-    console.table(data)
   };
 
   getTotalProgress = () => {
@@ -116,8 +148,11 @@ class PurchasingCreateForm extends Component {
 
   render () {
     const { history, user } = this.props;
-    const { currentStep, listOfVendors, listOfApprovingUsers } = this.state;
+    const { isLoading, currentStep, listOfVendors, listOfApprovingUsers, listOfUsers } = this.state;
     console.log(user)
+
+    if (isLoading) return <Loading />
+
     return (
       <>
        <h3>Create Purchase Requisition</h3>
@@ -133,6 +168,8 @@ class PurchasingCreateForm extends Component {
               incrementStep={this.incrementStep}
               decrementStep={this.decrementStep}
               submitNewForm={this.submitNewForm}
+              listOfUsers={listOfUsers}
+              listOfEntities={this.listOfEntities}
             />
            </Col>
          </Row>
