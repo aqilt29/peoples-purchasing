@@ -5,30 +5,34 @@ import RequestItems from './requestForms/requestItems';
 import RequestApprovers from './requestForms/requestApprovers';
 import RequestDone from './requestForms/RequestDone';
 import { BlueButton } from '../Styles';
+import { AvForm } from 'availity-reactstrap-validation';
 
 
-const PurchaseForm = ({ handleChange, currentStep, incrementStep }) => {
+const PurchaseForm = ({ submitNewForm, handleChange, currentStep, incrementStep, decrementStep, listOfVendors, listOfApprovingUsers }) => {
   console.log(currentStep)
 
   return (
     <Container>
       <Row>
         <Col sm="12" md={{ size: 6, offset: 3 }}>
-          {
-            currentStep === 0 ? <RequestHeaders /> : null
-          }
-          {
-            currentStep === 1 ? <RequestItems /> : null
-          }
-          {
-            currentStep === 2 ? <RequestApprovers /> : null
-          }
-          {
-            currentStep === 3 ? <RequestDone /> : null
-          }
+          <AvForm onValidSubmit={console.log}>
+            {
+              currentStep === 0 ? <RequestHeaders listOfVendors={listOfVendors} handleChange={handleChange} /> : null
+            }
+            {
+              currentStep === 1 ? <RequestItems handleChange={handleChange} /> : null
+            }
+            {
+              currentStep === 2 ? <RequestApprovers listOfApprovingUsers={listOfApprovingUsers} handleChange={handleChange} /> : null
+            }
+            {
+              currentStep === 3 ? <RequestDone submitNewForm={submitNewForm} /> : null
+            }
+        </AvForm>
+        { currentStep >= 1 && <BlueButton onClick={decrementStep}>...Back</BlueButton>}
+        <BlueButton onClick={incrementStep}>Next...</BlueButton>
         </Col>
       </Row>
-      <BlueButton onClick={incrementStep}>Next...</BlueButton>
     </Container>
   )
 };

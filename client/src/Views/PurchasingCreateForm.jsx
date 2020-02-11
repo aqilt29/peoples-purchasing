@@ -40,6 +40,10 @@ class PurchasingCreateForm extends Component {
     if (listOfVendors.length < 1) this.getListOfVendors();
   };
 
+  submitNewForm = (e) => {
+    console.log(e, 'submitted')
+  }
+
   getApprovingUsers = async () => {
     let data;
     try {
@@ -93,6 +97,16 @@ class PurchasingCreateForm extends Component {
     })
   };
 
+  decrementStep = (e) => {
+    e.preventDefault();
+    let { currentStep } = this.state;
+    if (currentStep === 0) return
+    console.log(currentStep)
+    this.setState({
+      currentStep: currentStep -= 1,
+    })
+  };
+
   handleChange = (e) => {
     const { target: { name, value } } = e;
     this.setState({
@@ -102,7 +116,7 @@ class PurchasingCreateForm extends Component {
 
   render () {
     const { history, user } = this.props;
-    const { currentStep } = this.state;
+    const { currentStep, listOfVendors, listOfApprovingUsers } = this.state;
     console.log(user)
     return (
       <>
@@ -112,9 +126,13 @@ class PurchasingCreateForm extends Component {
            <Col className="text-center">
             <h4>Form Entry</h4>
             <PurchaseForm
+              listOfVendors={listOfVendors}
+              listOfApprovingUsers={listOfApprovingUsers}
               handleChange={this.handleChange}
               currentStep={currentStep}
               incrementStep={this.incrementStep}
+              decrementStep={this.decrementStep}
+              submitNewForm={this.submitNewForm}
             />
            </Col>
          </Row>
