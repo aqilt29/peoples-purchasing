@@ -4,6 +4,7 @@ import { BlueButton } from '../Styles';
 import PurchaseForm from '../Components/PurchaseForm';
 import { getVendorList } from '../api/vendorApi';
 import { getApprovedSigners, getAllUsers } from '../api/userApi';
+import { useAuth0 } from '../react-auth0-spa';
 
 class PurchasingCreateForm extends Component {
   constructor(props) {
@@ -100,6 +101,7 @@ class PurchasingCreateForm extends Component {
 
   render () {
     const { history } = this.props;
+    const { currentStep } = this.state;
 
     return (
       <>
