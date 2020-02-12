@@ -5,6 +5,7 @@ import PurchaseForm from '../Components/PurchaseForm';
 import { getVendorList } from '../api/vendorApi';
 import { getApprovedSigners, getAllUsers } from '../api/userApi';
 import Loading from '../Components/Loading';
+import { listOfEntities } from '../utils/listOfEntities';
 
 class PurchasingCreateForm extends Component {
   constructor(props) {
@@ -17,6 +18,7 @@ class PurchasingCreateForm extends Component {
       shipTo: '',
       billTo: '',
       submittedFor: '',
+      businessUnit: '',
       entity:'',
       businessNeed: '',
       invoiceTotal: 0,
@@ -125,16 +127,32 @@ class PurchasingCreateForm extends Component {
 
   handleChange = (e) => {
     const { target: { name, value } } = e;
+
+    if (name === 'entity') {
+      this.setState({
+        entity: listOfEntities[value].name,
+        billTo: listOfEntities[value].billTo,
+        businessUnit: listOfEntities[value].businessUnit,
+      }, () => {
+        console.log(entity, value)
+      })
+    }
+    console.log('out of entity')
     this.setState({
       [name]: value
     })
   };
 
-  addItem = () => {};
+  addItem = (item) => {
+    const { items } = this.state;
+    this.setState({
+      items: items.push(item)
+    })
+  };
 
   render () {
     const { history, user } = this.props;
-    const { isLoading, currentStep, listOfVendors, listOfApprovingUsers, listOfUsers } = this.state;
+    const { isLoading, currentStep } = this.state;
     console.log(user)
 
     if (isLoading) return <Loading />
@@ -147,14 +165,12 @@ class PurchasingCreateForm extends Component {
            <Col className="text-center">
             <h4>Form Entry</h4>
             <PurchaseForm
-              listOfVendors={listOfVendors}
-              listOfApprovingUsers={listOfApprovingUsers}
               handleChange={this.handleChange}
               currentStep={currentStep}
               incrementStep={this.incrementStep}
               decrementStep={this.decrementStep}
               submitNewForm={this.submitNewForm}
-              listOfUsers={listOfUsers}
+              {...this.state}
             />
            </Col>
          </Row>

@@ -23,6 +23,7 @@ const requestSchema = new Schema({
     businessUnit: { type: String, required: true },
   },
   dateRequested: { type: Date, default: Date.now },
+  businessUnit: { type: String, required: true },
   businessNeed: { type: String, required: true },
   invoiceTotal: { type: Number, required: true },
   approverList: { type: Array, required: true },

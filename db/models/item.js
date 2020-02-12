@@ -19,7 +19,7 @@ const itemSchema = new Schema({
   link: String,
   internalPartNumber: String,
   quantity: { type: Number, required: true },
-  requestByDate: { type: Date, required: true },
+  requestByDate: { type: String, required: true },
   isDirect: { type: Boolean, default: false },
   receivedQty: { type: Number, default: 0 },
   unitOfMeasure: { type: String, enum: units, default: 'ea' },

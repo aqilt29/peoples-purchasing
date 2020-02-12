@@ -7,16 +7,18 @@ import RequestDone from './requestForms/RequestDone';
 import { BlueButton } from '../Styles';
 import { AvForm } from 'availity-reactstrap-validation';
 
-const PurchaseForm = ({ submitNewForm, handleChange, currentStep, incrementStep, decrementStep, listOfVendors, listOfApprovingUsers, listOfUsers }) => {
+const PurchaseForm = ({ submitNewForm, handleChange, currentStep, incrementStep, decrementStep, listOfVendors, listOfApprovingUsers, listOfUsers, ...rest }) => {
   console.log(currentStep)
+
+  const offset = currentStep === 1 ? 0 : 3;
 
   return (
     <Container className="text-left">
       <Row>
-        <Col sm="12" md={{ size: 6, offset: 3 }}>
+        <Col sm="12" md={{ size: 6, offset: offset  }}>
           <AvForm onValidSubmit={console.log}>
             {
-              currentStep === 0 ? <RequestHeaders listOfVendors={listOfVendors} handleChange={handleChange} listOfUsers={listOfUsers} /> : null
+              currentStep === 0 ? <RequestHeaders listOfVendors={listOfVendors} handleChange={handleChange} listOfUsers={listOfUsers} {...rest}/> : null
             }
             {
               currentStep === 1 ? <RequestItems handleChange={handleChange} /> : null
@@ -31,6 +33,9 @@ const PurchaseForm = ({ submitNewForm, handleChange, currentStep, incrementStep,
         { currentStep >= 1 && <BlueButton onClick={decrementStep}>...Back</BlueButton>}
         <BlueButton onClick={incrementStep}>Next...</BlueButton>
         </Col>
+        {
+          currentStep === 1 ? <Col><h6>Items List</h6></Col> : null
+        }
       </Row>
       <Row>
         <Col sm="12" className="my-2" md={{ size: 6, offset: 3 }}>

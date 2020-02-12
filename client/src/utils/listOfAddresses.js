@@ -1,1 +1,0 @@
-// all of the addresses used for shipping or billing
