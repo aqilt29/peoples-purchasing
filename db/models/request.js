@@ -1,8 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const itemSchema = require('./item');
-const listOfEntities = require('./utils/listOfEntities');
-const selectApprovalOrder = require('./utils/selectApprovalOrder');
 
 const statuses = ['Pending', 'Approved', 'Denied', 'Error'];
 
@@ -20,7 +18,10 @@ const requestSchema = new Schema({
     billTo: { type: String, required: true },
   },
   submittedFor: { type: String, required: true }, //  one email of someone with pmcoc submitted by defines routing rules
-  entity: { type: String, required: true, enum: listOfEntities },
+  entity: {
+    name: { type: String, required: true },
+    businessUnit: { type: String, required: true },
+  },
   dateRequested: { type: Date, default: Date.now },
   businessNeed: { type: String, required: true },
   invoiceTotal: { type: Number, required: true },

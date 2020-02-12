@@ -7,8 +7,7 @@ import RequestDone from './requestForms/RequestDone';
 import { BlueButton } from '../Styles';
 import { AvForm } from 'availity-reactstrap-validation';
 
-
-const PurchaseForm = ({ listOfEntities, submitNewForm, handleChange, currentStep, incrementStep, decrementStep, listOfVendors, listOfApprovingUsers, listOfUsers }) => {
+const PurchaseForm = ({ submitNewForm, handleChange, currentStep, incrementStep, decrementStep, listOfVendors, listOfApprovingUsers, listOfUsers }) => {
   console.log(currentStep)
 
   return (
@@ -17,7 +16,7 @@ const PurchaseForm = ({ listOfEntities, submitNewForm, handleChange, currentStep
         <Col sm="12" md={{ size: 6, offset: 3 }}>
           <AvForm onValidSubmit={console.log}>
             {
-              currentStep === 0 ? <RequestHeaders listOfVendors={listOfVendors} handleChange={handleChange} listOfUsers={listOfUsers} listOfEntities={listOfEntities} /> : null
+              currentStep === 0 ? <RequestHeaders listOfVendors={listOfVendors} handleChange={handleChange} listOfUsers={listOfUsers} /> : null
             }
             {
               currentStep === 1 ? <RequestItems handleChange={handleChange} /> : null

@@ -3,6 +3,7 @@ import { Container, Col, Row } from "reactstrap";
 import CreateUserForm from "../Components/CreateUserForm";
 import Loading from "../Components/Loading";
 import { createNewUser } from "../api/userApi";
+import { listOfEntities } from '../utils/listOfEntities';
 
 
 class UserCreation extends Component {
@@ -26,22 +27,6 @@ class UserCreation extends Component {
       'Director',
     ]
 
-    this.listOfEntities = [
-      'Hero Oak',
-      'Lean Green',
-      'Monterey Ocean Grown',
-      'Monterey Valley Pride',
-      'New Patriot Holdings',
-      'Oxford Properties',
-      'People\'s Aviation',
-      'People\'s First Choice',
-      'People\'s LA',
-      'People\'s Marketing Group',
-      'People\'s Riverside',
-      'People\'s WeHo',
-      'Standard Hemp',
-      'Standard Farming'
-    ];
   }
 
   handleUserSubmission = () => {
@@ -92,7 +77,7 @@ class UserCreation extends Component {
             <CreateUserForm
               handleUserSubmission={this.handleUserSubmission}
               handleInputChange={this.handleInputChange}
-              entities={this.listOfEntities}
+              entities={listOfEntities}
               roleTypes={this.roleTypes}
             />
           </Col>

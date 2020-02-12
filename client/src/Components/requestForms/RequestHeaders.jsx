@@ -1,11 +1,35 @@
 import React from 'react';
 import { AvField, AvInput } from 'availity-reactstrap-validation'
+import { listOfEntities } from '../../utils/listOfEntities';
+import { listOfPaymentTerms } from '../../utils/listOfPaymentTerms';
 
-const RequestHeaders = ({ listOfEntities, listOfVendors, handleChange, listOfUsers }) => {
-  // console.log(listOfEntities)
+const RequestHeaders = ({ listOfVendors, handleChange, listOfUsers }) => {
+
   return (
     <>
-      <h6>Headers</h6>
+      <AvField
+        onChange={(e) => handleChange(e)}
+        type="select"
+        name="submittedFor"
+        label="Request on behalf of:"
+        helpMessage="Select if you're submitting this on behalf of anyone else..."
+      >
+        <option value="">Optional: Select A User...</option>
+        {
+          listOfUsers.map((user) => <option value={user.email}>{user.firstName} {user.lastName}</option>)
+        }
+      </AvField>
+      <AvField
+        onChange={(e) => handleChange(e)}
+        type="select"
+        name="buyer"
+        label="Employee Placing the Order"
+      >
+        <option value="">Select A User...</option>
+        {
+          listOfUsers.map((user) => <option value={user.email}>{user.firstName} {user.lastName}</option>)
+        }
+      </AvField>
       <AvField
         onChange={(e) => handleChange(e)}
         type="select"
@@ -23,23 +47,27 @@ const RequestHeaders = ({ listOfEntities, listOfVendors, handleChange, listOfUse
         onChange={(e) => handleChange(e)}
         type="select"
         name="entity"
-        label="Entity Responsible:"
-        helpMessage="Please select which vendor to issue PO..."
-        validate={{required: {value: true, errorMessage: 'Please select a vendor from the list'}}}
+        label="Entity Billed:"
+        validate={{required: {value: true, errorMessage: 'Please select an entity from the list the request is for'}}}
       >
-        <option value="">Select a Business Unit...</option>
+        <option value="">Select a Business Entity...</option>
         {
-          listOfEntities.map((entity) => <option value={entity}>{entity}</option>)
+          listOfEntities.map((entity) => <option value={JSON.stringify(entity)}>{entity.name}</option>)
         }
       </AvField>
       <AvField
         onChange={(e) => handleChange(e)}
+        type="select"
         required
-        type="text"
         name="paymentTerms"
         label="Payment Terms:"
-        placeholder="Net 30/ Credit Card, etc..."
-      />
+        validate={{required: {value: true, errorMessage: 'Please select an option from the list'}}}
+      >
+        <option value="">Select Payment Terms...</option>
+        {
+          listOfPaymentTerms.map((term) => <option value={term}>{term}</option>)
+        }
+      </AvField>
       <AvField
         onChange={(e) => handleChange(e)}
         required
@@ -51,6 +79,7 @@ const RequestHeaders = ({ listOfEntities, listOfVendors, handleChange, listOfUse
       <AvField
         onChange={(e) => handleChange(e)}
         required
+        value='hello'
         type="textarea"
         name="billTo"
         label="Billing Address:"
@@ -61,32 +90,9 @@ const RequestHeaders = ({ listOfEntities, listOfVendors, handleChange, listOfUse
         required
         type="textarea"
         name="businessNeed"
-        label="Describe Business Usage:"
+        label="Describe Business Need:"
         helpMessage="Please describe purchasing need..."
       />
-      <AvField
-        onChange={(e) => handleChange(e)}
-        type="select"
-        name="buyer"
-        label="Employee Placing the Order"
-      >
-        <option value="">Select A User...</option>
-        {
-          listOfUsers.map((user) => <option value={user.email}>{user.firstName} {user.lastName}</option>)
-        }
-      </AvField>
-      <AvField
-        onChange={(e) => handleChange(e)}
-        type="select"
-        name="submittedFor"
-        label="Request on behalf of:"
-        helpMessage="Select if you're submitting this on behalf of anyone else..."
-      >
-        <option value="">Optional: Select A User...</option>
-        {
-          listOfUsers.map((user) => <option value={user.email}>{user.firstName} {user.lastName}</option>)
-        }
-      </AvField>
     </>
   )
 };

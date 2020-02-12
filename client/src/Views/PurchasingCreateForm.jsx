@@ -31,22 +31,6 @@ class PurchasingCreateForm extends Component {
       isLoading: false,
     }
 
-    this.listOfEntities = [
-      'Hero Oak',
-      'Lean Green',
-      'Monterey Ocean Grown',
-      'Monterey Valley Pride',
-      'New Patriot Holdings',
-      'Oxford Properties',
-      'People\'s Aviation',
-      'People\'s First Choice',
-      'People\'s LA',
-      'People\'s Marketing Group',
-      'People\'s Riverside',
-      'People\'s WeHo',
-      'Standard Hemp',
-      'Standard Farming'
-    ];
   }
 
   componentDidMount() {
@@ -146,6 +130,8 @@ class PurchasingCreateForm extends Component {
     })
   };
 
+  addItem = () => {};
+
   render () {
     const { history, user } = this.props;
     const { isLoading, currentStep, listOfVendors, listOfApprovingUsers, listOfUsers } = this.state;
@@ -169,7 +155,6 @@ class PurchasingCreateForm extends Component {
               decrementStep={this.decrementStep}
               submitNewForm={this.submitNewForm}
               listOfUsers={listOfUsers}
-              listOfEntities={this.listOfEntities}
             />
            </Col>
          </Row>
