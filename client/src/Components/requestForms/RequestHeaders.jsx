@@ -4,7 +4,7 @@ import { listOfEntities } from '../../utils/listOfEntities';
 import { listOfPaymentTerms } from '../../utils/listOfPaymentTerms';
 import { listOfShippingAddresses } from '../../utils/listOfShippingAddresses';
 
-const RequestHeaders = ({ listOfVendors, handleChange, listOfUsers, ...props }) => {
+const RequestHeaders = ({ handleEntityChange, listOfVendors, handleChange, listOfUsers, ...props }) => {
   console.log(props.entity, '<-- props')
   return (
     <>
@@ -48,16 +48,16 @@ const RequestHeaders = ({ listOfVendors, handleChange, listOfUsers, ...props }) 
         }
       </AvField>
       <AvField
-        onChange={(e) => handleChange(e)}
+        onChange={(e) => handleEntityChange(e)}
         type="select"
         name="entity"
-        value={props.entity}
+        value={props.entityIndex}
         label="Entity Billed:"
         validate={{required: {value: true, errorMessage: 'Please select an entity from the list the request is for'}}}
       >
         <option value="">Select a Business Entity...</option>
         {
-          listOfEntities.map((entity, index) => <option value={index}>{entity.name}</option>)
+          listOfEntities.map((entity, index) => <option key={index} value={index}>{entity.name}</option>)
         }
       </AvField>
       <AvField

@@ -20,6 +20,7 @@ class PurchasingCreateForm extends Component {
       submittedFor: '',
       businessUnit: '',
       entity:'',
+      entityIndex:'',
       businessNeed: '',
       invoiceTotal: 0,
       approverList: [],
@@ -128,19 +129,22 @@ class PurchasingCreateForm extends Component {
   handleChange = (e) => {
     const { target: { name, value } } = e;
 
-    if (name === 'entity') {
-      this.setState({
-        entity: listOfEntities[value].name,
-        billTo: listOfEntities[value].billTo,
-        businessUnit: listOfEntities[value].businessUnit,
-      }, () => {
-        console.log(entity, value)
-      })
-    }
-    console.log('out of entity')
+    console.log('out of entity', value)
     this.setState({
       [name]: value
     })
+  };
+
+  handleEntityChange = (e) => {
+    const { target: { value } } = e;
+
+    this.setState({
+      entityIndex: value,
+      entity: listOfEntities[value].name,
+      billTo: listOfEntities[value].billTo,
+      businessUnit: listOfEntities[value].businessUnit,
+    })
+
   };
 
   addItem = (item) => {
@@ -152,7 +156,7 @@ class PurchasingCreateForm extends Component {
 
   render () {
     const { history, user } = this.props;
-    const { isLoading, currentStep } = this.state;
+    const { isLoading, currentStep, ...rest } = this.state;
     console.log(user)
 
     if (isLoading) return <Loading />
@@ -166,11 +170,12 @@ class PurchasingCreateForm extends Component {
             <h4>Form Entry</h4>
             <PurchaseForm
               handleChange={this.handleChange}
+              handleEntityChange={this.handleEntityChange}
               currentStep={currentStep}
               incrementStep={this.incrementStep}
               decrementStep={this.decrementStep}
               submitNewForm={this.submitNewForm}
-              {...this.state}
+              {...rest}
             />
            </Col>
          </Row>
