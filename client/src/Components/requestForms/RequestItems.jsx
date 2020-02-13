@@ -32,8 +32,15 @@ class RequestItems extends Component {
     })
   };
 
+  handleBooleanChange = (e) => {
+    const { target: { name } } = e;
+    this.setState((prevState) => {
+      return { [name]: !prevState[name]}
+    })
+  };
+
   render() {
-    const { classCode, generalLedger, description, requestByDate, price, unitOfMeasure, link } = this.state;
+    const { isDirect, classCode, generalLedger, description, requestByDate, price, unitOfMeasure, link } = this.state;
     return (
       <>
         <AvField
@@ -149,6 +156,14 @@ class RequestItems extends Component {
           label="Internal Part Number:"
           name="internalPartNumber"
         />
+        <div className="my-3">
+          <AvGroup check onChange={this.handleBooleanChange}>
+            <Label check>
+              <AvInput value={isDirect} type="checkbox" name="isDirect" trueValue={true} falseValue={false} />
+              Item is a direct material?
+            </Label>
+          </AvGroup>
+        </div>
         <BlueButton onClick={console.log}>Add Item</BlueButton>
       </>
     )

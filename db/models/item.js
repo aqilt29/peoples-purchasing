@@ -21,9 +21,9 @@ const itemSchema = new Schema({
   vendorItemNumber: String,
   vendorPartNumber: String,
   internalPartNumber: String,
-
   generalLedger: String,
   classCode: String, //  needs ENUM
+
   isDirect: { type: Boolean, default: false },
   receivedQty: { type: Number, default: 0 },
 });
