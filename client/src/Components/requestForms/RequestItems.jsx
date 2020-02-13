@@ -1,5 +1,5 @@
 import React, { useState, Component } from 'react';
-import { AvField, AvGroup, AvInput } from 'availity-reactstrap-validation';
+import { AvField, AvGroup, AvInput, AvForm } from 'availity-reactstrap-validation';
 import { BlueButton } from '../../Styles';
 import { InputGroupAddon, InputGroupText, InputGroup, Input, Label } from 'reactstrap'
 import { listOfUnits } from '../../utils/listOfUnits';
@@ -164,7 +164,9 @@ class RequestItems extends Component {
             </Label>
           </AvGroup>
         </div>
-        <BlueButton onClick={console.log}>Add Item</BlueButton>
+        <div className="my-3">
+          <BlueButton onValidSubmit={() => this.props.addItem({...this.state})}>Add Item</BlueButton>
+        </div>
       </>
     )
   }

@@ -148,9 +148,10 @@ class PurchasingCreateForm extends Component {
   };
 
   addItem = (item) => {
-    const { items } = this.state;
-    this.setState({
-      items: items.push(item)
+    // const { ...items } = this.state;
+
+    this.setState(({ items }) => {
+      return { items: [item, ...items]}
     })
   };
 
@@ -175,6 +176,7 @@ class PurchasingCreateForm extends Component {
               incrementStep={this.incrementStep}
               decrementStep={this.decrementStep}
               submitNewForm={this.submitNewForm}
+              addItem={this.addItem}
               {...rest}
             />
            </Col>
