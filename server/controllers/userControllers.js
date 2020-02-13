@@ -12,6 +12,7 @@ module.exports = {
     try {
       newUser = await new User(body);
     } catch (error) {
+      console.error(error)
       res.status(400).send(error)
     }
 
@@ -19,6 +20,7 @@ module.exports = {
     try {
       userData = await newUser.save()
     } catch (error) {
+      console.error(error)
       res.status(400).send(error)
     }
 
@@ -49,6 +51,20 @@ module.exports = {
     }
 
     res.status(200).send(users);
+  },
+
+  getAllApprovingUsers: async (req, res) => {
+    let data = null;
+
+    try {
+      data = await User.where('role').ne('Employee')
+    } catch (error) {
+      console.error(error)
+      res.status(500).send(error)
+    }
+
+    res.status(200).send(data)
+
   },
 
   modifyUser: async (req, res) => {

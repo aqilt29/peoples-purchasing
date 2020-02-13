@@ -16,4 +16,8 @@ router
   .route('/search/')
   .get(controller.searchUsers);
 
+router
+  .route('/approving/')
+  .get(controller.getAllApprovingUsers);
+
 module.exports = router;

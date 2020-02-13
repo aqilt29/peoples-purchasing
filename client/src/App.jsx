@@ -28,15 +28,15 @@ initFontAwesome();
 
 const App = () => {
   const { loading, isAuthenticated, user, dbUser } = useAuth0();
-  let mainPageView = Home;
+  let MainPageView = Home;
 
   if (loading) {
     return <Loading />;
   }
   console.table(user)
 
-  if (isAuthenticated) mainPageView = Dashboard;
-  if (isAuthenticated && !dbUser) mainPageView = UserCreation;
+  if (isAuthenticated) MainPageView = Dashboard;
+  if (isAuthenticated && !dbUser) MainPageView = UserCreation;
 
   return (
     <Router history={history}>
@@ -44,11 +44,11 @@ const App = () => {
         <NavBar />
         <Container className="flex-grow-1 mt-5">
           <Switch>
-            <Route path="/" exact component={mainPageView} />
+            <Route path="/" exact render={(props) => <MainPageView {...props} user={user} />} />
             <PrivateRoute exact path="/profile" component={Profile} />
             <PrivateRoute exact path="/purchasing" component={Purchasing} />
             <PrivateRoute exact path="/purchasing/vendorlist" component={ManageVendors} />
-            <PrivateRoute exact path="/purchasing/createform" component={PurchasingCreateForm} />
+            <PrivateRoute exact path="/purchasing/createform" render={(props) => <PurchasingCreateForm {...props} user={dbUser}/>} />
             <Route component={UnderConstruction}/>
           </Switch>
         </Container>

@@ -1,0 +1,17 @@
+export const listOfClassCodes = [
+  "11 - Admin",
+  "12 - Executive",
+  "13 - Accounting",
+  "14 - HR",
+  "15 - IT",
+  "16 - Legal and Compliance",
+  "17 - Facilities",
+  "18 - TC Lab",
+  "21 - Sales",
+  "31 - Marketing",
+  "41 - Manufacturing",
+  "46 - Growing",
+  "51 - Purchasing",
+  "61 - Distribution",
+  "71 - R&D",
+];
