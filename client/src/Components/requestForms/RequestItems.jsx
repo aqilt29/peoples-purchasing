@@ -3,6 +3,8 @@ import { AvField, AvGroup, AvInput } from 'availity-reactstrap-validation';
 import { BlueButton } from '../../Styles';
 import { InputGroupAddon, InputGroupText, InputGroup, Input, Label } from 'reactstrap'
 import { listOfUnits } from '../../utils/listOfUnits';
+import { listOfLedgers } from '../../utils/listOfLedgers';
+import { listOfClassCodes } from '../../utils/listOfClassCodes';
 
 class RequestItems extends Component {
   constructor(props) {
@@ -31,7 +33,7 @@ class RequestItems extends Component {
   };
 
   render() {
-    const { description, requestByDate, price, unitOfMeasure, link } = this.state;
+    const { classCode, generalLedger, description, requestByDate, price, unitOfMeasure, link } = this.state;
     return (
       <>
         <AvField
@@ -93,6 +95,32 @@ class RequestItems extends Component {
           <option value="">Select Unit of Measure...</option>
         {
           listOfUnits.map((unit, idx) => <option key={idx} value={unit}>{unit}</option>)
+        }
+        </AvField>
+        <AvField
+          onChange={this.handleChange}
+          type="select"
+          required
+          label="Select General Ledger"
+          value={generalLedger}
+          name='generalLedger'
+        >
+          <option value="">Select Relevant Ledger Account...</option>
+        {
+          listOfLedgers.map((ledger, idx) => <option key={idx} value={ledger}>{ledger}</option>)
+        }
+        </AvField>
+        <AvField
+          onChange={this.handleChange}
+          type="select"
+          required
+          label="Select Class Code"
+          value={classCode}
+          name='classCode'
+        >
+          <option value="">Select Class Code...</option>
+        {
+          listOfClassCodes.map((unit, idx) => <option key={idx} value={unit}>{unit}</option>)
         }
         </AvField>
         <AvField
