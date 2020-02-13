@@ -8,7 +8,6 @@ import { BlueButton } from '../Styles';
 import { AvForm } from 'availity-reactstrap-validation';
 
 const PurchaseForm = ({ submitNewForm, handleChange, currentStep, incrementStep, decrementStep, listOfVendors, listOfApprovingUsers, listOfUsers, ...rest }) => {
-  console.log(currentStep)
 
   const offset = currentStep === 1 ? 0 : 3;
 
@@ -21,7 +20,7 @@ const PurchaseForm = ({ submitNewForm, handleChange, currentStep, incrementStep,
               currentStep === 0 ? <RequestHeaders listOfVendors={listOfVendors} handleChange={handleChange} listOfUsers={listOfUsers} {...rest}/> : null
             }
             {
-              currentStep === 1 ? <RequestItems handleChange={handleChange} /> : null
+              currentStep === 1 ? <RequestItems {...rest} handleChange={handleChange} /> : null
             }
             {
               currentStep === 2 ? <RequestApprovers listOfApprovingUsers={listOfApprovingUsers} handleChange={handleChange} /> : null

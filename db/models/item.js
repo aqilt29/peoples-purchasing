@@ -12,19 +12,20 @@ const units = [
 ]
 
 const itemSchema = new Schema({
+  description: { type: String, required: true },
+  price: { type: Number, required: true },
+  requestByDate: { type: String, required: true },
+  unitOfMeasure: { type: String, enum: units, default: 'ea' },
+  link: String,
+  quantity: { type: Number, required: true },
   vendorItemNumber: String,
   vendorPartNumber: String,
-  price: { type: Number, required: true },
-  description: { type: String, required: true },
-  link: String,
   internalPartNumber: String,
-  quantity: { type: Number, required: true },
-  requestByDate: { type: String, required: true },
-  isDirect: { type: Boolean, default: false },
-  receivedQty: { type: Number, default: 0 },
-  unitOfMeasure: { type: String, enum: units, default: 'ea' },
+
   generalLedger: String,
   classCode: String, //  needs ENUM
+  isDirect: { type: Boolean, default: false },
+  receivedQty: { type: Number, default: 0 },
 });
 
 

@@ -5,7 +5,7 @@ import { listOfPaymentTerms } from '../../utils/listOfPaymentTerms';
 import { listOfShippingAddresses } from '../../utils/listOfShippingAddresses';
 
 const RequestHeaders = ({ handleEntityChange, listOfVendors, handleChange, listOfUsers, ...props }) => {
-  console.log(props.entity, '<-- props')
+
   return (
     <>
       <AvField

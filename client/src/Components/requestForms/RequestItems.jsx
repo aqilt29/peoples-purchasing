@@ -1,6 +1,8 @@
 import React, { useState, Component } from 'react';
-import { AvField } from 'availity-reactstrap-validation';
+import { AvField, AvGroup, AvInput } from 'availity-reactstrap-validation';
 import { BlueButton } from '../../Styles';
+import { InputGroupAddon, InputGroupText, InputGroup, Input, Label } from 'reactstrap'
+import { listOfUnits } from '../../utils/listOfUnits';
 
 class RequestItems extends Component {
   constructor(props) {
@@ -8,10 +10,10 @@ class RequestItems extends Component {
     this.state = {
       vendorItemNumber: '',
       vendorPartNumber: '',
+      internalPartNumber: '',
       price: 0,
       description: '',
       link: '',
-      internalPartNumber: '',
       quantity: 0,
       requestByDate: '',
       isDirect: false,
@@ -29,14 +31,95 @@ class RequestItems extends Component {
   };
 
   render() {
-
+    const { description, requestByDate, price, unitOfMeasure, link } = this.state;
     return (
       <>
         <AvField
-          onChange={console.log}
+          onChange={this.handleChange}
+          type="text"
+          required
+          label="Description:"
+          name="description"
+          value={description}
+          placeholder="Please enter item name/description..."
+        />
+        <AvField
+          required
+          onChange={this.handleChange}
           type="date"
-          label="test"
-          name='test'
+          label="Request By Date:"
+          value={requestByDate}
+          name='requestByDate'
+        />
+        <InputGroup>
+          <div className="mb-2">
+            <div>
+              <Label>Unit Price:</Label>
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'row' }}>
+              <InputGroupAddon addonType="prepend">
+                <InputGroupText>$</InputGroupText>
+              </InputGroupAddon>
+              <Input
+                required
+                onChange={this.handleChange}
+                pattern='[0-9]{0,5}'
+                type="number"
+                name="price"
+                step="0.01"
+                min="0"
+                placeholder="420.50"
+              />
+            </div>
+          </div>
+        </InputGroup>
+        <AvField
+          onChange={this.handleChange}
+          type="number"
+          label="Item Qty:"
+          min="1"
+          required
+          name='quantity'
+          placeholder="420"
+        />
+        <AvField
+          onChange={this.handleChange}
+          type="select"
+          required
+          label="Select Pricing Units"
+          value={unitOfMeasure}
+          name='unitOfMeasure'
+        >
+          <option value="">Select Unit of Measure...</option>
+        {
+          listOfUnits.map((unit, idx) => <option key={idx} value={unit}>{unit}</option>)
+        }
+        </AvField>
+        <AvField
+          onChange={this.handleChange}
+          type="text"
+          label="Item Url (if applicable)"
+          value={link}
+          name='link'
+          placeholder="https://amazon.com/weedplease"
+        />
+        <AvField
+          onChange={this.handleChange}
+          type="text"
+          label="Vendor Item Number:"
+          name="vendorItemNumber"
+        />
+        <AvField
+          onChange={this.handleChange}
+          type="text"
+          label="Vendor Part Number:"
+          name="vendorPartNumber"
+        />
+        <AvField
+          onChange={this.handleChange}
+          type="text"
+          label="Internal Part Number:"
+          name="internalPartNumber"
         />
         <BlueButton onClick={console.log}>Add Item</BlueButton>
       </>
