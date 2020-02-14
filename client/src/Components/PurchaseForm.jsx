@@ -5,15 +5,17 @@ import RequestItems from './requestForms/requestItems';
 import RequestApprovers from './requestForms/requestApprovers';
 import RequestDone from './requestForms/RequestDone';
 import { BlueButton } from '../Styles';
+import ItemList from './requestForms/ItemList';
 
 const PurchaseForm = ({ submitNewForm, handleChange, currentStep, incrementStep, decrementStep, listOfVendors, listOfApprovingUsers, listOfUsers, ...rest }) => {
 
   const offset = currentStep === 1 ? 0 : 3;
+  const size = currentStep === 1 ? 5 : 6;
 
   return (
     <Container className="text-left">
       <Row>
-        <Col sm="12" md={{ size: 6, offset: offset  }}>
+        <Col sm="12" md={{ size: size, offset: offset  }}>
           {
             currentStep === 0 ? <RequestHeaders incrementStep={incrementStep} listOfVendors={listOfVendors} handleChange={handleChange} listOfUsers={listOfUsers} {...rest}/> : null
           }
@@ -29,7 +31,7 @@ const PurchaseForm = ({ submitNewForm, handleChange, currentStep, incrementStep,
         { currentStep >= 1 && <BlueButton onClick={decrementStep}>Back</BlueButton>}
         </Col>
         {
-          currentStep === 1 ? <Col><h6>Items List</h6></Col> : null
+          currentStep === 1 ? <Col><ItemList items={rest.items} /></Col> : null
         }
       </Row>
       <Row>
