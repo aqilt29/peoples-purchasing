@@ -147,21 +147,26 @@ class PurchasingCreateForm extends Component {
   };
 
   addItem = (item) => {
-    this.setState(({ items }) => {
-      return { items: [...items, item]}
+
+    this.setState(({ items, invoiceTotal }) => {
+      return {
+        items: [...items, item],
+        invoiceTotal: invoiceTotal += (item.price * item.quantity)
+      }
     }, () => {
-      console.log(this.state.items)
+      console.log(this.state.items, this.state.invoiceTotal)
     })
   };
 
   deleteItem = (index) => {
-    console.log(index)
-    this.setState(({ items }) => {
-      items.splice(index, 1)
-
-      return { items: [...items]}
+    this.setState(({ items, invoiceTotal }) => {
+      const [ itemDeleted ] = items.splice(index, 1)
+      return {
+        items: [...items],
+        invoiceTotal: invoiceTotal -= (itemDeleted.price * itemDeleted.quantity)
+      }
     }, () => {
-      console.log(this.state.items)
+      console.log(this.state.items, this.state.invoiceTotal)
     })
   };
 
