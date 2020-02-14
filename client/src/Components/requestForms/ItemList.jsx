@@ -6,8 +6,8 @@ const ItemList = ({ items }) => {
   console.log(items)
   return (
     <div>
-      <Table>
-        <thead style={{ padding: '0' }}>
+      <Table size="sm" striped responsive>
+        <thead >
           <tr>
             <th>#</th>
             <th>Item Desc</th>
