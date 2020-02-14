@@ -58,6 +58,7 @@ module.exports = {
 
     }
 
+    console.log('Document Saved!')
     //  try to send message to queue
     try {
       console.log('sending message to queue')
