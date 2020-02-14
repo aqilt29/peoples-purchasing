@@ -10,7 +10,7 @@ import ItemList from './requestForms/ItemList';
 const PurchaseForm = ({ submitNewForm, handleChange, currentStep, incrementStep, decrementStep, listOfVendors, listOfApprovingUsers, listOfUsers, ...rest }) => {
 
   const offset = currentStep === 1 ? 0 : 3;
-  const size = currentStep === 1 ? 5 : 6;
+  const size = currentStep === 1 ? 4 : 6;
 
   return (
     <Container className="text-left">
@@ -31,7 +31,7 @@ const PurchaseForm = ({ submitNewForm, handleChange, currentStep, incrementStep,
         { currentStep >= 1 && <BlueButton onClick={decrementStep}>Back</BlueButton>}
         </Col>
         {
-          currentStep === 1 ? <Col><ItemList items={rest.items} /></Col> : null
+          currentStep === 1 ? <Col><ItemList items={rest.items} deleteItem={rest.deleteItem} /></Col> : null
         }
       </Row>
       <Row>

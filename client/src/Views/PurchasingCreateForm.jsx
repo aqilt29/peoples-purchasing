@@ -148,7 +148,18 @@ class PurchasingCreateForm extends Component {
 
   addItem = (item) => {
     this.setState(({ items }) => {
-      return { items: [item, ...items]}
+      return { items: [...items, item]}
+    }, () => {
+      console.log(this.state.items)
+    })
+  };
+
+  deleteItem = (index) => {
+    console.log(index)
+    this.setState(({ items }) => {
+      items.splice(index, 1)
+
+      return { items: [...items]}
     }, () => {
       console.log(this.state.items)
     })
@@ -175,6 +186,7 @@ class PurchasingCreateForm extends Component {
               decrementStep={this.decrementStep}
               submitNewForm={this.submitNewForm}
               addItem={this.addItem}
+              deleteItem={this.deleteItem}
               {...rest}
             />
            </Col>
