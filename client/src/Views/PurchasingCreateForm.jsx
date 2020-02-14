@@ -129,7 +129,6 @@ class PurchasingCreateForm extends Component {
   handleChange = (e) => {
     const { target: { name, value } } = e;
 
-    console.log('out of entity', value)
     this.setState({
       [name]: value
     })
@@ -148,17 +147,16 @@ class PurchasingCreateForm extends Component {
   };
 
   addItem = (item) => {
-    // const { ...items } = this.state;
-
     this.setState(({ items }) => {
       return { items: [item, ...items]}
+    }, () => {
+      console.log(this.state.items)
     })
   };
 
   render () {
-    const { history, user } = this.props;
+    const { history } = this.props;
     const { isLoading, currentStep, ...rest } = this.state;
-    console.log(user)
 
     if (isLoading) return <Loading />
 
