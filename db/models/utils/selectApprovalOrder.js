@@ -1,8 +1,7 @@
 //  list of people who are set a approvers depending on business logic
 
-const costCenters = [
-  {
-    id: 10200,
+const costCenters = {
+  '10200': {
     routes: {
       approverOne: [
         { email: 'jim@pmcoc.com', isApproved: false, isSent: false },
@@ -17,8 +16,7 @@ const costCenters = [
       ],
     }
   },
-  {
-    id: 10201,
+  '10201': {
     routes: {
       approverOne: [
         { email: 'sergio@pmcoc.com', isApproved: false, isSent: false },
@@ -34,8 +32,7 @@ const costCenters = [
       ],
     }
   },
-  {
-    id: 10202,
+  '10202': {
     routes: {
       approverOne: [
         { email: 'bob@pmcoc.com', isApproved: false, isSent: false },
@@ -51,8 +48,7 @@ const costCenters = [
       ],
     }
   },
-  {
-    id: 10203,
+  '10203': {
     routes: {
       approverOne: [
         { email: 'kerry@pmcoc.com', isApproved: false, isSent: false },
@@ -68,8 +64,7 @@ const costCenters = [
       ],
     }
   },
-  {
-    id: 10204,
+  '10204': {
     routes: {
       approverOne: [
         { email: 'amy@pmcoc.com', isApproved: false, isSent: false },
@@ -85,8 +80,7 @@ const costCenters = [
       ],
     }
   },
-  {
-    id: 10205,
+  '10205': {
     routes: {
       approverOne: [
         { email: 'fkav@pmcoc.com', isApproved: false, isSent: false },
@@ -100,8 +94,7 @@ const costCenters = [
       ],
     }
   },
-  {
-    id: 10206,
+  '10206': {
     routes: {
       approverOne: [
         { email: 'bala@pmcoc.com', isApproved: false, isSent: false },
@@ -117,8 +110,7 @@ const costCenters = [
       ],
     }
   },
-  {
-    id: 10207,
+  '10207': {
     routes: {
       approverOne: [
         { email: 'larena@pmcoc.com', isApproved: false, isSent: false },
@@ -133,8 +125,7 @@ const costCenters = [
       ],
     }
   },
-  {
-    id: 10208,
+  '10208': {
     routes: {
       approverOne: [
         { email: 'larena@pmcoc.com', isApproved: false, isSent: false },
@@ -149,8 +140,7 @@ const costCenters = [
       ],
     }
   },
-  {
-    id: 10209,
+  '10209': {
     routes: {
       approverOne: [
         { email: 'larena@pmcoc.com', isApproved: false, isSent: false },
@@ -165,8 +155,7 @@ const costCenters = [
       ],
     }
   },
-  {
-    id: 10210,
+  '10210': {
     routes: {
       approverOne: [
         { email: 'larena@pmcoc.com', isApproved: false, isSent: false },
@@ -181,8 +170,7 @@ const costCenters = [
       ],
     }
   },
-  {
-    id: 10211,
+  '10211': {
     routes: {
       approverOne: [
         { email: 'lreth@pmcoc.com', isApproved: false, isSent: false },
@@ -198,8 +186,7 @@ const costCenters = [
       ],
     }
   },
-  {
-    id: 10212,
+  '10212': {
     routes: {
       approverOne: [
         { email: 'lreth@pmcoc.com', isApproved: false, isSent: false },
@@ -215,8 +202,7 @@ const costCenters = [
       ],
     }
   },
-  {
-    id: 10213,
+  '10213': {
     routes: {
       approverOne: [
         { email: 'jay@pmcoc.com', isApproved: false, isSent: false },
@@ -230,18 +216,16 @@ const costCenters = [
       ],
     }
   },
-];
-
-const approvalOrderList = {
-  cSuite: ['aqilt@mac.com', 'aqilthanawala@gmail.com'],
-  'New Patriot Holdings': ['aqil@pmcoc.com'],
-  'Hero Oak': ['aqil@pmcoc.com', 'aqilt@mac.com', 'aqilthanawala@gmail.com']
 };
 
 function selectApprovalOrder(context) {
-  if (context.invoiceTotal >= 10000) return approvalOrderList.cSuite;
-  const { entity } = context
-  return approvalOrderList[entity];
+  let approvalRoute = 'approverOne';
+  const { invoiceTotal, costCenter } = context;
+
+  if(invoiceTotal > 1000) approvalRoute = 'approverTwo'
+  if(invoiceTotal > 2500) approvalRoute = 'approverThree'
+
+  return costCenters[costCenter].routes[approvalRoute] || [{ email: 'Aqil@pmcoc.com', isApproved: false, isSent: false }]
 }
 
 module.exports = selectApprovalOrder;

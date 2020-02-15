@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
+const _ = require('lodash')
 const Schema = mongoose.Schema;
 const itemSchema = require('./item');
+const selectApprovalOrder = require('./utils/selectApprovalOrder');
 
 const statuses = ['Pending', 'Approved', 'Denied', 'Error'];
 
@@ -14,6 +16,7 @@ const requestSchema = new Schema({
     shipTo: { type: String, required: true },
     billTo: { type: String, required: true },
   },
+  costCenter: { type: Number, required: true },
   submittedFor: {
     type: Schema.Types.ObjectId, ref: 'User', required: true,
     default: function() {
@@ -45,17 +48,15 @@ const requestSchema = new Schema({
 
 
 //  assign approvers list and record
-// requestSchema.pre('validate', { document: true }, function(next) {
-//   if (this.approverList.length < 1) {
+requestSchema.post('validate', { document: true }, async function(next) {
+  if (this.approverList.length < 1) {
+    let listName = selectApprovalOrder(this)
 
-//     let listName = selectApprovalOrder(this)
+    this.approverList = _.cloneDeep(listName)
 
-//     this.approverList = listName
-
-//     console.log(listName)
-//   }
-//   next()
-// })
+    console.log(listName)
+  }
+})
 
 
 module.exports = mongoose.model('Request', requestSchema);
