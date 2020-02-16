@@ -48,13 +48,15 @@ const requestSchema = new Schema({
 
 
 //  assign approvers list and record
-requestSchema.post('validate', { document: true }, async function(next) {
+requestSchema.post('validate', { document: true }, async function() {
   if (this.approverList.length < 1) {
-    let listName = selectApprovalOrder(this)
+    let listName = selectApprovalOrder(this);
 
-    this.approverList = _.cloneDeep(listName)
+    this.approverList = _.cloneDeep(listName);
 
-    console.log(listName)
+    console.log(listName);
+  } else {
+    throw new Error('suh')
   }
 })
 
