@@ -12,7 +12,6 @@ class PurchasingCreateForm extends Component {
     super(props);
     this.state = {
       listOfVendors: [],
-      listOfApprovingUsers: [],
       listOfUsers: [],
       vendor: '',
       shipTo: '',
@@ -37,9 +36,9 @@ class PurchasingCreateForm extends Component {
   }
 
   componentDidMount() {
-    const { listOfApprovingUsers, listOfUsers, listOfVendors } = this.state;
+    const { listOfUsers, listOfVendors } = this.state;
     // check to see if there are entries in the state and call the apis accordingly
-    if (listOfApprovingUsers.length < 1) this.getApprovingUsers();
+    // if (listOfApprovingUsers.length < 1) this.getApprovingUsers();
     if (listOfUsers.length < 1) this.getListOfUsers();
     if (listOfVendors.length < 1) this.getListOfVendors();
   };
