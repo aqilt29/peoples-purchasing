@@ -2,12 +2,12 @@ import React from 'react';
 import { Table } from 'reactstrap';
 import DisplayItem from './DisplayItem';
 
-const ItemList = ({ items }) => {
+const ItemList = ({ items, deleteItem }) => {
   console.log(items)
   return (
     <div>
-      <Table>
-        <thead style={{ padding: '0' }}>
+      <Table size="sm" striped responsive>
+        <thead >
           <tr>
             <th>#</th>
             <th>Item Desc</th>
@@ -16,15 +16,16 @@ const ItemList = ({ items }) => {
             <th>Unit</th>
             <th>QTY</th>
             <th>Ext. Price</th>
+            <th>Del</th>
           </tr>
         </thead>
         <tbody>
         {
-          items.length > 0 && items.slice(0).reverse().map((item, idx) => {
+          items.length > 0 && items.map((item, idx) => {
             return (
               <tr key={idx}>
                 <th scope="row">{idx + 1}</th>
-                <DisplayItem item={item} />
+                <DisplayItem deleteItem={deleteItem} item={item} index={idx} />
               </tr>
             )
           })

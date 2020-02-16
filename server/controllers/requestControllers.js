@@ -1,5 +1,6 @@
 const path = require('path');
 const Request = require('../../db/models/request');
+const User = require('../../db/models/user');
 const aws = require('aws-sdk')
 
 //  configure aws sdk with credentials for user
@@ -47,9 +48,23 @@ module.exports = {
     const submitRequest = new Request(body)
     let saveData;
 
+
+    //  try to get the cost center for the submitted for.
+
+    try {
+      let { costCenter } = await User.findById(submitRequest.submittedFor);
+      console.log(costCenter, "<--- in controller")
+
+      submitRequest.set('costCenter', costCenter)
+    } catch (error) {
+
+      console.log(error)
+      return res.status(404).json(error)
+    }
+
     //  try to save to database
     try {
-      console.log('Attempting to save document')
+      console.log('Attempting to save document', submitRequest.submittedFor)
       saveData = await submitRequest.save()
 
     } catch (error) {
@@ -58,6 +73,7 @@ module.exports = {
 
     }
 
+    console.log('Document Saved!')
     //  try to send message to queue
     try {
       console.log('sending message to queue')

@@ -147,10 +147,26 @@ class PurchasingCreateForm extends Component {
   };
 
   addItem = (item) => {
-    this.setState(({ items }) => {
-      return { items: [item, ...items]}
+
+    this.setState(({ items, invoiceTotal }) => {
+      return {
+        items: [...items, item],
+        invoiceTotal: invoiceTotal += (item.price * item.quantity)
+      }
     }, () => {
-      console.log(this.state.items)
+      console.log(this.state.items, this.state.invoiceTotal)
+    })
+  };
+
+  deleteItem = (index) => {
+    this.setState(({ items, invoiceTotal }) => {
+      const [ itemDeleted ] = items.splice(index, 1)
+      return {
+        items: [...items],
+        invoiceTotal: invoiceTotal -= (itemDeleted.price * itemDeleted.quantity)
+      }
+    }, () => {
+      console.log(this.state.items, this.state.invoiceTotal)
     })
   };
 
@@ -175,6 +191,7 @@ class PurchasingCreateForm extends Component {
               decrementStep={this.decrementStep}
               submitNewForm={this.submitNewForm}
               addItem={this.addItem}
+              deleteItem={this.deleteItem}
               {...rest}
             />
            </Col>

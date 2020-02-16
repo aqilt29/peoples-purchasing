@@ -1,14 +1,31 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const listOfEntities = require('./utils/listOfEntities');
-const mongoose_fuzzy_searching = require('mongoose-fuzzy-searching')
+// const mongoose_fuzzy_searching = require('mongoose-fuzzy-searching')
 
 const roleTypes = [
   'Employee',
   'Manager',
   'Admin',
   'Director',
-]
+];
+
+const costCenters = [
+  10200,
+  10201,
+  10202,
+  10203,
+  10204,
+  10205,
+  10206,
+  10207,
+  10208,
+  10209,
+  10210,
+  10211,
+  10212,
+  10213
+];
 
 const userSchema = new Schema({
   email: { type: String, required: true, unique: true },
@@ -26,6 +43,11 @@ const userSchema = new Schema({
     required: true,
     enum: roleTypes,
   },
+  costCenter: {
+    type: Number,
+    required: true,
+    enum: costCenters,
+  }
 })
 
 // userSchema.plugin(mongoose_fuzzy_searching, {

@@ -1,6 +1,8 @@
 import React from 'react';
+import { Button } from 'reactstrap';
 
-const DisplayItem = ({ item }) => {
+
+const DisplayItem = ({ item, index, deleteItem }) => {
   console.log(item)
   return (
     <>
@@ -10,6 +12,7 @@ const DisplayItem = ({ item }) => {
       <td>{item.unitOfMeasure}</td>
       <td>{item.quantity}</td>
       <td>${(item.price * item.quantity)}</td>
+      <td><Button onClick={() => deleteItem(index)} close style={{ float: 'none' }}/></td>
     </>
   )
 };
