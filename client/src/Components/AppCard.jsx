@@ -6,7 +6,9 @@ import { Link } from 'react-router-dom';
 
 import { BlueButton } from '../Styles';
 
-const AppCard = ({ title, subtitle, link }) => {
+const AppCard = ({ title, subtitle, link, url = '' }) => {
+  console.log(url, link)
+
   return (
     <>
       <Card>
@@ -14,7 +16,7 @@ const AppCard = ({ title, subtitle, link }) => {
         <CardBody>
           <h5>{title}</h5>
           <CardText>{subtitle}</CardText>
-          <Link to={`${link}`}>
+          <Link to={`${url}${link}`}>
             <BlueButton>ENTER</BlueButton>
           </Link>
         </CardBody>

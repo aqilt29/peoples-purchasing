@@ -15,3 +15,16 @@ export const listOfAdminApps = [
     link: '/users',
   }
 ];
+
+export const listOfUserApps = [
+  {
+    title: 'View All Users',
+    subtitle: 'See a list of all current users',
+    link: '/viewall',
+  },
+  {
+    title: 'Add New Users',
+    subtitle: 'Form for adding new users',
+    link: '/create',
+  },
+];

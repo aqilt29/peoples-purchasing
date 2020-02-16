@@ -7,12 +7,13 @@ export const getUserByEmail = async (email) => {
   return user;
 };
 
-export const createNewUser = async ({ email, firstName, lastName, auth0Id, entity, role}) => {
+export const createNewUser = async ({ costCenter, email, firstName, lastName, auth0Id, entity, role}) => {
   const user = await axios.post(`${apiPath}/`, {
     email,
     firstName,
     lastName,
     auth0Id,
+    costCenter,
     entity,
     role
   })

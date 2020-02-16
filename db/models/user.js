@@ -8,6 +8,7 @@ const roleTypes = [
   'Manager',
   'Admin',
   'Director',
+  'Accounting',
 ];
 
 const costCenters = [
