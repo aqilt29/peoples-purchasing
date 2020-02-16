@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Container, CardGroup, CardColumns, CardDeck, Col } from 'reactstrap';
 import AppCard from '../Components/AppCard';
 import { useAuth0 } from '../react-auth0-spa';
-import { listOfApps, listOfAdminApps } from '../utils/listOfApps';
+import { listOfApps, listOfAdminApps } from '../utils/lists';
 
 
 const Dashboard = (props) => {

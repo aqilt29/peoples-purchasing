@@ -3,7 +3,7 @@ import { Container, Col, Row } from "reactstrap";
 import CreateUserForm from "../Components/CreateUserForm";
 import Loading from "../Components/Loading";
 import { createNewUser } from "../api/userApi";
-import { listOfEntities } from '../utils/listOfEntities';
+import { listOfEntities } from '../utils/lists';
 
 
 class UserCreation extends Component {

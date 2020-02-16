@@ -1,4 +1,4 @@
-import Purchasing from "../Views/Purchasing";
+import Purchasing from "../../Views/Purchasing";
 
 export const listOfApps = [
   {

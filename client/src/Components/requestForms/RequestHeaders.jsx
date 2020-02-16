@@ -1,8 +1,6 @@
 import React from 'react';
 import { AvField, AvForm } from 'availity-reactstrap-validation'
-import { listOfEntities } from '../../utils/listOfEntities';
-import { listOfPaymentTerms } from '../../utils/listOfPaymentTerms';
-import { listOfShippingAddresses } from '../../utils/listOfShippingAddresses';
+import { listOfEntities, listOfPaymentTerms, listOfShippingAddresses } from '../../utils/lists';
 import { BlueButton } from '../../Styles'
 
 const RequestHeaders = ({ handleEntityChange, listOfVendors, handleChange, listOfUsers, ...props }) => {

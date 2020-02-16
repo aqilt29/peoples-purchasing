@@ -2,9 +2,7 @@ import React, { useState, useRef } from 'react';
 import { AvField, AvGroup, AvInput, AvForm } from 'availity-reactstrap-validation';
 import { BlueButton } from '../../Styles';
 import { InputGroupAddon, InputGroupText, InputGroup, Input, Label } from 'reactstrap'
-import { listOfUnits } from '../../utils/listOfUnits';
-import { listOfLedgers } from '../../utils/listOfLedgers';
-import { listOfClassCodes } from '../../utils/listOfClassCodes';
+import { listOfUnits, listOfLedgers, listOfClassCodes } from '../../utils/lists';
 
 const RequestItems = ({ addItem, incrementStep }) => {
   const formRef = useRef(null)

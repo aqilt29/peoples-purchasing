@@ -26,6 +26,7 @@ import initFontAwesome from "./utils/initFontAwesome";
 import UnderConstruction from "./Views/UnderConstruction";
 import ManageVendors from "./Views/ManageVendors";
 import Users from "./Views/Users";
+import AdminRoute from "./Components/AdminRoute";
 
 const App = () => {
   const { loading, isAuthenticated, user, dbUser } = useAuth0();
@@ -47,7 +48,7 @@ const App = () => {
           <Switch>
             <Route path="/" exact render={(props) => <MainPageView {...props} user={user} />} />
             <PrivateRoute exact path="/profile" component={Profile} />
-            <PrivateRoute exact path="/users" component={Users} />
+            <AdminRoute exact path="/users" component={Users} />
             <PrivateRoute exact path="/purchasing" component={Purchasing} />
             <PrivateRoute exact path="/purchasing/vendorlist" component={ManageVendors} />
             <PrivateRoute exact path="/purchasing/createform" render={(props) => <PurchasingCreateForm {...props} user={dbUser}/>} />

@@ -5,7 +5,7 @@ import PurchaseForm from '../Components/PurchaseForm';
 import { getVendorList } from '../api/vendorApi';
 import { getApprovedSigners, getAllUsers } from '../api/userApi';
 import Loading from '../Components/Loading';
-import { listOfEntities } from '../utils/listOfEntities';
+import { listOfEntities } from '../utils/lists';
 
 class PurchasingCreateForm extends Component {
   constructor(props) {
