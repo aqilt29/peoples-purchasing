@@ -13,15 +13,24 @@ const sendApprovalEmails = async ({ MessageAttributes: { documentId: { StringVal
   const data = await Request.findById(id);
   console.log(data.approverList, '<---11')
   // create reusable transporter object using the default SMTP transport
+  // const transporter = nodemailer.createTransport({
+  //   host: "smtp.office365.com",
+  //   port: 587,
+  //   secure: false, // true for 465, false for other ports
+  //   auth: {
+  //     user: process.env.SMTP_EMAIL, // generated ethereal user
+  //     pass: process.env.SMTP_PASSWORD // generated ethereal password
+  //   },
+  //   requireTLS: true
+  // });
+
   const transporter = nodemailer.createTransport({
-    host: "smtp.office365.com",
-    port: 587,
-    secure: false, // true for 465, false for other ports
+    host: 'localhost',
+    port: 1025,
     auth: {
-      user: process.env.SMTP_EMAIL, // generated ethereal user
-      pass: process.env.SMTP_PASSWORD // generated ethereal password
-    },
-    requireTLS: true
+        user: 'project.1',
+        pass: 'secret.1'
+    }
   });
 
   for (let i = 0; i < data.approverList.length; i++) {
@@ -33,7 +42,7 @@ const sendApprovalEmails = async ({ MessageAttributes: { documentId: { StringVal
           from: { name: "PMCOC PR Approvals", address:'scanner@pmcoc.com' }, // sender address
           to: data.approverList[i].email, // list of receivers
           subject: "Purchase Requisition Approval", // Subject line
-          text: JSON.stringify(data), // plain text body
+          // text: JSON.stringify(data), // plain text body
           // html: "<button>Collect Prize!</button>" // html body
         });
 
