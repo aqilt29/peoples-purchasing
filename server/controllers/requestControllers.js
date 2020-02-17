@@ -32,7 +32,7 @@ module.exports = {
     try {
       data = await Request.find()
     } catch (error) {
-      res,status(404).send(error)
+      res.status(404).send(error)
     }
 
     res.status(200).send(data)
@@ -45,7 +45,7 @@ module.exports = {
     try {
       data = await Request.findById(id)
     } catch (error) {
-      res,status(404).send(error)
+      res.status(404).send(error)
     }
 
     res.status(200).send(data)
