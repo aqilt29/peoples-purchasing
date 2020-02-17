@@ -55,8 +55,6 @@ requestSchema.post('validate', { document: true }, async function() {
     this.approverList = _.cloneDeep(listName);
 
     console.log(listName, '<--- approval order');
-  } else {
-    throw new Error('suh')
   }
 })
 

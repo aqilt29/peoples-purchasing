@@ -24,12 +24,29 @@ const queueParams = (task, documentId) => ({
 })
 
 module.exports = {
-  getAllRequests: (req, res) => {
-    res.send('TODO API Create: get all requests: '+ JSON.stringify(req.params) + ' ' + req.path)
+  getAllRequests: async (req, res) => {
+    let data;
+
+    try {
+      data = await Request.find()
+    } catch (error) {
+      res,status(404).send(error)
+    }
+
+    res.status(200).send(data)
   },
 
-  getRequestById: (req, res) => {
-    res.send('TODO API Create: get request by id: '+ JSON.stringify(req.params) + ' ' + req.path)
+  getRequestById: async (req, res) => {
+    let data;
+    const { params: { id } } = req;
+    console.log(id)
+    try {
+      data = await Request.findById(id)
+    } catch (error) {
+      res,status(404).send(error)
+    }
+
+    res.status(200).send(data)
   },
 
   getRequestsByUser: (req, res) => {
