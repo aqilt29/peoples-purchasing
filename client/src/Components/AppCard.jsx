@@ -2,12 +2,13 @@ import React from 'react';
 import {
   Card, CardImg, CardText, CardBody, Col, Row,
 } from 'reactstrap';
-import { Link } from 'react-router-dom';
+import { Link, useRouteMatch } from 'react-router-dom';
 
 import { BlueButton } from '../Styles';
 
-const AppCard = ({ title, subtitle, link, url = '' }) => {
-  console.log(url, link)
+const AppCard = ({ title, subtitle, link }) => {
+  let { url } = useRouteMatch()
+  if (url === '/') url = '';
 
   return (
     <>
@@ -16,9 +17,7 @@ const AppCard = ({ title, subtitle, link, url = '' }) => {
         <CardBody>
           <h5>{title}</h5>
           <CardText>{subtitle}</CardText>
-          <Link to={`${url}${link}`}>
-            <BlueButton>ENTER</BlueButton>
-          </Link>
+          <BlueButton tag={Link} to={`${url}${link}`}>ENTER</BlueButton>
         </CardBody>
       </Card>
     </>

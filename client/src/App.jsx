@@ -11,7 +11,8 @@ import Footer from "./Components/Footer";
 import Home from "./Views/Home";
 import Dashboard from './Views/Dashboard';
 import Profile from "./Views/Profile";
-import Purchasing from './Views/Purchasing';
+import PurchasingApps from './Views/PurchasingApps';
+import PurchasingViewAll from './Views/PurchasingViewAll';
 import PurchasingCreateForm from './Views/PurchasingCreateForm';
 import { useAuth0 } from "./react-auth0-spa";
 import history from "./utils/history";
@@ -52,7 +53,8 @@ const App = () => {
             <AdminRoute exact path="/users" component={Users} />
             <PrivateRoute exact path="/users/viewall" component={UserList} />
             <PrivateRoute exact path="/users/create" component={UserCreation} />
-            <PrivateRoute exact path="/purchasing" component={Purchasing} />
+            <PrivateRoute exact path="/purchasing" component={PurchasingApps} />
+            <PrivateRoute exact path="/purchasing/viewforms" component={PurchasingViewAll} />
             <PrivateRoute exact path="/purchasing/vendorlist" component={ManageVendors} />
             <PrivateRoute exact path="/purchasing/createform" render={(props) => <PurchasingCreateForm {...props} user={dbUser}/>} />
             <Route component={UnderConstruction}/>

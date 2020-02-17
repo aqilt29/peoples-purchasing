@@ -1,7 +1,9 @@
 const path = require('path');
+const mongoose = require('mongoose')
 const Request = require('../../db/models/request');
 const User = require('../../db/models/user');
 const aws = require('aws-sdk')
+const _ = require('lodash');
 
 //  configure aws sdk with credentials for user
 aws.config.loadFromPath(path.resolve(__dirname, '../../aws_config.json'));
@@ -49,8 +51,18 @@ module.exports = {
     res.status(200).send(data)
   },
 
-  getRequestsByUser: (req, res) => {
-    res.send('TODO API Create: get requests by user: '+ JSON.stringify(req.params) + ' ' + req.path)
+  getRequestsByUser: async (req, res) => {
+    const { params: { userId }, query: { email } } = req;
+
+    const data = await Request.find()
+      .or([{ user: userId }, { submittedFor: userId }, { 'approverList.email': email }])
+      .where('user != submittedFor')
+      .populate({ path: 'vendor', select: 'name -_id'})
+      .populate({ path: 'submittedFor', select: 'firstName lastName -_id'})
+      .sort({ dateRequested: 'desc'})
+
+    res.send(data)
+
   },
 
   getRequestsByStatus: (req, res) => {

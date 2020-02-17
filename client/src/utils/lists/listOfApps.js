@@ -1,4 +1,3 @@
-import Purchasing from "../../Views/Purchasing";
 
 export const listOfApps = [
   {
@@ -26,5 +25,23 @@ export const listOfUserApps = [
     title: 'Add New Users',
     subtitle: 'Form for adding new users',
     link: '/create',
+  },
+];
+
+export const listOfPurchasingApps = [
+  {
+    title: 'New Request',
+    subtitle: 'Submit new purchase request to follow approval workflows.',
+    link: '/createform',
+  },
+  {
+    title: 'Outstanding Requests',
+    subtitle: 'View outstanding requests and their statuses.',
+    link: '/viewforms',
+  },
+  {
+    title: 'Manage Vendors',
+    subtitle: 'View and manage vendors for purchasing here',
+    link: '/vendorlist',
   },
 ];

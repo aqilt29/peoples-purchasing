@@ -6,7 +6,6 @@ import { useRouteMatch } from "react-router-dom";
 
 const Users = () => {
 
-  const { url } = useRouteMatch();
   return (
     <>
     <Container>
@@ -15,7 +14,7 @@ const Users = () => {
         <CardColumns>
           {
             listOfUserApps.map((app, idx) => {
-              return <AppCard {...app} url={url} key={`${idx}`}/>
+              return <AppCard {...app} key={`${idx}`}/>
             })
           }
         </CardColumns>
