@@ -65,6 +65,23 @@ const PurchasingView = () => {
         </Row>
         <hr />
         <Row>
+          <Col>
+            <h6>Approval Status</h6>
+            {
+              requestData.approverList.map((approver) => {
+                return (
+                  <div>
+                    <h7>{approver.email}</h7>{" "}
+                    <h7>{approver.isSent ? 'Email Sent' : 'Email Pending'}</h7>{" "}
+                    <h7>{approver.isApproved ? 'Approved' : 'Pending'}</h7>
+                  </div>
+                )
+              })
+            }
+          </Col>
+        </Row>
+        <hr />
+        <Row>
         <Col>
           <h6>Items on List</h6>
           <ItemList items={requestData.items} deleteItem={() => {}}/>
