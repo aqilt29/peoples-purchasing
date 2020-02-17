@@ -7,6 +7,7 @@ import { getApprovedSigners, getAllUsers } from '../api/userApi';
 import Loading from '../Components/Loading';
 import { listOfEntities } from '../utils/lists';
 import { createNewRequest } from '../api/requestApi';
+import { Redirect } from 'react-router-dom';
 
 class PurchasingCreateForm extends Component {
   constructor(props) {
@@ -32,6 +33,8 @@ class PurchasingCreateForm extends Component {
       items: [],
       currentStep: 0,
       isLoading: false,
+      success: false,
+      successData: '',
     }
 
   }
@@ -56,9 +59,11 @@ class PurchasingCreateForm extends Component {
         window.alert(error)
       }
       this.setState({
-        isLoading: false
+        isLoading: false,
+        currentStep: 3,
+        successData: data.data,
       }, () => {
-        console.table(data)
+        console.table(data.data.approverList)
       })
     })
   }
@@ -187,9 +192,10 @@ class PurchasingCreateForm extends Component {
 
   render () {
     const { history } = this.props;
-    const { isLoading, currentStep, ...rest } = this.state;
+    const { isLoading, currentStep, success, ...rest } = this.state;
 
     if (isLoading) return <Loading />
+    if (success) return <Redirect to="/" />
 
     return (
       <>

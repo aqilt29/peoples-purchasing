@@ -29,7 +29,7 @@ const PurchaseForm = ({ submitNewForm, handleChange, currentStep, decrementStep,
             currentStep === 2 ? <RequestReview listOfUsers={listOfUsers} submitNewForm={submitNewForm} listOfVendors={listOfVendors} {...rest} /> : null
           }
           {
-            currentStep === 3 ? <RequestDone submitNewForm={submitNewForm} /> : null
+            currentStep === 3 ? <RequestDone {...rest} /> : null
           }
         { (currentStep >= 1 && currentStep !== 3) && <BlueButton onClick={decrementStep}>Back</BlueButton>}
         </Col>
