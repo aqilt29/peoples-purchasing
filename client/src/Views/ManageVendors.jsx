@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Container, Row, Col } from 'reactstrap';
 import { BlueButton } from '../Styles';
 import VendorForm from '../Components/VendorForm';
+import VendorList from '../Components/VendorList';
 import { createVendor, getVendorList } from '../api/vendorApi';
 
 class ManageVendors extends Component {
@@ -71,16 +72,18 @@ class ManageVendors extends Component {
              <br />
              <VendorForm submitForm={this.submitForm} setValid={this.setValid} formIsValid={formIsValid} handleInput={this.handleInput} />
            </Col>
-           <Col sm={6}>
+           <Col>
             <h5>Vendor List</h5>
-            <div style={{ height: '50vh', border: '3px solid black'}}>
-              {JSON.stringify(listOfVendors)}
-            </div>
+            <VendorList vendorList={listOfVendors}/>
           </Col>
          </Row>
          <br />
-         <BlueButton onClick={this.setValid}>Set Valid</BlueButton>
-         <BlueButton onClick={() => history.goBack()}>Go back</BlueButton>
+         <Row>
+          <Col className="my-3">
+            <BlueButton onClick={this.setValid}>Set Valid</BlueButton>
+            <BlueButton onClick={() => history.goBack()}>Go back</BlueButton>
+          </Col>
+         </Row>
        </Container>
       </>
     )
