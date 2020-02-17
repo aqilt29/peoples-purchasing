@@ -18,7 +18,7 @@ const RequestHeaders = ({ handleEntityChange, listOfVendors, handleChange, listO
         >
           <option value="">Optional: Select A User...</option>
           {
-            listOfUsers.map((user) => <option value={user.email}>{user.firstName} {user.lastName}</option>)
+            listOfUsers.map((user) => <option value={user._id}>{user.firstName} {user.lastName}</option>)
           }
         </AvField>
         <AvField
@@ -30,7 +30,7 @@ const RequestHeaders = ({ handleEntityChange, listOfVendors, handleChange, listO
         >
           <option value="">Select A User...</option>
           {
-            listOfUsers.map((user) => <option value={user.email}>{user.firstName} {user.lastName}</option>)
+            listOfUsers.map((user) => <option value={user._id}>{user.firstName} {user.lastName}</option>)
           }
         </AvField>
         <AvField

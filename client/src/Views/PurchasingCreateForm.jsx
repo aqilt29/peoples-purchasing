@@ -6,6 +6,7 @@ import { getVendorList } from '../api/vendorApi';
 import { getApprovedSigners, getAllUsers } from '../api/userApi';
 import Loading from '../Components/Loading';
 import { listOfEntities } from '../utils/lists';
+import { createNewRequest } from '../api/requestApi';
 
 class PurchasingCreateForm extends Component {
   constructor(props) {
@@ -43,8 +44,23 @@ class PurchasingCreateForm extends Component {
     if (listOfVendors.length < 1) this.getListOfVendors();
   };
 
-  submitNewForm = (e) => {
-    console.log(e, 'submitted')
+  submitNewForm = async (e) => {
+    console.log(e, 'submitted', this.props.user._id)
+    const postData = { user: this.props.user._id, ...this.state}
+    let data;
+
+    this.setState({isLoading: true}, async () => {
+      try {
+        data = await createNewRequest(postData)
+      } catch (error) {
+        window.alert(error)
+      }
+      this.setState({
+        isLoading: false
+      }, () => {
+        console.table(data)
+      })
+    })
   }
 
   getApprovingUsers = async () => {

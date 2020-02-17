@@ -43,7 +43,7 @@ module.exports = {
   createRequest: async (req, res) => {
     //  get the document from the body
     const { body } = req;
-
+    console.log(body, '<---- body')
     //  create document model
     const submitRequest = new Request(body)
     let saveData;
