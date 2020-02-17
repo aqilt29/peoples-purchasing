@@ -6,15 +6,17 @@ import { Link } from 'react-router-dom';
 
 import { BlueButton } from '../Styles';
 
-const AppCard = ({ title, subtitle, text }) => {
+const AppCard = ({ title, subtitle, link, url = '' }) => {
+  console.log(url, link)
+
   return (
     <>
       <Card>
         <CardImg top src="https://picsum.photos/344/150" alt="Card image cap" />
         <CardBody>
-          <h5>Purchasing</h5>
-          <CardText>Manage purchase requisition requests here</CardText>
-          <Link to='/purchasing'>
+          <h5>{title}</h5>
+          <CardText>{subtitle}</CardText>
+          <Link to={`${url}${link}`}>
             <BlueButton>ENTER</BlueButton>
           </Link>
         </CardBody>

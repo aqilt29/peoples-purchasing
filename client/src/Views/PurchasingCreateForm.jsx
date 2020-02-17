@@ -5,14 +5,14 @@ import PurchaseForm from '../Components/PurchaseForm';
 import { getVendorList } from '../api/vendorApi';
 import { getApprovedSigners, getAllUsers } from '../api/userApi';
 import Loading from '../Components/Loading';
-import { listOfEntities } from '../utils/listOfEntities';
+import { listOfEntities } from '../utils/lists';
+import { createNewRequest } from '../api/requestApi';
 
 class PurchasingCreateForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
       listOfVendors: [],
-      listOfApprovingUsers: [],
       listOfUsers: [],
       vendor: '',
       shipTo: '',
@@ -37,15 +37,30 @@ class PurchasingCreateForm extends Component {
   }
 
   componentDidMount() {
-    const { listOfApprovingUsers, listOfUsers, listOfVendors } = this.state;
+    const { listOfUsers, listOfVendors } = this.state;
     // check to see if there are entries in the state and call the apis accordingly
-    if (listOfApprovingUsers.length < 1) this.getApprovingUsers();
+    // if (listOfApprovingUsers.length < 1) this.getApprovingUsers();
     if (listOfUsers.length < 1) this.getListOfUsers();
     if (listOfVendors.length < 1) this.getListOfVendors();
   };
 
-  submitNewForm = (e) => {
-    console.log(e, 'submitted')
+  submitNewForm = async (e) => {
+    console.log(e, 'submitted', this.props.user._id)
+    const postData = { user: this.props.user._id, ...this.state}
+    let data;
+
+    this.setState({isLoading: true}, async () => {
+      try {
+        data = await createNewRequest(postData)
+      } catch (error) {
+        window.alert(error)
+      }
+      this.setState({
+        isLoading: false
+      }, () => {
+        console.table(data)
+      })
+    })
   }
 
   getApprovingUsers = async () => {

@@ -21,10 +21,13 @@ import UserCreation from './Views/UserCreation';
 import "./App.css";
 
 // fontawesome
+initFontAwesome();
 import initFontAwesome from "./utils/initFontAwesome";
 import UnderConstruction from "./Views/UnderConstruction";
 import ManageVendors from "./Views/ManageVendors";
-initFontAwesome();
+import Users from "./Views/Users";
+import AdminRoute from "./Components/AdminRoute";
+import UserList from "./Components/UserList";
 
 const App = () => {
   const { loading, isAuthenticated, user, dbUser } = useAuth0();
@@ -36,7 +39,7 @@ const App = () => {
   console.table(user)
 
   if (isAuthenticated) MainPageView = Dashboard;
-  if (isAuthenticated && !dbUser) MainPageView = UserCreation;
+  if (isAuthenticated && !dbUser) MainPageView = UnderConstruction;
 
   return (
     <Router history={history}>
@@ -46,6 +49,9 @@ const App = () => {
           <Switch>
             <Route path="/" exact render={(props) => <MainPageView {...props} user={user} />} />
             <PrivateRoute exact path="/profile" component={Profile} />
+            <AdminRoute exact path="/users" component={Users} />
+            <PrivateRoute exact path="/users/viewall" component={UserList} />
+            <PrivateRoute exact path="/users/create" component={UserCreation} />
             <PrivateRoute exact path="/purchasing" component={Purchasing} />
             <PrivateRoute exact path="/purchasing/vendorlist" component={ManageVendors} />
             <PrivateRoute exact path="/purchasing/createform" render={(props) => <PurchasingCreateForm {...props} user={dbUser}/>} />
