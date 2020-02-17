@@ -19,3 +19,12 @@ export const createNewRequest = async ({ shipTo, billTo, entity, businessUnit, .
   console.log(request);
   return request;
 };
+
+export const getAllRequestsByUser = async ({ _id, email }) => {
+  console.log(email)
+  const allRequests = await axios.get(`${apiPath}/user/${_id}`, {
+    params: { email }
+  })
+  console.log(allRequests)
+  return allRequests
+};

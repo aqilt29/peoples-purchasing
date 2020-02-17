@@ -5,10 +5,9 @@ import { useAuth0 } from '../react-auth0-spa';
 import { listOfApps, listOfAdminApps } from '../utils/lists';
 
 
-const Dashboard = (props) => {
-  const { dbUser: { role }, user } = useAuth0();
-console.log(listOfApps, listOfAdminApps)
-  console.log(role, user)
+const Dashboard = () => {
+  const { dbUser: { role } } = useAuth0();
+
   return (
     <Container>
       <h3>Dashboard</h3>

@@ -6,6 +6,12 @@ const selectApprovalOrder = require('./utils/selectApprovalOrder');
 
 const statuses = ['Pending', 'Approved', 'Denied', 'Error'];
 
+const approverSchema = new Schema({
+  email: String,
+  isSent: Boolean,
+  isApproved: Boolean,
+})
+
 const requestSchema = new Schema({
   user: { type: Schema.Types.ObjectId, ref: 'User', required: true },
   delegates: [
@@ -34,7 +40,7 @@ const requestSchema = new Schema({
   dateRequested: { type: Date, default: Date.now },
   businessNeed: { type: String, required: true },
   invoiceTotal: { type: Number, required: true },
-  approverList: { type: Array, required: true },
+  approverList: [{ type: approverSchema, required: true }],
   paymentTerms: { type: String, required: true },
   status: { type: String, default: 'Pending', enum: statuses },
   comments: String,
