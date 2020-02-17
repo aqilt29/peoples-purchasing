@@ -31,6 +31,7 @@ module.exports = {
 
     try {
       data = await Request.find()
+
     } catch (error) {
       res.status(404).send(error)
     }
@@ -42,8 +43,13 @@ module.exports = {
     let data;
     const { params: { id } } = req;
     console.log(id)
+
     try {
       data = await Request.findById(id)
+        .populate('vendor')
+        .populate('user')
+        .populate({ path: 'submittedFor', select: 'firstName lastName -_id'})
+
     } catch (error) {
       res.status(404).send(error)
     }

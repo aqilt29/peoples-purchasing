@@ -30,6 +30,9 @@ const ItemList = ({ items, deleteItem }) => {
             )
           })
         }
+        {
+          items.length < 1 && <tr><h5>No Items...</h5></tr>
+        }
       </tbody>
       </Table>
     </div>
