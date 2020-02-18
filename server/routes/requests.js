@@ -12,6 +12,14 @@ router
   .put(controller.updateRequest)
 
 router
+  .route('/approve/:id')
+  .post(controller.approveRequest)
+
+router
+  .route('/deny/:id')
+  .post(controller.denyRequest)
+
+router
   .route('/user/:userId')
   .get(controller.getRequestsByUser)
 

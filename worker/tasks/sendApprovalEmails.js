@@ -33,8 +33,9 @@ const sendApprovalEmails = async ({ MessageAttributes: { documentId: { StringVal
     }
   });
 
+  //  iterate over the approver list
   for (let i = 0; i < data.approverList.length; i++) {
-
+    //  find in the approval list for the next approver
     if (!data.approverList[i].isSent) {
       try {
         // send mail with defined transport object

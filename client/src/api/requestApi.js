@@ -35,3 +35,22 @@ export const getRequestById = async (id) => {
   console.log(request)
   return request;
 }
+
+export const approveRequest = async (id, email, approverId) => {
+  console.log(id, email, '<--- in apo');
+
+  const { data } = await axios.post(`${apiPath}/approve/${id}`, {
+    params: { email, approverId }
+  })
+
+  console.log(data)
+  return data
+}
+
+export const denyRequest = async (id) => {
+  console.log(id);
+
+
+
+  return data
+}

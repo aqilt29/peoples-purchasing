@@ -3,7 +3,7 @@ import { Button } from 'reactstrap';
 
 
 const DisplayItem = ({ item, index, deleteItem }) => {
-  console.log(item)
+
   return (
     <>
       <td>{item.description}</td>

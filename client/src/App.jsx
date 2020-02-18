@@ -55,6 +55,7 @@ const App = () => {
             <PrivateRoute exact path="/users/viewall" component={UserList} />
             <PrivateRoute exact path="/users/create" component={UserCreation} />
             <PrivateRoute exact path="/purchasing" component={PurchasingApps} />
+            <PrivateRoute exact path="/purchasing/view/:id/:approverId" component={PurchasingView} />
             <PrivateRoute exact path="/purchasing/view/:id" component={PurchasingView} />
             <PrivateRoute exact path="/purchasing/viewforms" component={PurchasingViewAll} />
             <PrivateRoute exact path="/purchasing/vendorlist" component={ManageVendors} />
