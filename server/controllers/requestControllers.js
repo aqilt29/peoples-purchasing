@@ -31,8 +31,9 @@ module.exports = {
 
     try {
       data = await Request.find()
+
     } catch (error) {
-      res,status(404).send(error)
+      res.status(404).send(error)
     }
 
     res.status(200).send(data)
@@ -42,10 +43,15 @@ module.exports = {
     let data;
     const { params: { id } } = req;
     console.log(id)
+
     try {
       data = await Request.findById(id)
+        .populate('vendor')
+        .populate('user')
+        .populate({ path: 'submittedFor', select: 'firstName lastName -_id'})
+
     } catch (error) {
-      res,status(404).send(error)
+      res.status(404).send(error)
     }
 
     res.status(200).send(data)
@@ -118,10 +124,61 @@ module.exports = {
   },
 
   updateRequest: (req, res) => {
-      res.send('TODO API UPDATE: update request: '+ JSON.stringify(req.params) + ' ' + req.path)
+    res.send('TODO API UPDATE: update request: '+ JSON.stringify(req.params) + ' ' + req.path)
   },
 
   searchRequests: (req, res) => {
-      res.send(`TODO API SEARCH: ${JSON.stringify(req.params)} ${JSON.stringify(req.query)} ${req.path}`)
+    res.send(`TODO API SEARCH: ${JSON.stringify(req.params)} ${JSON.stringify(req.query)} ${req.path}`)
   },
+
+  approveRequest: async (req, res) => {
+    const { params: { id }, body: { params: { email, approverId } } } = req
+    console.log(email, id, approverId)
+    //  get the document
+    const requestToUpdate = await Request.findById(id)
+
+    if (requestToUpdate.status === 'Approved') {
+      return res.status(203).send('already approved')
+    }
+
+    //  update the approval property on the list
+    requestToUpdate.approverList.id(approverId).isApproved = true,
+
+    //  save the document
+    requestToUpdate.markModified('approverList')
+    await requestToUpdate.save()
+
+    //  check if theres more approvals to do
+    for (let i = 0; i < requestToUpdate.approverList.length; i++) {
+      //  if yes
+      if (!requestToUpdate.approverList[i].isSent) {
+        console.log('more emails to send')
+        //  send message to queue to email out approvals
+        try {
+          console.log('attempting to contact queue')
+          await sqs.sendMessage(queueParams(`sendApprovalEmails`, id)).promise()
+        } catch (error) {
+          return res.status(404).json(error)
+        }
+        break;
+      }
+
+      // else
+      // send message to queue to notify everyone the request is approved
+      console.log('all emails sent and in loop', i, 'marking as approved')
+      requestToUpdate.status = 'Approved';
+      requestToUpdate.markModified('status');
+      await requestToUpdate.save();
+    }
+
+
+
+    //  return the updated document
+    res.status(201).send(requestToUpdate)
+
+  },
+
+  denyRequest: async (req, res) => {
+    res.send(`TODO API Deny: ${JSON.stringify(req.params)} ${JSON.stringify(req.query)} ${req.path}`)
+  }
 }

@@ -3,7 +3,7 @@ import { Table } from 'reactstrap';
 import DisplayItem from './DisplayItem';
 
 const ItemList = ({ items, deleteItem }) => {
-  console.log(items)
+
   return (
     <div>
       <Table size="sm" striped responsive>
@@ -29,6 +29,9 @@ const ItemList = ({ items, deleteItem }) => {
               </tr>
             )
           })
+        }
+        {
+          items.length < 1 && <tr><td>No Items...</td></tr>
         }
       </tbody>
       </Table>

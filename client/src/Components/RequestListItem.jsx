@@ -3,6 +3,7 @@ import { Button } from 'reactstrap';
 import _ from 'lodash'
 
 import { format } from 'date-fns'
+import { Link } from 'react-router-dom';
 
 
 const RequestListItem = ({ request, idx }) => {
@@ -17,6 +18,8 @@ const RequestListItem = ({ request, idx }) => {
     })
   };
 
+  console.log(request._id)
+
   return (
     <tr>
       <td>{(idx + 1)}</td>
@@ -28,7 +31,7 @@ const RequestListItem = ({ request, idx }) => {
       <td>{getNextApprover(request).email}</td>
       <td>{request.vendor.name}</td>
       <td>{request.submittedFor.firstName}</td>
-      <td><Button onClick={() => console.log('hello')} color="link" style={{ float: 'none' }}>View</Button></td>
+      <td><Button tag={Link} to={`/purchasing/view/${request._id}`} color="link" style={{ float: 'none' }}>View</Button></td>
     </tr>
   )
 };
