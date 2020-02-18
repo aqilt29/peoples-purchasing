@@ -38,6 +38,16 @@ const worker = Consumer.create({
       return
     }
 
+    if (Body === 'sendApprovalNotifications') {
+      console.log(Body)
+      return
+    }
+
+    if (Body === 'sendDeniedNotifications') {
+      console.log(Body)
+      return
+    }
+
     console.log('no match for message')
     return
   },

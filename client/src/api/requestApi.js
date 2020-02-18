@@ -2,7 +2,8 @@ import axios from 'axios';
 
 const apiPath = process.env.NODE_ENV === 'development' ? 'http://localhost:5400/api/requests' : null;
 
-export const createNewRequest = async ({ shipTo, billTo, entity, businessUnit, ...data}) => {
+export const createNewRequest = async ({ shipTo, billTo, entity, businessUnit, submittedFor, ...data}) => {
+
   const postData = {
     address: {
       shipTo,
@@ -12,6 +13,7 @@ export const createNewRequest = async ({ shipTo, billTo, entity, businessUnit, .
       name: entity,
       businessUnit,
     },
+    submittedFor: submittedFor.length > 1 ? submittedFor : undefined,
     ...data
   }
   console.log('->>> post data',postData)

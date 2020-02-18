@@ -2,9 +2,12 @@ import React from 'react';
 import { Col, Row } from 'reactstrap';
 import ItemList from './ItemList';
 import { GoldButton } from '../../Styles';
+import { useAuth0 } from '../../react-auth0-spa';
 
 const RequestReview = ({ submitNewForm, ...props}) => {
   console.log(props.listOfVendors)
+
+  const { dbUser } = useAuth0();
 
   const findNameById = (list, _id, type) => {
     return list.find(item => item._id === _id)[type]
@@ -20,7 +23,7 @@ const RequestReview = ({ submitNewForm, ...props}) => {
           <h6>Ship To Address:</h6>
           <p>{props.shipTo}</p>
           <h6>Submitted on Behalf of:</h6>
-          <p>{findNameById(props.listOfUsers, props.submittedFor, 'email')}</p>
+          <p>{props.submittedFor ? findNameById(props.listOfUsers, props.submittedFor, 'email') : dbUser.email}</p>
           <h6>Business Justification:</h6>
           <p>{props.businessNeed}</p>
         </Col>
