@@ -44,6 +44,7 @@ const PurchasingView = () => {
   return (
     <>
       <h3>Purchase Request Details</h3>
+      <h4>Id: {requestData._id.slice(-6).toUpperCase()}</h4>
       <Container>
         <Row>
         <Col>
