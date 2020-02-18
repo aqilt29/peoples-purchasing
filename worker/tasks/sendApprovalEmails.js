@@ -44,7 +44,7 @@ const sendApprovalEmails = async ({ MessageAttributes: { documentId: { StringVal
           to: data.approverList[i].email, // list of receivers
           subject: "Purchase Requisition Approval", // Subject line
           // text: JSON.stringify(data), // plain text body
-          // html: "<button>Collect Prize!</button>" // html body
+          html: `<a href="http://localhost:9000/purchasing/view/5e4b247b6408a213e24340be/5e4b247b6408a213e24340c0">Click Here to View Request</a>` // html body
         });
 
         console.log(data.approverList[i].isSent, "before")
