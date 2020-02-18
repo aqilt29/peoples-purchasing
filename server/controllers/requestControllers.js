@@ -158,7 +158,7 @@ module.exports = {
           console.log('attempting to contact queue')
           await sqs.sendMessage(queueParams(`sendApprovalEmails`, id)).promise()
         } catch (error) {
-          return res.status(404).json(error)
+          return res.status(500).json(error)
         }
         break;
       }
@@ -179,6 +179,15 @@ module.exports = {
   },
 
   denyRequest: async (req, res) => {
+    const { params: { id } } = req
+    console.log('id', id)
+
+    try {
+      await sqs.sendMessage(queueParams(`sendDeniedNotifications`, id)).promise()
+    } catch (error) {
+      res.status(500).send(error)
+    }
+
     res.send(`TODO API Deny: ${JSON.stringify(req.params)} ${JSON.stringify(req.query)} ${req.path}`)
   }
 }
