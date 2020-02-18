@@ -53,6 +53,10 @@ const sendDeniedNotifications = async ({ MessageAttributes: { documentId: { Stri
   emailAddresses.push(deniedRequest.user.email)
   emailAddresses.push(deniedRequest.submittedFor.email)
 
+  deniedRequest.status = 'Denied';
+  deniedRequest.markModified('status');
+  deniedRequest.save();
+
   await transporter.sendMail({
     from: { name: "PMCOC PR Approvals", address:'scanner@pmcoc.com' }, // sender address
     to:  _.uniq(emailAddresses), // list of receivers
@@ -60,6 +64,7 @@ const sendDeniedNotifications = async ({ MessageAttributes: { documentId: { Stri
     // text: JSON.stringify(data), // plain text body
     html: `<a href="${hostName}/purchasing/view/${id}">Click Here to View Denied Request</a>` // html body
   });
+
 
 
 };

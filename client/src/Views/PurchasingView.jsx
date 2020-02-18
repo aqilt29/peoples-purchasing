@@ -40,7 +40,7 @@ const PurchasingView = () => {
   if (isLoading || !requestData) return <Loading />
   if (requestData.status === 'Approved') alertColor = 'success'
   if (requestData.status === 'Denied') alertColor = 'danger'
-
+  console.log(alertColor)
   return (
     <>
       <h3>Purchase Request Details</h3>
@@ -67,7 +67,7 @@ const PurchasingView = () => {
           <h6>Date Requested:</h6>
           <p>{format(new Date(requestData.dateRequested), 'MM/dd/yyyy')}</p>
           <h6>Request Status:</h6>
-          <Alert color="warning">{requestData.status}</Alert>
+          <Alert color={alertColor}>{requestData.status}</Alert>
         </Col>
         </Row>
         <hr />
@@ -91,7 +91,7 @@ const PurchasingView = () => {
               <h6>Approve Request</h6>
               <Button onClick={() => approveRequest(requestData._id, email, approverId)} color="success">Approve</Button>
               {" "}
-              <Button color={alertColor}>Deny</Button>
+              <Button>Deny</Button>
             </Col> )
           }
         </Row>
