@@ -1,5 +1,6 @@
 import React from 'react';
 import { Col, Row } from 'reactstrap';
+import { listOfBuyers } from '../../utils/lists'
 import ItemList from './ItemList';
 import { GoldButton } from '../../Styles';
 import { useAuth0 } from '../../react-auth0-spa';
@@ -29,7 +30,7 @@ const RequestReview = ({ submitNewForm, ...props}) => {
         </Col>
         <Col>
           <h6>Buyer Submitting order:</h6>
-          <p>{findNameById(props.listOfUsers, props.buyer, 'email')}</p>
+          <p>{props.buyer}</p>
           <h6>Invoice Total Estimate:</h6>
           <p>${props.invoiceTotal}</p>
           <h6>Payment Terms:</h6>

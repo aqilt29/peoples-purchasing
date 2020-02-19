@@ -21,7 +21,7 @@ const { Consumer } = require('sqs-consumer');
 const connectdb = require('../db/index');
 const sendApprovalEmails = require('./tasks/sendApprovalEmails');
 const sendDeniedNotifications = require('./tasks/sendDeniedNotificationEmails');
-
+const sendApprovalNotifications = require('./tasks/sendApprovalNotificationEmails')
 //  configure aws sdk with credentials for user
 aws.config.loadFromPath(path.resolve(__dirname, '../aws_config.json'));
 
@@ -39,7 +39,7 @@ const worker = Consumer.create({
     }
 
     if (Body === 'sendApprovalNotifications') {
-      console.log(Body)
+      await sendApprovalNotifications(message)
       return
     }
 

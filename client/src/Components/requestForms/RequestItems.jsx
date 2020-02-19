@@ -69,7 +69,7 @@ const RequestItems = ({ addItem, incrementStep }) => {
         >
           <option value="">Select Unit of Measure...</option>
         {
-          listOfUnits.map((unit, idx) => <option key={idx} value={unit}>{unit}</option>)
+          listOfUnits.map(({ name, value }, idx) => <option key={idx} value={value}>{name}</option>)
         }
         </AvField>
         <AvField

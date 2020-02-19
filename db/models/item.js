@@ -2,13 +2,23 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const units = [
-  'ea',
-  'lbs',
-  'kg',
-  'g',
-  'ft',
-  'in',
-  'm',
+  'EA',
+  'LB',
+  'GM',
+  'MG',
+  'KG',
+  'ML',
+  'L',
+  'BOX',
+  'CS',
+  'PK',
+  'HR',
+  'BT',
+  'FT',
+  'RL',
+  'GL',
+  'M',
+  'DZ',
 ]
 
 const itemSchema = new Schema({

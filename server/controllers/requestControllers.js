@@ -169,6 +169,7 @@ module.exports = {
       requestToUpdate.status = 'Approved';
       requestToUpdate.markModified('status');
       await requestToUpdate.save();
+      await sqs.sendMessage(queueParams(`sendApprovalNotifications`, id)).promise()
     }
 
 
