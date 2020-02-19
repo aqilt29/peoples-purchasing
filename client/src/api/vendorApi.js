@@ -13,11 +13,19 @@ export const createVendor = async (vendorData) => {
    window.alert(error)
   }
 
-  return info.data || error;
+  return info.data || [];
 };
 
 export const deleteVendor = async (id) => {
+  let data;
 
+  try {
+    data = await axios.delete(`${apiPath}/${id}`)
+  } catch (error) {
+    window.alert(error)
+  }
+
+  return data.data || [];
 };
 
 export const getVendorList = async () => {
@@ -30,4 +38,28 @@ export const getVendorList = async () => {
   }
 
   return data.data || [];
+};
+
+export const getVendorById = async (id) => {
+  let data;
+
+  try {
+    data = await axios.get(`${apiPath}/${id}`)
+  } catch (error) {
+    window.alert(error)
+  }
+
+  return data.data || [];
+};
+
+export const modifyVendor = async (id, data) => {
+  let responseData;
+
+  try {
+    responseData = await axios.patch(`${apiPath}/${id}`, {...data})
+  } catch (error) {
+    window.alert(error)
+  }
+
+  return responseData.data || [];
 };

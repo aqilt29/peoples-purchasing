@@ -62,6 +62,15 @@ module.exports = {
   modifyVendor: async (req, res) => {
     const { body, params: { id } } = req;
 
+    console.log(body)
+
+    const vendorToChange = await Vendor.findById(id);
+
+    for (let key in body) {
+      vendorToChange[key] = body[key];
+      await vendorToChange.save()
+    }
+
     res.status(200).send({ body, id })
   },
 
