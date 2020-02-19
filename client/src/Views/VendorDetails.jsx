@@ -19,6 +19,12 @@ const VendorDetails = () => {
     window.location.reload()
   }
 
+  const modifyThisVendor = async (data = {}) => {
+    const modifiedData = await modifyVendor(id, data)
+    console.log('modifiedData',modifiedData)
+    window.location.reload()
+  };
+
   useEffect(() => {
     const fn = async () => {
       setLoading(true);

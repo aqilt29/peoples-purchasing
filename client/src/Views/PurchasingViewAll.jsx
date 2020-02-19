@@ -47,7 +47,7 @@ const PurchasingViewAll = () => {
               </thead>
               <tbody>
                 {
-                  requestData.map((request, idx) => {
+                  requestData.length > 0 && requestData.map((request, idx) => {
                     return <RequestListItem key={idx} idx={idx} request={request} />
                   })
                 }
