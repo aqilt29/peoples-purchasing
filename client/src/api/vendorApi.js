@@ -3,27 +3,22 @@ import axios from 'axios';
 
 const apiPath = process.env.NODE_ENV === 'development' ? 'http://localhost:5400/api/vendors' : null;
 
-export const createVendor = async ({ name, email, address, phoneNumber, website, attn, hasW9 }) => {
+export const createVendor = async (vendorData) => {
 
   let info = null;
 
   try {
-    info = await axios.post(`${apiPath}/`, {
-      name,
-      email,
-      address,
-      phoneNumber,
-      website,
-      attn,
-      hasW9,
-    })
+    info = await axios.post(`${apiPath}/`, { ...vendorData })
   } catch (error) {
    window.alert(error)
   }
 
-  return info.data || null;
+  return info.data || error;
 };
 
+export const deleteVendor = async (id) => {
+
+};
 
 export const getVendorList = async () => {
   let data;

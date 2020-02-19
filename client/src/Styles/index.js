@@ -2,3 +2,4 @@
 export * from './Buttons';
 export * from './Navigation';
 export * from './FooterStyles';
+export * from './customTags'

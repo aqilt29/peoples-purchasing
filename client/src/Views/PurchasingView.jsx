@@ -7,6 +7,7 @@ import Loading from '../Components/Loading';
 import { getRequestById, approveRequest, denyRequest } from '../api/requestApi';
 import { Container, Row, Col, Button, Alert } from 'reactstrap';
 import { useAuth0 } from '../react-auth0-spa';
+import { smallP } from '../Styles';
 
 const PurchasingView = () => {
   const { id, approverId = false } = useParams();
@@ -49,8 +50,19 @@ const PurchasingView = () => {
         <Row>
         <Col>
           <h6>Vendor:</h6>
-          <p>Name: {requestData.vendor.name}</p>
-          <p>Address: {requestData.vendor.address}</p>
+          <div className="mb-2">
+            <div><h6>Name:</h6></div>
+            <smallP>{requestData.vendor.name}</smallP>
+            <div><h6>Address:</h6></div>
+            <span>
+              <smallP>{requestData.vendor.address.street}</smallP>
+            </span>
+            <div>
+              <smallP>{requestData.vendor.address.city}</smallP>
+              <smallP>, {requestData.vendor.address.state}</smallP>
+              <smallP> {requestData.vendor.address.zipCode}</smallP>
+            </div>
+          </div>
           <h6>Ship To Address:</h6>
           <p>{requestData.address.shipTo}</p>
           <h6>Submitted on Behalf of:</h6>

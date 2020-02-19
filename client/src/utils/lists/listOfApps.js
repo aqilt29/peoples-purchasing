@@ -39,9 +39,25 @@ export const listOfPurchasingApps = [
     subtitle: 'View outstanding requests and their statuses.',
     link: '/viewforms',
   },
+];
+
+export const listOfAdminPurchasingApps = [
   {
     title: 'Manage Vendors',
     subtitle: 'View and manage vendors for purchasing here',
-    link: '/vendorlist',
+    link: '/vendors',
   },
 ];
+
+export const listOfVendorApps = [
+  {
+    title: 'Add Vendors',
+    subtitle: 'Add new vendors',
+    link: '/add',
+  },
+  {
+    title: 'View All Vendors',
+    subtitle: 'View a list of all vendors',
+    link: '/viewall',
+  },
+]

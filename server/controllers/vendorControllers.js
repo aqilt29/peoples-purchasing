@@ -44,9 +44,50 @@ module.exports = {
     res.status(200).send(vendorData)
   },
 
-  getVendorById: async (req, res) => {},
+  getVendorById: async (req, res) => {
+    const { params: { id } } = req;
 
-  modifyVendor: async (req, res) => {},
+    let vendorData;
+
+    try {
+      console.log('trying to fetch vendor')
+      vendorData = await Vendor.findById(id);
+    } catch (error) {
+      return res.status(500).send(error);
+    }
+
+    res.status(200).send(vendorData)
+  },
+
+  modifyVendor: async (req, res) => {
+    const { body, params: { id } } = req;
+
+    res.status(200).send({ body, id })
+  },
 
   searchVendors: async (req, res) => {},
+
+  deleteVendor: async (req, res) => {
+    const { params: { id } } = req;
+    let vendorData;
+
+    try {
+      console.log('trying to fetch vendor for deletion')
+      vendorData = await Vendor.findById(id);
+    } catch (error) {
+      return res.status(500).send(error);
+    }
+
+    vendorData.isDeleted = true;
+    vendorData.markModified('isDeleted');
+
+    try {
+      console.log('trying to save vendor as deleted')
+      await vendorData.save()
+    } catch (error) {
+      return res.status(500).send(error);
+    }
+
+    res.status(201).send(vendorData)
+  },
 }
