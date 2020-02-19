@@ -16,6 +16,9 @@ export const createVendor = async (vendorData) => {
   return info.data || error;
 };
 
+export const deleteVendor = async (id) => {
+
+};
 
 export const getVendorList = async () => {
   let data;

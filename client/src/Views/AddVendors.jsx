@@ -46,6 +46,12 @@ const AddVendors = () => {
                 type="text"
                 placeholder="www.Vendor.com..."
               />
+              <AvField
+                label="Point of Contact"
+                name="attn"
+                type="text"
+                placeholder="Jack Herrer..."
+              />
               <div className="mb-5">
                 <AvGroup check>
                   <Label check>
