@@ -27,8 +27,8 @@ const requestSchema = new Schema({
     type: Schema.Types.ObjectId, ref: 'User', required: true,
     default: function() {
       if (!this.submittedFor) {
-        console.log('default submitted for');
-        return this.user;
+        console.log('default submitted for', this.user._id);
+        return this.user._id;
       }
       return null;
     }
@@ -50,6 +50,15 @@ const requestSchema = new Schema({
   items: [itemSchema],
 });
 
+
+// requestSchema.pre('validate', { document: true }, async function() {
+//   if (!this.submittedFor) {
+//     const userId = this.user
+
+//     // this.submittedFor = userId;
+//     console.log(userId, 'in pre validate submitted for')
+//   }
+// })
 
 
 

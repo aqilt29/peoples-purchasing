@@ -23,6 +23,7 @@ const RequestListItem = ({ request, idx }) => {
   return (
     <tr>
       <td>{(idx + 1)}</td>
+      <td>{request._id.slice(-4).toUpperCase()}</td>
       <td>{request.status}</td>
       <td>{request.businessNeed}</td>
       <td>{format(new Date(request.dateRequested), 'MM/dd/yyyy')}</td>

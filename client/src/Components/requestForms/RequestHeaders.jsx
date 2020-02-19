@@ -1,6 +1,6 @@
 import React from 'react';
 import { AvField, AvForm } from 'availity-reactstrap-validation'
-import { listOfEntities, listOfPaymentTerms, listOfShippingAddresses } from '../../utils/lists';
+import { listOfEntities, listOfPaymentTerms, listOfShippingAddresses, listOfBuyers } from '../../utils/lists';
 import { BlueButton } from '../../Styles'
 
 const RequestHeaders = ({ handleEntityChange, listOfVendors, handleChange, listOfUsers, ...props }) => {
@@ -30,7 +30,7 @@ const RequestHeaders = ({ handleEntityChange, listOfVendors, handleChange, listO
         >
           <option value="">Select A User...</option>
           {
-            listOfUsers.map((user) => <option value={user._id}>{user.firstName} {user.lastName}</option>)
+            listOfBuyers.map(({ name, value }) => <option value={value}>{name}</option>)
           }
         </AvField>
         <AvField

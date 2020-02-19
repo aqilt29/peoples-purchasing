@@ -4,8 +4,8 @@ import ItemList from '../Components/requestForms/ItemList'
 import { format } from 'date-fns';
 
 import Loading from '../Components/Loading';
-import { getRequestById, approveRequest } from '../api/requestApi';
-import { Container, Row, Col, Button } from 'reactstrap';
+import { getRequestById, approveRequest, denyRequest } from '../api/requestApi';
+import { Container, Row, Col, Button, Alert } from 'reactstrap';
 import { useAuth0 } from '../react-auth0-spa';
 
 const PurchasingView = () => {
@@ -13,6 +13,7 @@ const PurchasingView = () => {
   console.log(approverId)
   const { dbUser: { email } } = useAuth0()
 
+  let alertColor = 'warning'
   const [isLoading, setLoading] = useState(false);
   const [requestData, setData] = useState(false)
   const [approverView, setApproverView] = useState(false)
@@ -37,10 +38,13 @@ const PurchasingView = () => {
   }, [])
 
   if (isLoading || !requestData) return <Loading />
-
+  if (requestData.status === 'Approved') alertColor = 'success'
+  if (requestData.status === 'Denied') alertColor = 'danger'
+  console.log(alertColor)
   return (
     <>
       <h3>Purchase Request Details</h3>
+      <h4>Id: {requestData._id.slice(-4).toUpperCase()}</h4>
       <Container>
         <Row>
         <Col>
@@ -63,6 +67,8 @@ const PurchasingView = () => {
           <p>{requestData.paymentTerms}</p>
           <h6>Date Requested:</h6>
           <p>{format(new Date(requestData.dateRequested), 'MM/dd/yyyy')}</p>
+          <h6>Request Status:</h6>
+          <Alert color={alertColor}>{requestData.status}</Alert>
         </Col>
         </Row>
         <hr />
@@ -86,7 +92,7 @@ const PurchasingView = () => {
               <h6>Approve Request</h6>
               <Button onClick={() => approveRequest(requestData._id, email, approverId)} color="success">Approve</Button>
               {" "}
-              <Button color="danger">Deny</Button>
+              <Button onClick={() => denyRequest(requestData._id, email, approverId)} color="danger">Deny</Button>
             </Col> )
           }
         </Row>

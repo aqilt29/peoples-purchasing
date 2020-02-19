@@ -33,6 +33,7 @@ const PurchasingViewAll = () => {
               <thead >
                 <tr>
                   <th>#</th>
+                  <th>ID</th>
                   <th>Status</th>
                   <th>Business Need</th>
                   <th>Date</th>
