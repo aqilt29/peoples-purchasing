@@ -1,21 +1,35 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Container, Row, Col, Label } from 'reactstrap';
 import { AvForm, AvField, AvGroup, AvInput } from 'availity-reactstrap-validation';
 import { GoldButton } from '../Styles'
+import Loading from '../Components/Loading';
+import { createVendor } from '../api/vendorApi'
 
 const AddVendors = () => {
 
   const [newVendor, setNewVendor] = useState(null);
+  const formRef = useRef(null)
 
-  const submitVendor = async () => {
+  const submitVendor = async (_, data) => {
+    console.log(data)
     //  submit a new vendor using api
+    let response;
+
+    try {
+      response = await createVendor(data)
+      setNewVendor(response)
+    } catch (error) {
+      window.alert(error)
+    }
+
+    formRef.current.reset()
   }
 
   return (
     <>
       <h3>Add New Vendors</h3>
       <Container>
-        <AvForm onValidSubmit={console.log}>
+        <AvForm onValidSubmit={submitVendor} ref={formRef}>
           <h6>Vendor Info</h6>
           <Row>
             <Col>
@@ -113,6 +127,13 @@ const AddVendors = () => {
         <Row>
           <Col>
             <h6>Success Data</h6>
+            {
+              newVendor && (
+                <div>
+                  Values: <pre>{JSON.stringify(newVendor, null, 2)}</pre>
+                </div>
+              )
+            }
           </Col>
         </Row>
       </Container>
