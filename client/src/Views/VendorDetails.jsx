@@ -1,0 +1,1 @@
+// view for seeing individual vendors details

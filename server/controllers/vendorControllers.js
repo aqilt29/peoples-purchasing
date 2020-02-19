@@ -49,4 +49,28 @@ module.exports = {
   modifyVendor: async (req, res) => {},
 
   searchVendors: async (req, res) => {},
+
+  deleteVendor: async (req, res) => {
+    const { params: { id } } = req;
+    let vendorData;
+
+    try {
+      console.log('trying to fetch vendor for deletion')
+      vendorData = await Vendor.findById(id);
+    } catch (error) {
+      return res.status(500).send(error);
+    }
+
+    vendorData.isDeleted = true;
+    vendorData.markModified('isDeleted');
+
+    try {
+      console.log('trying to save vendor as deleted')
+      await vendorData.save()
+    } catch (error) {
+      return res.status(500).send(error);
+    }
+
+    res.status(201).send(vendorData)
+  },
 }
