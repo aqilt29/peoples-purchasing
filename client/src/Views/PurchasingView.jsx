@@ -92,7 +92,7 @@ const PurchasingView = () => {
               <h6>Approve Request</h6>
               <Button onClick={() => approveRequest(requestData._id, email, approverId)} color="success">Approve</Button>
               {" "}
-              <Button>Deny</Button>
+              <Button color="danger">Deny</Button>
             </Col> )
           }
         </Row>

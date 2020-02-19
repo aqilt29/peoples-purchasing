@@ -38,13 +38,16 @@ const sendApprovalEmails = async ({ MessageAttributes: { documentId: { StringVal
     //  find in the approval list for the next approver
     if (!data.approverList[i].isSent) {
       try {
+
+        //  get the id for the approver subdoc
+        const approverId = data.approverList[i]._id
         // send mail with defined transport object
         await transporter.sendMail({
           from: { name: "PMCOC PR Approvals", address:'scanner@pmcoc.com' }, // sender address
           to: data.approverList[i].email, // list of receivers
           subject: "Purchase Requisition Approval", // Subject line
           // text: JSON.stringify(data), // plain text body
-          html: `<a href="${hostName}/purchasing/view/5e4b247b6408a213e24340be/5e4b247b6408a213e24340c0">Click Here to View Request</a>` // html body
+          html: `<a href="${hostName}/purchasing/view/${id}/${approverId}">Click Here to View Request</a>` // html body
         });
 
         console.log(data.approverList[i].isSent, "before")
