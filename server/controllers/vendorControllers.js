@@ -44,7 +44,20 @@ module.exports = {
     res.status(200).send(vendorData)
   },
 
-  getVendorById: async (req, res) => {},
+  getVendorById: async (req, res) => {
+    const { params: { id } } = req;
+
+    let vendorData;
+
+    try {
+      console.log('trying to fetch vendor')
+      vendorData = await Vendor.findById(id);
+    } catch (error) {
+      return res.status(500).send(error);
+    }
+
+    res.status(200).send(vendorData)
+  },
 
   modifyVendor: async (req, res) => {},
 
