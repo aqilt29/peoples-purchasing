@@ -3,25 +3,21 @@ import React, { useState, useEffect } from 'react';
 import { useRouteMatch } from 'react-router-dom'
 import Loading from '../Components/Loading';
 import { getVendorById, deleteVendor, modifyVendor } from '../api/vendorApi';
-import { Container, Row, Col, Button } from 'reactstrap';
+import { Container, Row, Col, Button, ButtonToggle } from 'reactstrap';
 import { SmallP } from '../Styles'
+import ModifyVendorForm from '../Components/ModifyVendorForm';
 
 const VendorDetails = () => {
   const { params: { id } } = useRouteMatch();
   const [vendor, setVendor] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [modify, setModify] = useState(false)
 
   const deleteThisVendor = async () => {
     const data = await deleteVendor(id)
     console.log(data)
     window.location.reload()
   }
-
-  const modifyThisVendor = async (data = {}) => {
-    const modifiedData = await modifyVendor(id, data)
-    console.log('modifiedData',modifiedData)
-    window.location.reload()
-  };
 
   useEffect(() => {
     const fn = async () => {
@@ -86,8 +82,19 @@ const VendorDetails = () => {
                 <Button color="success" onClick={() => modifyThisVendor({ isDeleted: false })}>Restore Vendor</Button>
               ) : (<Button onClick={deleteThisVendor} color="danger">Delete Vendor</Button>)
             }
+            {" "}
+            {
+              vendor.isDeleted ? null : (<ButtonToggle onClick={() => setModify(!modify)} color="primary">Modify Vendor</ButtonToggle>)
+            }
           </Col>
         </Row>
+        <hr/>
+        {
+          modify && ( <>
+              <h6>Modify Vendor Attribute:</h6>
+              <ModifyVendorForm id={id}/>
+          </>)
+        }
       </Container>
     </>)
   );

@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Container, Row, Col, Label } from 'reactstrap';
 import { AvForm, AvField, AvGroup, AvInput } from 'availity-reactstrap-validation';
 import { GoldButton } from '../Styles'
-import Loading from '../Components/Loading';
 import { createVendor } from '../api/vendorApi'
 
 const AddVendors = () => {
