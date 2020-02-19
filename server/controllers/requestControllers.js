@@ -179,8 +179,21 @@ module.exports = {
   },
 
   denyRequest: async (req, res) => {
-    const { params: { id } } = req
-    console.log('id', id)
+    const { params: { id }, body: { params: { email, approverId } } } = req
+    console.log('id', id, 'email', email, 'approverId', approverId)
+
+    const requestToUpdate = await Request.findById(id)
+
+    if (requestToUpdate.status === 'Denied') {
+      return res.status(203).send('already denied')
+    }
+
+    //  update the approval property on the list
+    requestToUpdate.approverList.id(approverId).isApproved = false,
+
+    //  save the document
+    requestToUpdate.markModified('approverList')
+    await requestToUpdate.save()
 
     try {
       await sqs.sendMessage(queueParams(`sendDeniedNotifications`, id)).promise()
@@ -188,6 +201,6 @@ module.exports = {
       res.status(500).send(error)
     }
 
-    res.send(`TODO API Deny: ${JSON.stringify(req.params)} ${JSON.stringify(req.query)} ${req.path}`)
+    res.status(201).send(requestToUpdate)
   }
 }

@@ -4,7 +4,7 @@ import ItemList from '../Components/requestForms/ItemList'
 import { format } from 'date-fns';
 
 import Loading from '../Components/Loading';
-import { getRequestById, approveRequest } from '../api/requestApi';
+import { getRequestById, approveRequest, denyRequest } from '../api/requestApi';
 import { Container, Row, Col, Button, Alert } from 'reactstrap';
 import { useAuth0 } from '../react-auth0-spa';
 
@@ -92,7 +92,7 @@ const PurchasingView = () => {
               <h6>Approve Request</h6>
               <Button onClick={() => approveRequest(requestData._id, email, approverId)} color="success">Approve</Button>
               {" "}
-              <Button color="danger">Deny</Button>
+              <Button onClick={() => denyRequest(requestData._id, email, approverId)} color="danger">Deny</Button>
             </Col> )
           }
         </Row>
