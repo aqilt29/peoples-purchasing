@@ -8,11 +8,8 @@ router
   .get(controller.getAllVendors);
 
 router
-  .route('/delete/:id')
-  .post(controller.deleteVendor)
-
-router
   .route('/:id')
+  .delete(controller.deleteVendor)
   .get(controller.getVendorById)
   .patch(controller.modifyVendor);
 
