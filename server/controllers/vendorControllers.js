@@ -59,7 +59,11 @@ module.exports = {
     res.status(200).send(vendorData)
   },
 
-  modifyVendor: async (req, res) => {},
+  modifyVendor: async (req, res) => {
+    const { body, params: { id } } = req;
+
+    res.status(200).send({ body, id })
+  },
 
   searchVendors: async (req, res) => {},
 
