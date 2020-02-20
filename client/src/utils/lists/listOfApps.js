@@ -30,12 +30,12 @@ export const listOfUserApps = [
 
 export const listOfPurchasingApps = [
   {
-    title: 'New Request',
+    title: 'Create New Purchase Requisition',
     subtitle: 'Submit new purchase request to follow approval workflows.',
     link: '/createform',
   },
   {
-    title: 'Outstanding Requests',
+    title: 'Pending PR Approval',
     subtitle: 'View outstanding requests and their statuses.',
     link: '/viewforms',
   },
@@ -46,6 +46,11 @@ export const listOfAdminPurchasingApps = [
     title: 'Manage Vendors',
     subtitle: 'View and manage vendors for purchasing here',
     link: '/vendors',
+  },
+  {
+    title: 'Purchase Orders',
+    subtitle: 'View and manage purchase orders.',
+    link: '/purchaseorders',
   },
 ];
 

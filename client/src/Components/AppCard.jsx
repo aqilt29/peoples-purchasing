@@ -3,6 +3,7 @@ import {
   Card, CardImg, CardText, CardBody, Col, Row,
 } from 'reactstrap';
 import { Link, useRouteMatch } from 'react-router-dom';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { BlueButton } from '../Styles';
 
@@ -18,6 +19,7 @@ const AppCard = ({ title, subtitle, link }) => {
           <CardText>{subtitle}</CardText>
           <BlueButton tag={Link} to={`${url}${link}`}>ENTER</BlueButton>
         </CardBody>
+        {/* <FontAwesomeIcon icon="link" /> */}
       </Card>
     </>
   );
