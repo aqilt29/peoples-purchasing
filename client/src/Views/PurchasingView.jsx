@@ -7,7 +7,7 @@ import Loading from '../Components/Loading';
 import { getRequestById, approveRequest, denyRequest } from '../api/requestApi';
 import { Container, Row, Col, Button, Alert } from 'reactstrap';
 import { useAuth0 } from '../react-auth0-spa';
-import { smallP } from '../Styles';
+import { SmallP } from '../Styles';
 
 const PurchasingView = () => {
   const { id, approverId = false } = useParams();
@@ -52,15 +52,15 @@ const PurchasingView = () => {
           <h6>Vendor:</h6>
           <div className="mb-2">
             <div><h6>Name:</h6></div>
-            <smallP>{requestData.vendor.name}</smallP>
+            <SmallP>{requestData.vendor.name}</SmallP>
             <div><h6>Address:</h6></div>
             <span>
-              <smallP>{requestData.vendor.address.street}</smallP>
+              <SmallP>{requestData.vendor.address.street}</SmallP>
             </span>
             <div>
-              <smallP>{requestData.vendor.address.city}</smallP>
-              <smallP>, {requestData.vendor.address.state}</smallP>
-              <smallP> {requestData.vendor.address.zipCode}</smallP>
+              <SmallP>{requestData.vendor.address.city}</SmallP>
+              <SmallP>, {requestData.vendor.address.state}</SmallP>
+              <SmallP> {requestData.vendor.address.zipCode}</SmallP>
             </div>
           </div>
           <h6>Ship To Address:</h6>

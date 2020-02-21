@@ -30,13 +30,18 @@ export const listOfUserApps = [
 
 export const listOfPurchasingApps = [
   {
-    title: 'New Request',
+    title: 'Create New Purchase Requisition',
     subtitle: 'Submit new purchase request to follow approval workflows.',
     link: '/createform',
   },
   {
-    title: 'Outstanding Requests',
+    title: 'My Pending PRs',
     subtitle: 'View outstanding requests and their statuses.',
+    link: '/viewforms',
+  },
+  {
+    title: 'My Approved PRs',
+    subtitle: 'View approved purchase requisitions',
     link: '/viewforms',
   },
 ];
@@ -44,8 +49,18 @@ export const listOfPurchasingApps = [
 export const listOfAdminPurchasingApps = [
   {
     title: 'Manage Vendors',
-    subtitle: 'View and manage vendors for purchasing here',
+    subtitle: 'View and manage vendors for purchasing here.',
     link: '/vendors',
+  },
+  {
+    title: 'Purchase Orders',
+    subtitle: 'View and manage purchase orders.',
+    link: '/purchaseorders',
+  },
+  {
+    title: 'All PRs',
+    subtitle: 'View details of all the PRs submitted company wide.',
+    link: '/viewallrequests',
   },
 ];
 
@@ -61,3 +76,4 @@ export const listOfVendorApps = [
     link: '/viewall',
   },
 ]
+
