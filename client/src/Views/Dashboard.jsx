@@ -4,6 +4,9 @@ import AppCard from '../Components/AppCard';
 import { useAuth0 } from '../react-auth0-spa';
 import { listOfApps, listOfAdminApps } from '../utils/lists';
 
+import { userPermissions } from '../utils/userPermissions';
+
+console.log(userPermissions)
 
 const Dashboard = () => {
   const { dbUser: { role } } = useAuth0();
