@@ -33,6 +33,15 @@ const PRCreatorApps = {
   ]
 }
 
+const purchaseCreatorAppsArray = [
+  {
+    title: 'Purchasing',
+    link: 'purchasing',
+    subtitle: 'Manage Purchasing',
+    apps: [...PRCreatorApps.purchasing]
+  }
+]
+
 
 const BuyerApps = {
   purchasing: [
@@ -112,3 +121,76 @@ export const userPermissions = {
   Accounting: {...AccountingApps},
   Admin: {...AdminApps},
 };
+
+
+export const userDashboardApps = {
+  User: [],
+  PRCreator: [
+    {
+      title: 'Purchasing',
+      subtitle: 'Manage Purchasing Related Tasks',
+      link: 'purchasing'
+    },
+    {
+      title: 'Vendors',
+      subtitle: 'Manage Vendor Related Information',
+      link: 'vendors'
+    }
+  ],
+  Buyer: [
+    {
+      title: 'Purchasing',
+      subtitle: 'Manage Purchasing Related Tasks',
+      link: 'purchasing'
+    },
+    {
+      title: 'Vendors',
+      subtitle: 'Manage Vendor Related Information',
+      link: 'vendors'
+    },
+    {
+      title: 'Purchase Orders',
+      subtitle: 'Manage Your/Company Purchase Orders Here',
+      link: 'purchaseorders'
+    },
+  ],
+  Accounting: [
+    {
+      title: 'Purchasing',
+      subtitle: 'Manage Purchasing Related Tasks',
+      link: 'purchasing'
+    },
+    {
+      title: 'Vendors',
+      subtitle: 'Manage Vendor Related Information',
+      link: 'vendors'
+    },
+    {
+      title: 'Purchase Orders',
+      subtitle: 'Manage Your/Company Purchase Orders Here',
+      link: 'purchaseorders'
+    },
+  ],
+  Admin: [
+    {
+      title: 'Purchasing',
+      subtitle: 'Manage Purchasing Related Tasks',
+      link: 'purchasing'
+    },
+    {
+      title: 'Vendors',
+      subtitle: 'Manage Vendor Related Information',
+      link: 'vendors'
+    },
+    {
+      title: 'Purchase Orders',
+      subtitle: 'Manage Your/Company Purchase Orders Here',
+      link: 'purchaseorders'
+    },
+    {
+      title: 'Users',
+      subtitle: 'Manage App Users Here',
+      link: 'users'
+    },
+  ],
+}
