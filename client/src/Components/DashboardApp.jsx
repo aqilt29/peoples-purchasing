@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { BlueButton } from '../Styles';
 
-const AppCard = ({ title, subtitle, link }) => {
+const DashboardApp = ({ title }) => {
   let { url } = useRouteMatch()
   if (url === '/') url = '';
 
@@ -13,9 +13,9 @@ const AppCard = ({ title, subtitle, link }) => {
     <>
       <Card>
         <CardBody>
-          <h5>{title}</h5>
-          <CardText>{subtitle}</CardText>
-          <BlueButton tag={Link} to={`${url}${link}`}>ENTER</BlueButton>
+          <h5>{title.toUpperCase()}</h5>
+          {/* <CardText>{subtitle}</CardText> */}
+          <BlueButton tag={Link} to={`${url}${title}`}>ENTER</BlueButton>
         </CardBody>
         {/* <FontAwesomeIcon icon="link" /> */}
       </Card>
@@ -23,4 +23,4 @@ const AppCard = ({ title, subtitle, link }) => {
   );
 };
 
-export default AppCard;
+export default DashboardApp;

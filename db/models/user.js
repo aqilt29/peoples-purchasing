@@ -4,11 +4,12 @@ const listOfEntities = require('./utils/listOfEntities');
 // const mongoose_fuzzy_searching = require('mongoose-fuzzy-searching')
 
 const roleTypes = [
-  'Employee',
-  'Manager',
+  'User',
   'Admin',
-  'Director',
   'Accounting',
+  'PRCreator',
+  'Buyer',
+  'Manager',
 ];
 
 const costCenters = [
@@ -40,7 +41,7 @@ const userSchema = new Schema({
   },
   role: {
     type: String,
-    default: 'Employee',
+    default: 'PRCreator',
     required: true,
     enum: roleTypes,
   },

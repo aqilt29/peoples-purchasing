@@ -1,12 +1,16 @@
-import React, { useState } from 'react';
-import { Container, CardGroup, CardColumns, CardDeck, Col } from 'reactstrap';
+import React from 'react';
+import { Container, CardColumns } from 'reactstrap';
 import AppCard from '../Components/AppCard';
 import { useAuth0 } from '../react-auth0-spa';
-import { listOfApps, listOfAdminApps } from '../utils/lists';
 
+import { userDashboardApps } from '../utils/userPermissions';
+
+console.log(userDashboardApps);
 
 const Dashboard = () => {
   const { dbUser: { role } } = useAuth0();
+
+  console.log(userDashboardApps[role]);
 
   return (
     <Container>
@@ -14,13 +18,8 @@ const Dashboard = () => {
       <div>
       <CardColumns>
         {
-          role === 'Admin' ? listOfAdminApps.map((app, idx) => {
-            return <AppCard {...app} key={`${idx}`}/>
-          }) : null
-        }
-        {
-          listOfApps.map((app, idx) => {
-            return <AppCard {...app} key={`${idx}`}/>
+          userDashboardApps[role].map((app, idx) => {
+            return <AppCard {...app} key={`${idx}`} />
           })
         }
       </CardColumns>

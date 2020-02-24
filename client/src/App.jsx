@@ -55,18 +55,18 @@ const App = () => {
           <Switch>
             <Route path="/" exact render={(props) => <MainPageView {...props} user={user} />} />
             <PrivateRoute exact path="/profile" component={Profile} />
-            <AdminRoute exact path="/users" component={Users} />
+            <PrivateRoute exact path="/users" component={Users} />
             <PrivateRoute exact path="/users/viewall" component={UserList} />
             <PrivateRoute exact path="/users/create" component={UserCreation} />
             <PrivateRoute exact path="/purchasing" component={PurchasingApps} />
             <PrivateRoute exact path="/purchasing/view/:id/:approverId" component={PurchasingView} />
             <PrivateRoute exact path="/purchasing/view/:id" component={PurchasingView} />
             <PrivateRoute exact path="/purchasing/viewforms" component={PurchasingViewAll} />
-            <PrivateRoute exact path="/purchasing/vendors" component={VendorApps} />
-            <PrivateRoute exact path="/purchasing/vendors/add" component={AddVendors} />
-            <PrivateRoute exact path="/purchasing/vendors/viewall" component={VendorListView} />
-            <PrivateRoute exact path="/purchasing/vendors/details/:id" component={VendorDetails} />
             <PrivateRoute exact path="/purchasing/createform" render={(props) => <PurchasingCreateForm {...props} user={dbUser}/>} />
+            <PrivateRoute exact path="/vendors" component={VendorApps} />
+            <PrivateRoute exact path="/vendors/add" component={AddVendors} />
+            <PrivateRoute exact path="/vendors/viewall" component={VendorListView} />
+            <PrivateRoute exact path="/vendors/details/:id" component={VendorDetails} />
             <Route component={UnderConstruction}/>
           </Switch>
         </Container>
