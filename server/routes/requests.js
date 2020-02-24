@@ -13,6 +13,10 @@ router
   .post(controller.routeRequestForApproval);
 
 router
+  .route('/upload/:id')
+  .post(controller.uploadDocument);
+
+router
   .route('/approve/:id')
   .post(controller.approveRequest)
 

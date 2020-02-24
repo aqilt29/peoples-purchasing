@@ -235,5 +235,14 @@ module.exports = {
     }
 
     res.status(201).send(requestToUpdate)
-  }
+  },
+
+  uploadDocument: async (req, res) => {
+    //  lookup request based on id
+    //  receive file from the client
+    //  upload file to S3
+    //  add link under document.attachments.push(return url)
+    //  save
+    //  send document back to client
+  },
 }
