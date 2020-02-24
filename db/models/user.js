@@ -41,7 +41,7 @@ const userSchema = new Schema({
   },
   role: {
     type: String,
-    default: 'Employee',
+    default: 'PRCreator',
     required: true,
     enum: roleTypes,
   },

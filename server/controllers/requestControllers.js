@@ -109,18 +109,49 @@ module.exports = {
     }
 
     console.log('Document Saved!')
+
+    res.status(201).json(saveData);
+  },
+
+  routeRequestForApproval: async (req, res) => {
+    const { params: { id } } = req;
+
+    let requestToApprove;
+
+    //  try to lookup the document to route
+    try {
+      console.log(`looking up request with id: ${id}`)
+      requestToApprove = await Request.findById(id);
+
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ error, doc: id })
+
+    }
+
     //  try to send message to queue
     try {
       console.log('sending message to queue')
 
-      await sqs.sendMessage(queueParams(`sendApprovalEmails`, saveData.id)).promise()
+      await sqs.sendMessage(queueParams(`sendApprovalEmails`, id)).promise()
 
     } catch (error) {
-      return res.status(404).json({ error, doc: saveData.id })
+      return res.status(500).json({ error, doc: id })
 
     }
 
-    res.status(201).json(saveData);
+    //  try to update the request status to pending
+    try {
+      await requestToApprove.set('status', 'Pending');
+      await requestToApprove.save();
+
+    } catch (error) {
+      return res.status(500).json({ error, doc: id })
+
+    }
+
+
+    res.status(201).send(requestToApprove);
   },
 
   updateRequest: (req, res) => {
@@ -141,8 +172,9 @@ module.exports = {
       return res.status(203).send('already approved')
     }
 
-    //  update the approval property on the list
-    requestToUpdate.approverList.id(approverId).isApproved = true,
+    //  update the approval property on the list with timestamp
+    requestToUpdate.approverList.id(approverId).isApproved = true
+    requestToUpdate.approverList.id(approverId).set('dateApproved', Date.now())
 
     //  save the document
     requestToUpdate.markModified('approverList')

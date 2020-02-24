@@ -10,6 +10,7 @@ router
   .route('/:id')
   .get(controller.getRequestById)
   .put(controller.updateRequest)
+  .post(controller.routeRequestForApproval);
 
 router
   .route('/approve/:id')

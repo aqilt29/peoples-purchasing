@@ -4,10 +4,10 @@ import ItemList from '../Components/requestForms/ItemList'
 import { format } from 'date-fns';
 
 import Loading from '../Components/Loading';
-import { getRequestById, approveRequest, denyRequest } from '../api/requestApi';
+import { getRequestById, approveRequest, denyRequest, askForRequestApproval } from '../api/requestApi';
 import { Container, Row, Col, Button, Alert } from 'reactstrap';
 import { useAuth0 } from '../react-auth0-spa';
-import { SmallP } from '../Styles';
+import { SmallP, BlueButton } from '../Styles';
 
 const PurchasingView = () => {
   const { id, approverId = false } = useParams();
@@ -41,7 +41,16 @@ const PurchasingView = () => {
   if (isLoading || !requestData) return <Loading />
   if (requestData.status === 'Approved') alertColor = 'success'
   if (requestData.status === 'Denied') alertColor = 'danger'
-  console.log(alertColor)
+
+  const submitAskForApproval = async (requestId) => {
+    setLoading(true);
+
+    const data = await askForRequestApproval(requestId);
+    console.log(data);
+
+    setLoading(false);
+  };
+
   return (
     <>
       <h3>Purchase Request Details</h3>
@@ -81,6 +90,9 @@ const PurchasingView = () => {
           <p>{format(new Date(requestData.dateRequested), 'MM/dd/yyyy')}</p>
           <h6>Request Status:</h6>
           <Alert color={alertColor}>{requestData.status}</Alert>
+          {
+            requestData.status === 'Saved' ? <BlueButton onClick={() => submitAskForApproval(id)} >Send For Approval</BlueButton> : null
+          }
         </Col>
         </Row>
         <hr />
@@ -91,9 +103,9 @@ const PurchasingView = () => {
               requestData.approverList.map((approver, idx) => {
                 return (
                   <div key={idx}>
-                    <h7>{approver.email}</h7>{" "}
-                    <h7>{approver.isSent ? 'Email Sent' : 'Email Pending'}</h7>{" "}
-                    <h7>{approver.isApproved ? 'Approved' : 'Pending'}</h7>
+                    <SmallP>{approver.email}</SmallP>{" "}
+                    <SmallP>{approver.isSent ? 'Email Sent' : 'Email Pending'}</SmallP>{" "}
+                    <SmallP>{approver.isApproved ? 'Approved' : 'Approval Pending'}</SmallP>
                   </div>
                 )
               })

@@ -45,7 +45,7 @@ const RequestReview = ({ submitNewForm, ...props}) => {
       </Row>
       <Row>
       <Col sm="12" md={{ size: 6, offset: 4 }}>
-        <GoldButton onClick={submitNewForm}>Submit Purchase Requisition</GoldButton>
+        <GoldButton onClick={submitNewForm}>Save Purchase Requisition</GoldButton>
       </Col>
       </Row>
     </>

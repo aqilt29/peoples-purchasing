@@ -59,3 +59,12 @@ export const denyRequest = async (id, email, approverId) => {
   console.log(data)
   return data
 }
+
+export const askForRequestApproval = async (id) => {
+  console.log(id, '<--- in api ask for approval');
+
+  const { data } = await axios.post(`${apiPath}/${id}`)
+
+  console.log(data)
+  return data
+};

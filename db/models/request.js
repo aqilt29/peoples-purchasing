@@ -4,12 +4,13 @@ const Schema = mongoose.Schema;
 const itemSchema = require('./item');
 const selectApprovalOrder = require('./utils/selectApprovalOrder');
 
-const statuses = ['Pending', 'Approved', 'Denied', 'Error'];
+const statuses = ['Pending', 'Approved', 'Denied', 'Error', 'Saved'];
 
 const approverSchema = new Schema({
   email: String,
   isSent: Boolean,
   isApproved: Boolean,
+  dateApproved: Date,
 })
 
 const requestSchema = new Schema({
@@ -42,7 +43,7 @@ const requestSchema = new Schema({
   invoiceTotal: { type: Number, required: true },
   approverList: [{ type: approverSchema, required: true }],
   paymentTerms: { type: String, required: true },
-  status: { type: String, default: 'Pending', enum: statuses },
+  status: { type: String, default: 'Saved', enum: statuses },
   comments: String,
   buyer: { type: String, required: true, default: 'LReth@pmcoc.com' }, // email address of person placing order
   shipVia: String,
