@@ -49,6 +49,7 @@ const requestSchema = new Schema({
   shipVia: String,
   shippingTerms: String,
   items: [itemSchema],
+  attachments: [String]
 });
 
 
