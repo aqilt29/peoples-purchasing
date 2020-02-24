@@ -8,6 +8,8 @@ import { getRequestById, approveRequest, denyRequest, askForRequestApproval } fr
 import { Container, Row, Col, Button, Alert } from 'reactstrap';
 import { useAuth0 } from '../react-auth0-spa';
 import { SmallP, BlueButton } from '../Styles';
+import { AvForm, AvField } from 'availity-reactstrap-validation';
+import PurchaseReqFileUploader from '../Components/PurchaseReqFileUploader.';
 
 const PurchasingView = () => {
   const { id, approverId = false } = useParams();
@@ -98,13 +100,24 @@ const PurchasingView = () => {
         <hr />
         <Row>
           <Col>
+            <h6>Attach Documents</h6>
+            <PurchaseReqFileUploader />
+          </Col>
+          <Col>
+            <h6>Current Documents</h6>
+          </Col>
+        </Row>
+        <hr />
+        <Row>
+          <Col>
             <h6>Approval Status</h6>
             {
               requestData.approverList.map((approver, idx) => {
                 return (
                   <div key={idx}>
-                    <SmallP>{approver.email}</SmallP>{" "}
-                    <SmallP>{approver.isSent ? 'Email Sent' : 'Email Pending'}</SmallP>{" "}
+                    <strong>#{idx + 1}</strong>{" "}
+                    <SmallP>{approver.email},</SmallP>{" "}
+                    <SmallP>{approver.isSent ? 'Email Sent' : 'Email Pending'},</SmallP>{" "}
                     <SmallP>{approver.isApproved ? 'Approved' : 'Approval Pending'}</SmallP>
                   </div>
                 )
