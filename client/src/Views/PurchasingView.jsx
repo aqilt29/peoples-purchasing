@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import ItemList from '../Components/requestForms/ItemList'
 import { format } from 'date-fns';
+import { Link } from 'react-router-dom';
 
 import Loading from '../Components/Loading';
 import { getRequestById, approveRequest, denyRequest, askForRequestApproval } from '../api/requestApi';
@@ -93,6 +94,10 @@ const PurchasingView = () => {
           <Alert color={alertColor}>{requestData.status}</Alert>
           {
             requestData.status === 'Saved' ? <BlueButton onClick={() => submitAskForApproval(id)} >Send For Approval</BlueButton> : null
+          }
+          {" "}
+          {
+            requestData.status === 'Saved' ? <BlueButton tag={Link} to={`/purchasing/edit/${id}`} >Edit Purchase Req</BlueButton> : null
           }
         </Col>
         </Row>
