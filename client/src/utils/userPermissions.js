@@ -292,6 +292,11 @@ export const userDashboardApps = {
       title: 'Vendors',
       subtitle: 'Manage Vendor Related Information',
       link: 'vendors'
+    },
+    {
+      title: 'Resources',
+      subtitle: 'Company Information and related SOPs',
+      link: 'resources'
     }
   ],
   Buyer: [
@@ -310,6 +315,11 @@ export const userDashboardApps = {
       subtitle: 'Manage Your/Company Purchase Orders Here',
       link: 'purchaseorders'
     },
+    {
+      title: 'Resources',
+      subtitle: 'Company Information and related SOPs',
+      link: 'resources'
+    }
   ],
   Accounting: [
     {
@@ -327,6 +337,11 @@ export const userDashboardApps = {
       subtitle: 'Manage Your/Company Purchase Orders Here',
       link: 'purchaseorders'
     },
+    {
+      title: 'Resources',
+      subtitle: 'Company Information and related SOPs',
+      link: 'resources'
+    }
   ],
   Admin: [
     {
@@ -349,5 +364,10 @@ export const userDashboardApps = {
       subtitle: 'Manage App Users Here',
       link: 'users'
     },
+    {
+      title: 'Resources',
+      subtitle: 'Company Information and related SOPs',
+      link: 'resources'
+    }
   ],
 }

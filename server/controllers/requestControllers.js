@@ -11,6 +11,8 @@ aws.config.loadFromPath(path.resolve(__dirname, '../../aws_config.json'));
 //  instance of SQS class
 const sqs = new aws.SQS();
 
+const s3 = new aws.S3();
+
 // How to use promises with aws
 // sqs.listQueues().promise().then(console.log)
 
@@ -231,14 +233,34 @@ module.exports = {
     try {
       await sqs.sendMessage(queueParams(`sendDeniedNotifications`, id)).promise()
     } catch (error) {
-      res.status(500).send(error)
     }
 
     res.status(201).send(requestToUpdate)
   },
 
   uploadDocument: async (req, res) => {
+    const { params: { id }, body: { fileName = 'test.txt' } } = req;
+
     //  lookup request based on id
+    try {
+      console.log(`find document on id ${id}`)
+      const attachingDocument = await Request.findById(id);
+    } catch (error) {
+      console.error(error)
+      return res.status(500).send(error)
+    }
+
+    const params = {
+      Bucket: 'purchasing-attachments',
+      Key: fileName,
+      Expires: 14 * 24 * 3600,
+    }
+
+    // const signedUrlPut = s3.getSignedUrl('putObject', params)
+
+    // console.log(signedUrlPut);
+
+    res.status(201).send(signedUrlPut)
     //  receive file from the client
     //  upload file to S3
     //  add link under document.attachments.push(return url)

@@ -68,3 +68,18 @@ export const askForRequestApproval = async (id) => {
   console.log(data)
   return data
 };
+
+export const getUploadParams = async (fileName, id) => {
+
+}
+
+export const submitBuffer = async ({ fileName, id, buffer }) => {
+
+  const data = await axios.post(`${apiPath}/upload/${id}`, {
+    fileName,
+    buffer,
+  })
+
+  return data;
+
+}
