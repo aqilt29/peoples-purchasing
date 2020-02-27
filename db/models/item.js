@@ -31,7 +31,8 @@ const itemSchema = new Schema({
   vendorItemNumber: String,
   vendorPartNumber: String,
   internalPartNumber: String,
-  generalLedger: String,
+  materialGroup: String,
+  ledger: String,
   classCode: String, //  needs ENUM
 
   isDirect: { type: Boolean, default: false },

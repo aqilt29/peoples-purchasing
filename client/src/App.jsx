@@ -44,7 +44,6 @@ const App = () => {
   if (loading) {
     return <Loading />;
   }
-  console.table(user)
 
   if (isAuthenticated) MainPageView = Dashboard;
   if (isAuthenticated && !dbUser) MainPageView = UnderConstruction;

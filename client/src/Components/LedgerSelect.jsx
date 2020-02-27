@@ -6,12 +6,11 @@ import { listOfMaterialGroups, listOfLedgerAccounts } from '../utils/lists/lists
 import { BlueButton } from '../Styles';
 
 
-const LedgerSelect = ({ width = '75%', ledgerIndex = null, ledgerChange }) => {
+const LedgerSelect = ({ width = '75%', ledgerIndex = null, ledgerChange, setValid = () => {} }) => {
   const [ledger, setLedger] = useState(null);
   const [materialGroup, setMaterialGroup] = useState(null);
   const [materialOptions, setMaterialOptions] = useState(null);
   const [ledgerOptions, setLedgerOptions] = useState(null);
-  const [isValid, setIsValid] = useState(false);
   const ref = useRef(null)
 
 
@@ -21,22 +20,26 @@ const LedgerSelect = ({ width = '75%', ledgerIndex = null, ledgerChange }) => {
     })
   }
 
-  const handleAdd = () => {
-    console.log(`add item ${ledger}, ${materialGroup}`)
-  }
-
+  //  prevent error on reading null value on clearing func
   const handleChange = (data, { action }) => {
     if (action === 'clear') return;
+    console.log('handle change data',data.value)
     setLedger(data.value)
-    console.log(ledger)
   }
 
+  //  get the list of MG and map it to select options type
   useEffect(() => {
-    console.log('log only once')
     const mappedMaterialGroups = mapList(listOfMaterialGroups)
     setMaterialOptions(mappedMaterialGroups)
   }, [])
 
+  useEffect(() => {
+    if (ledger) ledgerChange({ materialGroup, ledger})
+  }, [ledger])
+
+  //  when the material group changes but a ledger is selected
+  //  clear the ledger to force user to select a new one
+  //  also map new options for when a new MG is selected
   useEffect(() => {
     if (materialGroup) {
       const ledgerList = listOfLedgerAccounts[materialGroup]
@@ -45,15 +48,15 @@ const LedgerSelect = ({ width = '75%', ledgerIndex = null, ledgerChange }) => {
     }
 
     if (materialGroup && ledger) {
-      console.log('material group changed with ledger selected')
+      console.log('in reset')
       ref.current.select.clearValue()
       setLedger(null)
     }
   }, [materialGroup])
 
   useEffect(() => {
-    if (ledger && materialGroup) setIsValid(true)
-    if (!ledger || !materialGroup) setIsValid(false)
+    if (ledger && materialGroup) setValid(true)
+    if (!ledger || !materialGroup) setValid(false)
   }, [ledger, materialGroup])
 
   return (
@@ -77,7 +80,6 @@ const LedgerSelect = ({ width = '75%', ledgerIndex = null, ledgerChange }) => {
           </Label>
         )
       }
-      <BlueButton disabled={!isValid} onClick={handleAdd}>Add Item</BlueButton>
     </div>
   )
 }
