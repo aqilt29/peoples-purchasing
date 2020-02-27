@@ -4,22 +4,26 @@ import { AvForm, AvField } from 'availity-reactstrap-validation';
 import { BlueButton } from '../../../Styles';
 import VendorSelect from '../../VendorSelect';
 import UserSelect from '../../UserSelect';
-import { listOfBuyers } from '../../../utils/lists';
+import { listOfBuyers, listOfPaymentTerms, listOfShippingAddresses } from '../../../utils/lists';
 import EntitySelect from '../../EntitySelect';
 
-export const PurchaseReqHeaders = () => {
+export const PurchaseReqHeaders = ({ setHeaders }) => {
   const [vendor, setVendor] = useState(null)
   const [entity, setEntity] = useState(null)
   const [user, setUser] = useState(null)
   const [isValid, setValid] = useState(false)
 
   const submitValidHeaders = (_, formData) => {
-    console.log({
+
+    const reqHeaders = {
       vendor: vendor.value,
+      entity: entity.value,
       submittedFor: user.value,
       ...formData
-    })
+    }
+    console.log(reqHeaders);
 
+    setHeaders(reqHeaders)
   }
 
 
@@ -51,7 +55,37 @@ export const PurchaseReqHeaders = () => {
             </AvField>
           </Col>
           <Col>
-
+              <AvField
+              type="select"
+              required
+              name="paymentTerms"
+              label="Payment Terms:"
+              validate={{required: {value: true, errorMessage: 'Please select an option from the list'}}}
+            >
+              <option value="">Select Payment Terms...</option>
+              {
+                listOfPaymentTerms.map((term) => <option value={term}>{term}</option>)
+              }
+            </AvField>
+            <AvField
+              type="select"
+              required
+              name="shipTo"
+              label="Delivery Address:"
+              validate={{required: {value: true, errorMessage: 'Please select an option from the list'}}}
+            >
+              <option value="">Select Delivery Address Terms...</option>
+              {
+                listOfShippingAddresses.map((address) => <option value={address}>{address}</option>)
+              }
+            </AvField>
+            <AvField
+              required
+              type="textarea"
+              name="businessNeed"
+              label="Describe Business Justification:"
+              helpMessage="Please describe purchasing need..."
+            />
           </Col>
         </Row>
         <Row>
