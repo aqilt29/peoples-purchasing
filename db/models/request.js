@@ -34,10 +34,7 @@ const requestSchema = new Schema({
       return null;
     }
   }, //  one userId of someone with pmcoc submitted by defines routing rules
-  entity: {
-    name: { type: String, required: true },
-    businessUnit: { type: String, required: true },
-  },
+  entity: { type: Schema.Types.ObjectId, ref: 'Entity', required: true },
   dateRequested: { type: Date, default: Date.now },
   businessNeed: { type: String, required: true },
   invoiceTotal: { type: Number, required: true },
