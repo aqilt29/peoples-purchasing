@@ -1,16 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import _ from 'lodash'
 import Select from 'react-select'
 import { Label } from 'reactstrap';
 import { listOfMaterialGroups, listOfLedgerAccounts } from '../utils/lists/listsOfLedgers';
-
+import { BlueButton } from '../Styles';
 
 
 const LedgerSelect = ({ width = '75%', ledgerIndex = null, ledgerChange }) => {
-  const [ledgers, setLedger] = useState(null);
+  const [ledger, setLedger] = useState(null);
   const [materialGroup, setMaterialGroup] = useState(null);
   const [materialOptions, setMaterialOptions] = useState(null);
   const [ledgerOptions, setLedgerOptions] = useState(null);
+  const [isValid, setIsValid] = useState(false);
+  const ref = useRef(null)
+
 
   const mapList = (list) => {
     return list.map((item) => {
@@ -18,20 +21,40 @@ const LedgerSelect = ({ width = '75%', ledgerIndex = null, ledgerChange }) => {
     })
   }
 
+  const handleAdd = () => {
+    console.log(`add item ${ledger}, ${materialGroup}`)
+  }
+
+  const handleChange = (data, { action }) => {
+    if (action === 'clear') return;
+    setLedger(data.value)
+    console.log(ledger)
+  }
+
   useEffect(() => {
+    console.log('log only once')
     const mappedMaterialGroups = mapList(listOfMaterialGroups)
-    console.log(mappedMaterialGroups)
     setMaterialOptions(mappedMaterialGroups)
   }, [])
 
   useEffect(() => {
     if (materialGroup) {
       const ledgerList = listOfLedgerAccounts[materialGroup]
-      console.log(ledgerList, listOfMaterialGroups, materialGroup)
       const mappedLedgers = mapList(ledgerList)
       setLedgerOptions(mappedLedgers)
     }
+
+    if (materialGroup && ledger) {
+      console.log('material group changed with ledger selected')
+      ref.current.select.clearValue()
+      setLedger(null)
+    }
   }, [materialGroup])
+
+  useEffect(() => {
+    if (ledger && materialGroup) setIsValid(true)
+    if (!ledger || !materialGroup) setIsValid(false)
+  }, [ledger, materialGroup])
 
   return (
     <div className="my-3">
@@ -43,16 +66,18 @@ const LedgerSelect = ({ width = '75%', ledgerIndex = null, ledgerChange }) => {
         />
       </Label>
       {
-        ledgerOptions !== null ? (
+        ledgerOptions && (
           <Label style={{ width: width }}>Select General Ledger Account:
             <Select
-              onChange={(data) => setLedger(data.value)}
+              ref={ref}
+              onChange={handleChange}
               options={ledgerOptions}
-              defaultValue={ledgerIndex !== null ?  _.find(ledgers, { value: ledgerIndex }) : undefined}
+              defaultValue={ledgerIndex !== null ?  _.find(ledgers, { value: ledgerIndex }) : ledgerOptions[0]}
             />
           </Label>
-        ) : null
+        )
       }
+      <BlueButton disabled={!isValid} onClick={handleAdd}>Add Item</BlueButton>
     </div>
   )
 }
