@@ -11,6 +11,7 @@ const approverSchema = new Schema({
   isSent: Boolean,
   isApproved: Boolean,
   dateApproved: Date,
+  dateSent: Date,
 })
 
 const requestSchema = new Schema({
