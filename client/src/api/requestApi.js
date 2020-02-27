@@ -38,6 +38,11 @@ export const getRequestById = async (id) => {
   return request;
 }
 
+export const getAllEntities = async () => {
+
+  const { data: entities } = axios.get()
+}
+
 export const approveRequest = async (id, email, approverId) => {
   console.log(id, email, '<--- in apo');
 
