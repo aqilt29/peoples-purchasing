@@ -2,16 +2,18 @@ import React, { useState, useEffect } from 'react';
 import _ from 'lodash'
 import Select from 'react-select'
 import Loading from './Loading';
-import { getVendorList } from '../api/vendorApi';
 import { Label } from 'reactstrap';
+import { getAllEntities } from '../api/entitiesApi';
 
 
-const VendorSelect = ({ width = '75%', vendorId, vendorChange, label = "Select New Vendor:" }) => {
-  const [vendors, setVendors] = useState(null);
+
+const EntitySelect = ({ width = '75%', entityId, entityChange, label = 'Select Entity:'}) => {
+  const [entities, setEntities] = useState(null);
   const [isLoading, setLoading] = useState(false);
 
-  const mapVendorsToId = (vendorsArray) => {
-    return vendorsArray.map(({ name, _id }) => {
+  const mapEntitiesToId = (entitiesArray) => {
+    console.log(entitiesArray)
+    return entitiesArray.map(({ name, _id }) => {
       return { value: _id, label: name }
     })
   }
@@ -21,11 +23,11 @@ const VendorSelect = ({ width = '75%', vendorId, vendorChange, label = "Select N
       setLoading(true)
 
       try {
-        const data = await getVendorList();
+        const data = await getAllEntities()
 
-        const mappedVendors = mapVendorsToId(data);
+        const mappedEntities = mapEntitiesToId(data);
 
-        setVendors(mappedVendors)
+        setEntities(mappedEntities)
       } catch (error) {
         window.alert(error)
         setLoading(false)
@@ -43,13 +45,13 @@ const VendorSelect = ({ width = '75%', vendorId, vendorChange, label = "Select N
     <div className="my-3">
       <Label style={{ width: width }}>{label}
         <Select
-          onChange={(data) => vendorChange(data)}
-          options={vendors}
-          defaultValue={vendorId ?  _.find(vendors, { value: vendorId }) : undefined}
+          onChange={(data) => entityChange(data)}
+          options={entities}
+          defaultValue={entityId ?  _.find(entities, { value: entityId }) : undefined}
         />
       </Label>
     </div>
   )
 }
 
-export default VendorSelect;
+export default EntitySelect;
