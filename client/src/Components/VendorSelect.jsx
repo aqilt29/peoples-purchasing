@@ -41,7 +41,7 @@ const VendorSelect = ({ vendorId, vendorChange }) => {
 
   return (
     <>
-      <Label style={{ width: '75%' }}><strong>Select New Vendor:</strong>
+      <Label style={{ width: '75%' }}>Select New Vendor:
         <Select
           onChange={(data) => vendorChange(data)}
           options={vendors}
