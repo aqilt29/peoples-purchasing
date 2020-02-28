@@ -3,8 +3,6 @@ import _ from 'lodash'
 import Select from 'react-select'
 import { Label } from 'reactstrap';
 import { listOfMaterialGroups, listOfLedgerAccounts } from '../utils/lists/listsOfLedgers';
-import { BlueButton } from '../Styles';
-
 
 const LedgerSelect = ({ width = '75%', ledgerIndex = null, ledgerChange, setValid = () => {} }) => {
   const [ledger, setLedger] = useState(null);

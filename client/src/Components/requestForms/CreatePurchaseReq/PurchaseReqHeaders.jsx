@@ -84,7 +84,7 @@ export const PurchaseReqHeaders = ({ setHeaders }) => {
               type="textarea"
               name="businessNeed"
               label="Describe Business Justification:"
-              helpMessage="Please describe purchasing need..."
+              placeholder="Please describe purchasing need..."
             />
           </Col>
         </Row>
