@@ -82,12 +82,13 @@ module.exports = {
     const { body } = req;
     console.log(body, '<---- body')
     //  create document model
+
     const submitRequest = new Request(body)
     let saveData;
 
     console.log('this is submittedFor', submitRequest.submittedFor)
-    //  try to get the cost center for the submitted for.
 
+    //  try to get the cost center for the submitted for.
     try {
       let { costCenter } = await User.findById(submitRequest.submittedFor);
       console.log(costCenter, "<--- in controller")
@@ -103,7 +104,7 @@ module.exports = {
     try {
       console.log('Attempting to save document', submitRequest.submittedFor)
       saveData = await submitRequest.save()
-
+      console.log(saveData)
     } catch (error) {
       console.log(error)
       return res.status(404).json(error)
@@ -112,7 +113,22 @@ module.exports = {
 
     console.log('Document Saved!')
 
-    res.status(201).json(saveData);
+    //  try to populate the related data to send back
+
+    let dataToReturn;
+    try {
+      dataToReturn = await Request.findById(saveData._id)
+        .populate('user')
+        .populate('submittedFor')
+        .populate('entity')
+        .populate('vendor')
+
+    } catch (error) {
+      console.log(error)
+      return res.status(404).json(error)
+    }
+
+    res.status(201).json(dataToReturn);
   },
 
   routeRequestForApproval: async (req, res) => {

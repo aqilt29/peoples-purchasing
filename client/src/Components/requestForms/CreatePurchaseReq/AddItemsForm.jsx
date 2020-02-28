@@ -6,12 +6,13 @@ import { BlueButton } from '../../../Styles';
 import { listOfClassCodes, listOfUnits } from '../../../utils/lists';
 import ItemList from '../ItemList';
 
-export const AddItemsForm = ({ items, addItem, deleteItem }) => {
+export const AddItemsForm = ({ items, addItem, deleteItem, submitNewForm }) => {
 
   const [isValid, setIsValid] = useState(false)
   const [ledgerAndMaterial, setLedgerAndMaterial] = useState(null)
   const [ledgerIsValid, setLedgerIsValid] = useState(false)
   const [resetSelect, setResetSelect] = useState(false)
+  const [saveIsValid, setSaveIsValid] = useState(false);
 
   const formRef = useRef(null);
 
@@ -19,6 +20,8 @@ export const AddItemsForm = ({ items, addItem, deleteItem }) => {
     //  useEffect to see if all elements are valid to add item
     if(ledgerIsValid) setIsValid(true)
     if(!ledgerIsValid) setIsValid(false)
+    if(items.length > 0) setSaveIsValid(true);
+    if(items.length < 1) setSaveIsValid(false);
   })
 
   const handleSubmit = (_, data) => {
@@ -176,7 +179,14 @@ export const AddItemsForm = ({ items, addItem, deleteItem }) => {
               </Row>
             </Col>
           </Row>
-          <BlueButton disabled={!isValid}>Add Item</BlueButton>
+          <Row>
+            <Col>
+              <BlueButton disabled={!isValid}>Add Item</BlueButton>
+            </Col>
+            <Col>
+              <BlueButton disabled={!saveIsValid} onClick={submitNewForm}>Review & Save Requisition</BlueButton>
+            </Col>
+          </Row>
         </AvForm>
         <hr />
         <Row>

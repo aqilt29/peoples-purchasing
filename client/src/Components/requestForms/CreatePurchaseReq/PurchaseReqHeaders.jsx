@@ -42,7 +42,6 @@ export const PurchaseReqHeaders = ({ setHeaders }) => {
             <UserSelect label="Request on behalf of:" userChange={setUser} />
             <EntitySelect entityChange={setEntity} />
             <AvField
-              required
               style={{ width: '75%' }}
               type="select"
               name="buyer"
@@ -50,7 +49,7 @@ export const PurchaseReqHeaders = ({ setHeaders }) => {
             >
               <option value="">Select A User...</option>
               {
-                listOfBuyers.map(({ name, value }) => <option value={value}>{name}</option>)
+                listOfBuyers.map(({ name, value }, idx) => <option key={idx} value={value}>{name}</option>)
               }
             </AvField>
           </Col>
@@ -64,7 +63,7 @@ export const PurchaseReqHeaders = ({ setHeaders }) => {
             >
               <option value="">Select Payment Terms...</option>
               {
-                listOfPaymentTerms.map((term) => <option value={term}>{term}</option>)
+                listOfPaymentTerms.map((term, idx) => <option key={idx} value={term}>{term}</option>)
               }
             </AvField>
             <AvField
@@ -76,7 +75,7 @@ export const PurchaseReqHeaders = ({ setHeaders }) => {
             >
               <option value="">Select Delivery Address Terms...</option>
               {
-                listOfShippingAddresses.map((address) => <option value={address}>{address}</option>)
+                listOfShippingAddresses.map((address, idx) => <option key={idx} value={address}>{address}</option>)
               }
             </AvField>
             <AvField

@@ -1,15 +1,24 @@
 import React, { Component } from 'react';
-import { PurchaseReqHeaders, AddItemsForm } from '../Components/requestForms/CreatePurchaseReq';
-
+import { PurchaseReqHeaders, AddItemsForm, ReqSummary } from '../Components/requestForms/CreatePurchaseReq';
+import { createNewRequest } from '../api/requestApi';
+import Loading from '../Components/Loading';
 
 class CreatePurchaseReq extends Component {
   constructor(props) {
     super(props)
     this.state = {
       step: 0,
-      address: {},
       items: [],
       invoiceTotal: 0,
+      vendor: '',
+      entity: '',
+      submittedFor: '',
+      buyer: '',
+      paymentTerms: '',
+      shipTo: '',
+      businessNeed: '',
+      isLoading: false,
+      successData: null,
     }
   }
 
@@ -46,9 +55,54 @@ class CreatePurchaseReq extends Component {
     })
   };
 
+  incrementStep = (e) => {
+    e.preventDefault();
+    console.log('clicked')
+    let { step } = this.state;
+    if (step > 2) return
+    console.log(step)
+    this.setState({
+      step: step += 1,
+    })
+  }
+
+  decrementStep = (e) => {
+    e.preventDefault();
+    let { step } = this.state;
+    if (step === 0) return
+    console.log(step)
+    this.setState({
+      step: step -= 1,
+    })
+  };
+
+  submitNewForm = async (e) => {
+    console.log(e, 'submitted', this.props.user._id)
+    const postData = { user: this.props.user._id, ...this.state}
+    let data;
+
+    this.setState({ isLoading: true }, async () => {
+      try {
+        data = await createNewRequest(postData)
+      } catch (error) {
+        window.alert(error)
+      }
+      this.setState({
+        isLoading: false,
+        step: 2,
+        successData: data.data,
+      }, () => {
+        console.table(data.data)
+      })
+    })
+  }
 
   render() {
-    const { step, items } = this.state
+    console.log(this.props)
+    const { step, items, isLoading } = this.state
+
+    if (isLoading) return <Loading />;
+
     return (
       <>
         <h3>Create New Purchase Requisition</h3>
@@ -56,7 +110,10 @@ class CreatePurchaseReq extends Component {
           step === 0 ? <PurchaseReqHeaders setHeaders={this.setHeaders} /> : null
         }
         {
-          step === 1 ? <AddItemsForm items={items} addItem={this.addItem} deleteItem={this.deleteItem} /> : null
+          step === 1 ? <AddItemsForm submitNewForm={this.submitNewForm} items={items} addItem={this.addItem} deleteItem={this.deleteItem} /> : null
+        }
+        {
+          step === 2 ? <ReqSummary decrementStep={this.decrementStep} {...this.state} /> : null
         }
       </>
     )

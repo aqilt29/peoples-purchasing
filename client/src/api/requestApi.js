@@ -2,20 +2,17 @@ import axios from 'axios';
 
 const apiPath = process.env.NODE_ENV === 'development' ? 'http://localhost:5400/api/requests' : null;
 
-export const createNewRequest = async ({ shipTo, billTo, entity, businessUnit, submittedFor, ...data}) => {
+export const createNewRequest = async ({ shipTo, submittedFor, ...data}) => {
+  console.log(shipTo, 'yolo');
 
   const postData = {
     address: {
-      shipTo,
-      billTo,
-    },
-    entity: {
-      name: entity,
-      businessUnit,
+      shipTo
     },
     submittedFor: submittedFor.length > 1 ? submittedFor : undefined,
     ...data
   }
+
   console.log('->>> post data',postData)
   const request = await axios.post(`${apiPath}/`, postData);
   console.log(request);

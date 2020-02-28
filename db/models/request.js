@@ -22,7 +22,6 @@ const requestSchema = new Schema({
   vendor: { type: Schema.Types.ObjectId, ref: 'Vendor', required: true },
   address: {
     shipTo: { type: String, required: true },
-    billTo: { type: String, required: true },
   },
   costCenter: { type: Number, required: true },
   submittedFor: {
