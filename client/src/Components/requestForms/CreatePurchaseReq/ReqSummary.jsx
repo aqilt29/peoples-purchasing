@@ -1,31 +1,15 @@
 import React from 'react';
 import { BlueButton } from '../../../Styles';
-import { Container, Row, Col } from 'reactstrap';
+import { Redirect } from 'react-router-dom';
 
-export const ReqSummary = ({ decrementStep, ...reqData }) => {
+export const ReqSummary = ({ decrementStep, successData,...reqData }) => {
 
   console.log(Object.keys(reqData))
+  console.log(successData._id)
 
   return (
     <>
-      <h5>ReqSummary</h5>
-      <Container>
-        <Row>
-          <Col></Col>
-          <Col></Col>
-          <Col></Col>
-        </Row>
-        <Row>
-          <Col></Col>
-          <Col></Col>
-          <Col></Col>
-          <Col></Col>
-        </Row>
-        <hr />
-        <Row>
-          <Col></Col>
-        </Row>
-      </Container>
+      <Redirect to={`/purchasing/details/${successData._id}`} />
       <BlueButton onClick={decrementStep} >Go Back</BlueButton>
     </>
   )

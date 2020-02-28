@@ -36,6 +36,7 @@ import VendorListView from "./Views/VendorListView";
 import VendorDetails from "./Views/VendorDetails";
 import EditPurchaseReqDetails from './Views/EditPurchaseReqDetails';
 import CreatePurchaseReq from "./Views/CreatePurchaseReq";
+import PurchaseReqDetails from "./Views/PurchaseReqDetails";
 
 const App = () => {
   const { loading, isAuthenticated, user, dbUser } = useAuth0();
@@ -62,6 +63,7 @@ const App = () => {
             <PrivateRoute exact path="/purchasing" component={PurchasingApps} />
             <PrivateRoute exact path="/purchasing/view/:id/:approverId" component={PurchasingView} />
             <PrivateRoute exact path="/purchasing/view/:id" component={PurchasingView} />
+            <PrivateRoute exact path="/purchasing/details/:id" component={PurchaseReqDetails} />
             <PrivateRoute exact path="/purchasing/edit/:id" component={EditPurchaseReqDetails} />
             <PrivateRoute exact path="/purchasing/viewforms" component={PurchasingViewAll} />
             <PrivateRoute exact path="/purchasing/createform" render={(props) => <CreatePurchaseReq {...props} user={dbUser}/>} />
