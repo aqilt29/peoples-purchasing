@@ -6,7 +6,7 @@ import { BlueButton } from '../../../Styles';
 import { listOfClassCodes, listOfUnits } from '../../../utils/lists';
 import ItemList from '../ItemList';
 
-export const AddItemsForm = ({ addItem, deleteItem }) => {
+export const AddItemsForm = ({ items, addItem, deleteItem }) => {
 
   const [isValid, setIsValid] = useState(false)
   const [ledgerAndMaterial, setLedgerAndMaterial] = useState(null)
@@ -22,12 +22,12 @@ export const AddItemsForm = ({ addItem, deleteItem }) => {
   })
 
   const handleSubmit = (_, data) => {
-    // addItem({ ...ledgerAndMaterial, ...data});
+    addItem({ ...ledgerAndMaterial, ...data});
 
     //  reset the form here:
-    console.log(formRef.current.reset(), data)
+    formRef.current.reset()
     // reset the other multi selectors
-    console.log(setResetSelect(true))
+    setResetSelect(true)
 
   }
 
@@ -182,7 +182,7 @@ export const AddItemsForm = ({ addItem, deleteItem }) => {
         <Row>
           <Col>
             <h5>Items List</h5>
-            <ItemList items={[]} />
+            <ItemList items={items} deleteItem={deleteItem} />
           </Col>
         </Row>
       </Container>

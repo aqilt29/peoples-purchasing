@@ -48,7 +48,7 @@ class CreatePurchaseReq extends Component {
 
 
   render() {
-    const { step } = this.state
+    const { step, items } = this.state
     return (
       <>
         <h3>Create New Purchase Requisition</h3>
@@ -56,7 +56,7 @@ class CreatePurchaseReq extends Component {
           step === 0 ? <PurchaseReqHeaders setHeaders={this.setHeaders} /> : null
         }
         {
-          step === 1 ? <AddItemsForm addItem={this.addItem} deleteItem={this.deleteItem} /> : null
+          step === 1 ? <AddItemsForm items={items} addItem={this.addItem} deleteItem={this.deleteItem} /> : null
         }
       </>
     )
