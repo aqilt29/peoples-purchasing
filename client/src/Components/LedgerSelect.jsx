@@ -4,12 +4,13 @@ import Select from 'react-select'
 import { Label } from 'reactstrap';
 import { listOfMaterialGroups, listOfLedgerAccounts } from '../utils/lists/listsOfLedgers';
 
-const LedgerSelect = ({ width = '75%', ledgerIndex = null, ledgerChange, setValid = () => {} }) => {
+const LedgerSelect = ({ width = '75%', ledgerIndex = null, ledgerChange, setValid = () => {}, reset }) => {
   const [ledger, setLedger] = useState(null);
   const [materialGroup, setMaterialGroup] = useState(null);
   const [materialOptions, setMaterialOptions] = useState(null);
   const [ledgerOptions, setLedgerOptions] = useState(null);
-  const ref = useRef(null)
+  const ledgerRef = useRef(null)
+  const materialRef = useRef(null)
 
 
   const mapList = (list) => {
@@ -19,10 +20,11 @@ const LedgerSelect = ({ width = '75%', ledgerIndex = null, ledgerChange, setVali
   }
 
   //  prevent error on reading null value on clearing func
-  const handleChange = (data, { action }) => {
+  const handleChange = (data, { action }, label) => {
     if (action === 'clear') return;
     console.log('handle change data',data.value)
-    setLedger(data.value)
+    if (label === 'ledger') setLedger(data.value)
+    if (label !== 'ledger') setMaterialGroup(data.value)
   }
 
   //  get the list of MG and map it to select options type
@@ -47,7 +49,7 @@ const LedgerSelect = ({ width = '75%', ledgerIndex = null, ledgerChange, setVali
 
     if (materialGroup && ledger) {
       console.log('in reset')
-      ref.current.select.clearValue()
+      ledgerRef.current.select.clearValue()
       setLedger(null)
     }
   }, [materialGroup])
@@ -57,11 +59,18 @@ const LedgerSelect = ({ width = '75%', ledgerIndex = null, ledgerChange, setVali
     if (!ledger || !materialGroup) setValid(false)
   }, [ledger, materialGroup])
 
+  useEffect(() => {
+    console.log(reset)
+    if (reset && materialRef) materialRef.current.select.clearValue();
+    if (reset && ledgerRef) ledgerRef.current.select.clearValue();
+  }, [reset])
+
   return (
     <div className="my-3">
       <Label style={{ width: width }}>Select Material Group:
         <Select
-          onChange={(data) => setMaterialGroup(data.value)}
+          ref={materialRef}
+          onChange={(data, action) => handleChange(data, action, 'material')}
           options={materialOptions}
           defaultValue={ledgerIndex !== null ?  _.find(ledgers, { value: ledgerIndex }) : undefined}
         />
@@ -70,8 +79,8 @@ const LedgerSelect = ({ width = '75%', ledgerIndex = null, ledgerChange, setVali
         ledgerOptions && (
           <Label style={{ width: width }}>Select General Ledger Account:
             <Select
-              ref={ref}
-              onChange={handleChange}
+              ref={ledgerRef}
+              onChange={(data, action) => handleChange(data, action, 'ledger')}
               options={ledgerOptions}
               defaultValue={ledgerIndex !== null ?  _.find(ledgers, { value: ledgerIndex }) : ledgerOptions[0]}
             />

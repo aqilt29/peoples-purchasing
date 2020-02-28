@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Container, Row, Col, InputGroupAddon, InputGroupText, Label } from 'reactstrap';
 import { AvForm, AvField, AvGroup, AvInput } from 'availity-reactstrap-validation';
 import LedgerSelect from '../../LedgerSelect';
@@ -11,6 +11,9 @@ export const AddItemsForm = ({ addItem, deleteItem }) => {
   const [isValid, setIsValid] = useState(false)
   const [ledgerAndMaterial, setLedgerAndMaterial] = useState(null)
   const [ledgerIsValid, setLedgerIsValid] = useState(false)
+  const [resetSelect, setResetSelect] = useState(false)
+
+  const formRef = useRef(null);
 
   useEffect(() => {
     //  useEffect to see if all elements are valid to add item
@@ -18,15 +21,25 @@ export const AddItemsForm = ({ addItem, deleteItem }) => {
     if(!ledgerIsValid) setIsValid(false)
   })
 
+  const handleSubmit = (_, data) => {
+    // addItem({ ...ledgerAndMaterial, ...data});
+
+    //  reset the form here:
+    console.log(formRef.current.reset(), data)
+    // reset the other multi selectors
+    console.log(setResetSelect(true))
+
+  }
+
   useEffect(() => {
-    console.log(ledgerAndMaterial)
-  }, [ledgerAndMaterial])
+    if (resetSelect) setResetSelect(false)
+  })
 
   return (
     <>
       <h5>Items Form</h5>
       <Container>
-        <AvForm onValidSubmit={(_, data) => console.log({...data, ...ledgerAndMaterial})}>
+        <AvForm onValidSubmit={handleSubmit} ref={formRef}>
           <h5>Item Details</h5>
           <Row>
             <Col md={6}>
@@ -34,6 +47,7 @@ export const AddItemsForm = ({ addItem, deleteItem }) => {
                 setValid={setLedgerIsValid}
                 ledgerChange={setLedgerAndMaterial}
                 width="100%"
+                reset={resetSelect}
               />
             </Col>
             <Col>
