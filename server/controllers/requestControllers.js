@@ -50,6 +50,7 @@ module.exports = {
       data = await Request.findById(id)
         .populate('vendor')
         .populate('user')
+        .populate('entity')
         .populate({ path: 'submittedFor', select: 'firstName lastName -_id'})
 
     } catch (error) {
