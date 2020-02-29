@@ -19,6 +19,7 @@ class CreatePurchaseReq extends Component {
       businessNeed: this.props.requestToEdit ? this.props.requestToEdit.businessNeed : '',
       isLoading: false,
       successData: null,
+      editedId: this.props.requestToEdit ? this.props.requestToEdit._id : false,
     }
   }
 

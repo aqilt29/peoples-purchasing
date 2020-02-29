@@ -15,6 +15,7 @@ const approverSchema = new Schema({
 })
 
 const requestSchema = new Schema({
+  isDeleted: { type: Boolean, default: false },
   user: { type: Schema.Types.ObjectId, ref: 'User', required: true },
   delegates: [
     { type: Schema.Types.ObjectId, ref: 'User' }

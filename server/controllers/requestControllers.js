@@ -66,6 +66,7 @@ module.exports = {
     const data = await Request.find()
       .or([{ user: userId }, { submittedFor: userId }, { 'approverList.email': email }])
       .where('user != submittedFor')
+      .where('isDeleted').ne(true)
       .populate({ path: 'vendor', select: 'name -_id'})
       .populate({ path: 'submittedFor', select: 'firstName lastName -_id'})
       .sort({ dateRequested: 'desc'})
@@ -84,6 +85,8 @@ module.exports = {
     console.log(body, '<---- body')
     //  create document model
 
+    console.log(body.editedId, '<--- edited id')
+
     const submitRequest = new Request(body)
     let saveData;
 
@@ -98,7 +101,7 @@ module.exports = {
     } catch (error) {
 
       console.log(error)
-      return res.status(404).json(error)
+      return res.status(501).json(error)
     }
 
     //  try to save to database
@@ -108,11 +111,26 @@ module.exports = {
       console.log(saveData)
     } catch (error) {
       console.log(error)
-      return res.status(404).json(error)
+      return res.status(502).json(error)
 
     }
 
     console.log('Document Saved!')
+
+    //  try to mark the old one as deleted if it is an edit
+    if (body.editedId) {
+      try {
+        const { editedId } = body;
+        const requestToDelete = await Request.findById(editedId)
+        requestToDelete.isDeleted = true;
+        await requestToDelete.save()
+        console.log(requestToDelete, '<-- we are deleting this one')
+        console.log(editedId, '<--- this was deleted')
+      } catch (error) {
+        console.log(error)
+        return res.status(504).json(error)
+      }
+    }
 
     //  try to populate the related data to send back
 
@@ -126,7 +144,7 @@ module.exports = {
 
     } catch (error) {
       console.log(error)
-      return res.status(404).json(error)
+      return res.status(503).json(error)
     }
 
     res.status(201).json(dataToReturn);
