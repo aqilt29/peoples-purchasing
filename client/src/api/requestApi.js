@@ -9,7 +9,7 @@ export const createNewRequest = async ({ shipTo, submittedFor, ...data}) => {
     address: {
       shipTo
     },
-    submittedFor: submittedFor.length > 1 ? submittedFor : undefined,
+    submittedFor: submittedFor ? submittedFor : undefined,
     ...data
   }
 

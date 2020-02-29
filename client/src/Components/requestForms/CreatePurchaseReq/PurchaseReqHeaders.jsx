@@ -16,13 +16,14 @@ export const PurchaseReqHeaders = ({ setHeaders, requestToEdit }) => {
   const { dbUser: { _id: currentUserId } } = useAuth0()
 
   console.log(currentUserId)
+  console.log(entity, vendor, user)
 
   const submitValidHeaders = (_, formData) => {
-
+    console.log(entity, vendor, user)
     const reqHeaders = {
-      vendor: vendor.value,
-      entity: entity.value,
-      submittedFor: user.value,
+      vendor: vendor.value || requestToEdit.vendor._id,
+      entity: entity.value || requestToEdit.entity._id,
+      submittedFor: user.value || requestToEdit.submittedFor._id,
       ...formData
     }
     console.log(reqHeaders);

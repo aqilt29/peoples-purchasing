@@ -2,18 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getRequestById } from '../api/requestApi'
 import Loading from '../Components/Loading';
-import { AvForm, AvField } from 'availity-reactstrap-validation'
-import { Container, Row, Col } from 'reactstrap';
-import VendorSelect from '../Components/VendorSelect';
-import { BlueButton } from '../Styles';
+import { Container } from 'reactstrap';
 import CreatePurchaseReq from './CreatePurchaseReq';
+import { useAuth0 } from '../react-auth0-spa';
 
 const EditPurchaseReqDetails = () => {
   const { id } = useParams();
   const [request, setRequest] = useState(null);
   const [isLoading, setLoading] = useState(false);
-  const [newVendor, setNewVendor] = useState(null);
-
+  const { dbUser } = useAuth0()
 
   useEffect(() => {
     const fn = async () => {
@@ -43,7 +40,7 @@ const EditPurchaseReqDetails = () => {
     <>
       <h3>Edit PR Details ID: P-{id.slice(-5).toUpperCase()}</h3>
       <Container>
-        <CreatePurchaseReq requestToEdit={request} />
+        <CreatePurchaseReq user={dbUser} requestToEdit={request} />
       </Container>
     </>
   )
