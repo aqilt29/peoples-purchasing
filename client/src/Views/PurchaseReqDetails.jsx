@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useRouteMatch } from 'react-router-dom';
 import { getRequestById } from '../api/requestApi';
 import Loading from '../Components/Loading';
+import { Container, Col, Row } from 'reactstrap'
 
 const PurchaseReqDetails = (props) => {
   const { params: { id } } = useRouteMatch();
@@ -39,6 +40,18 @@ const PurchaseReqDetails = (props) => {
     <>
       <h3>Requisition Details</h3>
       <h4>Id: {id.slice(-5).toUpperCase()}</h4>
+      <Container>
+        <Row>
+          {/* row for header details */}
+        </Row>
+        <Row>
+          {/* row for uploading and information on that */}
+        </Row>
+        <Row>
+          {/* row for approval information */}
+        </Row>
+      </Container>
+      <hr />
       <code>{JSON.stringify(request, null, 2)}</code>
     </>
   )
