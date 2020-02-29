@@ -6,6 +6,7 @@ import { AvForm, AvField } from 'availity-reactstrap-validation'
 import { Container, Row, Col } from 'reactstrap';
 import VendorSelect from '../Components/VendorSelect';
 import { BlueButton } from '../Styles';
+import CreatePurchaseReq from './CreatePurchaseReq';
 
 const EditPurchaseReqDetails = () => {
   const { id } = useParams();
@@ -40,28 +41,9 @@ const EditPurchaseReqDetails = () => {
 
   if (request) return (
     <>
-      <h3>Edit PR Details ID: P-{id.slice(-3).toUpperCase()}</h3>
+      <h3>Edit PR Details ID: P-{id.slice(-5).toUpperCase()}</h3>
       <Container>
-        <AvForm onValidSubmit={(_, data) => console.log(data)}>
-          <Row form>
-            <Col md={6}>
-              <VendorSelect vendorId={request.vendor._id} vendorChange={setNewVendor} />
-              <AvField
-                type="select"
-                name="entity"
-                label="Select New Entity to Bill:"
-              >
-                <option value={request.entity}>{request.entity.name}</option>
-              </AvField>
-            </Col>
-            <Col md={6}>suhh</Col>
-          </Row>
-          <Row form>
-            <Col>
-              <BlueButton className="my-3">Submit Changes</BlueButton>
-            </Col>
-          </Row>
-        </AvForm>
+        <CreatePurchaseReq requestToEdit={request} />
       </Container>
     </>
   )

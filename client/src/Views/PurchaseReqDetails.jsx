@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { useRouteMatch } from 'react-router-dom';
-import { getRequestById } from '../api/requestApi';
+import { useRouteMatch, Link } from 'react-router-dom';
+import { getRequestById, askForRequestApproval } from '../api/requestApi';
 import Loading from '../Components/Loading';
-import { Container, Col, Row } from 'reactstrap'
-import { SmallP } from '../Styles';
+import { Container, Col, Row, Alert } from 'reactstrap'
+import { SmallP, BlueButton } from '../Styles';
 import { format } from 'date-fns'
 import PurchaseReqFileUploader from '../Components/PurchaseReqFileUploader';
 import ItemList from '../Components/requestForms/ItemList'
@@ -17,6 +17,18 @@ const PurchaseReqDetails = (props) => {
   console.log(id)
   console.log(props)
   console.log(request)
+
+  let alertColor = 'warning'
+
+  const submitAskForApproval = async (requestId) => {
+    setLoading(true);
+
+    const data = await askForRequestApproval(requestId);
+    console.log(data);
+
+    setLoading(false);
+  };
+
   useEffect(() => {
     const fn = async () => {
       setLoading(true);
@@ -94,6 +106,22 @@ const PurchaseReqDetails = (props) => {
               <Col><strong>Business Justification:</strong></Col>
               <Col><SmallP>{`${request.businessNeed}`}</SmallP></Col>
             </Row>
+          </Col>
+        </Row>
+        <hr />
+        <Row>
+          <Col>
+            <h6>Request Status:</h6>
+            <Alert color={alertColor}>{request.status}</Alert>
+          </Col>
+          <Col>
+            {
+              request.status === 'Saved' ? <BlueButton style={{ transform: 'translateY(25px)' }} onClick={() => submitAskForApproval(id)} >Send For Approval</BlueButton> : null
+            }
+            {" "}
+            {
+              request.status === 'Saved' ? <BlueButton style={{ transform: 'translateY(25px)' }} tag={Link} to={`/purchasing/edit/${id}`} >Edit Purchase Req</BlueButton> : null
+            }
           </Col>
         </Row>
         <hr />

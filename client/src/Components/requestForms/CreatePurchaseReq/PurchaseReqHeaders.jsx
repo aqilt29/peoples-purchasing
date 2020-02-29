@@ -6,12 +6,16 @@ import VendorSelect from '../../VendorSelect';
 import UserSelect from '../../UserSelect';
 import { listOfBuyers, listOfPaymentTerms, listOfShippingAddresses } from '../../../utils/lists';
 import EntitySelect from '../../EntitySelect';
+import { useAuth0 } from '../../../react-auth0-spa';
 
-export const PurchaseReqHeaders = ({ setHeaders }) => {
-  const [vendor, setVendor] = useState(null)
-  const [entity, setEntity] = useState(null)
-  const [user, setUser] = useState(null)
+export const PurchaseReqHeaders = ({ setHeaders, requestToEdit }) => {
+  const [vendor, setVendor] = useState(requestToEdit ? requestToEdit.vendor._id : null)
+  const [entity, setEntity] = useState(requestToEdit ? requestToEdit.entity._id : null)
+  const [user, setUser] = useState(requestToEdit ? requestToEdit.user._id : null)
   const [isValid, setValid] = useState(false)
+  const { dbUser: { _id: currentUserId } } = useAuth0()
+
+  console.log(currentUserId)
 
   const submitValidHeaders = (_, formData) => {
 
@@ -28,8 +32,8 @@ export const PurchaseReqHeaders = ({ setHeaders }) => {
 
 
   useEffect(() => {
-    if (vendor && user) setValid(true)
-  }, [vendor, user])
+    if (vendor && user && entity) setValid(true)
+  })
 
   return (
     <>
@@ -38,10 +42,11 @@ export const PurchaseReqHeaders = ({ setHeaders }) => {
       <AvForm onValidSubmit={submitValidHeaders}>
         <Row>
           <Col>
-            <VendorSelect  label="Select Vendor for Order:" vendorChange={setVendor} />
-            <UserSelect label="Request on behalf of:" userChange={setUser} />
-            <EntitySelect entityChange={setEntity} />
+            <VendorSelect vendorId={requestToEdit ? requestToEdit.vendor._id : undefined} label="Select Vendor for Order:" vendorChange={setVendor} />
+            <UserSelect userId={requestToEdit && (requestToEdit.user._id !== currentUserId) ? requestToEdit.user._id : undefined} label="Request on behalf of:" userChange={setUser} />
+            <EntitySelect entityId={requestToEdit ? requestToEdit.entity._id : undefined} entityChange={setEntity} />
             <AvField
+              defaultValue={requestToEdit ? requestToEdit.buyer : undefined}
               style={{ width: '75%' }}
               type="select"
               name="buyer"
@@ -55,6 +60,7 @@ export const PurchaseReqHeaders = ({ setHeaders }) => {
           </Col>
           <Col>
               <AvField
+              defaultValue={requestToEdit ? requestToEdit.paymentTerms : undefined}
               type="select"
               required
               name="paymentTerms"
@@ -67,6 +73,7 @@ export const PurchaseReqHeaders = ({ setHeaders }) => {
               }
             </AvField>
             <AvField
+              defaultValue={requestToEdit ? requestToEdit.address.shipTo : undefined}
               type="select"
               required
               name="shipTo"
@@ -79,6 +86,7 @@ export const PurchaseReqHeaders = ({ setHeaders }) => {
               }
             </AvField>
             <AvField
+              defaultValue={requestToEdit ? requestToEdit.businessNeed : undefined}
               required
               type="textarea"
               name="businessNeed"

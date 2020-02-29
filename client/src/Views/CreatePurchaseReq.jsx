@@ -100,20 +100,34 @@ class CreatePurchaseReq extends Component {
   render() {
     console.log(this.props)
     const { step, items, isLoading } = this.state
+    const { requestToEdit = undefined } = this.props
 
     if (isLoading) return <Loading />;
 
     return (
       <>
-        <h3>Create New Purchase Requisition</h3>
+        <h3>Purchase Requisition</h3>
         {
-          step === 0 ? <PurchaseReqHeaders setHeaders={this.setHeaders} /> : null
+          step === 0 ? <PurchaseReqHeaders
+            requestToEdit={requestToEdit}
+            setHeaders={this.setHeaders}
+          /> : null
         }
         {
-          step === 1 ? <AddItemsForm submitNewForm={this.submitNewForm} items={items} addItem={this.addItem} deleteItem={this.deleteItem} /> : null
+          step === 1 ? <AddItemsForm
+            requestToEdit={requestToEdit}
+            submitNewForm={this.submitNewForm}
+            items={items}
+            addItem={this.addItem}
+            deleteItem={this.deleteItem}
+          /> : null
         }
         {
-          step === 2 ? <ReqSummary decrementStep={this.decrementStep} {...this.state} /> : null
+          step === 2 ? <ReqSummary
+            requestToEdit={requestToEdit}
+            decrementStep={this.decrementStep}
+            {...this.state}
+          /> : null
         }
       </>
     )

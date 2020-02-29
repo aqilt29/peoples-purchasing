@@ -51,7 +51,7 @@ module.exports = {
         .populate('vendor')
         .populate('user')
         .populate('entity')
-        .populate({ path: 'submittedFor', select: 'firstName lastName -_id'})
+        .populate('submittedFor')
 
     } catch (error) {
       res.status(404).send(error)
