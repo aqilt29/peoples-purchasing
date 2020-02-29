@@ -8,8 +8,8 @@ class CreatePurchaseReq extends Component {
     super(props)
     this.state = {
       step: 0,
-      items: [],
-      invoiceTotal: 0,
+      items: this.props.requestToEdit ? this.props.requestToEdit.items : [],
+      invoiceTotal: this.props.requestToEdit ? this.props.requestToEdit.invoiceTotal : 0,
       vendor: '',
       entity: '',
       submittedFor: '',
