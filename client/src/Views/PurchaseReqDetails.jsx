@@ -5,6 +5,8 @@ import Loading from '../Components/Loading';
 import { Container, Col, Row } from 'reactstrap'
 import { SmallP } from '../Styles';
 import { format } from 'date-fns'
+import PurchaseReqFileUploader from '../Components/PurchaseReqFileUploader';
+import ItemList from '../Components/requestForms/ItemList'
 
 const PurchaseReqDetails = (props) => {
   const { params: { id } } = useRouteMatch();
@@ -94,16 +96,43 @@ const PurchaseReqDetails = (props) => {
             </Row>
           </Col>
         </Row>
+        <hr />
         <Row>
           {/* row for uploading and information on that */}
-
+        <Col>
+          <h6>Approval Status</h6>
+            {
+              request.approverList.map((approver, idx) => {
+                return (
+                  <div key={idx}>
+                    <strong>#{idx + 1}</strong>{" "}
+                    <SmallP>{approver.email},</SmallP>{" "}
+                    <SmallP>{approver.isSent ? 'Email Sent' : 'Email Pending'},</SmallP>{" "}
+                    <SmallP>{approver.isApproved ? 'Approved' : 'Approval Pending'}</SmallP>
+                  </div>
+                )
+              })
+            }
+        </Col>
+        <Col>
+            <h6>Attach Documents</h6>
+            <PurchaseReqFileUploader />
+        </Col>
+        <Col>
+            <h6>Attachments</h6>
+        </Col>
         </Row>
         <Row>
           {/* row for approval information */}
         </Row>
+        <hr />
+        <Row>
+          <Col>
+            <h6>Items on List</h6>
+            <ItemList items={request.items} deleteItem={() => {}}/>
+          </Col>
+        </Row>
       </Container>
-      <hr />
-      <code>{JSON.stringify(request, null, 2)}</code>
     </>
   )
 }
