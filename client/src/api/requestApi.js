@@ -2,20 +2,17 @@ import axios from 'axios';
 
 const apiPath = process.env.NODE_ENV === 'development' ? 'http://localhost:5400/api/requests' : null;
 
-export const createNewRequest = async ({ shipTo, billTo, entity, businessUnit, submittedFor, ...data}) => {
+export const createNewRequest = async ({ shipTo, submittedFor, ...data}) => {
+  console.log(shipTo, 'yolo');
 
   const postData = {
     address: {
-      shipTo,
-      billTo,
+      shipTo
     },
-    entity: {
-      name: entity,
-      businessUnit,
-    },
-    submittedFor: submittedFor.length > 1 ? submittedFor : undefined,
+    submittedFor: submittedFor ? submittedFor : undefined,
     ...data
   }
+
   console.log('->>> post data',postData)
   const request = await axios.post(`${apiPath}/`, postData);
   console.log(request);
@@ -68,3 +65,18 @@ export const askForRequestApproval = async (id) => {
   console.log(data)
   return data
 };
+
+export const getUploadParams = async (fileName, id) => {
+
+}
+
+export const submitBuffer = async ({ fileName, id, buffer }) => {
+
+  const data = await axios.post(`${apiPath}/upload/${id}`, {
+    fileName,
+    buffer,
+  })
+
+  return data;
+
+}

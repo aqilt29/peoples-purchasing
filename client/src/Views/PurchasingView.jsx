@@ -2,12 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import ItemList from '../Components/requestForms/ItemList'
 import { format } from 'date-fns';
+import { Link } from 'react-router-dom';
 
 import Loading from '../Components/Loading';
 import { getRequestById, approveRequest, denyRequest, askForRequestApproval } from '../api/requestApi';
 import { Container, Row, Col, Button, Alert } from 'reactstrap';
 import { useAuth0 } from '../react-auth0-spa';
 import { SmallP, BlueButton } from '../Styles';
+import PurchaseReqFileUploader from '../Components/PurchaseReqFileUploader';
 
 const PurchasingView = () => {
   const { id, approverId = false } = useParams();
@@ -93,7 +95,21 @@ const PurchasingView = () => {
           {
             requestData.status === 'Saved' ? <BlueButton onClick={() => submitAskForApproval(id)} >Send For Approval</BlueButton> : null
           }
+          {" "}
+          {
+            requestData.status === 'Saved' ? <BlueButton tag={Link} to={`/purchasing/edit/${id}`} >Edit Purchase Req</BlueButton> : null
+          }
         </Col>
+        </Row>
+        <hr />
+        <Row>
+          <Col>
+            <h6>Attach Documents</h6>
+            <PurchaseReqFileUploader />
+          </Col>
+          <Col>
+            <h6>Current Documents</h6>
+          </Col>
         </Row>
         <hr />
         <Row>
@@ -103,8 +119,9 @@ const PurchasingView = () => {
               requestData.approverList.map((approver, idx) => {
                 return (
                   <div key={idx}>
-                    <SmallP>{approver.email}</SmallP>{" "}
-                    <SmallP>{approver.isSent ? 'Email Sent' : 'Email Pending'}</SmallP>{" "}
+                    <strong>#{idx + 1}</strong>{" "}
+                    <SmallP>{approver.email},</SmallP>{" "}
+                    <SmallP>{approver.isSent ? 'Email Sent' : 'Email Pending'},</SmallP>{" "}
                     <SmallP>{approver.isApproved ? 'Approved' : 'Approval Pending'}</SmallP>
                   </div>
                 )

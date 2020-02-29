@@ -8,6 +8,7 @@ const connectDb = require('../db');
 const requestRouter =  require('./routes/requests');
 const userRouter = require('./routes/users');
 const vendorRouter = require('./routes/vendors');
+const entityRouter = require('./routes/entities');
 
 const app = express();
 
@@ -17,6 +18,7 @@ app.use(morgan('dev'));
 app.use(cors());
 
 app.use('/api/requests', requestRouter);
+app.use('/api/entities', entityRouter);
 app.use('/api/vendors', vendorRouter);
 app.use('/api/users', userRouter);
 

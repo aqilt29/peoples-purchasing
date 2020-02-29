@@ -11,6 +11,8 @@ aws.config.loadFromPath(path.resolve(__dirname, '../../aws_config.json'));
 //  instance of SQS class
 const sqs = new aws.SQS();
 
+const s3 = new aws.S3();
+
 // How to use promises with aws
 // sqs.listQueues().promise().then(console.log)
 
@@ -48,7 +50,8 @@ module.exports = {
       data = await Request.findById(id)
         .populate('vendor')
         .populate('user')
-        .populate({ path: 'submittedFor', select: 'firstName lastName -_id'})
+        .populate('entity')
+        .populate('submittedFor')
 
     } catch (error) {
       res.status(404).send(error)
@@ -63,6 +66,7 @@ module.exports = {
     const data = await Request.find()
       .or([{ user: userId }, { submittedFor: userId }, { 'approverList.email': email }])
       .where('user != submittedFor')
+      .where('isDeleted').ne(true)
       .populate({ path: 'vendor', select: 'name -_id'})
       .populate({ path: 'submittedFor', select: 'firstName lastName -_id'})
       .sort({ dateRequested: 'desc'})
@@ -80,12 +84,15 @@ module.exports = {
     const { body } = req;
     console.log(body, '<---- body')
     //  create document model
+
+    console.log(body.editedId, '<--- edited id')
+
     const submitRequest = new Request(body)
     let saveData;
 
     console.log('this is submittedFor', submitRequest.submittedFor)
-    //  try to get the cost center for the submitted for.
 
+    //  try to get the cost center for the submitted for.
     try {
       let { costCenter } = await User.findById(submitRequest.submittedFor);
       console.log(costCenter, "<--- in controller")
@@ -94,23 +101,53 @@ module.exports = {
     } catch (error) {
 
       console.log(error)
-      return res.status(404).json(error)
+      return res.status(501).json(error)
     }
 
     //  try to save to database
     try {
       console.log('Attempting to save document', submitRequest.submittedFor)
       saveData = await submitRequest.save()
-
+      console.log(saveData)
     } catch (error) {
       console.log(error)
-      return res.status(404).json(error)
+      return res.status(502).json(error)
 
     }
 
     console.log('Document Saved!')
 
-    res.status(201).json(saveData);
+    //  try to mark the old one as deleted if it is an edit
+    if (body.editedId) {
+      try {
+        const { editedId } = body;
+        const requestToDelete = await Request.findById(editedId)
+        requestToDelete.isDeleted = true;
+        await requestToDelete.save()
+        console.log(requestToDelete, '<-- we are deleting this one')
+        console.log(editedId, '<--- this was deleted')
+      } catch (error) {
+        console.log(error)
+        return res.status(504).json(error)
+      }
+    }
+
+    //  try to populate the related data to send back
+
+    let dataToReturn;
+    try {
+      dataToReturn = await Request.findById(saveData._id)
+        .populate('user')
+        .populate('submittedFor')
+        .populate('entity')
+        .populate('vendor')
+
+    } catch (error) {
+      console.log(error)
+      return res.status(503).json(error)
+    }
+
+    res.status(201).json(dataToReturn);
   },
 
   routeRequestForApproval: async (req, res) => {
@@ -231,9 +268,38 @@ module.exports = {
     try {
       await sqs.sendMessage(queueParams(`sendDeniedNotifications`, id)).promise()
     } catch (error) {
-      res.status(500).send(error)
     }
 
     res.status(201).send(requestToUpdate)
-  }
+  },
+
+  uploadDocument: async (req, res) => {
+    const { params: { id }, body: { fileName = 'test.txt' } } = req;
+
+    //  lookup request based on id
+    try {
+      console.log(`find document on id ${id}`)
+      const attachingDocument = await Request.findById(id);
+    } catch (error) {
+      console.error(error)
+      return res.status(500).send(error)
+    }
+
+    const params = {
+      Bucket: 'purchasing-attachments',
+      Key: fileName,
+      Expires: 14 * 24 * 3600,
+    }
+
+    // const signedUrlPut = s3.getSignedUrl('putObject', params)
+
+    // console.log(signedUrlPut);
+
+    res.status(201).send(signedUrlPut)
+    //  receive file from the client
+    //  upload file to S3
+    //  add link under document.attachments.push(return url)
+    //  save
+    //  send document back to client
+  },
 }

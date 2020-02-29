@@ -34,6 +34,9 @@ import VendorApps from "./Views/VendorApps";
 import AddVendors from "./Views/AddVendors";
 import VendorListView from "./Views/VendorListView";
 import VendorDetails from "./Views/VendorDetails";
+import EditPurchaseReqDetails from './Views/EditPurchaseReqDetails';
+import CreatePurchaseReq from "./Views/CreatePurchaseReq";
+import PurchaseReqDetails from "./Views/PurchaseReqDetails";
 
 const App = () => {
   const { loading, isAuthenticated, user, dbUser } = useAuth0();
@@ -42,7 +45,6 @@ const App = () => {
   if (loading) {
     return <Loading />;
   }
-  console.table(user)
 
   if (isAuthenticated) MainPageView = Dashboard;
   if (isAuthenticated && !dbUser) MainPageView = UnderConstruction;
@@ -61,8 +63,10 @@ const App = () => {
             <PrivateRoute exact path="/purchasing" component={PurchasingApps} />
             <PrivateRoute exact path="/purchasing/view/:id/:approverId" component={PurchasingView} />
             <PrivateRoute exact path="/purchasing/view/:id" component={PurchasingView} />
+            <PrivateRoute exact path="/purchasing/details/:id" component={PurchaseReqDetails} />
+            <PrivateRoute exact path="/purchasing/edit/:id" component={EditPurchaseReqDetails} />
             <PrivateRoute exact path="/purchasing/viewforms" component={PurchasingViewAll} />
-            <PrivateRoute exact path="/purchasing/createform" render={(props) => <PurchasingCreateForm {...props} user={dbUser}/>} />
+            <PrivateRoute exact path="/purchasing/createform" render={(props) => <CreatePurchaseReq {...props} user={dbUser}/>} />
             <PrivateRoute exact path="/vendors" component={VendorApps} />
             <PrivateRoute exact path="/vendors/add" component={AddVendors} />
             <PrivateRoute exact path="/vendors/viewall" component={VendorListView} />

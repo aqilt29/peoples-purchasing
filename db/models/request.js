@@ -11,9 +11,11 @@ const approverSchema = new Schema({
   isSent: Boolean,
   isApproved: Boolean,
   dateApproved: Date,
+  dateSent: Date,
 })
 
 const requestSchema = new Schema({
+  isDeleted: { type: Boolean, default: false },
   user: { type: Schema.Types.ObjectId, ref: 'User', required: true },
   delegates: [
     { type: Schema.Types.ObjectId, ref: 'User' }
@@ -21,7 +23,6 @@ const requestSchema = new Schema({
   vendor: { type: Schema.Types.ObjectId, ref: 'Vendor', required: true },
   address: {
     shipTo: { type: String, required: true },
-    billTo: { type: String, required: true },
   },
   costCenter: { type: Number, required: true },
   submittedFor: {
@@ -34,10 +35,7 @@ const requestSchema = new Schema({
       return null;
     }
   }, //  one userId of someone with pmcoc submitted by defines routing rules
-  entity: {
-    name: { type: String, required: true },
-    businessUnit: { type: String, required: true },
-  },
+  entity: { type: Schema.Types.ObjectId, ref: 'Entity', required: true },
   dateRequested: { type: Date, default: Date.now },
   businessNeed: { type: String, required: true },
   invoiceTotal: { type: Number, required: true },
@@ -49,6 +47,7 @@ const requestSchema = new Schema({
   shipVia: String,
   shippingTerms: String,
   items: [itemSchema],
+  attachments: [String]
 });
 
 
