@@ -10,6 +10,7 @@ const userRouter = require('./routes/users');
 const vendorRouter = require('./routes/vendors');
 const entityRouter = require('./routes/entities');
 const itemRouter = require('./routes/items');
+const purchaseOrderRouter = require('./routes/purchaseOrder');
 
 const app = express();
 
@@ -23,6 +24,7 @@ app.use('/api/items', itemRouter);
 app.use('/api/entities', entityRouter);
 app.use('/api/vendors', vendorRouter);
 app.use('/api/users', userRouter);
+app.use('/api/purchaseorders', purchaseOrderRouter);
 
 connectDb().then((arg) => {
     console.log('PORT' ,process.env.PORT)
