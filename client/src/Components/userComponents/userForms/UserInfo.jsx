@@ -1,6 +1,6 @@
 import React from 'react';
 import { Row, Col } from 'reactstrap';
-import { listOfEntities, roleTypes } from '../../utils/lists';
+import { listOfEntities, roleTypes } from '../../../utils/lists';
 import { AvField } from 'availity-reactstrap-validation';
 
 const UserInfo = () => {

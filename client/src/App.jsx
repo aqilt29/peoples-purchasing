@@ -6,7 +6,7 @@ import { Container } from "reactstrap";
 
 import PrivateRoute from "./Components/PrivateRoute";
 import Loading from "./Components/Loading";
-import NavBar from "./Components/NavBar";
+import NavBar from "./Components/NavBar/NavBar";
 import Footer from "./Components/Footer";
 import Home from "./Views/Home";
 import Dashboard from './Views/Dashboard';
@@ -28,7 +28,7 @@ import UnderConstruction from "./Views/UnderConstruction";
 import ManageVendors from "./Views/ManageVendors";
 import Users from "./Views/Users";
 import AdminRoute from "./Components/AdminRoute";
-import UserList from "./Components/UserList";
+import UserList from "./Components/userComponents/UserList";
 import PurchasingView from "./Views/PurchasingView";
 import VendorApps from "./Views/VendorApps";
 import AddVendors from "./Views/AddVendors";
