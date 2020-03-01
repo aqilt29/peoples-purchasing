@@ -2,7 +2,8 @@ import React from 'react';
 import { Table } from 'reactstrap';
 import DisplayItem from './DisplayItem';
 
-const ItemList = ({ items, deleteItem, detailsPage = false }) => {
+const ItemList = ({ documentId = undefined, items, deleteItem, detailsPage = false }) => {
+
   return (
     <div>
       <Table size="sm" striped responsive>
@@ -26,7 +27,7 @@ const ItemList = ({ items, deleteItem, detailsPage = false }) => {
             return (
               <tr key={idx}>
                 <th scope="row">{idx + 1}</th>
-                <DisplayItem detailsPage deleteItem={deleteItem} item={item} index={idx} />
+                <DisplayItem detailsPage documentId={documentId} deleteItem={deleteItem} item={item} index={idx} />
               </tr>
             )
           })

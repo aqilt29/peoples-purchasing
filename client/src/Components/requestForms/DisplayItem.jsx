@@ -3,7 +3,7 @@ import { Button } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
 
-const DisplayItem = ({ item, index, deleteItem, detailsPage = false }) => {
+const DisplayItem = ({ documentId = undefined, item, index, deleteItem, detailsPage = false }) => {
   const linkToOnline = item.link || '#';
 
   return (
@@ -16,7 +16,7 @@ const DisplayItem = ({ item, index, deleteItem, detailsPage = false }) => {
       <td>${(item.price * item.quantity)}</td>
       {detailsPage || <td><Button onClick={() => deleteItem(index)} close style={{ float: 'none' }}/></td>}
       {detailsPage && <td><Button style={{ 'lineHeight': '.75', paddingLeft: 0 }} href={linkToOnline} target="_blank" color="link">Online Link</Button></td>}
-      {detailsPage && <td><Button style={{ 'lineHeight': '.75', paddingLeft: 0 }} tag={Link} to={`/purchasing/details/item/${item._id}`} color="link">View</Button></td>}
+      {detailsPage && <td><Button style={{ 'lineHeight': '.75', paddingLeft: 0 }} tag={Link} to={`/purchasing/details/item/${item._id}/${documentId}`} color="link">View</Button></td>}
     </>
   )
 };

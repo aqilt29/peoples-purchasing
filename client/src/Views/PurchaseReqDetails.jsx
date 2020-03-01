@@ -158,6 +158,7 @@ const PurchaseReqDetails = (props) => {
           <Col>
             <h6>Items on List</h6>
             <ItemList
+              documentId={id}
               items={request.items}
               deleteItem={() => {}}
               detailsPage
