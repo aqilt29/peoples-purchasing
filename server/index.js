@@ -9,6 +9,7 @@ const requestRouter =  require('./routes/requests');
 const userRouter = require('./routes/users');
 const vendorRouter = require('./routes/vendors');
 const entityRouter = require('./routes/entities');
+const itemRouter = require('./routes/items');
 
 const app = express();
 
@@ -18,6 +19,7 @@ app.use(morgan('dev'));
 app.use(cors());
 
 app.use('/api/requests', requestRouter);
+app.use('/api/items', itemRouter);
 app.use('/api/entities', entityRouter);
 app.use('/api/vendors', vendorRouter);
 app.use('/api/users', userRouter);

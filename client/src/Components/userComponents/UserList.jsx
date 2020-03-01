@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Table } from 'reactstrap';
 import UserListItem from './UserListItem';
-import { getAllUsers } from '../api/userApi';
-import Loading from './Loading';
+import { getAllUsers } from '../../api/userApi';
+import Loading from '../Loading';
 
 const UserList = () => {
   const [users, setUsers] = useState([])

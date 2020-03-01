@@ -15,10 +15,10 @@ import {
   DropdownItem
 } from "reactstrap";
 
-import { NavContainer, GoldButton } from '../Styles'
+import { NavContainer, GoldButton } from '../../Styles'
 
-import { useAuth0 } from "../react-auth0-spa";
-import LogoLink from '../utils/LogoLink';
+import { useAuth0 } from "../../react-auth0-spa";
+import LogoLink from '../../utils/LogoLink';
 import StyledNavBarTogglerButton from './NavBarTogglerButton';
 
 const NavBar = () => {

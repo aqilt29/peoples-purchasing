@@ -2,7 +2,7 @@ import React from 'react';
 import { Table } from 'reactstrap';
 import DisplayItem from './DisplayItem';
 
-const ItemList = ({ items, deleteItem }) => {
+const ItemList = ({ documentId = undefined, items, deleteItem, detailsPage = false }) => {
 
   return (
     <div>
@@ -16,7 +16,9 @@ const ItemList = ({ items, deleteItem }) => {
             <th>Unit</th>
             <th>QTY</th>
             <th>Ext. Price</th>
-            <th>Del</th>
+            {detailsPage || <th>Del</th>}
+            {detailsPage && <th>Link</th>}
+            {detailsPage && <th>Details</th>}
           </tr>
         </thead>
         <tbody>
@@ -25,7 +27,7 @@ const ItemList = ({ items, deleteItem }) => {
             return (
               <tr key={idx}>
                 <th scope="row">{idx + 1}</th>
-                <DisplayItem deleteItem={deleteItem} item={item} index={idx} />
+                <DisplayItem detailsPage documentId={documentId} deleteItem={deleteItem} item={item} index={idx} />
               </tr>
             )
           })

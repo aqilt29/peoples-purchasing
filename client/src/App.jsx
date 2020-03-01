@@ -6,7 +6,7 @@ import { Container } from "reactstrap";
 
 import PrivateRoute from "./Components/PrivateRoute";
 import Loading from "./Components/Loading";
-import NavBar from "./Components/NavBar";
+import NavBar from "./Components/NavBar/NavBar";
 import Footer from "./Components/Footer";
 import Home from "./Views/Home";
 import Dashboard from './Views/Dashboard';
@@ -28,7 +28,7 @@ import UnderConstruction from "./Views/UnderConstruction";
 import ManageVendors from "./Views/ManageVendors";
 import Users from "./Views/Users";
 import AdminRoute from "./Components/AdminRoute";
-import UserList from "./Components/UserList";
+import UserList from "./Components/userComponents/UserList";
 import PurchasingView from "./Views/PurchasingView";
 import VendorApps from "./Views/VendorApps";
 import AddVendors from "./Views/AddVendors";
@@ -38,6 +38,7 @@ import EditPurchaseReqDetails from './Views/EditPurchaseReqDetails';
 import CreatePurchaseReq from "./Views/CreatePurchaseReq";
 import PurchaseReqDetails from "./Views/PurchaseReqDetails";
 import PurchasingAllByCompany from './Views/PurchasingAllByCompany'
+import ItemDetailsPage from "./Views/ItemDetailsPage";
 
 
 const App = () => {
@@ -66,6 +67,7 @@ const App = () => {
             <PrivateRoute exact path="/purchasing/search" component={SearchPurchaseReqs} />
             <PrivateRoute exact path="/purchasing/view/:id/:approverId" component={PurchasingView} />
             <PrivateRoute exact path="/purchasing/view/:id" component={PurchasingView} />
+            <PrivateRoute exact path="/purchasing/details/item/:itemId/:documentId" component={ItemDetailsPage} />
             <PrivateRoute exact path="/purchasing/details/:id" component={PurchaseReqDetails} />
             <PrivateRoute exact path="/purchasing/edit/:id" component={EditPurchaseReqDetails} />
             <PrivateRoute exact path="/purchasing/viewforms" component={PurchasingViewAll} />
