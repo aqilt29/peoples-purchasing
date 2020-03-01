@@ -37,6 +37,7 @@ const itemSchema = new Schema({
 
   isDirect: { type: Boolean, default: false },
   receivedQty: { type: Number, default: 0 },
+  invoicedQty: { type: Number, default: 0 },
 });
 
 

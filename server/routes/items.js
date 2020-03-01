@@ -4,5 +4,6 @@ const controller = require('../controllers/itemController');
 router
   .route('/:id/:docId')
   .get(controller.getItemById)
+  .post(controller.modifyItem)
 
 module.exports = router;

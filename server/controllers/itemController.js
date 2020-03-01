@@ -19,5 +19,13 @@ module.exports = {
 
 
     res.status(200).send(itemDetails)
-  }
+  },
+
+  modifyItem: async (req, res) => {
+    const { params: { id, docId }, body } = req;
+
+    console.log(id, docId, body)
+
+    res.status(201).send(body)
+  },
 }
