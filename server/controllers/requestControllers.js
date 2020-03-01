@@ -195,8 +195,22 @@ module.exports = {
     res.send('TODO API UPDATE: update request: '+ JSON.stringify(req.params) + ' ' + req.path)
   },
 
-  searchRequests: (req, res) => {
-    res.send(`TODO API SEARCH: ${JSON.stringify(req.params)} ${JSON.stringify(req.query)} ${req.path}`)
+  searchRequests: async (req, res) => {
+    const { lookupId } = req.body;
+    const searchKey = new RegExp('5e5af0d1f53e861c9324b058', 'i')
+
+    //  try to find the request by an id or partial
+    console.log(lookupId)
+    let requestResults;
+    try {
+      requestResults = await Request.find().$where(`this._id.str.match(/${lookupId}/i)`)
+      console.log(requestResults)
+    } catch (error) {
+      console.log(error)
+      return res.status(500).json(error)
+    }
+
+    res.status(201).send(requestResults)
   },
 
   approveRequest: async (req, res) => {

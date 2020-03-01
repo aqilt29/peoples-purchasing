@@ -13,7 +13,7 @@ const RequestDone = (props) => {
           return <h5>{idx + 1} {JSON.stringify(email)}</h5>
         })
       }
-      <GoldButton tag={Link} to={`/purchasing/view/${props.successData._id}`}>Attach Documents</GoldButton>
+      <GoldButton tag={Link} to={`/purchasing/details/${props.successData._id}`}>Attach Documents</GoldButton>
     </>
   )
 };

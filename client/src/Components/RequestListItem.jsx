@@ -23,7 +23,7 @@ const RequestListItem = ({ request, idx }) => {
   return (
     <tr>
       <td>{(idx + 1)}</td>
-      <td>{request._id.slice(-4).toUpperCase()}</td>
+      <td>{request._id.slice(-5).toUpperCase()}</td>
       <td>{request.status}</td>
       <td>{request.businessNeed}</td>
       <td>{format(new Date(request.dateRequested), 'MM/dd/yyyy')}</td>
@@ -32,7 +32,7 @@ const RequestListItem = ({ request, idx }) => {
       <td>{getNextApprover(request).email}</td>
       <td>{request.vendor.name}</td>
       <td>{request.submittedFor.firstName}</td>
-      <td><Button tag={Link} to={`/purchasing/view/${request._id}`} color="link" style={{ float: 'none' }}>View</Button></td>
+      <td><Button tag={Link} to={`/purchasing/details/${request._id}`} color="link" style={{ float: 'none' }}>View</Button></td>
     </tr>
   )
 };

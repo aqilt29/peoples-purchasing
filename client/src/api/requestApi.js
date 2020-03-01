@@ -80,3 +80,11 @@ export const submitBuffer = async ({ fileName, id, buffer }) => {
   return data;
 
 }
+
+export const searchRequestById = async (lookupId) => {
+  const { data } = await axios.post(`${apiPath}/search`, { lookupId });
+
+  console.log(data)
+
+  return data
+};

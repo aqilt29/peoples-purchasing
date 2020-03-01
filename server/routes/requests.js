@@ -7,6 +7,10 @@ router
   .post(controller.createRequest)
 
 router
+  .route('/search')
+  .post(controller.searchRequests)
+
+router
   .route('/:id')
   .get(controller.getRequestById)
   .put(controller.updateRequest)
@@ -28,8 +32,5 @@ router
   .route('/user/:userId')
   .get(controller.getRequestsByUser)
 
-router
-  .route('/user/:userId/search')
-  .get(controller.searchRequests)
 
 module.exports = router;

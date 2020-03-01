@@ -49,7 +49,7 @@ const VendorDetails = () => {
   return (
     vendor && (<>
       <h3>Vendor Details</h3>
-      <h4>Id: {vendor._id.slice(-4).toUpperCase()}</h4>
+      <h4>Id: {vendor._id.slice(-5).toUpperCase()}</h4>
       <h5>{vendor.isDeleted ? 'Vendor is Deleted' : null}</h5>
       <Container>
         <Row>
