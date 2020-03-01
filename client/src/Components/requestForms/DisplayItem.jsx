@@ -4,7 +4,8 @@ import { Link } from 'react-router-dom';
 
 
 const DisplayItem = ({ item, index, deleteItem, detailsPage = false }) => {
-  console.log(item.link)
+  const linkToOnline = item.link || '#';
+
   return (
     <>
       <td>{item.description}</td>
@@ -14,8 +15,8 @@ const DisplayItem = ({ item, index, deleteItem, detailsPage = false }) => {
       <td>{item.quantity}</td>
       <td>${(item.price * item.quantity)}</td>
       {detailsPage || <td><Button onClick={() => deleteItem(index)} close style={{ float: 'none' }}/></td>}
-      {detailsPage && <td><Button style={{ 'line-height': '.75', paddingLeft: 0 }} tag={Link} to={`/purchasing/details/${item._id}`} color="link">Online Link</Button></td>}
-      {detailsPage && <td><Button style={{ 'line-height': '.75', paddingLeft: 0 }} tag={Link} to={`/purchasing/details/${item._id}`} color="link">View</Button></td>}
+      {detailsPage && <td><Button style={{ 'lineHeight': '.75', paddingLeft: 0 }} href={linkToOnline} target="_blank" color="link">Online Link</Button></td>}
+      {detailsPage && <td><Button style={{ 'lineHeight': '.75', paddingLeft: 0 }} tag={Link} to={`/purchasing/details/item/${item._id}`} color="link">View</Button></td>}
     </>
   )
 };

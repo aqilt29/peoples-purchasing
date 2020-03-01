@@ -38,6 +38,7 @@ import EditPurchaseReqDetails from './Views/EditPurchaseReqDetails';
 import CreatePurchaseReq from "./Views/CreatePurchaseReq";
 import PurchaseReqDetails from "./Views/PurchaseReqDetails";
 import PurchasingAllByCompany from './Views/PurchasingAllByCompany'
+import ItemDetailsPage from "./Views/ItemDetailsPage";
 
 
 const App = () => {
@@ -66,6 +67,7 @@ const App = () => {
             <PrivateRoute exact path="/purchasing/search" component={SearchPurchaseReqs} />
             <PrivateRoute exact path="/purchasing/view/:id/:approverId" component={PurchasingView} />
             <PrivateRoute exact path="/purchasing/view/:id" component={PurchasingView} />
+            <PrivateRoute exact path="/purchasing/details/item/:id" component={ItemDetailsPage} />
             <PrivateRoute exact path="/purchasing/details/:id" component={PurchaseReqDetails} />
             <PrivateRoute exact path="/purchasing/edit/:id" component={EditPurchaseReqDetails} />
             <PrivateRoute exact path="/purchasing/viewforms" component={PurchasingViewAll} />
