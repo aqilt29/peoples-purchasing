@@ -33,6 +33,10 @@ module.exports = {
 
     try {
       data = await Request.find()
+      .populate('user')
+      .populate('submittedFor')
+      .populate('entity')
+      .populate('vendor')
 
     } catch (error) {
       res.status(404).send(error)

@@ -19,6 +19,13 @@ export const createNewRequest = async ({ shipTo, submittedFor, ...data}) => {
   return request;
 };
 
+export const getAllRequests = async () => {
+  const { data: allRequests } = await axios.get(`${apiPath}/`)
+  console.log(allRequests)
+
+  return allRequests
+};
+
 export const getAllRequestsByUser = async ({ _id, email }) => {
   console.log(email)
   const allRequests = await axios.get(`${apiPath}/user/${_id}`, {
