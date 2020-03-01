@@ -157,7 +157,11 @@ const PurchaseReqDetails = (props) => {
         <Row>
           <Col>
             <h6>Items on List</h6>
-            <ItemList items={request.items} deleteItem={() => {}}/>
+            <ItemList
+              items={request.items}
+              deleteItem={() => {}}
+              detailsPage
+            />
           </Col>
         </Row>
       </Container>
