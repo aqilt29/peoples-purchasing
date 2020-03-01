@@ -13,10 +13,10 @@ import Dashboard from './Views/Dashboard';
 import Profile from "./Views/Profile";
 import PurchasingApps from './Views/PurchasingApps';
 import PurchasingViewAll from './Views/PurchasingViewAll';
-import PurchasingCreateForm from './Views/PurchasingCreateForm';
 import { useAuth0 } from "./react-auth0-spa";
 import history from "./utils/history";
 import UserCreation from './Views/UserCreation';
+import SearchPurchaseReqs from './Views/SearchPurchaseReqs'
 
 // styles
 import "./App.css";
@@ -61,6 +61,7 @@ const App = () => {
             <PrivateRoute exact path="/users/viewall" component={UserList} />
             <PrivateRoute exact path="/users/create" component={UserCreation} />
             <PrivateRoute exact path="/purchasing" component={PurchasingApps} />
+            <PrivateRoute exact path="/purchasing/search" component={SearchPurchaseReqs} />
             <PrivateRoute exact path="/purchasing/view/:id/:approverId" component={PurchasingView} />
             <PrivateRoute exact path="/purchasing/view/:id" component={PurchasingView} />
             <PrivateRoute exact path="/purchasing/details/:id" component={PurchaseReqDetails} />

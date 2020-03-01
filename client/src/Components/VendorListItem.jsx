@@ -7,7 +7,7 @@ const VendorListItem = ({ vendor, idx }) => {
   return (
     <tr>
       <td>{(idx + 1)}</td>
-      <td>{vendor._id.slice(-4).toUpperCase()}</td>
+      <td>{vendor._id.slice(-5).toUpperCase()}</td>
       <td>{vendor.name}</td>
       <td>{vendor.website}</td>
       <td>{vendor.phoneNumber}</td>

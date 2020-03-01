@@ -51,6 +51,11 @@ export const appPermissions = {
         subtitle: 'View details of all the PRs submitted company wide.',
         link: '/viewallrequests',
       },
+      {
+        title: 'Search All PRs',
+        subtitle: 'Lookup any PR company wide based on ID.',
+        link: '/search',
+      },
     ],
 
     vendors: [
@@ -91,6 +96,11 @@ export const appPermissions = {
         title: 'All PRs',
         subtitle: 'View details of all the PRs submitted company wide.',
         link: '/viewallrequests',
+      },
+      {
+        title: 'Search All PRs',
+        subtitle: 'Lookup any PR company wide based on ID.',
+        link: '/search',
       },
     ],
 
@@ -135,6 +145,11 @@ export const appPermissions = {
         title: 'All PRs',
         subtitle: 'View details of all the PRs submitted company wide.',
         link: '/viewallrequests',
+      },
+      {
+        title: 'Search All PRs',
+        subtitle: 'Lookup any PR company wide based on ID.',
+        link: '/search',
       },
     ],
 
