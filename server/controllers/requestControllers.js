@@ -320,4 +320,9 @@ module.exports = {
     //  save
     //  send document back to client
   },
+
+  getApprovedRequests: async (req, res) => {
+
+    res.status(200).send(`api todo get only approved requests`)
+  },
 }
