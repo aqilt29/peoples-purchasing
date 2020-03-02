@@ -249,16 +249,18 @@ module.exports = {
         break;
       }
 
-      // else
-      // send message to queue to notify everyone the request is approved
-      console.log('all emails sent and in loop', i, 'marking as approved')
-      requestToUpdate.status = 'Approved';
-      requestToUpdate.markModified('status');
-      await requestToUpdate.save();
-      await sqs.sendMessage(queueParams(`sendApprovalNotifications`, id)).promise()
+      console.log(i === (requestToUpdate.approverList.length - 1))
+        if (i === (requestToUpdate.approverList.length - 1)) {
+          console.log(i)
+
+          // send message to queue to notify everyone the request is approved
+          console.log('all emails sent and in loop', i, 'marking as approved')
+          requestToUpdate.status = 'Approved';
+          requestToUpdate.markModified('status');
+          await requestToUpdate.save();
+          await sqs.sendMessage(queueParams(`sendApprovalNotifications`, id)).promise()
+      }
     }
-
-
 
     //  return the updated document
     res.status(201).send(requestToUpdate)
