@@ -9,3 +9,8 @@ export const submitPO = async (postData) => {
   return data
 
 };
+
+export const getAllPOs = async () => {
+  const { data } = await axios.get(`${apiPath}`)
+  return data;
+};

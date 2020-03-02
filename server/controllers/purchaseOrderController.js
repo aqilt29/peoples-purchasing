@@ -35,7 +35,8 @@ module.exports = {
     let poWithListOfReqs;
     try {
       poWithListOfReqs = await PurchaseOrder.findById(savedPo._id).populate('purchaseRequests')
-      poWithListOfReqs.purchaseRequests.forEach(({ _id }) => console.log(_id))
+      poWithListOfReqs.vendor = poWithListOfReqs.purchaseRequests[0].vendor;
+      await poWithListOfReqs.save()
     } catch (error) {
       console.error(error)
       return res.status(503).send(error)
@@ -57,6 +58,6 @@ module.exports = {
       return res.status(504).send(error)
     }
 
-    res.status(201).send(savedPo)
+    res.status(201).send(poWithListOfReqs)
   },
 };

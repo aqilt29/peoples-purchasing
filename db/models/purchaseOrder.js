@@ -16,7 +16,8 @@ const PurchaseOrderSchema = new Schema({
   dateUpdated: Date,
   status: { type: String, default: 'Pending', enum: statuses },
   attachments: [String],
-  invoiceAmount: { type: Number, required: true }
+  invoiceAmount: { type: Number, required: true },
+  vendor: { type: Schema.Types.ObjectId, ref: 'Vendor' },
 })
 
 module.exports = mongoose.model('PurchaseOrder', PurchaseOrderSchema);
