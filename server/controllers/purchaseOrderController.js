@@ -72,4 +72,21 @@ module.exports = {
 
     res.status(201).send(poWithListOfReqs)
   },
+
+  searchPoById: async (req, res) => {
+    const { lookupId } = req.body;
+
+    //  try to find the PO by an id or partial
+    console.log(lookupId)
+    let purchaseOrderResults;
+    try {
+      purchaseOrderResults = await PurchaseOrder.find().$where(`this.purchaseOrderId.match(/${lookupId}/i)`)
+      console.log(purchaseOrderResults)
+    } catch (error) {
+      console.log(error)
+      return res.status(500).json(error)
+    }
+
+    res.status(201).send(purchaseOrderResults)
+  },
 };

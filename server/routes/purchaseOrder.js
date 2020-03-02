@@ -6,4 +6,8 @@ router
   .get(controller.getAllPurchaseOrders)
   .post(controller.createPurchaseOrder)
 
+router
+  .route('/search')
+  .post(controller.searchPoById)
+
 module.exports = router;

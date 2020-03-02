@@ -15,3 +15,12 @@ export const getAllPOs = async () => {
   console.log(data)
   return data;
 };
+
+export const searchPoById = async (lookupId) => {
+  const { data } = await axios.post(`${apiPath}/search`, { lookupId });
+
+  console.log(data)
+
+  return data
+};
+
