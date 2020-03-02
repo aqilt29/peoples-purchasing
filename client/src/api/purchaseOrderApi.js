@@ -12,5 +12,6 @@ export const submitPO = async (postData) => {
 
 export const getAllPOs = async () => {
   const { data } = await axios.get(`${apiPath}`)
+  console.log(data)
   return data;
 };

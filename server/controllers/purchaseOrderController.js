@@ -4,7 +4,19 @@ const PurchaseOrder = require('../../db/models/purchaseOrder');
 
 module.exports = {
   getAllPurchaseOrders: async (req, res) => {
-    res.status(200).send(`API TODO`)
+    console.log('get all pos')
+    let allPOs
+
+    try {
+      allPOs = await PurchaseOrder.find()
+        .populate('user')
+        .populate('vendor')
+    } catch (error) {
+      console.error(error)
+      return res.status(500).send(error)
+    }
+
+    res.status(200).send(allPOs)
   },
 
   createPurchaseOrder: async (req, res) => {

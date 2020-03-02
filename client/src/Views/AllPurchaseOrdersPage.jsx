@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Loading from '../Components/Loading';
 import { Container, Row, Col, Table } from 'reactstrap';
 import { getAllPOs } from '../api/purchaseOrderApi';
+import PurchaseOrderListItem from '../Components/PurchaseOrderListItem';
 
 const AllPurchaseOrdersPage = () => {
   const [isLoading, setLoading] = useState(false);
@@ -9,6 +10,7 @@ const AllPurchaseOrdersPage = () => {
 
   useEffect(() => {
     const fn = async () => {
+      console.log('useEffect')
       setLoading(true);
       const data = await getAllPOs();
       setData(data);
@@ -32,6 +34,7 @@ const AllPurchaseOrdersPage = () => {
                   <th>#</th>
                   <th>ID</th>
                   <th>Status</th>
+                  <th>Vendor</th>
                   <th>Date Created</th>
                   <th>Date Ordered</th>
                   <th>Delivery Date</th>
@@ -41,7 +44,13 @@ const AllPurchaseOrdersPage = () => {
                 </tr>
               </thead>
               <tbody>
-
+                {
+                  poData.map((purchaseOrder, idx) => {
+                    return (
+                      <PurchaseOrderListItem purchaseOrder={purchaseOrder} idx={idx} />
+                    )
+                  })
+                }
               </tbody>
             </Table>
           </Col>
