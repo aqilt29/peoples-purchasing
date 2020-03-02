@@ -3,11 +3,51 @@ import { Container, Row, Col, Label, InputGroupAddon, InputGroupText } from 'rea
 import { AvForm, AvField, AvGroup, AvInput } from 'availity-reactstrap-validation';
 import { BlueButton } from '../Styles'
 import AsyncSelect from 'react-select/async';
-import { searchRequestById, getValidReqs } from '../api/requestApi';
+import { getValidReqs, getRequestById } from '../api/requestApi';
+import ItemList from '../Components/requestForms/ItemList';
 
 const CreatePurchaseOrder = () => {
-  // const [inputValue, setInputValue] = useState("");
+  const [selectedPrs, setSelectedPrs] = useState([]);
+  const [requestsToRender, setRequestsToRender] = useState([]);
 
+  useEffect(() => {
+
+    const fn = async () => {
+
+      if (selectedPrs) {
+        const prInfoToRender = [];
+
+        await selectedPrs.forEach(async ({ label, value }) => {
+          let data;
+
+          try {
+
+            data = await getRequestById(value);
+            prInfoToRender.push(data.data)
+            console.log(prInfoToRender)
+            setRequestsToRender(prInfoToRender.flat())
+            console.log('in try', requestsToRender)
+
+          } catch (error) {
+
+            console.error(error)
+            window.alert(error)
+
+          }
+
+        })
+        console.log('out of loop', requestsToRender)
+      } else if (!selectedPrs) {
+        setRequestsToRender([])
+        console.log('set to empty array')
+      }
+
+    }
+
+    fn()
+  },[selectedPrs])
+
+  const submitPurchaseOrder = async () => {};
 
   const mapApiDataForSelect = (apiResults) => {
     return apiResults.map(({ _id }) => {
@@ -95,8 +135,8 @@ const CreatePurchaseOrder = () => {
                 <Row>
                   <Col>
                     <AsyncSelect
-
                       isMulti
+                      onChange={(data, _) => setSelectedPrs(data)}
                       loadOptions={getValidPRs}
                     />
                   </Col>
@@ -106,20 +146,24 @@ const CreatePurchaseOrder = () => {
           </Row>
         </AvForm>
         <hr />
-        {/* Row for Selecting PR(s) */}
         <Row>
           <Col>
-            <h6>Search For Pr:</h6>
-
+            <h5>Items on Selected PR's:</h5>
+            {
+              requestsToRender.length > 0 && requestsToRender.map((request, idx) => {
+                return (
+                  <div>
+                    <h5>{request._id.slice(-5).toUpperCase()} Items:</h5>
+                    <ItemList
+                      documentId={request._id}
+                      {...request}
+                      detailsPage
+                    />
+                  </div>
+                )
+              })
+            }
           </Col>
-          <Col>
-            <h6>PR Information:</h6>
-          </Col>
-        </Row>
-        <hr />
-        {/* Row for seeing all the items added */}
-        <Row>
-
         </Row>
       </Container>
     </>

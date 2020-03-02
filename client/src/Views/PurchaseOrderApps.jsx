@@ -15,7 +15,7 @@ const PurchaseOrderApps = () => {
   console.log(appPermissions[role][path.slice(1)])
   return (
     <Container>
-      <h3>Purchasing</h3>
+      <h3>Purchase Orders</h3>
       <div>
       <CardColumns>
         {
