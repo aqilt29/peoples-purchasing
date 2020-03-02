@@ -27,7 +27,7 @@ const ItemList = ({ documentId = undefined, items, deleteItem, detailsPage = fal
             return (
               <tr key={idx}>
                 <th scope="row">{idx + 1}</th>
-                <DisplayItem detailsPage documentId={documentId} deleteItem={deleteItem} item={item} index={idx} />
+                <DisplayItem detailsPage={detailsPage} documentId={documentId} deleteItem={deleteItem} item={item} index={idx} />
               </tr>
             )
           })

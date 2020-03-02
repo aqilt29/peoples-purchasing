@@ -38,7 +38,7 @@ export const getAllRequestsByUser = async ({ _id, email }) => {
 export const getRequestById = async (id) => {
   console.log(id)
   const request = await axios.get(`${apiPath}/${id}`)
-  console.log(request)
+
   return request;
 }
 
@@ -94,4 +94,10 @@ export const searchRequestById = async (lookupId) => {
   console.log(data)
 
   return data
+};
+
+export const getValidReqs = async (lookupId) => {
+  const { data } = await axios.post(`${apiPath}/approved/nopo`, { lookupId })
+  console.log(data)
+  return data;
 };

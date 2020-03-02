@@ -2,7 +2,7 @@ import React from 'react';
 import { Container, Row, Col, Table } from 'reactstrap';
 import RequestListItem from './RequestListItem';
 
-const RequestList = (listOfRequests) => {
+const RequestList = ({ listOfRequests, isPoScreen = false }) => {
 
   return (
     <>
@@ -15,7 +15,7 @@ const RequestList = (listOfRequests) => {
                 <tr>
                   <th>#</th>
                   <th>ID</th>
-                  <th>Status</th>
+                  {isPoScreen || <th>Status</th>}
                   <th>Business Need</th>
                   <th>Date</th>
                   <th>Invoice Amt</th>
