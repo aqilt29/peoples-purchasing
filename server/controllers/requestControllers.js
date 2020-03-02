@@ -275,6 +275,8 @@ module.exports = {
 
     if (requestToUpdate.status === 'Denied') {
       return res.status(203).send('already denied')
+    } else if (requestToUpdate.status === 'Approved') {
+      return res.status(203).send('already approved')
     }
 
     //  update the approval property on the list

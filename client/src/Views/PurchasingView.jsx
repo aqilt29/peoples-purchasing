@@ -33,6 +33,17 @@ const PurchasingView = () => {
     }
   }
 
+  const denyRequestAndRedirect = async (_id, email, approverId) => {
+    try {
+      await denyRequest(_id, email, approverId)
+      console.log('denied')
+      setRedirect(true)
+    } catch (error) {
+      window.alert(error)
+      console.error(error)
+    }
+  }
+
   useEffect(() => {
     const fn = async () => {
       setLoading(true);
@@ -147,7 +158,7 @@ const PurchasingView = () => {
               <h6>Approve Request</h6>
               <Button onClick={() => approveRequestAndRedirect(requestData._id, email, approverId)} color="success">Approve</Button>
               {" "}
-              <Button onClick={() => denyRequest(requestData._id, email, approverId)} color="danger">Deny</Button>
+              <Button onClick={() => denyRequestAndRedirect(requestData._id, email, approverId)} color="danger">Deny</Button>
             </Col> )
           }
         </Row>
