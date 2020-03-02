@@ -325,4 +325,19 @@ module.exports = {
 
     res.status(200).send(`api todo get only approved requests`)
   },
+
+  getApprovedRequestsWithoutPo: async (req, res) => {
+
+    let purchaseReqs;
+
+    try {
+      purchaseReqs = await Request.find().and([{ status: 'Approved' }, { hasPurchaseOrder: false }])
+      console.log(purchaseReqs)
+    } catch (error) {
+      console.error(error)
+      return res.status(505).send(error)
+    }
+
+    res.status(200).send(purchaseReqs)
+  },
 }

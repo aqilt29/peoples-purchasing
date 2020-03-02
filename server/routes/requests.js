@@ -21,6 +21,10 @@ router
   .post(controller.uploadDocument);
 
 router
+  .route('/approved/nopo')
+  .get(controller.getApprovedRequestsWithoutPo)
+
+  router
   .route('/approved')
   .get(controller.getApprovedRequests)
 

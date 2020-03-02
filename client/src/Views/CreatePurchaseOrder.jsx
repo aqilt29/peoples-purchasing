@@ -66,7 +66,18 @@ const CreatePurchaseOrder = () => {
                 <BlueButton>Submit PO</BlueButton>
               </Col>
               <Col>
-                <h2>hi</h2>
+                <h5>Search & Add Purchase Requisitions</h5>
+                <Row>
+                  <Col>
+
+                  </Col>
+                </Row>
+                <Row>
+                  <Col>
+
+                  </Col>
+                </Row>
+                <Row></Row>
               </Col>
           </Row>
         </AvForm>

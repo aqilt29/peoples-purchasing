@@ -47,7 +47,8 @@ const requestSchema = new Schema({
   shipVia: String,
   shippingTerms: String,
   items: [itemSchema],
-  attachments: [String]
+  attachments: [String],
+  hasPurchaseOrder: { type: Boolean, default: false },
 });
 
 
