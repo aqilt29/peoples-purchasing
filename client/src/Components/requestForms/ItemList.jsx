@@ -3,7 +3,7 @@ import { Table } from 'reactstrap';
 import DisplayItem from './DisplayItem';
 
 const ItemList = ({ documentId = undefined, items, deleteItem, detailsPage = false }) => {
-  console.log(detailsPage)
+
   return (
     <div>
       <Table size="sm" striped responsive>

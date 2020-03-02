@@ -4,4 +4,8 @@ const apiPath = process.env.NODE_ENV === 'development' ? 'http://localhost:5400/
 
 export const submitPO = async (postData) => {
   console.log(postData)
+
+  const { data } = await axios.post(`${apiPath}`, postData)
+  return data
+
 };

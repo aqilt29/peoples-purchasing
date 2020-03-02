@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 const DisplayItem = ({ documentId = undefined, item, index, deleteItem, detailsPage = false }) => {
   const linkToOnline = item.link || '#';
-  console.log(detailsPage)
+
   return (
     <>
       <td>{item.description}</td>

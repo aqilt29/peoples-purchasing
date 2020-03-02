@@ -38,7 +38,7 @@ export const getAllRequestsByUser = async ({ _id, email }) => {
 export const getRequestById = async (id) => {
   console.log(id)
   const request = await axios.get(`${apiPath}/${id}`)
-  console.log(request)
+
   return request;
 }
 

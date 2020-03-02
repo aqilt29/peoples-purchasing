@@ -5,10 +5,15 @@ import { BlueButton } from '../Styles'
 import AsyncSelect from 'react-select/async';
 import { getValidReqs, getRequestById } from '../api/requestApi';
 import ItemList from '../Components/requestForms/ItemList';
+import { submitPO } from '../api/purchaseOrderApi';
+import { useAuth0 } from '../react-auth0-spa';
 
 const CreatePurchaseOrder = () => {
   const [selectedPrs, setSelectedPrs] = useState([]);
   const [requestsToRender, setRequestsToRender] = useState([]);
+  const { dbUser: { _id } } = useAuth0()
+
+
 
   useEffect(() => {
 
@@ -24,9 +29,7 @@ const CreatePurchaseOrder = () => {
 
             data = await getRequestById(value);
             prInfoToRender.push(data.data)
-            console.log(prInfoToRender)
             setRequestsToRender(prInfoToRender.flat())
-            console.log('in try', requestsToRender)
 
           } catch (error) {
 
@@ -36,10 +39,8 @@ const CreatePurchaseOrder = () => {
           }
 
         })
-        console.log('out of loop', requestsToRender)
       } else if (!selectedPrs) {
         setRequestsToRender([])
-        console.log('set to empty array')
       }
 
     }
@@ -47,7 +48,20 @@ const CreatePurchaseOrder = () => {
     fn()
   },[selectedPrs])
 
-  const submitPurchaseOrder = async () => {};
+  const submitPurchaseOrder = async (_, data) => {
+    const purchaseRequests = selectedPrs.map(({ value }) => value)
+
+    let successData;
+    try {
+      successData = await submitPO({ ...data, purchaseRequests, user: _id })
+    } catch (error) {
+      window.alert(error)
+      console.error(error)
+    }
+
+    console.log(successData)
+
+  };
 
   const mapApiDataForSelect = (apiResults) => {
     return apiResults.map(({ _id }) => {
@@ -74,7 +88,7 @@ const CreatePurchaseOrder = () => {
       <h3>Create PO</h3>
       <Container>
         {/* Row for entering in PO info */}
-        <AvForm>
+        <AvForm onValidSubmit={submitPurchaseOrder} >
           <Row>
             <Col>
               <h5>PO Information</h5>
@@ -82,9 +96,11 @@ const CreatePurchaseOrder = () => {
                   <Col>
                     <AvField
                       required
-                      type="text"
+                      type="number"
                       name="purchaseOrderId"
-                      label="Purchase Order ID:"
+                      label="Purchase Order Number:"
+                      placeholder="PO-1234"
+                      helpMessage="Numbers Only"
                     />
                   </Col>
                   <Col>
@@ -152,7 +168,7 @@ const CreatePurchaseOrder = () => {
             {
               requestsToRender.length > 0 && requestsToRender.map((request, idx) => {
                 return (
-                  <div>
+                  <div key={idx}>
                     <h5>{request._id.slice(-5).toUpperCase()} Items:</h5>
                     <ItemList
                       documentId={request._id}
