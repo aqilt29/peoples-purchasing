@@ -3,6 +3,25 @@ const Request = require('../../db/models/request');
 const PurchaseOrder = require('../../db/models/purchaseOrder');
 
 module.exports = {
+
+  getPoById: async (req, res) => {
+    let data;
+    const { params: { id } } = req;
+    console.log(id)
+
+    try {
+      data = await PurchaseOrder.findById(id)
+        .populate('vendor')
+        .populate('user')
+        .populate('purchaseRequests')
+
+    } catch (error) {
+      res.status(404).send(error)
+    }
+
+    res.status(200).send(data)
+  },
+
   getAllPurchaseOrders: async (req, res) => {
     console.log('get all pos')
     let allPOs

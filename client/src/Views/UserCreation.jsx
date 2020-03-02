@@ -4,6 +4,8 @@ import Loading from "../Components/Loading";
 import { createNewUser } from "../api/userApi";
 import { GoldButton } from "../Styles";
 import { AvForm } from "availity-reactstrap-validation";
+import UserInfo from '../Components/userComponents/userForms/UserInfo'
+import Auth0Info from '../Components/userComponents/userForms/Auth0Info'
 
 const UserCreation = () => {
   const [isLoading, setLoading] = useState(false)

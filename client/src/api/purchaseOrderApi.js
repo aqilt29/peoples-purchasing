@@ -24,3 +24,9 @@ export const searchPoById = async (lookupId) => {
   return data
 };
 
+export const getPoById = async (id) => {
+  const data = await axios.get(`${apiPath}/${id}`)
+  console.log(data)
+  return data;
+}
+

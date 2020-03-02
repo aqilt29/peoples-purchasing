@@ -10,4 +10,8 @@ router
   .route('/search')
   .post(controller.searchPoById)
 
+router
+  .route('/:id')
+  .get(controller.getPoById)
+
 module.exports = router;
