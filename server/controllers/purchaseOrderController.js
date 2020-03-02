@@ -81,6 +81,8 @@ module.exports = {
     let purchaseOrderResults;
     try {
       purchaseOrderResults = await PurchaseOrder.find().$where(`this.purchaseOrderId.match(/${lookupId}/i)`)
+        .populate('vendor')
+        .populate('user')
       console.log(purchaseOrderResults)
     } catch (error) {
       console.log(error)
