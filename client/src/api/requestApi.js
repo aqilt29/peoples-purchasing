@@ -95,3 +95,9 @@ export const searchRequestById = async (lookupId) => {
 
   return data
 };
+
+export const getValidReqs = async (lookupId) => {
+  const { data } = await axios.post(`${apiPath}/approved/nopo`, { lookupId })
+  console.log(data)
+  return data;
+};

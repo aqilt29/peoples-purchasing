@@ -1,9 +1,34 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Label, InputGroupAddon, InputGroupText } from 'reactstrap';
 import { AvForm, AvField, AvGroup, AvInput } from 'availity-reactstrap-validation';
 import { BlueButton } from '../Styles'
+import AsyncSelect from 'react-select/async';
+import { searchRequestById, getValidReqs } from '../api/requestApi';
 
 const CreatePurchaseOrder = () => {
+  // const [inputValue, setInputValue] = useState("");
+
+
+  const mapApiDataForSelect = (apiResults) => {
+    return apiResults.map(({ _id }) => {
+      return { label: _id.slice(-5).toUpperCase(), value: _id }
+    })
+  };
+
+  const getValidPRs = async (inputValue) => {
+    let apiData;
+
+    try {
+      apiData = await getValidReqs(inputValue)
+    } catch (error) {
+      console.error(error)
+    }
+
+    const options = mapApiDataForSelect(apiData)
+
+    return options
+  }
+
   return (
     <>
       <h3>Create PO</h3>
@@ -69,12 +94,11 @@ const CreatePurchaseOrder = () => {
                 <h5>Search & Add Purchase Requisitions</h5>
                 <Row>
                   <Col>
+                    <AsyncSelect
 
-                  </Col>
-                </Row>
-                <Row>
-                  <Col>
-
+                      isMulti
+                      loadOptions={getValidPRs}
+                    />
                   </Col>
                 </Row>
                 <Row></Row>
@@ -86,6 +110,7 @@ const CreatePurchaseOrder = () => {
         <Row>
           <Col>
             <h6>Search For Pr:</h6>
+
           </Col>
           <Col>
             <h6>PR Information:</h6>

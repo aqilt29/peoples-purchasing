@@ -201,7 +201,6 @@ module.exports = {
 
   searchRequests: async (req, res) => {
     const { lookupId } = req.body;
-    const searchKey = new RegExp('5e5af0d1f53e861c9324b058', 'i')
 
     //  try to find the request by an id or partial
     console.log(lookupId)
@@ -327,15 +326,21 @@ module.exports = {
   },
 
   getApprovedRequestsWithoutPo: async (req, res) => {
+    const { lookupId } = req.body;
+
+    console.log(lookupId)
 
     let purchaseReqs;
 
     try {
-      purchaseReqs = await Request.find().and([{ status: 'Approved' }, { hasPurchaseOrder: false }])
-      console.log(purchaseReqs)
+      purchaseReqs = await Request.find()
+        .and([{ status: 'Approved' }, { hasPurchaseOrder: false }]) //  ({ status: 'Approved' }).where({ isApproved: true })
+        .$where(`this._id.str.match(/${lookupId}/i)`)
+
+        console.log(purchaseReqs)
     } catch (error) {
       console.error(error)
-      return res.status(505).send(error)
+      return res.status(505).json(error)
     }
 
     res.status(200).send(purchaseReqs)

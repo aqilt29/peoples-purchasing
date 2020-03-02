@@ -22,7 +22,7 @@ router
 
 router
   .route('/approved/nopo')
-  .get(controller.getApprovedRequestsWithoutPo)
+  .post(controller.getApprovedRequestsWithoutPo)
 
   router
   .route('/approved')

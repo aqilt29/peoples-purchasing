@@ -1,0 +1,7 @@
+import axios from 'axios';
+
+const apiPath = process.env.NODE_ENV === 'development' ? 'http://localhost:5400/api/purchaseorders' : `${process.env.API_PATH}/purchaseorders'`;
+
+export const submitPO = async (postData) => {
+  console.log(postData)
+};
