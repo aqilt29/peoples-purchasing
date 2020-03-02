@@ -12,9 +12,11 @@ const PurchaseOrderSchema = new Schema({
   ],
   dateOrdered: { type: Date, required: true },
   dateCreated: { type: Date, default: Date.now },
+  deliveryDate: { type: Date, required: true },
   dateUpdated: Date,
   status: { type: String, default: 'Pending', enum: statuses },
-  attachments: [String]
+  attachments: [String],
+  invoiceAmount: { type: Number, required: true }
 })
 
 module.exports = mongoose.model('PurchaseOrder', PurchaseOrderSchema);
