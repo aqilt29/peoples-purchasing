@@ -1,13 +1,14 @@
 node_modules
 
 bundle.js
+bundle.js.map
 
 .cache
 
 *-lock.json
 
 *.env
-
+aws*
 dbData/
 .DS_Store
 

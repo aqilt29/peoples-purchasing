@@ -1,8 +1,9 @@
 import axios from 'axios';
 
-const apiPath = process.env.NODE_ENV === 'development' ? 'http://localhost:5400/api/users' : null;
+const apiPath = process.env.NODE_ENV === 'development' ? 'http://localhost:5400/api/users' : `${process.env.API_PATH}/users`;
 
 export const getUserByEmail = async (email) => {
+  console.log(process.env.API_PATH)
   const user = await axios.get(`${apiPath}/search/?email=${email}`);
   return user;
 };

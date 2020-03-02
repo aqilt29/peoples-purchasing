@@ -15,6 +15,7 @@ const s3 = new aws.S3();
 
 // How to use promises with aws
 // sqs.listQueues().promise().then(console.log)
+console.log(process.env.QUEUE_URL)
 
 const queueParams = (task, documentId) => ({
   QueueUrl: process.env.QUEUE_URL,

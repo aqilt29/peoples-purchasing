@@ -3,6 +3,7 @@ const express = require('express');
 const parser = require('body-parser');
 const morgan = require('morgan');
 const cors = require('cors');
+const path = require('path')
 
 const connectDb = require('../db');
 const requestRouter =  require('./routes/requests');
@@ -25,6 +26,9 @@ app.use('/api/entities', entityRouter);
 app.use('/api/vendors', vendorRouter);
 app.use('/api/users', userRouter);
 app.use('/api/purchaseorders', purchaseOrderRouter);
+
+app.use(express.static(path.join(__dirname, '../client/dist')));
+
 
 connectDb().then((arg) => {
     console.log('PORT' ,process.env.PORT)

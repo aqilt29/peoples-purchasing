@@ -1,7 +1,7 @@
 //  this file needs an api for getting a list of all vendors and creating one
 import axios from 'axios';
 
-const apiPath = process.env.NODE_ENV === 'development' ? 'http://localhost:5400/api/vendors' : null;
+const apiPath = process.env.NODE_ENV === 'development' ? 'http://localhost:5400/api/vendors' : `${process.env.API_PATH}/vendors`;
 
 export const createVendor = async (vendorData) => {
 
