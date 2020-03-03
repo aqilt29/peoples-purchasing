@@ -15,26 +15,27 @@ const sendApprovalEmails = async ({ MessageAttributes: { documentId: { StringVal
   console.log(id, ' <--- id')
   const data = await Request.findById(id).populate('vendor').populate('user').populate('entity');
   console.log(data.approverList, '<---11')
-  // create reusable transporter object using the default SMTP transport
-  // const transporter = nodemailer.createTransport({
-  //   host: "smtp.office365.com",
-  //   port: 587,
-  //   secure: false, // true for 465, false for other ports
-  //   auth: {
-  //     user: process.env.SMTP_EMAIL, // generated ethereal user
-  //     pass: process.env.SMTP_PASSWORD // generated ethereal password
-  //   },
-  //   requireTLS: true
-  // });
 
+  // create reusable transporter object using the default SMTP transport
   const transporter = nodemailer.createTransport({
-    host: 'localhost',
-    port: 1025,
+    host: "smtp.office365.com",
+    port: 587,
+    secure: false, // true for 465, false for other ports
     auth: {
-        user: 'project.1',
-        pass: 'secret.1'
-    }
+      user: process.env.SMTP_EMAIL, // generated ethereal user
+      pass: process.env.SMTP_PASSWORD // generated ethereal password
+    },
+    requireTLS: true
   });
+
+  // const transporter = nodemailer.createTransport({
+  //   host: 'localhost',
+  //   port: 1025,
+  //   auth: {
+  //       user: 'project.1',
+  //       pass: 'secret.1'
+  //   }
+  // });
 
   //  iterate over the approver list
   for (let i = 0; i < data.approverList.length; i++) {
