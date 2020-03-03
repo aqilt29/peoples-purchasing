@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const apiPath = process.env.NODE_ENV === 'development' ? 'http://localhost:5400/api/requests' : null;
+const apiPath = process.env.NODE_ENV === 'development' ? 'http://localhost:5400/api/requests' : `${process.env.API_PATH}/requests`;
 
 export const createNewRequest = async ({ shipTo, submittedFor, ...data}) => {
   console.log(shipTo, 'yolo');

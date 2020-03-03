@@ -15,6 +15,7 @@ const s3 = new aws.S3();
 
 // How to use promises with aws
 // sqs.listQueues().promise().then(console.log)
+console.log(process.env.QUEUE_URL)
 
 const queueParams = (task, documentId) => ({
   QueueUrl: process.env.QUEUE_URL,
@@ -249,16 +250,18 @@ module.exports = {
         break;
       }
 
-      // else
-      // send message to queue to notify everyone the request is approved
-      console.log('all emails sent and in loop', i, 'marking as approved')
-      requestToUpdate.status = 'Approved';
-      requestToUpdate.markModified('status');
-      await requestToUpdate.save();
-      await sqs.sendMessage(queueParams(`sendApprovalNotifications`, id)).promise()
+      console.log(i === (requestToUpdate.approverList.length - 1))
+        if (i === (requestToUpdate.approverList.length - 1)) {
+          console.log(i)
+
+          // send message to queue to notify everyone the request is approved
+          console.log('all emails sent and in loop', i, 'marking as approved')
+          requestToUpdate.status = 'Approved';
+          requestToUpdate.markModified('status');
+          await requestToUpdate.save();
+          await sqs.sendMessage(queueParams(`sendApprovalNotifications`, id)).promise()
+      }
     }
-
-
 
     //  return the updated document
     res.status(201).send(requestToUpdate)
@@ -273,6 +276,8 @@ module.exports = {
 
     if (requestToUpdate.status === 'Denied') {
       return res.status(203).send('already denied')
+    } else if (requestToUpdate.status === 'Approved') {
+      return res.status(203).send('already approved')
     }
 
     //  update the approval property on the list

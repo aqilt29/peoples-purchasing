@@ -19,12 +19,12 @@ app.use(parser.json());
 app.use(morgan('dev'));
 app.use(cors());
 
-app.use('/api/requests', requestRouter);
-app.use('/api/items', itemRouter);
-app.use('/api/entities', entityRouter);
-app.use('/api/vendors', vendorRouter);
-app.use('/api/users', userRouter);
-app.use('/api/purchaseorders', purchaseOrderRouter);
+app.use('/requests', requestRouter);
+app.use('/items', itemRouter);
+app.use('/entities', entityRouter);
+app.use('/vendors', vendorRouter);
+app.use('/users', userRouter);
+app.use('/purchaseorders', purchaseOrderRouter);
 
 connectDb().then((arg) => {
     console.log('PORT' ,process.env.PORT)

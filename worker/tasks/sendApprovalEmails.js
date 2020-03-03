@@ -6,32 +6,36 @@
 const hostName = process.env.HOST || 'http://localhost:9000'
 // let testPattern = [ { email: 'aqil@pmcoc.com', isApproved: false, isSent: true }, { email: 'login@pmcoc.com', isApproved: false, isSent: false } ]
 const Request = require('../../db/models/request');
+const Vendor = require('../../db/models/vendor');
+const User = require('../../db/models/user');
+const Entity = require('../../db/models/entity');
 const nodemailer = require('nodemailer');
 
 const sendApprovalEmails = async ({ MessageAttributes: { documentId: { StringValue: id }}}) => {
   console.log(id, ' <--- id')
-  const data = await Request.findById(id);
+  const data = await Request.findById(id).populate('vendor').populate('user').populate('entity');
   console.log(data.approverList, '<---11')
-  // create reusable transporter object using the default SMTP transport
-  // const transporter = nodemailer.createTransport({
-  //   host: "smtp.office365.com",
-  //   port: 587,
-  //   secure: false, // true for 465, false for other ports
-  //   auth: {
-  //     user: process.env.SMTP_EMAIL, // generated ethereal user
-  //     pass: process.env.SMTP_PASSWORD // generated ethereal password
-  //   },
-  //   requireTLS: true
-  // });
 
+  // create reusable transporter object using the default SMTP transport
   const transporter = nodemailer.createTransport({
-    host: 'localhost',
-    port: 1025,
+    host: "smtp.office365.com",
+    port: 587,
+    secure: false, // true for 465, false for other ports
     auth: {
-        user: 'project.1',
-        pass: 'secret.1'
-    }
+      user: process.env.SMTP_EMAIL, // generated ethereal user
+      pass: process.env.SMTP_PASSWORD // generated ethereal password
+    },
+    requireTLS: true
   });
+
+  // const transporter = nodemailer.createTransport({
+  //   host: 'localhost',
+  //   port: 1025,
+  //   auth: {
+  //       user: 'project.1',
+  //       pass: 'secret.1'
+  //   }
+  // });
 
   //  iterate over the approver list
   for (let i = 0; i < data.approverList.length; i++) {
@@ -45,13 +49,14 @@ const sendApprovalEmails = async ({ MessageAttributes: { documentId: { StringVal
         await transporter.sendMail({
           from: { name: "PMCOC PR Approvals", address:'scanner@pmcoc.com' }, // sender address
           to: data.approverList[i].email, // list of receivers
-          subject: "Purchase Requisition Approval", // Subject line
+          subject: `Approval Vendor: ${data.vendor.name} Total Value: $${data.invoiceTotal} Entity: ${data.entity.name}`, // Subject line
           // text: JSON.stringify(data), // plain text body
           html: `<a href="${hostName}/purchasing/view/${id}/${approverId}">Click Here to View Request</a>` // html body
         });
 
         console.log(data.approverList[i].isSent, "before")
         data.approverList[i].isSent = true;
+        data.approverList[i].dateSent = Date.now();
         data.markModified('approverList');
 
         let save = await data.save();

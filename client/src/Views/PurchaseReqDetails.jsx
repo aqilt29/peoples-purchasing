@@ -50,6 +50,9 @@ const PurchaseReqDetails = (props) => {
     }
   }, [])
 
+  if (request && request.status === 'Approved') alertColor = 'success'
+  if (request && request.status === 'Denied') alertColor = 'danger'
+
   if (isLoading || !request) return <Loading />
 
   return (
@@ -131,12 +134,13 @@ const PurchaseReqDetails = (props) => {
           <h6>Approval Status</h6>
             {
               request.approverList.map((approver, idx) => {
+                console.log(approver)
                 return (
                   <div key={idx}>
                     <strong>#{idx + 1}</strong>{" "}
                     <SmallP>{approver.email},</SmallP>{" "}
                     <SmallP>{approver.isSent ? 'Email Sent' : 'Email Pending'},</SmallP>{" "}
-                    <SmallP>{approver.isApproved ? 'Approved' : 'Approval Pending'}</SmallP>
+                    <SmallP>{approver.isApproved ? `Approved ${format(new Date(approver.dateApproved), 'MM/dd/yyyy')} ` : 'Approval Pending'}</SmallP>
                   </div>
                 )
               })

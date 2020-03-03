@@ -1,9 +1,8 @@
 import React from "react";
 import { hot } from 'react-hot-loader/root';
 
-import { Router, Route, Switch } from "react-router-dom";
-import { Container } from "reactstrap";
-
+import { Router, Route, Switch, HashRouter } from "react-router-dom";
+import { browserHistory } from 'react-router'
 import PrivateRoute from "./Components/PrivateRoute";
 import Loading from "./Components/Loading";
 import NavBar from "./Components/NavBar/NavBar";
@@ -17,7 +16,7 @@ import { useAuth0 } from "./react-auth0-spa";
 import history from "./utils/history";
 import UserCreation from './Views/UserCreation';
 import SearchPurchaseReqs from './Views/SearchPurchaseReqs'
-
+import { Container } from 'reactstrap'
 // styles
 import "./App.css";
 
@@ -58,7 +57,7 @@ const App = () => {
   if (isAuthenticated && !dbUser) MainPageView = UnderConstruction;
 
   return (
-    <Router history={history}>
+    <HashRouter>
       <div id="app" className="d-flex flex-column h-100">
         <NavBar />
         <Container className="flex-grow-1 mt-5">
@@ -92,7 +91,7 @@ const App = () => {
         </Container>
         <Footer />
       </div>
-    </Router>
+    </HashRouter>
   );
 };
 

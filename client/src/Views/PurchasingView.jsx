@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Redirect } from 'react-router-dom';
 import ItemList from '../Components/requestForms/ItemList'
 import { format } from 'date-fns';
 import { Link } from 'react-router-dom';
@@ -20,6 +20,29 @@ const PurchasingView = () => {
   const [isLoading, setLoading] = useState(false);
   const [requestData, setData] = useState(false)
   const [approverView, setApproverView] = useState(false)
+  const [approvedToRedirect, setRedirect] = useState(false)
+
+  const approveRequestAndRedirect = async (_id, email, approverId) => {
+    try {
+      await approveRequest(_id, email, approverId)
+      console.log('approved')
+      setRedirect(true)
+    } catch (error) {
+      window.alert(error)
+      console.error(error)
+    }
+  }
+
+  const denyRequestAndRedirect = async (_id, email, approverId) => {
+    try {
+      await denyRequest(_id, email, approverId)
+      console.log('denied')
+      setRedirect(true)
+    } catch (error) {
+      window.alert(error)
+      console.error(error)
+    }
+  }
 
   useEffect(() => {
     const fn = async () => {
@@ -52,6 +75,8 @@ const PurchasingView = () => {
 
     setLoading(false);
   };
+
+  if (approvedToRedirect) return <Redirect to="/" />
 
   return (
     <>
@@ -131,9 +156,9 @@ const PurchasingView = () => {
           { approverView && (
             <Col>
               <h6>Approve Request</h6>
-              <Button onClick={() => approveRequest(requestData._id, email, approverId)} color="success">Approve</Button>
+              <Button onClick={() => approveRequestAndRedirect(requestData._id, email, approverId)} color="success">Approve</Button>
               {" "}
-              <Button onClick={() => denyRequest(requestData._id, email, approverId)} color="danger">Deny</Button>
+              <Button onClick={() => denyRequestAndRedirect(requestData._id, email, approverId)} color="danger">Deny</Button>
             </Col> )
           }
         </Row>
