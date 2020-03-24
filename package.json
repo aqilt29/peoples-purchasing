@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "description": "Hard to get more minimal than this React app",
   "scripts": {
+    "prod": "node server/index.js",
+    "worker:prod": "node worker/index.js",
     "start": "webpack-dev-server --open",
     "client:dev": "webpack-dev-server --open --config webpack.dev.js",
     "build": "webpack --config webpack.prod.js  --display-error-details",
