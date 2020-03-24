@@ -1,8 +1,8 @@
 import React from "react";
 import { hot } from 'react-hot-loader/root';
 
-import { Router, Route, Switch, HashRouter } from "react-router-dom";
-import { browserHistory } from 'react-router'
+import { Router, Route, Switch } from "react-router-dom";
+// import { browserHistory } from 'react-router'
 import PrivateRoute from "./Components/PrivateRoute";
 import Loading from "./Components/Loading";
 import NavBar from "./Components/NavBar/NavBar";
@@ -57,7 +57,7 @@ const App = () => {
   if (isAuthenticated && !dbUser) MainPageView = UnderConstruction;
 
   return (
-    <HashRouter>
+    <Router history={history}>
       <div id="app" className="d-flex flex-column h-100">
         <NavBar />
         <Container className="flex-grow-1 mt-5">
@@ -91,7 +91,7 @@ const App = () => {
         </Container>
         <Footer />
       </div>
-    </HashRouter>
+    </Router>
   );
 };
 
