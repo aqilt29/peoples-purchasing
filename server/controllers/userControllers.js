@@ -1,4 +1,5 @@
 //  controllers for users
+const mongoose = require('mongoose')
 const User = require('../../db/models/user');
 
 module.exports = {
@@ -29,15 +30,18 @@ module.exports = {
 
   searchUsers: async (req, res) => {
     const { query } = req;
+    console.log(`query from search users: ${query}`)
     let userData;
 
     //  try to lookup the user on email
     try {
       userData = await User.find(query);
     } catch (error) {
-      res.status(404).send(error)
+      console.log('error in search users', error)
+      return res.status(404).send(error)
     }
 
+    console.log(`search success ${userData}`)
     res.status(200).send(userData);
   },
 
