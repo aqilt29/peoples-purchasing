@@ -6,6 +6,7 @@ bundle.js.map
 .cache
 
 *-lock.json
+users.json
 
 *.env
 aws*
