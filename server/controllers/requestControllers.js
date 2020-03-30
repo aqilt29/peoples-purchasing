@@ -219,15 +219,17 @@ module.exports = {
 
   approveRequest: async (req, res) => {
     const { params: { id }, body: { params: { email, approverId } } } = req
-    console.log(email, id, approverId)
+    console.log(email, id, approverId, '<--- email, id, approverId, request is being approved')
     //  get the document
     const requestToUpdate = await Request.findById(id)
 
     if (requestToUpdate.status === 'Approved') {
+      console.log('the request has already been approved')
       return res.status(203).send('already approved')
     }
 
     //  update the approval property on the list with timestamp
+    console.log('update the approverList', requestToUpdate.approverList.id(approverId))
     requestToUpdate.approverList.id(approverId).isApproved = true
     requestToUpdate.approverList.id(approverId).set('dateApproved', Date.now())
 
