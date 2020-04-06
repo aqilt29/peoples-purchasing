@@ -1,8 +1,7 @@
 export const roleTypes = [
-  'Employee',
-  'Manager',
+  'PRCreator',
+  'Buyer',
   'Admin',
-  'Director',
   'Accounting',
 ];
 
