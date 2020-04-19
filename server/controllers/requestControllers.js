@@ -57,6 +57,7 @@ module.exports = {
         .populate('user')
         .populate('entity')
         .populate('submittedFor')
+        .populate('buyer')
 
     } catch (error) {
       res.status(404).send(error)
