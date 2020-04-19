@@ -12,16 +12,18 @@ export const PurchaseReqHeaders = ({ setHeaders, requestToEdit }) => {
   const [vendor, setVendor] = useState(requestToEdit ? requestToEdit.vendor._id : null)
   const [entity, setEntity] = useState(requestToEdit ? requestToEdit.entity._id : null)
   const [user, setUser] = useState(requestToEdit ? requestToEdit.user._id : null)
+  const [buyer, setBuyer] = useState(requestToEdit ? requestToEdit.buyer._id : null)
   const [isValid, setValid] = useState(false)
   const { dbUser: { _id: currentUserId } } = useAuth0()
 
   console.log(currentUserId)
-  console.log(entity, vendor, user)
+  console.log(entity, vendor, user, '<- from request to edit')
 
   const submitValidHeaders = (_, formData) => {
-    console.log(entity, vendor, user)
+    console.log(entity, vendor, user, buyer)
     const reqHeaders = {
       vendor: vendor.value || requestToEdit.vendor._id,
+      buyer: buyer.value || requestToEdit.buyer._id,
       entity: entity.value || requestToEdit.entity._id,
       submittedFor: user.value || requestToEdit.submittedFor._id,
       ...formData
@@ -46,7 +48,8 @@ export const PurchaseReqHeaders = ({ setHeaders, requestToEdit }) => {
             <VendorSelect vendorId={requestToEdit ? requestToEdit.vendor._id : undefined} label="Select Vendor for Order:" vendorChange={setVendor} />
             <UserSelect userId={requestToEdit && (requestToEdit.user._id !== currentUserId) ? requestToEdit.user._id : undefined} label="Request on behalf of:" userChange={setUser} />
             <EntitySelect entityId={requestToEdit ? requestToEdit.entity._id : undefined} entityChange={setEntity} />
-            <AvField
+            <UserSelect userId={requestToEdit && (requestToEdit.buyer._id !== currentUserId) ? requestToEdit.user._id : undefined} label="Person placing the order:" userChange={setBuyer} />
+            {/* <AvField
               defaultValue={requestToEdit ? requestToEdit.buyer : undefined}
               style={{ width: '75%' }}
               type="select"
@@ -57,7 +60,7 @@ export const PurchaseReqHeaders = ({ setHeaders, requestToEdit }) => {
               {
                 listOfBuyers.map(({ name, value }, idx) => <option key={idx} value={value}>{name}</option>)
               }
-            </AvField>
+            </AvField> */}
           </Col>
           <Col>
               <AvField
