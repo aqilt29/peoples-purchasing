@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 const apiPath = process.env.NODE_ENV === 'development' ? 'http://localhost:5400/api/vendors' : `${process.env.API_PATH}/vendors`;
-
+console.log('check the api path here in vendor api', apiPath)
 export const createVendor = async (vendorData) => {
 
   let info = null;

@@ -24,3 +24,5 @@ prHtml/*
 testAuths/
 *.pdf
 .vscode
+
+index.html
