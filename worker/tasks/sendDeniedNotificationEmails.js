@@ -2,7 +2,7 @@
   This task will send out the denied emails after the worker receives the task.
 */
 const mongoose = require('mongoose')
-const hostName = process.env.HOST || 'http://localhost:9000'
+const hostName = process.env.HOST;
 // let testPattern = [ { email: 'aqil@pmcoc.com', isApproved: false, isSent: true }, { email: 'login@pmcoc.com', isApproved: false, isSent: false } ]
 const Request = require('../../db/models/request');
 const User = require('../../db/models/user');

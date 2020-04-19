@@ -3,7 +3,7 @@
   This task will email out emails based on the document to ask for approval
   taking a document ID as a parameter from the message it will look up the document and then do the work
 */
-const hostName = process.env.HOST || 'http://localhost:9000'
+const hostName = process.env.HOST;
 // let testPattern = [ { email: 'aqil@pmcoc.com', isApproved: false, isSent: true }, { email: 'login@pmcoc.com', isApproved: false, isSent: false } ]
 const Request = require('../../db/models/request');
 const Vendor = require('../../db/models/vendor');
