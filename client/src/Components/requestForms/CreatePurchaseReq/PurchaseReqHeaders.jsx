@@ -27,7 +27,7 @@ export const PurchaseReqHeaders = ({ setHeaders, requestToEdit }) => {
   console.log(entity, vendor, user, '<- from request to edit')
 
   const submitValidHeaders = (_, { paymentTerms, customTerms, shipTo, businessNeed, isBlanket, customShipTo }) => {
-    console.log(entity, vendor, user, buyer, paymentTerms, customTerms)
+    console.log(entity, vendor, user, buyer, paymentTerms, customTerms, customShipTo)
     setCustomTerms(customTerms)
     setCustomShipTo(customShipTo)
 
@@ -47,7 +47,7 @@ export const PurchaseReqHeaders = ({ setHeaders, requestToEdit }) => {
       entity: entity.value || requestToEdit.entity._id,
       submittedFor: user.value || requestToEdit.submittedFor._id,
       paymentTerms: paymentTerms === 'Other' ? customTerms : paymentTerms,
-      shipTo,
+      shipTo: shipTo === 'Other' ? customShipTo : shipTo,
       businessNeed,
       isBlanket
     }
@@ -115,7 +115,7 @@ export const PurchaseReqHeaders = ({ setHeaders, requestToEdit }) => {
               labelHidden={ isOtherShipTo ? false : true }
               style={{ visibility: isOtherShipTo ? 'visible' : 'hidden' }}
               defaultValue={requestToEdit ? requestToEdit.shipTo : undefined}
-              name="setCustomShipTo"
+              name="customShipTo"
               label="Custom Delivery Address:"
               type="text"
               placeholder="Enter Delivery Address if Applicable"
