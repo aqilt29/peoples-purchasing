@@ -102,11 +102,6 @@ const RequestItems = ({ addItem, incrementStep }) => {
         />
         <AvField
           type="text"
-          label="Vendor Item Number:"
-          name="vendorItemNumber"
-        />
-        <AvField
-          type="text"
           label="Vendor Part Number:"
           name="vendorPartNumber"
         />

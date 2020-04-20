@@ -69,7 +69,6 @@ export const AddItemsForm = ({ items, addItem, deleteItem, submitNewForm }) => {
                       type="number"
                       name="price"
                       min={0}
-                      placeholder="420.50"
                     />
                   </div>
                 </div>
@@ -82,7 +81,6 @@ export const AddItemsForm = ({ items, addItem, deleteItem, submitNewForm }) => {
                 min="1"
                 required
                 name='quantity'
-                placeholder="420"
               />
             </Col>
           </Row>
@@ -99,21 +97,20 @@ export const AddItemsForm = ({ items, addItem, deleteItem, submitNewForm }) => {
               type="text"
               label="Item Url (if applicable)"
               name='link'
-              placeholder="https://amazon.com/weedplease"
             />
             <Row>
               <Col>
                 <AvField
                   type="text"
-                  label="Vendor Item Number:"
-                  name="vendorItemNumber"
+                  label="Vendor Part Number:"
+                  name="vendorPartNumber"
                 />
               </Col>
               <Col>
                 <AvField
                   type="text"
-                  label="Vendor Part Number:"
-                  name="vendorPartNumber"
+                  label="Internal Part Number:"
+                  name="internalPartNumber"
                 />
               </Col>
             </Row>
@@ -157,11 +154,6 @@ export const AddItemsForm = ({ items, addItem, deleteItem, submitNewForm }) => {
                       </Label>
                     </AvGroup>
                   </div>
-                  <AvField
-                    type="text"
-                    label="Internal Part Number:"
-                    name="internalPartNumber"
-                  />
                 </Col>
                 <Col>
                   <AvField
