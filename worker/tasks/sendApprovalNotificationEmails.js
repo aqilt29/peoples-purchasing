@@ -66,9 +66,9 @@ const sendApprovalNotifications = async ({ MessageAttributes: { documentId: { St
   await transporter.sendMail({
     from: { name: "PMCOC PR Approvals", address:'scanner@pmcoc.com' }, // sender address
     to:  _.uniq(emailAddresses), // list of receivers
-    subject: "Purchase Requisition Has Been Approved", // Subject line
+    subject: `REQ-${approvedRequest.id.slice(-5).toUpperCase()}`, // Subject line
     // text: JSON.stringify(data), // plain text body
-    html: `<a href="${hostName}/purchasing/view/${id}">Click Here to View Approved Request</a>` // html body
+    html: `<a href="${hostName}/purchasing/view/${id}">REQ-${approvedRequest.id.slice(-5).toUpperCase()} Approved, Click Here to View</a>` // html body
   });
 
 
