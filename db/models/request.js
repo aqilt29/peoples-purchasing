@@ -43,6 +43,7 @@ const requestSchema = new Schema({
   paymentTerms: { type: String, required: true },
   status: { type: String, default: 'Saved', enum: statuses },
   comments: String,
+  reason: String,
   buyer: { type: Schema.Types.ObjectId, ref: 'User', required: true }, // person placing order
   shipVia: String,
   shippingTerms: String,

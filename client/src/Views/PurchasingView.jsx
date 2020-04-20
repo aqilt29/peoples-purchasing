@@ -34,8 +34,11 @@ const PurchasingView = () => {
   }
 
   const denyRequestAndRedirect = async (_id, email, approverId) => {
+
+    let reason = window.prompt('Rejection Explanation:')
+
     try {
-      await denyRequest(_id, email, approverId)
+      await denyRequest(_id, email, approverId, reason)
       console.log('denied')
       setRedirect(true)
     } catch (error) {

@@ -275,19 +275,23 @@ module.exports = {
   },
 
   denyRequest: async (req, res) => {
-    const { params: { id }, body: { params: { email, approverId } } } = req
-    console.log('id', id, 'email', email, 'approverId', approverId)
+    const { params: { id }, body: { params: { email, approverId, reason = 'no reason given' } } } = req
+    console.log('id', id, 'email', email, 'approverId', approverId, 'reason', reason )
 
     const requestToUpdate = await Request.findById(id)
 
     if (requestToUpdate.status === 'Denied') {
-      return res.status(203).send('already denied')
+      return res.status(206).send('already denied')
     } else if (requestToUpdate.status === 'Approved') {
-      return res.status(203).send('already approved')
+      return res.status(207).send('already approved')
     }
 
     //  update the approval property on the list
     requestToUpdate.approverList.id(approverId).isApproved = false,
+
+    //  set a reason for denial property
+    await requestToUpdate.set('reason', reason)
+    requestToUpdate.markModified('reason')
 
     //  save the document
     requestToUpdate.markModified('approverList')
