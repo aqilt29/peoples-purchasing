@@ -95,7 +95,7 @@ const PurchaseReqDetails = (props) => {
             </Row>
             <Row>
               <Col><strong>Buyer Submitting Order:</strong></Col>
-              <Col><SmallP>{`${request.buyer.email}`}</SmallP></Col>
+              <Col><SmallP>{`${request.buyer.firstName} ${request.buyer.lastName}`}</SmallP></Col>
             </Row>
             <Row>
               <Col><strong>Invoice Total Amount:</strong></Col>
