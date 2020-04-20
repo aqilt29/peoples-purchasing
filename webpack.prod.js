@@ -17,6 +17,10 @@ module.exports = merge(common, {
       s3UploadOptions: {
         Bucket: 'purchasing-bundle-bucket'
       },
+      cloudfrontInvalidateOptions: {
+        DistributionId: process.env.CLOUDFRONT_DISTRIBUTION_ID,
+        Items: ["/*"]
+      }
     })
   ]
 });

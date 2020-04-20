@@ -7,7 +7,7 @@
     "worker:prod": "node worker/index.js",
     "start": "webpack-dev-server --open",
     "client:dev": "webpack-dev-server --open --config webpack.dev.js",
-    "build": "webpack --config webpack.prod.js  --display-error-details",
+    "build": "webpack --config webpack.prod.js  --display-error-details && aws cloudfront create-invalidation --distribution-id ECO62TMYGQJWO --paths /*",
     "dev": "nodemon server/index.js",
     "dev:db": "docker-compose up",
     "worker": "nodemon worker/index.js",
