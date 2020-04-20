@@ -30,7 +30,7 @@ const RequestReview = ({ submitNewForm, ...props}) => {
         </Col>
         <Col>
           <h6>Buyer Submitting order:</h6>
-          <p>{props.buyer}</p>
+          <p>{props.buyer.email}</p>
           <h6>Invoice Total Estimate:</h6>
           <p>${props.invoiceTotal}</p>
           <h6>Payment Terms:</h6>
