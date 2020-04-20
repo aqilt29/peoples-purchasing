@@ -8,4 +8,5 @@ export const listOfShippingAddresses = [
   '20400 Spence Road Salinas, CA 93908',
   '125 W La Cadena Drive, Riverside	CA 92501',
   '6879 N Washoe Avenue	Firebaugh	CA 93622',
+  'Other'
 ];

@@ -16,6 +16,8 @@ export const AddItemsForm = ({ items, addItem, deleteItem, submitNewForm }) => {
 
   const formRef = useRef(null);
 
+  const [isCustomUnits, setIsCustomUnits] = useState(false)
+
   useEffect(() => {
     //  useEffect to see if all elements are valid to add item
     if(ledgerIsValid) setIsValid(true)
@@ -24,8 +26,19 @@ export const AddItemsForm = ({ items, addItem, deleteItem, submitNewForm }) => {
     if(items.length < 1) setSaveIsValid(false);
   })
 
-  const handleSubmit = (_, data) => {
-    addItem({ ...ledgerAndMaterial, ...data});
+  const handleSubmit = (_, { unitOfMeasure, customUnitOfMeasure, ...data }) => {
+    console.log(unitOfMeasure, customUnitOfMeasure)
+
+    if (unitOfMeasure === 'Other' && (!customUnitOfMeasure || customUnitOfMeasure.length < 1)) {
+      window.alert('Please Enter Units of Measure');
+      return;
+    };
+
+    addItem({
+      ...ledgerAndMaterial,
+      ...data,
+      unitOfMeasure: unitOfMeasure === 'Other' ? customUnitOfMeasure : unitOfMeasure,
+    });
 
     //  reset the form here:
     formRef.current.reset()
@@ -69,7 +82,6 @@ export const AddItemsForm = ({ items, addItem, deleteItem, submitNewForm }) => {
                       type="number"
                       name="price"
                       min={0}
-                      placeholder="420.50"
                     />
                   </div>
                 </div>
@@ -82,7 +94,6 @@ export const AddItemsForm = ({ items, addItem, deleteItem, submitNewForm }) => {
                 min="1"
                 required
                 name='quantity'
-                placeholder="420"
               />
             </Col>
           </Row>
@@ -99,21 +110,20 @@ export const AddItemsForm = ({ items, addItem, deleteItem, submitNewForm }) => {
               type="text"
               label="Item Url (if applicable)"
               name='link'
-              placeholder="https://amazon.com/weedplease"
             />
             <Row>
               <Col>
                 <AvField
                   type="text"
-                  label="Vendor Item Number:"
-                  name="vendorItemNumber"
+                  label="Vendor Part Number:"
+                  name="vendorPartNumber"
                 />
               </Col>
               <Col>
                 <AvField
                   type="text"
-                  label="Vendor Part Number:"
-                  name="vendorPartNumber"
+                  label="Internal Part Number:"
+                  name="internalPartNumber"
                 />
               </Col>
             </Row>
@@ -157,24 +167,29 @@ export const AddItemsForm = ({ items, addItem, deleteItem, submitNewForm }) => {
                       </Label>
                     </AvGroup>
                   </div>
-                  <AvField
-                    type="text"
-                    label="Internal Part Number:"
-                    name="internalPartNumber"
-                  />
                 </Col>
                 <Col>
                   <AvField
                     type="select"
                     required
-                    label="Select Pricing Units"
+                    label="Select Units of Measure"
                     name='unitOfMeasure'
+                    onChange={(_, value) => value === 'Other' ? setIsCustomUnits(true) : setIsCustomUnits(false) }
                   >
                     <option value="">Select Unit of Measure...</option>
+                    <option value="Other">Other</option>
                   {
                     listOfUnits.map(({ label, value }, idx) => <option key={idx} value={value}>{label}</option>)
                   }
                   </AvField>
+                  <AvField
+                    labelHidden={ isCustomUnits ? false : true }
+                    style={{ visibility: isCustomUnits ? 'visible' : 'hidden' }}
+                    name="customUnitOfMeasure"
+                    label="Custom Units of Measure:"
+                    type="text"
+                    placeholder="Enter Custom Units"
+                  />
                 </Col>
               </Row>
             </Col>

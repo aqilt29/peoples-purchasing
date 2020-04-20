@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Row, Col } from 'reactstrap';
-import { AvForm, AvField } from 'availity-reactstrap-validation';
+import { Container, Row, Col, Label } from 'reactstrap';
+import { AvForm, AvField, AvGroup, AvInput } from 'availity-reactstrap-validation';
 import { BlueButton } from '../../../Styles';
 import VendorSelect from '../../VendorSelect';
 import UserSelect from '../../UserSelect';
-import { listOfBuyers, listOfPaymentTerms, listOfShippingAddresses } from '../../../utils/lists';
+import { listOfPaymentTerms, listOfShippingAddresses } from '../../../utils/lists';
 import EntitySelect from '../../EntitySelect';
 import { useAuth0 } from '../../../react-auth0-spa';
 
@@ -12,19 +12,44 @@ export const PurchaseReqHeaders = ({ setHeaders, requestToEdit }) => {
   const [vendor, setVendor] = useState(requestToEdit ? requestToEdit.vendor._id : null)
   const [entity, setEntity] = useState(requestToEdit ? requestToEdit.entity._id : null)
   const [user, setUser] = useState(requestToEdit ? requestToEdit.user._id : null)
+  const [buyer, setBuyer] = useState(requestToEdit ? requestToEdit.buyer._id : null)
+
+  const [customTerms, setCustomTerms] = useState(null)
+  const [isOtherTerms, setIsOtherTerms] = useState(false)
+
+  const [customShipTo, setCustomShipTo] = useState(null)
+  const [isOtherShipTo, setIsOtherShipTo] = useState(false)
+
   const [isValid, setValid] = useState(false)
   const { dbUser: { _id: currentUserId } } = useAuth0()
 
   console.log(currentUserId)
-  console.log(entity, vendor, user)
+  console.log(entity, vendor, user, '<- from request to edit')
 
-  const submitValidHeaders = (_, formData) => {
-    console.log(entity, vendor, user)
+  const submitValidHeaders = (_, { paymentTerms, customTerms, shipTo, businessNeed, isBlanket, customShipTo }) => {
+    console.log(entity, vendor, user, buyer, paymentTerms, customTerms, customShipTo)
+    setCustomTerms(customTerms)
+    setCustomShipTo(customShipTo)
+
+    if (paymentTerms === 'Other' && (!customTerms || customTerms.length < 1)) {
+      window.alert('Please Enter Payment Terms');
+      return;
+    };
+
+    if (shipTo === 'Other' && (!customShipTo || customShipTo.length < 1)) {
+      window.alert('Please Enter Delivery Address');
+      return;
+    };
+
     const reqHeaders = {
       vendor: vendor.value || requestToEdit.vendor._id,
+      buyer: buyer.value || requestToEdit.buyer._id,
       entity: entity.value || requestToEdit.entity._id,
       submittedFor: user.value || requestToEdit.submittedFor._id,
-      ...formData
+      paymentTerms: paymentTerms === 'Other' ? customTerms : paymentTerms,
+      shipTo: shipTo === 'Other' ? customShipTo : shipTo,
+      businessNeed,
+      isBlanket
     }
     console.log(reqHeaders);
 
@@ -33,7 +58,7 @@ export const PurchaseReqHeaders = ({ setHeaders, requestToEdit }) => {
 
 
   useEffect(() => {
-    if (vendor && user && entity) setValid(true)
+    if (vendor && user && entity && buyer) setValid(true)
   })
 
   return (
@@ -46,24 +71,14 @@ export const PurchaseReqHeaders = ({ setHeaders, requestToEdit }) => {
             <VendorSelect vendorId={requestToEdit ? requestToEdit.vendor._id : undefined} label="Select Vendor for Order:" vendorChange={setVendor} />
             <UserSelect userId={requestToEdit && (requestToEdit.user._id !== currentUserId) ? requestToEdit.user._id : undefined} label="Request on behalf of:" userChange={setUser} />
             <EntitySelect entityId={requestToEdit ? requestToEdit.entity._id : undefined} entityChange={setEntity} />
-            <AvField
-              defaultValue={requestToEdit ? requestToEdit.buyer : undefined}
-              style={{ width: '75%' }}
-              type="select"
-              name="buyer"
-              label="Employee Placing the Order:"
-            >
-              <option value="">Select A User...</option>
-              {
-                listOfBuyers.map(({ name, value }, idx) => <option key={idx} value={value}>{name}</option>)
-              }
-            </AvField>
+            <UserSelect userId={requestToEdit && (requestToEdit.buyer._id !== currentUserId) ? requestToEdit.user._id : undefined} label="Person placing the order:" userChange={setBuyer} />
           </Col>
           <Col>
-              <AvField
+            <AvField
               defaultValue={requestToEdit ? requestToEdit.paymentTerms : undefined}
               type="select"
               required
+              onChange={(_, value) => value === 'Other' ? setIsOtherTerms(true) : setIsOtherTerms(false) }
               name="paymentTerms"
               label="Payment Terms:"
               validate={{required: {value: true, errorMessage: 'Please select an option from the list'}}}
@@ -74,11 +89,21 @@ export const PurchaseReqHeaders = ({ setHeaders, requestToEdit }) => {
               }
             </AvField>
             <AvField
+              labelHidden={ isOtherTerms ? false : true }
+              style={{ visibility: isOtherTerms ? 'visible' : 'hidden' }}
+              defaultValue={requestToEdit ? requestToEdit.paymentTerms : undefined}
+              name="customTerms"
+              label="Custom Payment Terms:"
+              type="text"
+              placeholder="Enter Custom Terms if Applicable"
+            />
+            <AvField
               defaultValue={requestToEdit ? requestToEdit.address.shipTo : undefined}
               type="select"
               required
               name="shipTo"
               label="Delivery Address:"
+              onChange={(_, value) => value === 'Other' ? setIsOtherShipTo(true) : setIsOtherShipTo(false) }
               validate={{required: {value: true, errorMessage: 'Please select an option from the list'}}}
             >
               <option value="">Select Delivery Address Terms...</option>
@@ -87,6 +112,15 @@ export const PurchaseReqHeaders = ({ setHeaders, requestToEdit }) => {
               }
             </AvField>
             <AvField
+              labelHidden={ isOtherShipTo ? false : true }
+              style={{ visibility: isOtherShipTo ? 'visible' : 'hidden' }}
+              defaultValue={requestToEdit ? requestToEdit.shipTo : undefined}
+              name="customShipTo"
+              label="Custom Delivery Address:"
+              type="text"
+              placeholder="Enter Delivery Address if Applicable"
+            />
+            <AvField
               defaultValue={requestToEdit ? requestToEdit.businessNeed : undefined}
               required
               type="textarea"
@@ -94,6 +128,19 @@ export const PurchaseReqHeaders = ({ setHeaders, requestToEdit }) => {
               label="Describe Business Justification:"
               placeholder="Please describe purchasing need..."
             />
+            <div className="my-3">
+              <AvGroup check>
+                <Label check>
+                  <AvInput
+                    type="checkbox"
+                    name="isBlanket"
+                    trueValue={true}
+                    falseValue={false}
+                  />
+                  Is a blanket PR?
+                </Label>
+              </AvGroup>
+            </div>
           </Col>
         </Row>
         <Row>

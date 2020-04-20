@@ -43,12 +43,14 @@ const requestSchema = new Schema({
   paymentTerms: { type: String, required: true },
   status: { type: String, default: 'Saved', enum: statuses },
   comments: String,
-  buyer: { type: String, required: true, default: 'LReth@pmcoc.com' }, // email address of person placing order
+  reason: String,
+  buyer: { type: Schema.Types.ObjectId, ref: 'User', required: true }, // person placing order
   shipVia: String,
   shippingTerms: String,
   items: [itemSchema],
   attachments: [String],
   hasPurchaseOrder: { type: Boolean, default: false },
+  isBlanket: { type: Boolean, default: false },
   purchaseOrderId: { type: Schema.Types.ObjectId, ref: 'PurchaseOrder' },
 });
 

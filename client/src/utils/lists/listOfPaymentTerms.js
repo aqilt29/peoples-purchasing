@@ -5,5 +5,6 @@ export const listOfPaymentTerms = [
   'Net 10',
   'Net 30',
   'Payment In Advance (Cash/Check)',
-  'Credit Card'
+  'Credit Card',
+  'Other'
 ]

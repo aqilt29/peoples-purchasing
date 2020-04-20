@@ -25,7 +25,7 @@ const itemSchema = new Schema({
   description: { type: String, required: true },
   price: { type: Number, required: true },
   requestByDate: { type: String, required: true },
-  unitOfMeasure: { type: String, enum: units, default: 'ea' },
+  unitOfMeasure: { type: String, default: 'ea' },
   link: String,
   quantity: { type: Number, required: true },
   vendorItemNumber: String,

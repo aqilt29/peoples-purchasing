@@ -43,7 +43,7 @@ const ItemDetailsPage = (props) => {
         <Row>
           <Col>
             <Row>
-              <Col><strong>Purchase Req ID:</strong></Col>
+              <Col><strong>Purchase Req REQ</strong></Col>
               <Col><SmallP>{documentId.slice(-5).toUpperCase()}</SmallP></Col>
             </Row>
             <Row>

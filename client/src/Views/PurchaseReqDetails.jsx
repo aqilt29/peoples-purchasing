@@ -58,7 +58,7 @@ const PurchaseReqDetails = (props) => {
   return (
     <>
       <h3>Requisition Details</h3>{" "}{ request.isDeleted && <Alert color="danger">This PR has been marked for deletion.</Alert>}
-      <h4>Id: {id.slice(-5).toUpperCase()}</h4>
+      <h4>REQ-{id.slice(-5).toUpperCase()}</h4>
       <Container>
         <Row>
           {/* row for header details */}
@@ -95,7 +95,7 @@ const PurchaseReqDetails = (props) => {
             </Row>
             <Row>
               <Col><strong>Buyer Submitting Order:</strong></Col>
-              <Col><SmallP>{`${request.buyer}`}</SmallP></Col>
+              <Col><SmallP>{`${request.buyer.firstName} ${request.buyer.lastName}`}</SmallP></Col>
             </Row>
             <Row>
               <Col><strong>Invoice Total Amount:</strong></Col>

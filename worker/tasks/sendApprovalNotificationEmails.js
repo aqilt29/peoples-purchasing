@@ -18,6 +18,7 @@ const sendApprovalNotifications = async ({ MessageAttributes: { documentId: { St
 
   const approvedRequest = await Request.findById(id)
     .populate('user')
+    .populate('buyer')
     .populate('submittedFor');
 
   console.log('approved request ->', approvedRequest);
@@ -55,7 +56,7 @@ const sendApprovalNotifications = async ({ MessageAttributes: { documentId: { St
   approvedRequest.approverList.forEach(({ email }) => emailAddresses.push(email));
 
   emailAddresses.push(approvedRequest.user.email)
-  emailAddresses.push(approvedRequest.buyer)
+  emailAddresses.push(approvedRequest.buyer.email)
   emailAddresses.push(approvedRequest.submittedFor.email)
 
   approvedRequest.status = 'Approved';
@@ -65,9 +66,9 @@ const sendApprovalNotifications = async ({ MessageAttributes: { documentId: { St
   await transporter.sendMail({
     from: { name: "PMCOC PR Approvals", address:'scanner@pmcoc.com' }, // sender address
     to:  _.uniq(emailAddresses), // list of receivers
-    subject: "Purchase Requisition Has Been Approved", // Subject line
+    subject: `REQ-${approvedRequest.id.slice(-5).toUpperCase()}`, // Subject line
     // text: JSON.stringify(data), // plain text body
-    html: `<a href="${hostName}/purchasing/view/${id}">Click Here to View Approved Request</a>` // html body
+    html: `<a href="${hostName}/purchasing/view/${id}">REQ-${approvedRequest.id.slice(-5).toUpperCase()} Approved, Click Here to View</a>` // html body
   });
 
 

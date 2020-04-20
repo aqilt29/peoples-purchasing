@@ -13,7 +13,7 @@ const nodemailer = require('nodemailer');
 
 const sendApprovalEmails = async ({ MessageAttributes: { documentId: { StringValue: id }}}) => {
   console.log(id, ' <--- id')
-  const data = await Request.findById(id).populate('vendor').populate('user').populate('entity');
+  const data = await Request.findById(id).populate('vendor').populate('user').populate('entity').populate('buyer');
   console.log(data.approverList, '<---11')
 
   // create reusable transporter object using the default SMTP transport
@@ -49,7 +49,7 @@ const sendApprovalEmails = async ({ MessageAttributes: { documentId: { StringVal
         await transporter.sendMail({
           from: { name: "PMCOC PR Approvals", address:'scanner@pmcoc.com' }, // sender address
           to: data.approverList[i].email, // list of receivers
-          subject: `Approval Vendor: ${data.vendor.name} Total Value: $${data.invoiceTotal} Entity: ${data.entity.name}`, // Subject line
+          subject: `PR Approval Required: REQ-${data.id.slice(-5).toUpperCase()} to ${data.vendor.name} for $${data.invoiceTotal}`, // Subject line
           // text: JSON.stringify(data), // plain text body
           html: `<a href="${hostName}/purchasing/view/${id}/${approverId}">Click Here to View Request</a>` // html body
         });

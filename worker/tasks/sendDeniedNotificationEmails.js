@@ -16,7 +16,7 @@ const sendDeniedNotifications = async ({ MessageAttributes: { documentId: { Stri
     .populate('user')
     .populate('submittedFor');
 
-  console.log('denied request ->', deniedRequest);
+  console.log('denied request reason -> ', deniedRequest.reason);
 
   console.log('denied request approverList', deniedRequest.approverList);
 
@@ -48,7 +48,7 @@ const sendDeniedNotifications = async ({ MessageAttributes: { documentId: { Stri
   const emailAddresses = [];
 
   // loop through the approver list and add emailAddresses
-  deniedRequest.approverList.forEach(({ email }) => emailAddresses.push(email));
+  // deniedRequest.approverList.forEach(({ email }) => emailAddresses.push(email));
 
   emailAddresses.push(deniedRequest.user.email)
   emailAddresses.push(deniedRequest.submittedFor.email)
@@ -61,18 +61,22 @@ const sendDeniedNotifications = async ({ MessageAttributes: { documentId: { Stri
     await transporter.sendMail({
       from: { name: "PMCOC PR Approvals", address:'scanner@pmcoc.com' }, // sender address
       to:  _.uniq(emailAddresses), // list of receivers
-      subject: "Purchase Requisition Has Been Denied", // Subject line
+      subject: `REQ-${deniedRequest.id.slice(-5).toUpperCase()} Rejected`, // Subject line
       // text: JSON.stringify(data), // plain text body
-      html: `<a href="${hostName}/purchasing/view/${id}">Click Here to View Denied Request</a>` // html body
+      html:
+        `<a href="${hostName}/purchasing/view/${id}">REQ-${deniedRequest.id.slice(-5).toUpperCase()} Rejected, If purchase is still required, please create a new purchase requisition.</a>
+        <h3>Reason:</h3>
+        <p>${deniedRequest.reason}</p>
+      ` // html body
     });
   } catch (error) {
     console.error(error);
     await transporter.sendMail({
       from: { name: "PMCOC PR Approvals", address:'scanner@pmcoc.com' }, // sender address
       to:  'aqil@pmcoc.com', // list of receivers
-      subject: "Purchase Requisition Has Been Denied ERROR", // Subject line
+      subject: `REQ-${deniedRequest.id.slice(-5).toUpperCase()} ERROR`, // Subject line
       // text: JSON.stringify(data), // plain text body
-      html: `<a href="${hostName}/purchasing/view/${id}">Click Here to View Denied Request</a>` // html body
+      html: `<a href="${hostName}/purchasing/view/${id}">PR# xxx rejected. If purchase is still required, please create a new purchase requisition.”/ “Reason:  Should include rejector’s comments as to why they rejected the PR.</a>` // html body
     })
   }
 

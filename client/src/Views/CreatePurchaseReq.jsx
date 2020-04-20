@@ -13,7 +13,7 @@ class CreatePurchaseReq extends Component {
       vendor: this.props.requestToEdit ? this.props.requestToEdit.vendor._id : '',
       entity: this.props.requestToEdit ? this.props.requestToEdit.entity._id : '',
       submittedFor: this.props.requestToEdit ? this.props.requestToEdit.submittedFor._id : '',
-      buyer: this.props.requestToEdit ? this.props.requestToEdit.buyer: '',
+      buyer: this.props.requestToEdit ? this.props.requestToEdit.buyer._id : '',
       paymentTerms: this.props.requestToEdit ? this.props.requestToEdit.paymentTerms : '',
       shipTo: this.props.requestToEdit ? this.props.requestToEdit.address.shipTo : '',
       businessNeed: this.props.requestToEdit ? this.props.requestToEdit.businessNeed : '',

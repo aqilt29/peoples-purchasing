@@ -5,6 +5,7 @@ const apiPath = process.env.NODE_ENV === 'development' ? 'http://localhost:5400/
 export const getUserByEmail = async (email) => {
   console.log(process.env.API_PATH)
   console.log(process.env.NODE_ENV)
+  console.log(apiPath)
   const user = await axios.get(`${apiPath}/search/?email=${email}`);
   return user;
 };
