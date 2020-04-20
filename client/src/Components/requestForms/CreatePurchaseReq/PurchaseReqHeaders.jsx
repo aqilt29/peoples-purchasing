@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Row, Col } from 'reactstrap';
-import { AvForm, AvField } from 'availity-reactstrap-validation';
+import { Container, Row, Col, Label } from 'reactstrap';
+import { AvForm, AvField, AvGroup, AvInput } from 'availity-reactstrap-validation';
 import { BlueButton } from '../../../Styles';
 import VendorSelect from '../../VendorSelect';
 import UserSelect from '../../UserSelect';
@@ -97,6 +97,19 @@ export const PurchaseReqHeaders = ({ setHeaders, requestToEdit }) => {
               label="Describe Business Justification:"
               placeholder="Please describe purchasing need..."
             />
+            <div className="my-3">
+              <AvGroup check>
+                <Label check>
+                  <AvInput
+                    type="checkbox"
+                    name="isBlanket"
+                    trueValue={true}
+                    falseValue={false}
+                  />
+                  Is a blanket PR?
+                </Label>
+              </AvGroup>
+            </div>
           </Col>
         </Row>
         <Row>

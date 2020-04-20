@@ -49,6 +49,7 @@ const requestSchema = new Schema({
   items: [itemSchema],
   attachments: [String],
   hasPurchaseOrder: { type: Boolean, default: false },
+  isBlanket: { type: Boolean, default: false },
   purchaseOrderId: { type: Schema.Types.ObjectId, ref: 'PurchaseOrder' },
 });
 
