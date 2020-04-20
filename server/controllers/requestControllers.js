@@ -210,7 +210,7 @@ module.exports = {
     console.log(lookupId)
     let requestResults;
     try {
-      requestResults = await Request.find().$where(`this._id.str.match(/${lookupId}/i)`)
+      requestResults = await Request.find().$where(`this._id.str.match(/${lookupId}/i) && this.isDeleted !== true`)
       console.log(requestResults)
     } catch (error) {
       console.log(error)
