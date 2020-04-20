@@ -17,17 +17,27 @@ export const PurchaseReqHeaders = ({ setHeaders, requestToEdit }) => {
   const [customTerms, setCustomTerms] = useState(null)
   const [isOtherTerms, setIsOtherTerms] = useState(false)
 
+  const [customShipTo, setCustomShipTo] = useState(null)
+  const [isOtherShipTo, setIsOtherShipTo] = useState(false)
+
   const [isValid, setValid] = useState(false)
   const { dbUser: { _id: currentUserId } } = useAuth0()
 
   console.log(currentUserId)
   console.log(entity, vendor, user, '<- from request to edit')
 
-  const submitValidHeaders = (_, { paymentTerms, customTerms, shipTo, businessNeed, isBlanket}) => {
+  const submitValidHeaders = (_, { paymentTerms, customTerms, shipTo, businessNeed, isBlanket, customShipTo }) => {
     console.log(entity, vendor, user, buyer, paymentTerms, customTerms)
     setCustomTerms(customTerms)
-    if (paymentTerms === 'Other' && customTerms.length < 1) {
-      window.alert('Please enter Payment Terms');
+    setCustomShipTo(customShipTo)
+
+    if (paymentTerms === 'Other' && (!customTerms || customTerms.length < 1)) {
+      window.alert('Please Enter Payment Terms');
+      return;
+    };
+
+    if (shipTo === 'Other' && (!customShipTo || customShipTo.length < 1)) {
+      window.alert('Please Enter Delivery Address');
       return;
     };
 
@@ -93,6 +103,7 @@ export const PurchaseReqHeaders = ({ setHeaders, requestToEdit }) => {
               required
               name="shipTo"
               label="Delivery Address:"
+              onChange={(_, value) => value === 'Other' ? setIsOtherShipTo(true) : setIsOtherShipTo(false) }
               validate={{required: {value: true, errorMessage: 'Please select an option from the list'}}}
             >
               <option value="">Select Delivery Address Terms...</option>
@@ -100,6 +111,15 @@ export const PurchaseReqHeaders = ({ setHeaders, requestToEdit }) => {
                 listOfShippingAddresses.map((address, idx) => <option key={idx} value={address}>{address}</option>)
               }
             </AvField>
+            <AvField
+              labelHidden={ isOtherShipTo ? false : true }
+              style={{ visibility: isOtherShipTo ? 'visible' : 'hidden' }}
+              defaultValue={requestToEdit ? requestToEdit.shipTo : undefined}
+              name="setCustomShipTo"
+              label="Custom Delivery Address:"
+              type="text"
+              placeholder="Enter Delivery Address if Applicable"
+            />
             <AvField
               defaultValue={requestToEdit ? requestToEdit.businessNeed : undefined}
               required
