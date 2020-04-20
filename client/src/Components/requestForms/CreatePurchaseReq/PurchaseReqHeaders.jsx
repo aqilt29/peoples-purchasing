@@ -35,7 +35,7 @@ export const PurchaseReqHeaders = ({ setHeaders, requestToEdit }) => {
 
 
   useEffect(() => {
-    if (vendor && user && entity) setValid(true)
+    if (vendor && user && entity && buyer) setValid(true)
   })
 
   return (

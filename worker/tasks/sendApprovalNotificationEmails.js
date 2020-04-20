@@ -18,6 +18,7 @@ const sendApprovalNotifications = async ({ MessageAttributes: { documentId: { St
 
   const approvedRequest = await Request.findById(id)
     .populate('user')
+    .populate('buyer')
     .populate('submittedFor');
 
   console.log('approved request ->', approvedRequest);
@@ -55,7 +56,7 @@ const sendApprovalNotifications = async ({ MessageAttributes: { documentId: { St
   approvedRequest.approverList.forEach(({ email }) => emailAddresses.push(email));
 
   emailAddresses.push(approvedRequest.user.email)
-  emailAddresses.push(approvedRequest.buyer)
+  emailAddresses.push(approvedRequest.buyer.email)
   emailAddresses.push(approvedRequest.submittedFor.email)
 
   approvedRequest.status = 'Approved';

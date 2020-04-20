@@ -13,7 +13,7 @@ const nodemailer = require('nodemailer');
 
 const sendApprovalEmails = async ({ MessageAttributes: { documentId: { StringValue: id }}}) => {
   console.log(id, ' <--- id')
-  const data = await Request.findById(id).populate('vendor').populate('user').populate('entity');
+  const data = await Request.findById(id).populate('vendor').populate('user').populate('entity').populate('buyer');
   console.log(data.approverList, '<---11')
 
   // create reusable transporter object using the default SMTP transport

@@ -38,6 +38,7 @@ module.exports = {
       .populate('submittedFor')
       .populate('entity')
       .populate('vendor')
+      .populate('buyer')
 
     } catch (error) {
       res.status(404).send(error)
@@ -147,6 +148,7 @@ module.exports = {
         .populate('submittedFor')
         .populate('entity')
         .populate('vendor')
+        .populate('buyer')
 
     } catch (error) {
       console.log(error)
