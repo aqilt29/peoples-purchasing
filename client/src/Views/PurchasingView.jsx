@@ -81,7 +81,7 @@ const PurchasingView = () => {
   return (
     <>
       <h3>Purchase Request Details</h3>
-      <h4>Id: {requestData._id.slice(-5).toUpperCase()}</h4>
+      <h4>REQ-{requestData._id.slice(-5).toUpperCase()}</h4>
       <Container>
         <Row>
         <Col>

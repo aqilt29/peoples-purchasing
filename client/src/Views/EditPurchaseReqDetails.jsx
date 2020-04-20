@@ -38,7 +38,7 @@ const EditPurchaseReqDetails = () => {
 
   if (request) return (
     <>
-      <h3>Edit PR Details ID: P-{id.slice(-5).toUpperCase()}</h3>
+      <h3>Edit PR Details REQ-{id.slice(-5).toUpperCase()}</h3>
       <Container>
         <CreatePurchaseReq user={dbUser} requestToEdit={request} />
       </Container>

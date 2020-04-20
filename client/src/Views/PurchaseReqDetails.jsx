@@ -58,7 +58,7 @@ const PurchaseReqDetails = (props) => {
   return (
     <>
       <h3>Requisition Details</h3>{" "}{ request.isDeleted && <Alert color="danger">This PR has been marked for deletion.</Alert>}
-      <h4>Id: {id.slice(-5).toUpperCase()}</h4>
+      <h4>REQ-{id.slice(-5).toUpperCase()}</h4>
       <Container>
         <Row>
           {/* row for header details */}
