@@ -75,6 +75,7 @@ module.exports = {
       .where('user != submittedFor')
       .where('isDeleted').ne(true)
       .populate({ path: 'vendor', select: 'name -_id'})
+      .populate({ path: 'entity', select: 'name -_id'})
       .populate({ path: 'submittedFor', select: 'firstName lastName -_id'})
       .sort({ dateRequested: 'desc'})
 
