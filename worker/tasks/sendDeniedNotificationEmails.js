@@ -21,25 +21,25 @@ const sendDeniedNotifications = async ({ MessageAttributes: { documentId: { Stri
   console.log('denied request approverList', deniedRequest.approverList);
 
   // create reusable transporter object using the default SMTP transport
-  const transporter = nodemailer.createTransport({
-    host: "smtp.office365.com",
-    port: 587,
-    secure: false, // true for 465, false for other ports
-    auth: {
-      user: process.env.SMTP_EMAIL, // generated ethereal user
-      pass: process.env.SMTP_PASSWORD // generated ethereal password
-    },
-    requireTLS: true
-  });
-
   // const transporter = nodemailer.createTransport({
-  //   host: 'localhost',
-  //   port: 1025,
+  //   host: "smtp.office365.com",
+  //   port: 587,
+  //   secure: false, // true for 465, false for other ports
   //   auth: {
-  //       user: 'project.1',
-  //       pass: 'secret.1'
-  //   }
+  //     user: process.env.SMTP_EMAIL, // generated ethereal user
+  //     pass: process.env.SMTP_PASSWORD // generated ethereal password
+  //   },
+  //   requireTLS: true
   // });
+
+  const transporter = nodemailer.createTransport({
+    host: 'localhost',
+    port: 1025,
+    auth: {
+        user: 'project.1',
+        pass: 'secret.1'
+    }
+  });
 
 
   //  the people that need to know it has been denied are all on the approver list
