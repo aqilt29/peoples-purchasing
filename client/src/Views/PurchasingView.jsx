@@ -132,11 +132,17 @@ const PurchasingView = () => {
         <hr />
         <Row>
           <Col>
-            <h6>Attach Documents</h6>
-            <PurchaseReqFileUploader />
-          </Col>
-          <Col>
-            <h6>Current Documents</h6>
+            <h6>Attachments</h6>
+              {
+                request.attachments.map((URL, index) => {
+                  console.log(URL);
+                  return (
+                    <div>
+                      <a target="_blank" href={URL}>Attachment {index + 1}</a>
+                    </div>
+                  )
+                })
+              }
           </Col>
         </Row>
         <hr />
