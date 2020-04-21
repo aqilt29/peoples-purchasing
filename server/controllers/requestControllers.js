@@ -306,33 +306,36 @@ module.exports = {
   },
 
   uploadDocument: async (req, res) => {
-    const { params: { id }, body: { fileName = 'test.txt' } } = req;
+    const { locationURL } = req.body;
+    const { id } = req.params;
 
-    //  lookup request based on id
+    console.log('document location is: ', locationURL);
+
+    if (!locationURL) {
+      return res.status(405).send('no URL path provided');
+    }
+
+    let requestToModify;
+    // try to lookup the document based on id
     try {
-      console.log(`find document on id ${id}`)
-      const attachingDocument = await Request.findById(id);
+      requestToModify = await Request.findById(id);
     } catch (error) {
-      console.error(error)
-      return res.status(500).send(error)
+      return res.status(404).send(error)
     }
 
-    const params = {
-      Bucket: 'purchasing-attachments',
-      Key: fileName,
-      Expires: 14 * 24 * 3600,
+    console.log(requestToModify.attachments);
+
+    requestToModify.attachments.push(locationURL);
+    requestToModify.markModified('attachments')
+
+    //  try to save the modified document
+    try {
+      await requestToModify.save()
+    } catch (error) {
+      return res.status(506).send(error)
     }
 
-    // const signedUrlPut = s3.getSignedUrl('putObject', params)
-
-    // console.log(signedUrlPut);
-
-    res.status(201).send(signedUrlPut)
-    //  receive file from the client
-    //  upload file to S3
-    //  add link under document.attachments.push(return url)
-    //  save
-    //  send document back to client
+    res.status(204).send(id);
   },
 
   getApprovedRequests: async (req, res) => {
