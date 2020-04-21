@@ -7,6 +7,7 @@ import { SmallP, BlueButton } from '../Styles';
 import { format } from 'date-fns'
 import PurchaseReqFileUploader from '../Components/PurchaseReqFileUploader';
 import ItemList from '../Components/requestForms/ItemList'
+import DocumentUploader from '../Components/DocumentUploader';
 
 const PurchaseReqDetails = (props) => {
   const { params: { id } } = useRouteMatch();
@@ -148,7 +149,7 @@ const PurchaseReqDetails = (props) => {
         </Col>
         <Col>
             <h6>Attach Documents</h6>
-            <PurchaseReqFileUploader />
+            <DocumentUploader />
         </Col>
         <Col>
             <h6>Attachments</h6>
