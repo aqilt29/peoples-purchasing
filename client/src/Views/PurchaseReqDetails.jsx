@@ -153,6 +153,16 @@ const PurchaseReqDetails = (props) => {
         </Col>
         <Col>
             <h6>Attachments</h6>
+            {
+              request.attachments.map((URL, index) => {
+                console.log(URL);
+                return (
+                  <div>
+                    <a target="_blank" href={URL}>Attachment {index + 1}</a>
+                  </div>
+                )
+              })
+            }
         </Col>
         </Row>
         <Row>

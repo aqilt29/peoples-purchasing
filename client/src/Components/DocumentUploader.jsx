@@ -1,7 +1,8 @@
 import React from 'react';
 import S3 from 'aws-s3';
 import { useParams } from 'react-router-dom';
-import sanitize from 'sanitize-filename'
+import sanitize from 'sanitize-filename';
+import { attachUploadLocation } from '../api/requestApi';
 
 const configGenerator = (dirName) => ({
   dirName,
@@ -19,7 +20,7 @@ const DocumentUploader = () => {
 
   const S3Client = new S3(configGenerator(documentId));
 
-  const handleSubmit = async (e, ...rest) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     const fileToUpload = e.target.documentInput.files[0];
 
@@ -47,6 +48,18 @@ const DocumentUploader = () => {
     console.log(data.location)
 
     // try to send the location to the api to save as a data point on the request
+    //  on success, reload the page
+    let responseData;
+    try {
+      responseData = await attachUploadLocation(documentId, data.location);
+      console.log(responseData)
+      window.location.reload();
+    } catch (error) {
+      window.alert(error);
+      return
+    }
+
+
   }
 
 
