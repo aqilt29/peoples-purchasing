@@ -73,19 +73,13 @@ export const askForRequestApproval = async (id) => {
   return data
 };
 
-export const getUploadParams = async (fileName, id) => {
+export const attachUploadLocation = async (id, locationURL) => {
+  console.log(id, location, '<--- in api upload document');
 
-}
+  const { data } = await axios.post(`${apiPath}/upload/${id}`, { locationURL })
 
-export const submitBuffer = async ({ fileName, id, buffer }) => {
-
-  const data = await axios.post(`${apiPath}/upload/${id}`, {
-    fileName,
-    buffer,
-  })
-
-  return data;
-
+  console.log(data, locationURL)
+  return data
 }
 
 export const searchRequestById = async (lookupId) => {
