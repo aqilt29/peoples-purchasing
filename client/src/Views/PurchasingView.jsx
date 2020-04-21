@@ -133,16 +133,16 @@ const PurchasingView = () => {
         <Row>
           <Col>
             <h6>Attachments</h6>
-              {
-                request.attachments.map((URL, index) => {
-                  console.log(URL);
-                  return (
-                    <div>
-                      <a target="_blank" href={URL}>Attachment {index + 1}</a>
-                    </div>
-                  )
-                })
-              }
+            {
+              request.attachments.length > 0 ? request.attachments.map((URL, index) => {
+                console.log(URL);
+                return (
+                  <div>
+                    <a target="_blank" href={URL}>Attachment {index + 1}</a>
+                  </div>
+                )
+              }) : <p>No Attachments</p>
+            }
           </Col>
         </Row>
         <hr />
