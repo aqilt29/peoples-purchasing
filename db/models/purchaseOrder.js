@@ -12,7 +12,7 @@ const PurchaseOrderSchema = new Schema({
   ],
   dateOrdered: { type: String, required: true },
   dateCreated: { type: Date, default: Date.now },
-  deliveryDate: { type: String, required: true },
+  // deliveryDate: { type: String, required: true },
   dateUpdated: Date,
   status: { type: String, default: 'Pending', enum: statuses },
   attachments: [String],

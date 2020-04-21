@@ -7,10 +7,14 @@ import { getValidReqs, getRequestById } from '../api/requestApi';
 import ItemList from '../Components/requestForms/ItemList';
 import { submitPO } from '../api/purchaseOrderApi';
 import { useAuth0 } from '../react-auth0-spa';
+import { Redirect } from 'react-router-dom';
 
 const CreatePurchaseOrder = () => {
   const [selectedPrs, setSelectedPrs] = useState([]);
   const [requestsToRender, setRequestsToRender] = useState([]);
+
+  const [successfulPO, setSuccessfulPO] = useState(false);
+
   const { dbUser: { _id } } = useAuth0()
 
 
@@ -49,6 +53,10 @@ const CreatePurchaseOrder = () => {
   },[selectedPrs])
 
   const submitPurchaseOrder = async (_, data) => {
+    if (selectedPrs.length < 1) {
+      window.alert('no PR selected')
+      return
+    }
     const purchaseRequests = selectedPrs.map(({ value }) => value)
 
     let successData;
@@ -60,7 +68,7 @@ const CreatePurchaseOrder = () => {
     }
 
     console.log(successData)
-
+    setSuccessfulPO(successData)
   };
 
   const mapApiDataForSelect = (apiResults) => {
@@ -83,7 +91,7 @@ const CreatePurchaseOrder = () => {
     return options
   }
 
-  return (
+  if (!successfulPO) return (
     <>
       <h3>Create PO</h3>
       <Container>
@@ -135,14 +143,14 @@ const CreatePurchaseOrder = () => {
                       label="Order Placement Date:"
                     />
                   </Col>
-                  <Col>
+                  {/* <Col>
                     <AvField
                       required
                       type="date"
                       name="deliveryDate"
                       label="Expected Delivery Date:"
                     />
-                  </Col>
+                  </Col> */}
                 </Row>
                 <BlueButton>Submit PO</BlueButton>
               </Col>
@@ -182,6 +190,12 @@ const CreatePurchaseOrder = () => {
           </Col>
         </Row>
       </Container>
+    </>
+  )
+
+  if (successfulPO) return (
+    <>
+      <Redirect to={`/purchaseorders/details/${successfulPO._id}`} />
     </>
   )
 };

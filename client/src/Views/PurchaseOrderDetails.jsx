@@ -51,10 +51,10 @@ const PurchaseOrderDetails = () => {
               <Col><strong>Date Order Placed:</strong></Col>
               <Col><SmallP>{format(new Date(purchaseOrder.dateOrdered), 'MM/dd/yyyy')}</SmallP></Col>
             </Row>
-            <Row>
+            {/* <Row>
               <Col><strong>Date of Expected Delivery:</strong></Col>
               <Col><SmallP>{format(new Date(purchaseOrder.deliveryDate), 'MM/dd/yyyy')}</SmallP></Col>
-            </Row>
+            </Row> */}
           </Col>
           <Col>
             <Row>
