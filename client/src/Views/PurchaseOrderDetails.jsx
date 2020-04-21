@@ -6,7 +6,8 @@ import { Container, Row, Col } from 'reactstrap';
 import ItemList from '../Components/requestForms/ItemList'
 import { SmallP } from '../Styles'
 import { format } from 'date-fns'
-import PurchaseReqFileUploader from '../Components/PurchaseReqFileUploader'
+import DocumentUploader from '../Components/DocumentUploader';
+import { attachPOUploadLocation } from '../api/purchaseOrderApi';
 
 const PurchaseOrderDetails = () => {
   const { params: { id } } = useRouteMatch();
@@ -51,10 +52,10 @@ const PurchaseOrderDetails = () => {
               <Col><strong>Date Order Placed:</strong></Col>
               <Col><SmallP>{format(new Date(purchaseOrder.dateOrdered), 'MM/dd/yyyy')}</SmallP></Col>
             </Row>
-            <Row>
+            {/* <Row>
               <Col><strong>Date of Expected Delivery:</strong></Col>
               <Col><SmallP>{format(new Date(purchaseOrder.deliveryDate), 'MM/dd/yyyy')}</SmallP></Col>
-            </Row>
+            </Row> */}
           </Col>
           <Col>
             <Row>
@@ -75,13 +76,20 @@ const PurchaseOrderDetails = () => {
         <Row>
           <Col>
               <h6>Attach Documents</h6>
-              <PurchaseReqFileUploader />
+              <DocumentUploader attachUploadLocation={attachPOUploadLocation} prefix={'PO'} />
           </Col>
           <Col>
-              <h6>Attachments</h6>
-          </Col>
-          <Col>
-              <h6>Mark Status</h6>
+            <h6>Attachments</h6>
+            {
+              purchaseOrder.attachments.length > 0 ? purchaseOrder.attachments.map((URL, index) => {
+                console.log(URL);
+                return (
+                  <div>
+                    <a target="_blank" href={URL}>Attachment {index + 1}</a>
+                  </div>
+                )
+              }) : <p>No Attachments</p>
+            }
           </Col>
         </Row>
         <hr />

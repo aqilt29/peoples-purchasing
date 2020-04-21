@@ -30,3 +30,11 @@ export const getPoById = async (id) => {
   return data;
 }
 
+export const attachPOUploadLocation = async (id, locationURL) => {
+  console.log(id, location, '<--- in api upload document');
+
+  const { data } = await axios.post(`${apiPath}/upload/${id}`, { locationURL })
+
+  console.log(data, locationURL)
+  return data
+}

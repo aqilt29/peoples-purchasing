@@ -22,6 +22,8 @@ export const listOfLedgerAccounts = {
     '6056 · Equipment Rental',
     '6057 · Other Facility Expenses',
     '6058 · Security',
+    '6060 · Lab Supplies',
+    '6065 · Warehouse Supplies',
   ],
   'Fixed Asset': [
     '1510 · Furniture and Fixtures',

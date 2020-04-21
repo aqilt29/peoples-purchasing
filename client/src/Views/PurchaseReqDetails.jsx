@@ -7,6 +7,9 @@ import { SmallP, BlueButton } from '../Styles';
 import { format } from 'date-fns'
 import PurchaseReqFileUploader from '../Components/PurchaseReqFileUploader';
 import ItemList from '../Components/requestForms/ItemList'
+import DocumentUploader from '../Components/DocumentUploader';
+import { attachUploadLocation } from '../api/requestApi';
+
 
 const PurchaseReqDetails = (props) => {
   const { params: { id } } = useRouteMatch();
@@ -148,10 +151,20 @@ const PurchaseReqDetails = (props) => {
         </Col>
         <Col>
             <h6>Attach Documents</h6>
-            <PurchaseReqFileUploader />
+            <DocumentUploader attachUploadLocation={attachUploadLocation} prefix={'REQ'} />
         </Col>
         <Col>
             <h6>Attachments</h6>
+            {
+              request.attachments.length > 0 ? request.attachments.map((URL, index) => {
+                console.log(URL);
+                return (
+                  <div>
+                    <a target="_blank" href={URL}>Attachment {index + 1}</a>
+                  </div>
+                )
+              }) : <p>No Attachments</p>
+            }
         </Col>
         </Row>
         <Row>
