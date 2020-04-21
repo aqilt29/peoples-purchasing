@@ -14,4 +14,8 @@ router
   .route('/:id')
   .get(controller.getPoById)
 
+  router
+  .route('/upload/:id')
+  .post(controller.uploadDocument);
+
 module.exports = router;

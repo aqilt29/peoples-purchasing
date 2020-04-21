@@ -2,7 +2,6 @@ import React from 'react';
 import S3 from 'aws-s3';
 import { useParams } from 'react-router-dom';
 import sanitize from 'sanitize-filename';
-import { attachUploadLocation } from '../api/requestApi';
 
 const configGenerator = (dirName) => ({
   dirName,
@@ -13,7 +12,7 @@ const configGenerator = (dirName) => ({
 });
 
 
-const DocumentUploader = () => {
+const DocumentUploader = ({ attachUploadLocation, prefix }) => {
 
   const { id: documentId } = useParams();
 
@@ -33,7 +32,7 @@ const DocumentUploader = () => {
 
     console.log(`${newFileName}_REQ-${documentId.slice(-5)}`)
 
-    const documentKey = `${newFileName}_REQ-${documentId.slice(-5)}`;
+    const documentKey = `${newFileName}_${prefix}-${documentId.slice(-5)}`;
 
     // try to upload the renamed file to S3 in a folder with the id of the request doc id
     let data;

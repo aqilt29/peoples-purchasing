@@ -110,4 +110,37 @@ module.exports = {
 
     res.status(201).send(purchaseOrderResults)
   },
+
+  uploadDocument: async (req, res) => {
+    const { locationURL } = req.body;
+    const { id } = req.params;
+
+    console.log('document location is: ', locationURL);
+
+    if (!locationURL) {
+      return res.status(405).send('no URL path provided');
+    }
+
+    let purchaseOrderToModify;
+    // try to lookup the document based on id
+    try {
+      purchaseOrderToModify = await PurchaseOrder.findById(id);
+    } catch (error) {
+      return res.status(404).send(error)
+    }
+
+    console.log(purchaseOrderToModify.attachments);
+
+    purchaseOrderToModify.attachments.push(locationURL);
+    purchaseOrderToModify.markModified('attachments')
+
+    //  try to save the modified document
+    try {
+      await purchaseOrderToModify.save()
+    } catch (error) {
+      return res.status(506).send(error)
+    }
+
+    res.status(204).send(id);
+  },
 };
