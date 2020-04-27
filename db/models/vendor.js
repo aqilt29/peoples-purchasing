@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const vendorSchema = new Schema({
   name: { type: String, required: true },
-  email: { type: String, required: true },
+  email: { type: String, default: 'N/A' },
   website: String,
   address: {
     city: String,
@@ -11,7 +11,7 @@ const vendorSchema = new Schema({
     street: String,
     state: String,
   },
-  phoneNumber: { type: String, required: true },
+  phoneNumber: { type: String, default: 'N/A' },
   hasW9: { type: Boolean, default: false },
   is1099: { type: Boolean, default: false },
   attn: String,
