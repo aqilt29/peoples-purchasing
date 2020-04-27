@@ -1,5 +1,6 @@
 export const listOfMaterialGroups = [
   'Facility',
+  'Direct Material',
   'Fixed Asset',
   'General and Administrative',
   'Insurance',
@@ -12,6 +13,9 @@ export const listOfMaterialGroups = [
 ];
 
 export const listOfLedgerAccounts = {
+  'Direct Material': [
+    '1300 · Inventory Asset',
+  ],
   'Facility': [
     '6050 · Rent Expense',
     '6051 · Electricity',
