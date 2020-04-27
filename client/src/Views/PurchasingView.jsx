@@ -9,7 +9,6 @@ import { getRequestById, approveRequest, denyRequest, askForRequestApproval } fr
 import { Container, Row, Col, Button, Alert } from 'reactstrap';
 import { useAuth0 } from '../react-auth0-spa';
 import { SmallP, BlueButton } from '../Styles';
-import PurchaseReqFileUploader from '../Components/PurchaseReqFileUploader';
 
 const PurchasingView = () => {
   const { id, approverId = false } = useParams();
@@ -134,7 +133,7 @@ const PurchasingView = () => {
           <Col>
             <h6>Attachments</h6>
             {
-              request.attachments.length > 0 ? request.attachments.map((URL, index) => {
+              requestData.attachments.length > 0 ? requestData.attachments.map((URL, index) => {
                 console.log(URL);
                 return (
                   <div>
