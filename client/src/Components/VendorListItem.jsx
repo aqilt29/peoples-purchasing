@@ -15,7 +15,8 @@ const VendorListItem = ({ vendor, idx }) => {
       <td>{vendor.email}</td>
       <td>{vendor.hasW9 ? 'Yes' : 'No'}</td>
       <td>{vendor.is1099 ? 'Yes' : 'No'}</td>
-      <td><Button tag={Link} to={`/purchasing/vendors/details/${vendor._id}`} color="link" style={{ float: 'none' }}>View</Button></td>
+      <td>{vendor.isDeleted ? 'Disabled' : 'Active'}</td>
+      <td><Button tag={Link} to={`/vendors/details/${vendor._id}`} color="link" style={{ float: 'none' }}>View</Button></td>
     </tr>
   )
 };

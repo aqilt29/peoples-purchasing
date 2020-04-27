@@ -17,25 +17,25 @@ const sendApprovalEmails = async ({ MessageAttributes: { documentId: { StringVal
   console.log(data.approverList, '<---11')
 
   // create reusable transporter object using the default SMTP transport
-  const transporter = nodemailer.createTransport({
-    host: "smtp.office365.com",
-    port: 587,
-    secure: false, // true for 465, false for other ports
-    auth: {
-      user: process.env.SMTP_EMAIL, // generated ethereal user
-      pass: process.env.SMTP_PASSWORD // generated ethereal password
-    },
-    requireTLS: true
-  });
-
   // const transporter = nodemailer.createTransport({
-  //   host: 'localhost',
-  //   port: 1025,
+  //   host: "smtp.office365.com",
+  //   port: 587,
+  //   secure: false, // true for 465, false for other ports
   //   auth: {
-  //       user: 'project.1',
-  //       pass: 'secret.1'
-  //   }
+  //     user: process.env.SMTP_EMAIL, // generated ethereal user
+  //     pass: process.env.SMTP_PASSWORD // generated ethereal password
+  //   },
+  //   requireTLS: true
   // });
+
+  const transporter = nodemailer.createTransport({
+    host: 'localhost',
+    port: 1025,
+    auth: {
+        user: 'project.1',
+        pass: 'secret.1'
+    }
+  });
 
   //  iterate over the approver list
   for (let i = 0; i < data.approverList.length; i++) {
@@ -47,7 +47,7 @@ const sendApprovalEmails = async ({ MessageAttributes: { documentId: { StringVal
         const approverId = data.approverList[i]._id
         // send mail with defined transport object
         await transporter.sendMail({
-          from: { name: "PMCOC PR Approvals", address:'scanner@pmcoc.com' }, // sender address
+          from: { name: "Purchasing Portal Notification", address:'scanner@pmcoc.com' }, // sender address
           to: data.approverList[i].email, // list of receivers
           subject: `PR Approval Required: REQ-${data.id.slice(-5).toUpperCase()} to ${data.vendor.name} for $${data.invoiceTotal}`, // Subject line
           // text: JSON.stringify(data), // plain text body
