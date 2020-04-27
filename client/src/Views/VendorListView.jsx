@@ -40,6 +40,7 @@ const VendorListView = () => {
                   <th>Email</th>
                   <th>City</th>
                   <th>Has W9</th>
+                  <th>Status</th>
                   <th>Details</th>
                 </tr>
               </thead>

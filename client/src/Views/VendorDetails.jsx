@@ -44,10 +44,10 @@ const VendorDetails = () => {
     fn()
   },[])
 
-  if (loading) return <Loading />
+  if (loading || vendor === false) return <Loading />
 
   return (
-    vendor && (<>
+    <>
       <h3>Vendor Details</h3>
       <h4>Id: {vendor._id.slice(-5).toUpperCase()}</h4>
       <h5>{vendor.isDeleted ? 'Vendor is Deleted' : null}</h5>
@@ -83,14 +83,15 @@ const VendorDetails = () => {
                 <SmallP> {vendor.address.zipCode}</SmallP>
               </div>
             </div>
+            {console.log(vendor.isDeleted)}
             {
               vendor.isDeleted ? (
                 <Button color="success" onClick={() => modifyThisVendor({ isDeleted: false })}>Restore Vendor</Button>
-              ) : (<Button onClick={deleteThisVendor} color="danger">Delete Vendor</Button>)
+              ) : (<Button onClick={deleteThisVendor} color="danger">Disable Vendor</Button>)
             }
             {" "}
             {
-              vendor.isDeleted ? null : (<ButtonToggle onClick={() => setModify(!modify)} color="primary">Modify Vendor</ButtonToggle>)
+              vendor.isDeleted ? (<Button onClick={() => setModify(!modify)} color="primary">Modify Vendor</Button>) : (null)
             }
           </Col>
         </Row>
@@ -102,8 +103,8 @@ const VendorDetails = () => {
           </>)
         }
       </Container>
-    </>)
-  );
+    </>
+  )
 };
 
 export default VendorDetails;

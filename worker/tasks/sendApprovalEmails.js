@@ -47,7 +47,7 @@ const sendApprovalEmails = async ({ MessageAttributes: { documentId: { StringVal
         const approverId = data.approverList[i]._id
         // send mail with defined transport object
         await transporter.sendMail({
-          from: { name: "PMCOC PR Approvals", address:'scanner@pmcoc.com' }, // sender address
+          from: { name: "Purchasing Portal Notification", address:'scanner@pmcoc.com' }, // sender address
           to: data.approverList[i].email, // list of receivers
           subject: `PR Approval Required: REQ-${data.id.slice(-5).toUpperCase()} to ${data.vendor.name} for $${data.invoiceTotal}`, // Subject line
           // text: JSON.stringify(data), // plain text body

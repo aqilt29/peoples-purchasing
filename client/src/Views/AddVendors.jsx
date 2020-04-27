@@ -37,19 +37,16 @@ const AddVendors = () => {
                 name="name"
                 type="text"
                 required
-                placeholder="Input Vendor Name..."
               />
               <AvField
                 label="Website"
                 name="website"
                 type="text"
-                placeholder="www.Vendor.com..."
               />
               <AvField
                 label="Point of Contact"
                 name="attn"
                 type="text"
-                placeholder="Jack Herrer..."
               />
               <div className="mb-5">
                 <AvGroup check>
@@ -69,15 +66,11 @@ const AddVendors = () => {
                 label="Vendor Email"
                 name="email"
                 type="email"
-                required
-                placeholder="your.contact@vendor.com..."
               />
               <AvField
                 label="Phone Number"
                 name="phoneNumber"
                 type="tel"
-                required
-                placeholder="(949) Your - Vendor"
               />
             </Col>
           </Row>
@@ -89,14 +82,12 @@ const AddVendors = () => {
                 name="address.street"
                 type="text"
                 required
-                placeholder="420 Weed St #4200"
               />
               <AvField
                 label="State"
                 name="address.state"
                 type="text"
                 required
-                placeholder="CA"
               />
             </Col>
             <Col>
@@ -105,7 +96,6 @@ const AddVendors = () => {
                 name="address.city"
                 type="text"
                 required
-                placeholder="Humboldt"
               />
               <AvField
                 label="Zip Code"
@@ -114,7 +104,6 @@ const AddVendors = () => {
                   minLength: { value: 5},
                   required: true,
                 }}
-                placeholder="92420"
               />
             </Col>
           </Row>
