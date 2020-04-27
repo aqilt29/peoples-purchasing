@@ -10,7 +10,9 @@ module.exports = merge(common, {
 	mode: 'development',
 	devtool: 'inline-source-map',
 	plugins: [
-		new Dotenv(),
+		new Dotenv({
+			path: './.dev.env'
+		}),
 	],
 	entry: [SRC_DIR, 'react-hot-loader/patch'],
 	output: {
