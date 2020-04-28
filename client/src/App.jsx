@@ -15,6 +15,7 @@ import PurchasingViewAll from './Views/PurchasingViewAll';
 import { useAuth0 } from "./react-auth0-spa";
 import history from "./utils/history";
 import UserCreation from './Views/UserCreation';
+import Resources from './Views/Resources';
 import SearchPurchaseReqs from './Views/SearchPurchaseReqs'
 import { Container } from 'reactstrap'
 // styles
@@ -82,6 +83,7 @@ const App = () => {
             <PrivateRoute exact path="/purchasing/viewforms" component={PurchasingViewAll} />
             <PrivateRoute exact path="/purchasing/viewallrequests" component={PurchasingAllByCompany} />
             <PrivateRoute exact path="/purchasing/createform" render={(props) => <CreatePurchaseReq {...props} user={dbUser}/>} />
+            <PrivateRoute exact path="/resources" component={Resources} />
             <PrivateRoute exact path="/vendors" component={VendorApps} />
             <PrivateRoute exact path="/vendors/add" component={AddVendors} />
             <PrivateRoute exact path="/vendors/viewall" component={VendorListView} />
