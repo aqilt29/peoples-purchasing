@@ -1,3 +1,0 @@
-/*
-  This function will take in the document for a PR and turn it into an HTML format.
-*/

@@ -1,3 +1,0 @@
-/*
-  This function will create the notification email HTML after a document has been approved
-*/

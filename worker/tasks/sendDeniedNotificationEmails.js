@@ -1,13 +1,12 @@
 /*
   This task will send out the denied emails after the worker receives the task.
 */
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 const hostName = process.env.HOST;
-// let testPattern = [ { email: 'aqil@pmcoc.com', isApproved: false, isSent: true }, { email: 'login@pmcoc.com', isApproved: false, isSent: false } ]
 const Request = require('../../db/models/request');
 const User = require('../../db/models/user');
-const nodemailer = require('nodemailer');
 const _ = require('lodash');
+const transporter = require('../utils/emailTransporter');
 
 const sendDeniedNotifications = async ({ MessageAttributes: { documentId: { StringValue: id }}}) => {
   console.log('Denied Document ID', id)
@@ -19,28 +18,6 @@ const sendDeniedNotifications = async ({ MessageAttributes: { documentId: { Stri
   console.log('denied request reason -> ', deniedRequest.reason);
 
   console.log('denied request approverList', deniedRequest.approverList);
-
-  // create reusable transporter object using the default SMTP transport
-  const transporter = nodemailer.createTransport({
-    host: "smtp.office365.com",
-    port: 587,
-    secure: false, // true for 465, false for other ports
-    auth: {
-      user: process.env.SMTP_EMAIL, // generated ethereal user
-      pass: process.env.SMTP_PASSWORD // generated ethereal password
-    },
-    requireTLS: true
-  });
-
-  // const transporter = nodemailer.createTransport({
-  //   host: 'localhost',
-  //   port: 1025,
-  //   auth: {
-  //       user: 'project.1',
-  //       pass: 'secret.1'
-  //   }
-  // });
-
 
   //  the people that need to know it has been denied are all on the approver list
   //  and the person who made it and the person who it was submitted for
