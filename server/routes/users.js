@@ -10,7 +10,7 @@ router
 router
   .route('/:Id')
   .get(controller.getUserById)
-  .patch(controller.modifyUser);
+  .put(controller.modifyUser);
 
 router
   .route('/search/')

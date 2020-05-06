@@ -73,6 +73,8 @@ module.exports = {
 
   modifyUser: async (req, res) => {
     res.send('TODO PATCH: modify user API')
+
+
   },
 
   getUserById: async (req, res) => {
