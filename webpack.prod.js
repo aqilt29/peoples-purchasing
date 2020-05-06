@@ -34,6 +34,3 @@ module.exports = merge(common, {
     })
   ]
 });
-
-
-//d3cgp54j81te2s.cloudfront.net
