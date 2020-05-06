@@ -1,41 +1,13 @@
-/*
-[ { email: 'lreth@pmcoc.com', isApproved: false, isSent: true } ]
-  This task will email out emails based on the document to ask for approval
-  taking a document ID as a parameter from the message it will look up the document and then do the work
-*/
-const hostName = process.env.HOST;
-// let testPattern = [ { email: 'aqil@pmcoc.com', isApproved: false, isSent: true }, { email: 'login@pmcoc.com', isApproved: false, isSent: false } ]
+const mongoose = require('mongoose');
+const transporter = require('../utils/emailTransporter');
 const Request = require('../../db/models/request');
 const Vendor = require('../../db/models/vendor');
 const User = require('../../db/models/user');
 const Entity = require('../../db/models/entity');
-const nodemailer = require('nodemailer');
 
 const sendApprovalEmails = async ({ MessageAttributes: { documentId: { StringValue: id }}}) => {
   console.log(id, ' <--- id')
   const data = await Request.findById(id).populate('vendor').populate('user').populate('entity').populate('buyer');
-  console.log(data.approverList, '<---11')
-
-  // create reusable transporter object using the default SMTP transport
-  const transporter = nodemailer.createTransport({
-    host: "smtp.office365.com",
-    port: 587,
-    secure: false, // true for 465, false for other ports
-    auth: {
-      user: process.env.SMTP_EMAIL, // generated ethereal user
-      pass: process.env.SMTP_PASSWORD // generated ethereal password
-    },
-    requireTLS: true
-  });
-
-  // const transporter = nodemailer.createTransport({
-  //   host: 'localhost',
-  //   port: 1025,
-  //   auth: {
-  //       user: 'project.1',
-  //       pass: 'secret.1'
-  //   }
-  // });
 
   //  iterate over the approver list
   for (let i = 0; i < data.approverList.length; i++) {

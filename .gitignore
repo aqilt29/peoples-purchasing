@@ -25,4 +25,4 @@ testAuths/
 *.pdf
 .vscode
 
-index.html
+client/dist/*

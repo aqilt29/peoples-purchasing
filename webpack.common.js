@@ -47,9 +47,9 @@ module.exports = {
   resolve: {
 		extensions: ['.js', '.jsx'],
   },
-  output: {
-		path: DIST_DIR,
-		filename: 'bundle.js',
-		publicPath: '/'
-	},
+  // output: {
+	// 	path: DIST_DIR,
+	// 	filename: 'bundle.js',
+	// 	publicPath: '/'
+	// },
 };
