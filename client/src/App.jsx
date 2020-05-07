@@ -44,6 +44,7 @@ import CreatePurchaseOrder from "./Views/CreatePurchaseOrder";
 import AllPurchaseOrdersPage from "./Views/AllPurchaseOrdersPage";
 import SearchAllPurchaseOrders from "./Views/SearchAllPuchaseOrders";
 import PurchaseOrderDetails from "./Views/PurchaseOrderDetails";
+import UserDetails from "./Views/UserDetails";
 
 
 const App = () => {
@@ -66,6 +67,7 @@ const App = () => {
             <Route path="/" exact render={(props) => <MainPageView {...props} user={user} />} />
             <PrivateRoute exact path="/profile" component={Profile} />
             <PrivateRoute exact path="/users" component={Users} />
+            <PrivateRoute exact path="/users/details/:id" component={UserDetails} />
             <PrivateRoute exact path="/users/viewall" component={UserList} />
             <PrivateRoute exact path="/users/create" component={UserCreation} />
             <PrivateRoute exact path="/purchaseorders" component={PurchaseOrderApps} />

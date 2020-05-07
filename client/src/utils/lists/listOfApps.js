@@ -26,6 +26,11 @@ export const listOfUserApps = [
     subtitle: 'Form for adding new users',
     link: '/create',
   },
+  {
+    title: 'User Details Demo',
+    subtitle: 'Temp card for user details debug, Anthony S',
+    link: '/details/5e49a7eed7fbd5a4860050e7',
+  },
 ];
 
 export const listOfPurchasingApps = [
