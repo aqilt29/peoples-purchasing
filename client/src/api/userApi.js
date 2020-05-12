@@ -47,3 +47,15 @@ export const getApprovedSigners = async () => {
 
   return data.data || []
 };
+
+export const getUserByID = async (userID) => {
+  let user;
+
+  try {
+    user = await axios.get(`${apiPath}/${userID}`)
+  } catch (error) {
+    window.alert(error);
+  }
+
+  return user.data || []
+};
