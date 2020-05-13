@@ -5,7 +5,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { Container, Col, Row } from 'reactstrap';
-import { AvField, AvForm } from 'availity-reactstrap-validation';
+import { AvField, AvForm, AvRadioGroup, AvRadio, AvCheckbox, AvCheckboxGroup } from 'availity-reactstrap-validation';
 import Loading from '../Components/Loading';
 import { useRouteMatch } from 'react-router-dom';
 import { getUserByID, updateUser } from '../api/userApi';
@@ -96,6 +96,10 @@ const UserEdit = ({ history }) => {
                         roleTypes.map((name) => <option>{name}</option>)
                       }
                     </AvField>
+                    <AvField type="select" name="isDisabled" label="Is Disabled?:">
+                      <option>true</option>
+                      <option>false</option>
+                    </AvField>
                     <AvField
                       name="auth0Id"
                       label="Auth0 ID:"
@@ -110,8 +114,8 @@ const UserEdit = ({ history }) => {
                 <Col>
                   <h5>Options:</h5>
                   <p>Note: Changing e-mail will <b>NOT</b> change the login email. Auth0 ID and Email are tied together statically</p>
-                  <GoldButton className="mx-2" >Save Changes</GoldButton>
-                  <BlueButton onClick={() => history.goBack()}>Cancel</BlueButton>
+                  <GoldButton className="m-2" >Save Changes</GoldButton>
+                  <BlueButton className="m-2" onClick={() => history.goBack()}>Cancel</BlueButton>
                 </Col>
             </Row>
           </AvForm>

@@ -4,7 +4,7 @@
 */
 
 import React, { useEffect, useState } from 'react';
-import { Container, Col, Row } from 'reactstrap';
+import { Container, Col, Row, Alert } from 'reactstrap';
 import Loading from '../Components/Loading';
 import { useRouteMatch, Link } from 'react-router-dom';
 import { getUserByID } from '../api/userApi';
@@ -31,6 +31,7 @@ const UserDetails = () => {
   if (isLoading || !user) {
     return <Loading />
   } else {
+    console.log(user)
     return (
       <>
         <h3>User Details</h3>
@@ -65,7 +66,14 @@ const UserDetails = () => {
                 <h5 style={{ marginRight: 'auto' }}>Email:</h5>
                 <p>{`${user.email}`}</p>
               </div>
-                <p>Note: Changing e-mail will <b>NOT</b> change the login email</p>
+              <div style={{ display: 'flex' }}>
+                <h5 style={{ marginRight: 'auto' }}>Status:</h5>
+                <Alert
+                  color={user.isDisabled === true ? 'danger' : 'success'}
+                >
+                  {user.isDisabled === true ? 'Disabled' : 'Active'}
+                </Alert>
+              </div>
             </Col>
             <Col>
               <h5>Options:</h5>
