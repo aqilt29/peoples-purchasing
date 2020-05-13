@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 
 
 const UserListItem = ({ user, index, deleteItem }) => {
-  console.log(user)
   return (
     <>
       <td>{user.firstName}</td>
