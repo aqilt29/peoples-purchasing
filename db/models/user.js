@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const listOfEntities = require('./utils/listOfEntities');
+// const listOfEntities = require('./utils/listOfEntities');
 // const mongoose_fuzzy_searching = require('mongoose-fuzzy-searching')
 
 const roleTypes = [
@@ -37,7 +37,7 @@ const userSchema = new Schema({
   entity: {
     type: String,
     default: 'New Patriot Holdings',
-    enum: listOfEntities
+    // enum: listOfEntities
   },
   role: {
     type: String,
@@ -49,7 +49,8 @@ const userSchema = new Schema({
     type: Number,
     required: true,
     enum: costCenters,
-  }
+  },
+  isDisabled: { type: Boolean, default: false }
 })
 
 // userSchema.plugin(mongoose_fuzzy_searching, {

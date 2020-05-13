@@ -34,7 +34,8 @@ const UserList = () => {
             <th>Entity</th>
             <th>Role</th>
             <th>Cost Center</th>
-            <th>View</th>
+            <th>Status</th>
+            <th>Details</th>
           </tr>
         </thead>
         <tbody>

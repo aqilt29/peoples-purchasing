@@ -9,7 +9,7 @@ const Auth0Info = () => {
     <>
       <Row>
         <Col>
-          <AvField name="lastName" label="Last Name:" type="text" required placeholder="West" />
+          <AvField name="lastName" label="Last Name:" type="text" required />
           <AvField name="auth0Id" label="Auth0 Id:" type="text" required placeholder="{ sub: 'auth0|...'}" />
           <AvField type="select" name="costCenter" label="Cost Center Assignment:" validate={{required: {value: true, errorMessage: 'Please select an entry from the list'}}}>
             <option value="">Select Cost Center...</option>

@@ -47,3 +47,30 @@ export const getApprovedSigners = async () => {
 
   return data.data || []
 };
+
+export const getUserByID = async (userID) => {
+  let user;
+
+  try {
+    user = await axios.get(`${apiPath}/${userID}`)
+  } catch (error) {
+    window.alert(error);
+  }
+
+  return user.data || []
+};
+
+export const updateUser = async ({ userID, userUpdateData }) => {
+  let updatedUser;
+  console.log(userID, userUpdateData)
+  try {
+    updatedUser = await axios.put(`${apiPath}/${userID}`, {
+      userUpdateData
+    })
+  } catch (error) {
+    window.alert(`${error} - 001`);
+    return error
+  }
+
+  return updatedUser.data;
+};
