@@ -71,9 +71,17 @@ module.exports = {
 
   },
 
-  modifyUser: async (req, res) => {
-    res.send('TODO PATCH: modify user API')
+  modifyUser: async ({ params: { Id: userID }, body: { userUpdateData } }, res) => {
+    console.log(userID, userUpdateData)
 
+    let userToUpdate;
+    try {
+      userToUpdate = await User.findByIdAndUpdate(userID, { ...userUpdateData });
+    } catch (error) {
+      return res.status(503).send(error)
+    }
+
+    res.status(201).send(userToUpdate)
 
   },
 

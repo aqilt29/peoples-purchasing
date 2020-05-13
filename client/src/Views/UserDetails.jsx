@@ -23,8 +23,6 @@ const UserDetails = () => {
       setUser(userData);
 
       setLoading(false);
-
-      console.log(Object.keys(userData).sort().reverse())
     }
 
     fn()

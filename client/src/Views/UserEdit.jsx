@@ -8,9 +8,21 @@ import { Container, Col, Row } from 'reactstrap';
 import { AvField, AvForm } from 'availity-reactstrap-validation';
 import Loading from '../Components/Loading';
 import { useRouteMatch } from 'react-router-dom';
-import { getUserByID } from '../api/userApi';
+import { getUserByID, updateUser } from '../api/userApi';
 import { GoldButton, BlueButton } from '../Styles';
-import { listOfEntities, roleTypes } from '../utils/lists';
+import { listOfEntities, roleTypes, costCenters } from '../utils/lists';
+
+const submitUserUpdates = async (userUpdateData, userID) => {
+  let updatedUser;
+
+  try {
+    updatedUser = await updateUser({ userID, userUpdateData })
+  } catch (error) {
+    window.alert(`${error} - 002`)
+    return error
+  }
+  console.log(updatedUser, '-002')
+}
 
 const UserEdit = ({ history }) => {
   const { params: { id: userID } } = useRouteMatch();
@@ -25,12 +37,22 @@ const UserEdit = ({ history }) => {
       setUser(userData);
 
       setLoading(false);
-
-      console.log(Object.keys(userData).sort().reverse())
     }
 
     fn()
   }, [])
+
+  const validSubmission = async (_, userUpdateData) => {
+    console.log(userUpdateData)
+    setLoading(true)
+    try {
+      await submitUserUpdates(userUpdateData, userID)
+    } catch (error) {
+      window.alert(`${error} - 003`)
+    }
+    history.goBack()
+    setLoading(false)
+  }
 
   if (isLoading || !user) {
     return <Loading />
@@ -39,7 +61,7 @@ const UserEdit = ({ history }) => {
       <>
         <h3>User Details</h3>
         <Container>
-          <AvForm onValidSubmit={(...args) => console.log(args)} model={user}>
+          <AvForm onValidSubmit={validSubmission} model={user}>
             <Row>
                 <Col>
                     <AvField
@@ -62,11 +84,12 @@ const UserEdit = ({ history }) => {
                         listOfEntities.map(({name}) => <option>{name}</option>)
                       }
                     </AvField>
-                    <AvField
-                      name="costCenter"
-                      label="Cost Center:"
-                      required
-                    />
+                    <AvField type="select" name="costCenter" label="Cost Center:">
+                      <option value="">Select Role...</option>
+                      {
+                        costCenters.map((name) => <option>{name}</option>)
+                      }
+                    </AvField>
                     <AvField type="select" name="role" label="Portal Role:" helpMessage="Please select which best describes you..." validate={{required: {value: true, errorMessage: 'Please select an entity from the list'}}}>
                       <option value="">Select Role...</option>
                       {

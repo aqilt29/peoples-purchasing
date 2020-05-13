@@ -59,3 +59,18 @@ export const getUserByID = async (userID) => {
 
   return user.data || []
 };
+
+export const updateUser = async ({ userID, userUpdateData }) => {
+  let updatedUser;
+  console.log(userID, userUpdateData)
+  try {
+    updatedUser = await axios.put(`${apiPath}/${userID}`, {
+      userUpdateData
+    })
+  } catch (error) {
+    window.alert(`${error} - 001`);
+    return error
+  }
+
+  return updatedUser.data;
+};
