@@ -17,6 +17,7 @@ const UserCreation = () => {
       setLoading(true);
       try {
         info = await createNewUser(data)
+        window.alert('success')
       } catch (error) {
         console.error(error)
       }

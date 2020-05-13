@@ -9,15 +9,15 @@ const UserInfo = () => {
     <>
       <Row>
         <Col>
-          <AvField name="firstName" label="First Name:" type="text" required placeholder="Bob" />
-          <AvField name="email" label="email:" type="email" required placeholder="bob@pmcoc.com" />
-          <AvField type="select" name="entity" label="Corporate Entity:" helpMessage="Please select which entity you work for officially..." validate={{required: {value: true, errorMessage: 'Please select an entity from the list'}}}>
+          <AvField name="firstName" label="First Name:" type="text" required />
+          <AvField name="email" label="email:" type="email" required />
+          <AvField type="select" name="entity" label="Corporate Entity:" validate={{required: {value: true, errorMessage: 'Please select an entity from the list'}}}>
             <option value="">Select Entity...</option>
             {
               listOfEntities.map(({name}) => <option>{name}</option>)
             }
           </AvField>
-          <AvField type="select" name="role" label="Role:" helpMessage="Please select which best describes you..." validate={{required: {value: true, errorMessage: 'Please select an entity from the list'}}}>
+          <AvField type="select" name="role" label="Role:" required>
             <option value="">Select Role...</option>
             {
               roleTypes.map((name) => <option>{name}</option>)
