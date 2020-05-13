@@ -5,7 +5,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { Container, Col, Row } from 'reactstrap';
-import { AvField, AvForm, AvRadioGroup, AvRadio, AvCheckbox, AvCheckboxGroup } from 'availity-reactstrap-validation';
+import { AvField, AvForm } from 'availity-reactstrap-validation';
 import Loading from '../Components/Loading';
 import { useRouteMatch } from 'react-router-dom';
 import { getUserByID, updateUser } from '../api/userApi';

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 
 const UserListItem = ({ user, index, deleteItem }) => {
@@ -12,7 +12,8 @@ const UserListItem = ({ user, index, deleteItem }) => {
       <td>{user.entity}</td>
       <td>{user.role}</td>
       <td>{user.costCenter}</td>
-      <td><Button onClick={() => console.log(user.id, index)} close style={{ float: 'none' }}/></td>
+      <td>{user.isDisabled === false ? 'Active' : 'Disabled'}</td>
+      <td><Link to={`details/${user._id}`}>View</Link></td>
     </>
   )
 };
