@@ -49,7 +49,8 @@ const userSchema = new Schema({
     type: Number,
     required: true,
     enum: costCenters,
-  }
+  },
+  isDisabled: { type: Boolean, default: false }
 })
 
 // userSchema.plugin(mongoose_fuzzy_searching, {
