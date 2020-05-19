@@ -1,6 +1,6 @@
 import React from 'react'
 
-const PurchaseRequestHeaders = () => {
+const PurchaseRequestHeaders = (props) => {
   return (
     <>
       <h5>Request Headers</h5>

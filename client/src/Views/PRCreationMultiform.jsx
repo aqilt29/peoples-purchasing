@@ -1,4 +1,9 @@
 import React, { useState, useEffect, useReducer } from 'react';
+import {
+  PurchaseRequestHeaders,
+  PurchaseRequestItems,
+  PurchaseRequestSubmit
+} from '../Components/requestMultiforms/index';
 
 const PRCreationMultiform = ({ location, ...props }) => {
 
@@ -32,13 +37,13 @@ const PRCreationMultiform = ({ location, ...props }) => {
     <>
       <h3>Create Purchase Requisition</h3>
       {
-        step === 0 ? <h5>Step 0 Headers</h5> : null
+        step === 0 ? <PurchaseRequestHeaders /> : null
       }
       {
-        step === 1 ? <h5>Step 1 Items</h5> : null
+        step === 1 ? <PurchaseRequestItems /> : null
       }
       {
-        step === 2 ? <h5>Step 2 Review & Submit</h5> : null
+        step === 2 ? <PurchaseRequestSubmit /> : null
       }
     </>
   )
