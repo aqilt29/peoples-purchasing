@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Label } from 'reactstrap';
 import { AvForm, AvField, AvGroup, AvInput } from 'availity-reactstrap-validation';
-import { BlueButton } from '../../../Styles';
+import { BlueButton, GoldButton } from '../../../Styles';
 import VendorSelect from '../../VendorSelect';
 import UserSelect from '../../UserSelect';
 import { listOfPaymentTerms, listOfShippingAddresses } from '../../../utils/lists';
 import EntitySelect from '../../EntitySelect';
 import { useAuth0 } from '../../../react-auth0-spa';
 
-export const PurchaseReqHeaders = ({ setHeaders, requestToEdit }) => {
+export const PurchaseReqHeaders = ({ setHeaders, requestToEdit, decrementStep }) => {
   const [vendor, setVendor] = useState(requestToEdit ? requestToEdit.vendor._id : null)
   const [entity, setEntity] = useState(requestToEdit ? requestToEdit.entity._id : null)
   const [user, setUser] = useState(requestToEdit ? requestToEdit.user._id : null)

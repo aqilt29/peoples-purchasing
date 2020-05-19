@@ -3,6 +3,7 @@ import { PurchaseReqHeaders, AddItemsForm, ReqSummary } from '../Components/requ
 import { createNewRequest } from '../api/requestApi';
 import Loading from '../Components/Loading';
 
+
 class CreatePurchaseReq extends Component {
   constructor(props) {
     super(props)
@@ -100,6 +101,7 @@ class CreatePurchaseReq extends Component {
 
   render() {
     console.log(this.props)
+
     const { step, items, isLoading } = this.state
     const { requestToEdit = undefined } = this.props
 
@@ -120,6 +122,7 @@ class CreatePurchaseReq extends Component {
             submitNewForm={this.submitNewForm}
             items={items}
             addItem={this.addItem}
+            decrementStep={this.decrementStep}
             deleteItem={this.deleteItem}
           /> : null
         }

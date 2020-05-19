@@ -2,11 +2,11 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Container, Row, Col, InputGroupAddon, InputGroupText, Label } from 'reactstrap';
 import { AvForm, AvField, AvGroup, AvInput } from 'availity-reactstrap-validation';
 import LedgerSelect from '../../LedgerSelect';
-import { BlueButton } from '../../../Styles';
+import { BlueButton, GoldButton } from '../../../Styles';
 import { listOfClassCodes, listOfUnits } from '../../../utils/lists';
 import ItemList from '../ItemList';
 
-export const AddItemsForm = ({ items, addItem, deleteItem, submitNewForm }) => {
+export const AddItemsForm = ({ items, addItem, deleteItem, submitNewForm, decrementStep }) => {
 
   const [isValid, setIsValid] = useState(false)
   const [ledgerAndMaterial, setLedgerAndMaterial] = useState(null)
@@ -196,6 +196,7 @@ export const AddItemsForm = ({ items, addItem, deleteItem, submitNewForm }) => {
           </Row>
           <Row>
             <Col>
+              {/* <GoldButton className="mr-2" onClick={decrementStep}>Go Back</GoldButton> */}
               <BlueButton disabled={!isValid}>Add Item</BlueButton>
             </Col>
             <Col>
