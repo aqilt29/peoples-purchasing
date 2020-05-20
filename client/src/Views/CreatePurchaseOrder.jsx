@@ -104,11 +104,10 @@ const CreatePurchaseOrder = () => {
                   <Col>
                     <AvField
                       required
-                      type="number"
+                      type="text"
                       name="purchaseOrderId"
                       label="Purchase Order Number:"
-                      placeholder="PO-1234"
-                      helpMessage="Numbers Only"
+                      helpMessage="Please enter in PO ID for reference"
                     />
                   </Col>
                   <Col>
@@ -127,7 +126,6 @@ const CreatePurchaseOrder = () => {
                           type="number"
                           name="invoiceAmount"
                           min={0}
-                          placeholder="420.50"
                         />
                       </div>
                     </div>
