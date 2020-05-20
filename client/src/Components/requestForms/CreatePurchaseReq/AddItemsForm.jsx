@@ -196,7 +196,7 @@ export const AddItemsForm = ({ items, addItem, deleteItem, submitNewForm, decrem
           </Row>
           <Row>
             <Col>
-              {/* <GoldButton className="mr-2" onClick={decrementStep}>Go Back</GoldButton> */}
+              <GoldButton className="mr-2" onClick={decrementStep}>Go Back</GoldButton>
               <BlueButton disabled={!isValid}>Add Item</BlueButton>
             </Col>
             <Col>

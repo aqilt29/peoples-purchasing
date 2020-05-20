@@ -8,11 +8,13 @@ import { listOfPaymentTerms, listOfShippingAddresses } from '../../../utils/list
 import EntitySelect from '../../EntitySelect';
 import { useAuth0 } from '../../../react-auth0-spa';
 
-export const PurchaseReqHeaders = ({ setHeaders, requestToEdit, decrementStep }) => {
-  const [vendor, setVendor] = useState(requestToEdit ? requestToEdit.vendor._id : null)
-  const [entity, setEntity] = useState(requestToEdit ? requestToEdit.entity._id : null)
-  const [user, setUser] = useState(requestToEdit ? requestToEdit.user._id : null)
-  const [buyer, setBuyer] = useState(requestToEdit ? requestToEdit.buyer._id : null)
+export const PurchaseReqHeaders = ({ setHeaders, requestToEdit, decrementStep, headers }) => {
+  const { dbUser: { _id: currentUserId } } = useAuth0()
+
+  const [vendor, setVendor] = useState(requestToEdit ? requestToEdit.vendor._id : headers.vendor)
+  const [entity, setEntity] = useState(requestToEdit ? requestToEdit.entity._id : headers.entity)
+  const [user, setUser] = useState(requestToEdit ? requestToEdit.user._id : currentUserId)
+  const [buyer, setBuyer] = useState(requestToEdit ? requestToEdit.buyer._id : headers.buyer)
 
   const [customTerms, setCustomTerms] = useState(null)
   const [isOtherTerms, setIsOtherTerms] = useState(false)
@@ -21,7 +23,6 @@ export const PurchaseReqHeaders = ({ setHeaders, requestToEdit, decrementStep })
   const [isOtherShipTo, setIsOtherShipTo] = useState(false)
 
   const [isValid, setValid] = useState(false)
-  const { dbUser: { _id: currentUserId } } = useAuth0()
 
   console.log(currentUserId)
   console.log(entity, vendor, user, '<- from request to edit')
@@ -42,10 +43,10 @@ export const PurchaseReqHeaders = ({ setHeaders, requestToEdit, decrementStep })
     };
 
     const reqHeaders = {
-      vendor: vendor.value || requestToEdit.vendor._id,
-      buyer: buyer.value || requestToEdit.buyer._id,
-      entity: entity.value || requestToEdit.entity._id,
-      submittedFor: user.value || requestToEdit.submittedFor._id,
+      vendor: vendor.value || vendor || requestToEdit.vendor._id,
+      buyer: buyer.value || buyer || requestToEdit.buyer._id,
+      entity: entity.value || entity || requestToEdit.entity._id,
+      submittedFor: user.value || user || requestToEdit.submittedFor._id,
       paymentTerms: paymentTerms === 'Other' ? customTerms : paymentTerms,
       shipTo: shipTo === 'Other' ? customShipTo : shipTo,
       businessNeed,
@@ -61,10 +62,6 @@ export const PurchaseReqHeaders = ({ setHeaders, requestToEdit, decrementStep })
     if (vendor && user && entity && buyer) setValid(true)
   })
 
-  console.log(requestToEdit ? requestToEdit.vendor._id : undefined)
-  console.log(requestToEdit && (requestToEdit.user._id !== currentUserId) ? requestToEdit.user._id : 'false value')
-  console.log(requestToEdit && (requestToEdit.user._id !== currentUserId) ? 'there is an edit, and the request is on behalf of someone who isnt the current user' : 'wrong')
-
   return (
     <>
       <h5>Purchase Details</h5>
@@ -72,10 +69,10 @@ export const PurchaseReqHeaders = ({ setHeaders, requestToEdit, decrementStep })
       <AvForm onValidSubmit={submitValidHeaders}>
         <Row>
           <Col>
-            <VendorSelect vendorId={requestToEdit ? requestToEdit.vendor._id : undefined} label="Select Vendor for Order:" vendorChange={setVendor} />
-            <UserSelect userId={requestToEdit ? requestToEdit.submittedFor._id  : undefined} label="Request on behalf of:" userChange={setUser} />
-            <EntitySelect entityId={requestToEdit ? requestToEdit.entity._id : undefined} entityChange={setEntity} />
-            <UserSelect userId={requestToEdit ? requestToEdit.buyer._id  : undefined} label="Person placing the order:" userChange={setBuyer} />
+            <VendorSelect vendorId={requestToEdit ? requestToEdit.vendor._id : vendor } label="Select Vendor for Order:" vendorChange={setVendor} />
+            <UserSelect userId={requestToEdit ? requestToEdit.submittedFor._id  : user } label="Request on behalf of:" userChange={setUser} />
+            <EntitySelect entityId={requestToEdit ? requestToEdit.entity._id : entity } entityChange={setEntity} />
+            <UserSelect userId={requestToEdit ? requestToEdit.buyer._id  : buyer } label="Person placing the order:" userChange={setBuyer} />
           </Col>
           <Col>
             <AvField
