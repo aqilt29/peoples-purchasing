@@ -13,7 +13,7 @@ export const PurchaseReqHeaders = ({ setHeaders, requestToEdit, decrementStep, h
 
   const [vendor, setVendor] = useState(requestToEdit ? requestToEdit.vendor._id : headers.vendor)
   const [entity, setEntity] = useState(requestToEdit ? requestToEdit.entity._id : headers.entity)
-  const [user, setUser] = useState(requestToEdit ? requestToEdit.user._id : currentUserId)
+  const [user, setUser] = useState(requestToEdit ? requestToEdit.user._id : (headers.submittedFor || currentUserId))
   const [buyer, setBuyer] = useState(requestToEdit ? requestToEdit.buyer._id : headers.buyer)
 
   const [customTerms, setCustomTerms] = useState(null)
@@ -66,7 +66,7 @@ export const PurchaseReqHeaders = ({ setHeaders, requestToEdit, decrementStep, h
     <>
       <h5>Purchase Details</h5>
       <Container>
-      <AvForm onValidSubmit={submitValidHeaders}>
+      <AvForm onValidSubmit={submitValidHeaders} model={headers}>
         <Row>
           <Col>
             <VendorSelect vendorId={requestToEdit ? requestToEdit.vendor._id : vendor } label="Select Vendor for Order:" vendorChange={setVendor} />
