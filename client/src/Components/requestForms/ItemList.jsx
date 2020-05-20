@@ -2,7 +2,7 @@ import React from 'react';
 import { Table } from 'reactstrap';
 import DisplayItem from './DisplayItem';
 
-const ItemList = ({ documentId = undefined, items, deleteItem, detailsPage = false }) => {
+const ItemList = ({ documentId = undefined, items, deleteItem, detailsPage = false, approverPage = false }) => {
 
   return (
     <div>
@@ -16,9 +16,10 @@ const ItemList = ({ documentId = undefined, items, deleteItem, detailsPage = fal
             <th>QTY</th>
             <th>G/L</th>
             <th>Ext. Price</th>
-            {detailsPage || <th>Del</th>}
-            {detailsPage && <th>Link</th>}
-            {detailsPage && <th>Details</th>}
+            {(detailsPage || approverPage) && <th>Material Group</th>}
+            {(detailsPage || approverPage) || <th>Del</th>}
+            {(detailsPage || approverPage) && <th>Link</th>}
+            {(detailsPage || approverPage) && <th>Details</th>}
           </tr>
         </thead>
         <tbody>
@@ -27,7 +28,7 @@ const ItemList = ({ documentId = undefined, items, deleteItem, detailsPage = fal
             return (
               <tr key={idx}>
                 <th scope="row">{idx + 1}</th>
-                <DisplayItem detailsPage={detailsPage} documentId={documentId} deleteItem={deleteItem} item={item} index={idx} />
+                <DisplayItem approverPage={approverPage} detailsPage={detailsPage} documentId={documentId} deleteItem={deleteItem} item={item} index={idx} />
               </tr>
             )
           })

@@ -3,6 +3,7 @@
 */
 
 const mongoose = require('mongoose');
+const hostName = process.env.HOST;
 const Request = require('../../db/models/request');
 const User = require('../../db/models/user');
 const transporter = require('../utils/emailTransporter');

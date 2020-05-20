@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { useRouteMatch, Link } from 'react-router-dom';
-import { getRequestById, askForRequestApproval } from '../api/requestApi';
+import { useRouteMatch, Link, Redirect } from 'react-router-dom';
+import { getRequestById, askForRequestApproval, denyRequest } from '../api/requestApi';
 import Loading from '../Components/Loading';
-import { Container, Col, Row, Alert } from 'reactstrap'
+import { Container, Col, Row, Alert, Button } from 'reactstrap'
 import { SmallP, BlueButton } from '../Styles';
 import { format } from 'date-fns'
-import PurchaseReqFileUploader from '../Components/PurchaseReqFileUploader';
 import ItemList from '../Components/requestForms/ItemList'
 import DocumentUploader from '../Components/DocumentUploader';
 import { attachUploadLocation } from '../api/requestApi';
@@ -15,11 +14,23 @@ const PurchaseReqDetails = (props) => {
   const { params: { id } } = useRouteMatch();
   const [request, setRequest] = useState(null);
   const [isLoading, setLoading] = useState(false);
+  const [isRedirecting, setRedirect] = useState(false);
 
+  const denyRequestAndRedirect = async (_id, _, approverId) => {
 
-  console.log(id)
-  console.log(props)
-  console.log(request)
+    let reason = window.prompt('Rejection Explanation:')
+
+    try {
+      await denyRequest(_id, _, approverId, reason)
+      console.log('denied')
+      window.alert('PR Denied')
+      setRedirect(true)
+    } catch (error) {
+      window.alert(error)
+      console.error(error)
+    }
+  }
+
 
   let alertColor = 'warning'
 
@@ -30,6 +41,7 @@ const PurchaseReqDetails = (props) => {
     console.log(data);
 
     setLoading(false);
+    window.location.reload()
   };
 
   useEffect(() => {
@@ -57,6 +69,8 @@ const PurchaseReqDetails = (props) => {
   if (request && request.status === 'Denied') alertColor = 'danger'
 
   if (isLoading || !request) return <Loading />
+
+  if (isRedirecting) return <Redirect to="/purchasing/viewforms" />
 
   return (
     <>
@@ -126,7 +140,10 @@ const PurchaseReqDetails = (props) => {
             }
             {" "}
             {
-              request.status === 'Saved' ? <BlueButton style={{ transform: 'translateY(25px)' }} tag={Link} to={`/purchasing/edit/${id}`} >Edit Purchase Req</BlueButton> : null
+              (request.status === 'Saved' || request.status === 'Denied') ? <BlueButton style={{ transform: 'translateY(25px)' }} tag={Link} to={`/purchasing/edit/${id}`} >Edit Purchase Req</BlueButton> : null
+            }
+            {
+              request.status === 'Pending' ? <Button color="danger" style={{ transform: 'translateY(25px)' }} onClick={() => denyRequestAndRedirect(id, _,'self') }>Cancel Request</Button> : null
             }
           </Col>
         </Row>

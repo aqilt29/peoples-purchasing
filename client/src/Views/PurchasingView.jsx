@@ -87,9 +87,8 @@ const PurchasingView = () => {
       <Container>
         <Row>
         <Col>
-          <h6>Vendor:</h6>
           <div className="mb-2">
-            <div><h6>Name:</h6></div>
+            <div><h6>Vendor Name:</h6></div>
             <SmallP>{requestData.vendor.name}</SmallP>
             <div><h6>Address:</h6></div>
             <span>
@@ -105,6 +104,8 @@ const PurchasingView = () => {
           <p>{requestData.address.shipTo}</p>
           <h6>Submitted on Behalf of:</h6>
           <p>{requestData.submittedFor.firstName} {requestData.submittedFor.lastName}</p>
+          <h6>Entity Billed:</h6>
+          <p>{requestData.entity.name}</p>
           <h6>Business Justification:</h6>
           <p>{requestData.businessNeed}</p>
         </Col>
@@ -174,7 +175,7 @@ const PurchasingView = () => {
         <Row>
         <Col>
           <h6>Items on List</h6>
-          <ItemList items={requestData.items} deleteItem={() => {}}/>
+          <ItemList items={requestData.items} documentId={requestData._id} approverPage deleteItem={() => {}}/>
         </Col>
       </Row>
       </Container>

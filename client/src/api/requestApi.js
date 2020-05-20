@@ -53,11 +53,11 @@ export const approveRequest = async (id, email, approverId) => {
   return data
 }
 
-export const denyRequest = async (id, email, approverId, reason) => {
-  console.log(id, email, reason, '<--- in apo');
+export const denyRequest = async (id, _, approverId, reason) => {
+  console.log(id, reason, '<--- in apo');
 
   const { data } = await axios.post(`${apiPath}/deny/${id}`, {
-    params: { email, approverId, reason }
+    params: { approverId, reason }
   })
 
   console.log(data)

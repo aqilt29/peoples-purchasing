@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const hostName = process.env.HOST;
 const transporter = require('../utils/emailTransporter');
 const Request = require('../../db/models/request');
 const Vendor = require('../../db/models/vendor');
