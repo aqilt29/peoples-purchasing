@@ -61,6 +61,10 @@ export const PurchaseReqHeaders = ({ setHeaders, requestToEdit, decrementStep })
     if (vendor && user && entity && buyer) setValid(true)
   })
 
+  console.log(requestToEdit ? requestToEdit.vendor._id : undefined)
+  console.log(requestToEdit && (requestToEdit.user._id !== currentUserId) ? requestToEdit.user._id : 'false value')
+  console.log(requestToEdit && (requestToEdit.user._id !== currentUserId) ? 'there is an edit, and the request is on behalf of someone who isnt the current user' : 'wrong')
+
   return (
     <>
       <h5>Purchase Details</h5>
@@ -69,9 +73,9 @@ export const PurchaseReqHeaders = ({ setHeaders, requestToEdit, decrementStep })
         <Row>
           <Col>
             <VendorSelect vendorId={requestToEdit ? requestToEdit.vendor._id : undefined} label="Select Vendor for Order:" vendorChange={setVendor} />
-            <UserSelect userId={requestToEdit && (requestToEdit.user._id !== currentUserId) ? requestToEdit.user._id : undefined} label="Request on behalf of:" userChange={setUser} />
+            <UserSelect userId={requestToEdit ? requestToEdit.submittedFor._id  : undefined} label="Request on behalf of:" userChange={setUser} />
             <EntitySelect entityId={requestToEdit ? requestToEdit.entity._id : undefined} entityChange={setEntity} />
-            <UserSelect userId={requestToEdit && (requestToEdit.buyer._id !== currentUserId) ? requestToEdit.user._id : undefined} label="Person placing the order:" userChange={setBuyer} />
+            <UserSelect userId={requestToEdit ? requestToEdit.buyer._id  : undefined} label="Person placing the order:" userChange={setBuyer} />
           </Col>
           <Col>
             <AvField

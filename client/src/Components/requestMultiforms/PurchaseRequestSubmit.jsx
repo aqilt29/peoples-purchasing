@@ -1,12 +1,14 @@
 import React from 'react'
+import { BlueButton } from '../../Styles'
 
-const PurchaseRequestSubmit = (props) => {
+const PurchaseRequestSubmit = ({ moveForm, ...props}) => {
   return (
     <div>
       <h5>Review & Submit</h5>
       <p>
-        {JSON.stringify(props)}
+        {Object.keys(props)}
       </p>
+      <BlueButton onClick={() => moveForm('decrement')} >Go Back</BlueButton>
     </div>
   )
 }
