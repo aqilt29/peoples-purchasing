@@ -10,12 +10,12 @@ const DisplayItem = ({ documentId = undefined, item, index, deleteItem, detailsP
     <>
       <td>{item.description}</td>
       <td>{item.requestByDate}</td>
-      <td>${item.price}</td>
-      <td>{item.unitOfMeasure}</td>
+      <td>${item.price}/{item.unitOfMeasure}</td>
       <td>{item.quantity}</td>
+      <td>{item.classCode}</td>
       <td>${(item.price * item.quantity)}</td>
       {detailsPage || <td><Button onClick={() => deleteItem(index)} close style={{ float: 'none' }}/></td>}
-      {detailsPage && <td><Button style={{ 'lineHeight': '.75', paddingLeft: 0 }} href={linkToOnline} target="_blank" color="link">Online Link</Button></td>}
+      {detailsPage && <td><Button style={{ 'lineHeight': '.75', paddingLeft: 0 }} disabled={linkToOnline === '#' ? true : false} href={linkToOnline} target="_blank" color="link">Online Link</Button></td>}
       {detailsPage && <td><Button style={{ 'lineHeight': '.75', paddingLeft: 0 }} tag={Link} to={`/purchasing/details/item/${item._id}/${documentId}`} target="_blank" color="link">View</Button></td>}
     </>
   )

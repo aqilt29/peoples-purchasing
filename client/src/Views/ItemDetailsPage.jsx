@@ -95,11 +95,11 @@ const ItemDetailsPage = (props) => {
             </Row> */}
           </Col>
         </Row>
-        <Row>
+        {/* <Row>
           <code>
             {JSON.stringify(item, null, 2)}
           </code>
-        </Row>
+        </Row> */}
       </Container>
     </>
   )

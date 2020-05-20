@@ -13,8 +13,8 @@ const ItemList = ({ documentId = undefined, items, deleteItem, detailsPage = fal
             <th>Item Desc</th>
             <th>Request Date</th>
             <th>Unit Price</th>
-            <th>Unit</th>
             <th>QTY</th>
+            <th>G/L</th>
             <th>Ext. Price</th>
             {detailsPage || <th>Del</th>}
             {detailsPage && <th>Link</th>}
