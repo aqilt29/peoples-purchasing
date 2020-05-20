@@ -11,7 +11,7 @@ const VendorListView = () => {
   useEffect(() => {
     const fn = async () => {
       setLoading(true);
-      const data = await getVendorList()
+      const data = await getVendorList('admin')
 
       setData(data);
       setLoading(false);

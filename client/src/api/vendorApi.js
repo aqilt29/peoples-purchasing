@@ -28,11 +28,11 @@ export const deleteVendor = async (id) => {
   return data.data || [];
 };
 
-export const getVendorList = async () => {
+export const getVendorList = async (params) => {
   let data;
 
   try {
-    data = await axios.get(`${apiPath}/`)
+    data = await axios.get(`${apiPath}/`, { params })
   } catch (error) {
     window.alert(error)
   }
