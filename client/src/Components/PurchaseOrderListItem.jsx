@@ -11,8 +11,7 @@ const PurchaseOrderListItem = ({ purchaseOrder, idx }) => {
   return (
     <tr>
       <td>{(idx + 1)}</td>
-      <td>PO-{purchaseOrder.purchaseOrderId}</td>
-      <td>{purchaseOrder.status}</td>
+      <td>{purchaseOrder.purchaseOrderId}</td>
       <td>{purchaseOrder.vendor.name}</td>
       <td>{format(new Date(purchaseOrder.dateCreated), 'MM/dd/yyyy')}</td>
       <td>${purchaseOrder.dateOrdered}</td>

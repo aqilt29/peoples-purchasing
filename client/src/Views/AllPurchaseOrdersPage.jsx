@@ -33,7 +33,6 @@ const AllPurchaseOrdersPage = () => {
                 <tr>
                   <th>#</th>
                   <th>ID</th>
-                  <th>Status</th>
                   <th>Vendor</th>
                   <th>Date Created</th>
                   <th>Date Ordered</th>
