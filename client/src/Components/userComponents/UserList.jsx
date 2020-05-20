@@ -12,7 +12,7 @@ const UserList = () => {
 
     const getUsers = async () => {
       const data = await getAllUsers();
-      setUsers(data)
+      setUsers(_.orderBy(data, ['firstName']))
       console.log(data)
       setLoading(!isLoading);
     };

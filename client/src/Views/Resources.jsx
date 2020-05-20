@@ -20,6 +20,7 @@ const Resources = () => {
           </Col>
           <Col>
             <h5>Documentation:</h5>
+            <h7>Click Logo Below for Documentation located on SharePoint:</h7>
             <Media>
               <Media target="_blank" href={process.env.SHAREPOINT_RESOURCES}>
                 <Media tag="img" src={sharepoint} />

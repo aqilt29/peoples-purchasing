@@ -3,6 +3,7 @@ import { PurchaseReqHeaders, AddItemsForm, ReqSummary } from '../Components/requ
 import { createNewRequest } from '../api/requestApi';
 import Loading from '../Components/Loading';
 
+
 class CreatePurchaseReq extends Component {
   constructor(props) {
     super(props)
@@ -17,6 +18,7 @@ class CreatePurchaseReq extends Component {
       paymentTerms: this.props.requestToEdit ? this.props.requestToEdit.paymentTerms : '',
       shipTo: this.props.requestToEdit ? this.props.requestToEdit.address.shipTo : '',
       businessNeed: this.props.requestToEdit ? this.props.requestToEdit.businessNeed : '',
+      isBlanket: this.props.requestToEdit ? this.props.requestToEdit.isBlanket : '',
       isLoading: false,
       successData: null,
       editedId: this.props.requestToEdit ? this.props.requestToEdit._id : false,
@@ -100,7 +102,19 @@ class CreatePurchaseReq extends Component {
 
   render() {
     console.log(this.props)
-    const { step, items, isLoading } = this.state
+
+    const {
+      step,
+      items,
+      isLoading,
+      vendor,
+      entity,
+      submittedFor,
+      paymentTerms,
+      buyer,
+      shipTo,
+      businessNeed
+    } = this.state
     const { requestToEdit = undefined } = this.props
 
     if (isLoading) return <Loading />;
@@ -112,6 +126,7 @@ class CreatePurchaseReq extends Component {
           step === 0 ? <PurchaseReqHeaders
             requestToEdit={requestToEdit}
             setHeaders={this.setHeaders}
+            headers={{ vendor, entity, submittedFor, paymentTerms, buyer, shipTo, businessNeed }}
           /> : null
         }
         {
@@ -120,6 +135,7 @@ class CreatePurchaseReq extends Component {
             submitNewForm={this.submitNewForm}
             items={items}
             addItem={this.addItem}
+            decrementStep={this.decrementStep}
             deleteItem={this.deleteItem}
           /> : null
         }

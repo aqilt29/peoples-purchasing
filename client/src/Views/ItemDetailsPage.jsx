@@ -47,7 +47,7 @@ const ItemDetailsPage = (props) => {
               <Col><SmallP>{documentId.slice(-5).toUpperCase()}</SmallP></Col>
             </Row>
             <Row>
-              <Col><strong>Item Name:</strong></Col>
+              <Col><strong>Item Description:</strong></Col>
               <Col><SmallP>{item.description}</SmallP></Col>
             </Row>
             <Row>
@@ -61,7 +61,7 @@ const ItemDetailsPage = (props) => {
           </Col>
           <Col md={6}>
             <Row>
-              <Col><strong>Pricing:</strong></Col>
+              <Col><strong>Unit Price:</strong></Col>
               <Col><SmallP>${item.price}/{item.unitOfMeasure}</SmallP></Col>
             </Row>
             <Row>
@@ -69,7 +69,7 @@ const ItemDetailsPage = (props) => {
               <Col><SmallP>{item.isDirect ? 'Yes' : 'No'}</SmallP></Col>
             </Row>
             <Row>
-              <Col><strong>Quantity Requested:</strong></Col>
+              <Col><strong>Item Quantity:</strong></Col>
               <Col><SmallP>{item.quantity} units</SmallP></Col>
             </Row>
             <Row>
@@ -82,19 +82,24 @@ const ItemDetailsPage = (props) => {
         <Row>
           <Col lg={6}>
             <Row>
-              <Col><strong>Quantity Requested:</strong></Col>
-              <Col><SmallP>{item.quantity} units</SmallP></Col>
+              <Col><strong>G/L Class Code:</strong></Col>
+              <Col><SmallP>{item.classCode}</SmallP></Col>
             </Row>
-            <Row>
+            {/* <Row>
               <Col><strong>Quantity Invoiced:</strong></Col>
               <Col><SmallP>{item.invoicedQty} units</SmallP></Col>
             </Row>
             <Row>
               <Col><strong>Quantity Delivered:</strong></Col>
               <Col><SmallP>{item.receivedQty} units</SmallP></Col>
-            </Row>
+            </Row> */}
           </Col>
         </Row>
+        {/* <Row>
+          <code>
+            {JSON.stringify(item, null, 2)}
+          </code>
+        </Row> */}
       </Container>
     </>
   )

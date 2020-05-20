@@ -31,11 +31,21 @@ module.exports = {
   },
 
   getAllVendors: async (req, res) => {
+    const adminCheck = req.query[0]
+
+    console.log(adminCheck)
     let vendorData;
 
     try {
       console.log('fetching the vendors')
-      vendorData = await Vendor.find({ isDeleted: false });
+
+      if (adminCheck === 'admin') {
+        vendorData = await Vendor.find();
+
+      } else {
+        vendorData = await Vendor.find({ isDeleted: false });
+
+      }
     } catch (error) {
       console.error(error);
       return res.status(500).send(error);

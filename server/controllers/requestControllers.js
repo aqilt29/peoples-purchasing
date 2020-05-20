@@ -176,10 +176,11 @@ module.exports = {
     }
 
     //  try to send message to queue
+    let sqsData;
     try {
       console.log('sending message to queue')
 
-      await sqs.sendMessage(queueParams(`sendApprovalEmails`, id)).promise()
+      sqsData = await sqs.sendMessage(queueParams(`sendApprovalEmails`, id)).promise()
 
     } catch (error) {
       return res.status(500).json({ error, doc: id })
@@ -197,7 +198,7 @@ module.exports = {
     }
 
 
-    res.status(201).send(requestToApprove);
+    res.status(201).send(sqsData || {'empty': {}});
   },
 
   updateRequest: (req, res) => {
@@ -275,8 +276,8 @@ module.exports = {
   },
 
   denyRequest: async (req, res) => {
-    const { params: { id }, body: { params: { email, approverId, reason = 'no reason given' } } } = req
-    console.log('id', id, 'email', email, 'approverId', approverId, 'reason', reason )
+    const { params: { id }, body: { params: { approverId, reason = 'no reason given' } } } = req
+    console.log('id', id, 'approverId', approverId, 'reason', reason )
 
     const requestToUpdate = await Request.findById(id)
 
@@ -286,20 +287,30 @@ module.exports = {
       return res.status(207).send('already approved')
     }
 
-    //  update the approval property on the list
-    requestToUpdate.approverList.id(approverId).isApproved = false,
+    if (approverId !== 'self') {
+      //  update the approval property on the list
+      try {
+        requestToUpdate.approverList.id(approverId).isApproved = false
+      } catch (error) {
+        console.log(error)
+        console.log(requestToUpdate.approverList)
+        return res.status(501).send(error)
+      }
+
+      //  save the document
+      requestToUpdate.markModified('approverList')
+    }
 
     //  set a reason for denial property
     await requestToUpdate.set('reason', reason)
     requestToUpdate.markModified('reason')
 
-    //  save the document
-    requestToUpdate.markModified('approverList')
     await requestToUpdate.save()
 
     try {
       await sqs.sendMessage(queueParams(`sendDeniedNotifications`, id)).promise()
     } catch (error) {
+      return res.status(506).send(error)
     }
 
     res.status(201).send(requestToUpdate)

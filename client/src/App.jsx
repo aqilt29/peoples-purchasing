@@ -47,6 +47,7 @@ import PurchaseOrderDetails from "./Views/PurchaseOrderDetails";
 import UserDetails from "./Views/UserDetails";
 import Hero from "./Components/Hero";
 import UserEdit from "./Views/UserEdit";
+import PRCreationMultiform from "./Views/PRCreationMultiform";
 
 
 const App = () => {
@@ -79,6 +80,7 @@ const App = () => {
             <PrivateRoute exact path="/purchaseorders/polookup" component={SearchAllPurchaseOrders} />
             <PrivateRoute exact path="/purchaseorders/details/:id" component={PurchaseOrderDetails} />
             <PrivateRoute exact path="/purchasing" component={PurchasingApps} />
+            <PrivateRoute exact path="/purchasing/newcreate" component={PRCreationMultiform} />
             <PrivateRoute exact path="/purchasing/search" component={SearchPurchaseReqs} />
             <PrivateRoute exact path="/purchasing/view/:id/:approverId" component={PurchasingView} />
             <PrivateRoute exact path="/purchasing/view/:id" component={PurchasingView} />

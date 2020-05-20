@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import _ from  'lodash'
 import Loading from '../Components/Loading';
 import { Container, Row, Col, Table } from 'reactstrap';
 import { getVendorList } from '../api/vendorApi';
@@ -11,9 +12,10 @@ const VendorListView = () => {
   useEffect(() => {
     const fn = async () => {
       setLoading(true);
-      const data = await getVendorList()
+      const data = await getVendorList('admin')
 
-      setData(data);
+
+      setData(_.orderBy(data, ['name']));
       setLoading(false);
       console.log(data)
     }
@@ -35,11 +37,6 @@ const VendorListView = () => {
                   <th>ID</th>
                   <th>Name</th>
                   <th>Website</th>
-                  <th>Phone</th>
-                  <th>Attn</th>
-                  <th>Email</th>
-                  <th>City</th>
-                  <th>Has W9</th>
                   <th>Status</th>
                   <th>Details</th>
                 </tr>
