@@ -331,7 +331,7 @@ const costCenters = {
     routes: {
       approverOne: [
         {
-          email: 'bala@pmcoc.com',
+          email: 'fkav@pmcoc.com',
           isApproved: false,
           isSent: false,
           dateSent: null,
@@ -339,13 +339,6 @@ const costCenters = {
         },
       ],
       approverTwo: [
-        {
-          email: 'bala@pmcoc.com',
-          isApproved: false,
-          isSent: false,
-          dateSent: null,
-          dateApproved: null,
-        },
         {
           email: 'fkav@pmcoc.com',
           isApproved: false,
@@ -355,13 +348,6 @@ const costCenters = {
         },
       ],
       approverThree: [
-        {
-          email: 'bala@pmcoc.com',
-          isApproved: false,
-          isSent: false,
-          dateSent: null,
-          dateApproved: null,
-        },
         {
           email: 'fkav@pmcoc.com',
           isApproved: false,
