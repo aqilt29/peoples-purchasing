@@ -161,11 +161,6 @@ export const appPermissions = {
         subtitle: 'Lookup any PR company wide based on ID.',
         link: '/search',
       },
-      {
-        title: 'DEMO: New PR',
-        subtitle: 'New PR template',
-        link: '/newcreate',
-      },
     ],
 
     vendors: [
