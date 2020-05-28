@@ -1,7 +1,5 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-// const listOfEntities = require('./utils/listOfEntities');
-// const mongoose_fuzzy_searching = require('mongoose-fuzzy-searching')
 
 const roleTypes = [
   'User',
@@ -37,7 +35,6 @@ const userSchema = new Schema({
   entity: {
     type: String,
     default: 'New Patriot Holdings',
-    // enum: listOfEntities
   },
   role: {
     type: String,
