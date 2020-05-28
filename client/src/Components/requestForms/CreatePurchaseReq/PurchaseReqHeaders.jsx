@@ -9,7 +9,7 @@ import EntitySelect from '../../EntitySelect';
 import { useAuth0 } from '../../../react-auth0-spa';
 
 export const PurchaseReqHeaders = ({ setHeaders, requestToEdit, decrementStep, headers }) => {
-  const { dbUser: { _id: currentUserId } } = useAuth0()
+  const { dbUser: { _id: currentUserId, entity: userEntityName } } = useAuth0()
 
   const [vendor, setVendor] = useState(requestToEdit ? requestToEdit.vendor._id : headers.vendor)
   const [entity, setEntity] = useState(requestToEdit ? requestToEdit.entity._id : headers.entity)
@@ -62,6 +62,8 @@ export const PurchaseReqHeaders = ({ setHeaders, requestToEdit, decrementStep, h
     if (vendor && user && entity && buyer) setValid(true)
   })
 
+
+
   return (
     <>
       <h5>Purchase Details</h5>
@@ -71,7 +73,7 @@ export const PurchaseReqHeaders = ({ setHeaders, requestToEdit, decrementStep, h
           <Col>
             <VendorSelect vendorId={requestToEdit ? requestToEdit.vendor._id : vendor } label="Select Vendor for Order:" vendorChange={setVendor} />
             <UserSelect userId={requestToEdit ? requestToEdit.submittedFor._id  : user } label="Request on behalf of:" userChange={setUser} />
-            <EntitySelect entityId={requestToEdit ? requestToEdit.entity._id : entity } entityChange={setEntity} />
+            <EntitySelect entityId={requestToEdit ? requestToEdit.entity._id : entity } entityChange={setEntity} userEntityName={userEntityName} />
             <UserSelect userId={requestToEdit ? requestToEdit.buyer._id  : buyer } label="Person placing the order:" userChange={setBuyer} />
           </Col>
           <Col>

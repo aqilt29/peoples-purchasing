@@ -10,7 +10,8 @@ import Loading from '../Components/Loading';
 import { useRouteMatch } from 'react-router-dom';
 import { getUserByID, updateUser } from '../api/userApi';
 import { GoldButton, BlueButton } from '../Styles';
-import { listOfEntities, roleTypes, costCenters } from '../utils/lists';
+import { roleTypes, costCenters } from '../utils/lists';
+import listOfEntities from '../../../server/reference/listOfEntities';
 
 const submitUserUpdates = async (userUpdateData, userID) => {
   let updatedUser;
