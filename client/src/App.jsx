@@ -2,7 +2,6 @@ import React from "react";
 import { hot } from 'react-hot-loader/root';
 
 import { Router, Route, Switch } from "react-router-dom";
-// import { browserHistory } from 'react-router'
 import PrivateRoute from "./Components/PrivateRoute";
 import Loading from "./Components/Loading";
 import NavBar from "./Components/NavBar/NavBar";

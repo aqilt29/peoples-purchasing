@@ -7,8 +7,9 @@ import { getAllEntities } from '../api/entitiesApi';
 
 
 
-const EntitySelect = ({ width = '75%', entityId, entityChange, label = 'Select Entity:'}) => {
+const EntitySelect = ({ width = '75%', entityId, entityChange, label = 'Select Entity:', userEntityName }) => {
   const [entities, setEntities] = useState(null);
+  const [defaultEntity, setDefaultEntity] = useState(null);
   const [isLoading, setLoading] = useState(false);
 
   const mapEntitiesToId = (entitiesArray) => {
@@ -17,6 +18,10 @@ const EntitySelect = ({ width = '75%', entityId, entityChange, label = 'Select E
       return { value: _id, label: name }
     })
   }
+
+  console.log(_.find(entities, { 'label': userEntityName }))
+  console.log(userEntityName)
+  console.log(entities)
 
   useEffect(() => {
     const fn = async () => {
@@ -27,7 +32,11 @@ const EntitySelect = ({ width = '75%', entityId, entityChange, label = 'Select E
 
         const mappedEntities = mapEntitiesToId(data);
 
-        setEntities(mappedEntities)
+        setEntities(mappedEntities);
+
+        const defaultEntityByUser = _.find(mappedEntities, { 'label': userEntityName });
+
+        setDefaultEntity(defaultEntityByUser)
       } catch (error) {
         window.alert(error)
         setLoading(false)
@@ -40,14 +49,14 @@ const EntitySelect = ({ width = '75%', entityId, entityChange, label = 'Select E
   }, [])
 
   if (isLoading) return <Loading />
-
+  console.log(defaultEntity)
   return (
     <div className="my-3">
       <Label style={{ width: width }}>{label}
         <Select
           onChange={(data) => entityChange(data)}
           options={entities}
-          defaultValue={entityId ?  _.find(entities, { value: entityId }) : undefined}
+          defaultValue={entityId ?  _.find(entities, { value: entityId }) : defaultEntity}
         />
       </Label>
     </div>

@@ -1,6 +1,6 @@
 module.exports = [
   {
-    name: 'Hero Oak',
+    name: 'Lean Green Industries-Ins, LLC',
     businessUnit: 'Manufacturing',
     address: {
       street: '3843 S Bristol St #607',
@@ -10,98 +10,18 @@ module.exports = [
     }
   },
   {
-    name: 'Oxford Properties',
-    businessUnit: 'New Patriot Shared Services',
-    address: {
-      street: '3843 S Bristol St #607',
-      city: 'Santa Ana',
-      state: 'CA',
-      zip: '92704',
-    }
-  },
-  {
-    name: 'Lean Green',
-    businessUnit: 'Cultivation',
-    address: {
-      street: '3843 S Bristol St #611',
-      city: 'Santa Ana',
-      state: 'CA',
-      zip: '92704',
-    }
-  },
-  {
-    name: 'Standard Hemp',
+    name: 'MOG (Monterey Ocean Grown – GH, LLC)',
     businessUnit: 'Manufacturing',
     address: {
-      street: '3843 S Bristol St #126',
+      street: '3843 S Bristol St #607',
       city: 'Santa Ana',
       state: 'CA',
       zip: '92704',
     }
   },
   {
-    name: 'Monterey Ocean Grown',
-    businessUnit: 'Cultivation',
-    address: {
-      street: '3843 S Bristol St #611',
-      city: 'Santa Ana',
-      state: 'CA',
-      zip: '92704',
-    }
-  },
-  {
-    name: 'Monterey Valley Pride',
-    businessUnit: 'Cultivation',
-    address: {
-      street: '3843 S Bristol St #611',
-      city: 'Santa Ana',
-      state: 'CA',
-      zip: '92704',
-    }
-  },
-  {
-    name: 'People\'s Marketing Group',
-    businessUnit: 'Retail',
-    address: {
-      street: '3843 S Bristol St',
-      city: 'Santa Ana',
-      state: 'CA',
-      zip: '92704',
-    }
-  },
-  {
-    name: 'People\'s First Choice',
-    businessUnit: 'Retail',
-    address: {
-      street: '3843 S Bristol St #126',
-      city: 'Santa Ana',
-      state: 'CA',
-      zip: '92704',
-    }
-  },
-  {
-    name: 'People\'s LA',
-    businessUnit: 'Retail',
-    address: {
-      street: '3843 S Bristol St #126',
-      city: 'Santa Ana',
-      state: 'CA',
-      zip: '92704',
-    }
-  },
-  {
-    name: 'People\'s Riverside',
-    businessUnit: 'Retail',
-    address: {
-      street: '3843 S Bristol St',
-      city: 'Santa Ana',
-      state: 'CA',
-      zip: '92704',
-    }
-  },
-  {
-    name: 'New Patriot Holdings',
-    businessUnit: 'New Patriot Shared Services',
+    name: 'MVP (Monterey Valley Pride, LLC)',
+    businessUnit: 'Manufacturing',
     address: {
       street: '3843 S Bristol St #607',
       city: 'Santa Ana',
@@ -110,10 +30,70 @@ module.exports = [
     }
   },
   {
-    name: 'People\'s Aviation',
-    businessUnit: 'New Patriot Shared Services',
+    name: 'New Patriot Holdings, Inc.',
+    businessUnit: 'Manufacturing',
     address: {
-      street: '3843 S Bristol St #126',
+      street: '3843 S Bristol St #607',
+      city: 'Santa Ana',
+      state: 'CA',
+      zip: '92704',
+    }
+  },
+  {
+    name: 'People’s Aviation',
+    businessUnit: 'Manufacturing',
+    address: {
+      street: '3843 S Bristol St #607',
+      city: 'Santa Ana',
+      state: 'CA',
+      zip: '92704',
+    }
+  },
+  {
+    name: 'People’s First Choice',
+    businessUnit: 'Manufacturing',
+    address: {
+      street: '3843 S Bristol St #607',
+      city: 'Santa Ana',
+      state: 'CA',
+      zip: '92704',
+    }
+  },
+  {
+    name: 'People’s Properties, LLC',
+    businessUnit: 'Manufacturing',
+    address: {
+      street: '3843 S Bristol St #607',
+      city: 'Santa Ana',
+      state: 'CA',
+      zip: '92704',
+    }
+  },
+  {
+    name: 'People’s Refinery – Hero Oak, LLC',
+    businessUnit: 'Manufacturing',
+    address: {
+      street: '3843 S Bristol St #607',
+      city: 'Santa Ana',
+      state: 'CA',
+      zip: '92704',
+    }
+  },
+  {
+    name: 'People’s Riverside',
+    businessUnit: 'Manufacturing',
+    address: {
+      street: '3843 S Bristol St #607',
+      city: 'Santa Ana',
+      state: 'CA',
+      zip: '92704',
+    }
+  },
+  {
+    name: 'TC Lab (PF – People’s Grand TC, LLC)',
+    businessUnit: 'Manufacturing',
+    address: {
+      street: '3843 S Bristol St #607',
       city: 'Santa Ana',
       state: 'CA',
       zip: '92704',

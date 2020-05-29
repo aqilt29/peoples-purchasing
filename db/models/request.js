@@ -54,18 +54,6 @@ const requestSchema = new Schema({
   purchaseOrderId: { type: Schema.Types.ObjectId, ref: 'PurchaseOrder' },
 });
 
-
-// requestSchema.pre('validate', { document: true }, async function() {
-//   if (!this.submittedFor) {
-//     const userId = this.user
-
-//     // this.submittedFor = userId;
-//     console.log(userId, 'in pre validate submitted for')
-//   }
-// })
-
-
-
 //  assign approvers list and record
 requestSchema.post('validate', { document: true }, async function() {
   if (this.approverList.length < 1) {
