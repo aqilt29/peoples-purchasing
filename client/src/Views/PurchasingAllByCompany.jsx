@@ -49,10 +49,9 @@ const PurchasingAllByCompany = () => {
                   <th>#</th>
                   <th>ID</th>
                   <th>Status</th>
-                  <th>Business Need</th>
                   <th>Date</th>
+                  <th>Entity</th>
                   <th>Invoice Amt</th>
-                  <th>Terms</th>
                   <th>Waiting On</th>
                   <th>Vendor</th>
                   <th>Submitted For</th>

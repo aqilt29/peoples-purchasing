@@ -34,6 +34,8 @@ module.exports = {
 
     try {
       data = await Request.find()
+      .where('isDeleted')
+      .ne(true)
       .populate('user')
       .populate('submittedFor')
       .populate('entity')
