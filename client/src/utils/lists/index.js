@@ -1,6 +1,5 @@
 export * from './listOfApps'
 export * from './listOfClassCodes'
-export * from './listOfEntities'
 export * from './listOfLedgers'
 export * from './listOfPaymentTerms'
 export * from './listOfShippingAddresses'

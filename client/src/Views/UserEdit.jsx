@@ -12,6 +12,7 @@ import { getUserByID, updateUser } from '../api/userApi';
 import { GoldButton, BlueButton } from '../Styles';
 import { roleTypes, costCenters } from '../utils/lists';
 import listOfEntities from '../../../server/reference/listOfEntities';
+import { getAllEntities } from '../api/entitiesApi';
 
 const submitUserUpdates = async (userUpdateData, userID) => {
   let updatedUser;
@@ -28,6 +29,7 @@ const submitUserUpdates = async (userUpdateData, userID) => {
 const UserEdit = ({ history }) => {
   const { params: { id: userID } } = useRouteMatch();
   const [isLoading, setLoading] = useState(false);
+  const [entities, setEntities] = useState(undefined)
   const [user, setUser] = useState(null);
 
   useEffect(() => {
@@ -36,6 +38,16 @@ const UserEdit = ({ history }) => {
       setLoading(true);
       const userData = await getUserByID(userID);
       setUser(userData);
+
+      let entityData = null;
+
+      try {
+        let entityData = await getAllEntities();
+        console.log(entityData);
+        setEntities(entityData);
+      } catch (error) {
+        window.alert(error, entityData);
+      }
 
       setLoading(false);
     }
@@ -82,19 +94,19 @@ const UserEdit = ({ history }) => {
                       validate={{required: {value: true, errorMessage: 'Please select an entity from the list'}}}>
                       <option value="">Select Entity...</option>
                       {
-                        listOfEntities.map(({name}) => <option>{name}</option>)
+                        entities.map(({name}, idx) => <option key={`${idx}`}>{name}</option>)
                       }
                     </AvField>
                     <AvField type="select" name="costCenter" label="Cost Center:">
                       <option value="">Select Role...</option>
                       {
-                        costCenters.map((name) => <option>{name}</option>)
+                        costCenters.map((name, idx) => <option key={`${idx}`}>{name}</option>)
                       }
                     </AvField>
                     <AvField type="select" name="role" label="Portal Role:" helpMessage="Please select which best describes you..." validate={{required: {value: true, errorMessage: 'Please select an entity from the list'}}}>
                       <option value="">Select Role...</option>
                       {
-                        roleTypes.map((name) => <option>{name}</option>)
+                        roleTypes.map((name, idx) => <option key={`${idx}`}>{name}</option>)
                       }
                     </AvField>
                     <AvField type="select" name="isDisabled" label="Is Disabled?:">
