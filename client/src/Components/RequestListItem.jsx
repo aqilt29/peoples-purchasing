@@ -9,13 +9,7 @@ import { Link } from 'react-router-dom';
 const RequestListItem = ({ request, idx }) => {
 
   const getNextApprover = ({approverList}) => {
-    return _.find(approverList, function(o) {
-      if (!o.isApproved) {
-        return o
-      } else {
-        return 'null'
-      }
-    })
+    return _.find(approverList, function(o) { return o.isApproved === false})
   };
 
   console.log(request._id)
@@ -30,7 +24,7 @@ const RequestListItem = ({ request, idx }) => {
       <td>${request.invoiceTotal}</td>
       <td>{format(new Date(request.dateRequested), 'MM/dd/yyyy')}</td>
       <td>{request.status !== 'Approved' ? getNextApprover(request).email : 'Approved' }</td>
-      <td>{request.isBlanket ? 'Yes' : 'No'}</td>
+      <td>{`${request.submittedFor.firstName} ${request.submittedFor.lastName}`}</td>
       <td><Button tag={Link} to={`/purchasing/details/${request._id}`} color="link" style={{ float: 'none' }}>View</Button></td>
     </tr>
   )
