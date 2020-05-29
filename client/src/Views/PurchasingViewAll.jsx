@@ -35,12 +35,12 @@ const PurchasingViewAll = () => {
                   <th>#</th>
                   <th>Req#</th>
                   <th>PR Status</th>
-                  <th>Vendor</th>
+                  <th>Date</th>
                   <th>Entity</th>
                   <th>Total Amt</th>
-                  <th>Delivery Date</th>
-                  <th>Approval Status</th>
-                  <th>Blanket PR</th>
+                  <th>Approval Awaiting</th>
+                  <th>Vendor</th>
+                  <th>Submitted For</th>
                   <th>Details</th>
                 </tr>
               </thead>
