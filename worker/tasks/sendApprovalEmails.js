@@ -16,6 +16,22 @@ const sendApprovalEmails = async ({ MessageAttributes: { documentId: { StringVal
     if (!requestAwaitingApproval.approverList[i].isSent) {
 
       //  try to look up the userID of the next approver and mark them to the delegate field
+      const approverObject = requestAwaitingApproval.approverList[i];
+      let approvingUser = null;
+      try {
+        approvingUser = User.find({ email: approverObject.email });
+        console.log(`approvingUser => ${approvingUser}`)
+      } catch (error) {
+
+        // try to communicate the error to myself for tracking
+        console.log(error)
+        await transporter.sendMail({
+          from: { name: "Purchasing Portal Notification", address:'scanner@pmcoc.com' },
+          to: 'aqil@pmcoc.com',
+          subject: 'Error in approving user lookup',
+          html: `${error}`
+        })
+      }
 
       //  try to send the email and mark the approver list and save the request
       try {
