@@ -19,8 +19,8 @@ const sendApprovalEmails = async ({ MessageAttributes: { documentId: { StringVal
       const approverObject = requestAwaitingApproval.approverList[i];
       let approvingUser = null;
       try {
-        approvingUser = User.find({ email: approverObject.email });
-        console.log(`approvingUser => ${approvingUser}`)
+        approvingUser = await User.find({ email: approverObject.email });
+        console.log(`approvingUser => ${JSON.stringify(approvingUser)}`)
       } catch (error) {
 
         // try to communicate the error to myself for tracking
@@ -54,7 +54,7 @@ const sendApprovalEmails = async ({ MessageAttributes: { documentId: { StringVal
 
         let save = await requestAwaitingApproval.save();
 
-        console.log(requestAwaitingApproval.approverList[i].isSent, "hi")
+        console.log(requestAwaitingApproval.approverList[i].isSent, "<--- isSent")
         console.log(save, "save")
         break;
       } catch(error) {
