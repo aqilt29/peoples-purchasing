@@ -8,33 +8,37 @@ const Entity = require('../../db/models/entity');
 
 const sendApprovalEmails = async ({ MessageAttributes: { documentId: { StringValue: id }}}) => {
   console.log(id, ' <--- id')
-  const data = await Request.findById(id).populate('vendor').populate('user').populate('entity').populate('buyer');
+  const requestAwaitingApproval = await Request.findById(id).populate('vendor').populate('user').populate('entity').populate('buyer');
 
   //  iterate over the approver list
-  for (let i = 0; i < data.approverList.length; i++) {
+  for (let i = 0; i < requestAwaitingApproval.approverList.length; i++) {
     //  find in the approval list for the next approver
-    if (!data.approverList[i].isSent) {
+    if (!requestAwaitingApproval.approverList[i].isSent) {
+
+      //  try to look up the userID of the next approver and mark them to the delegate field
+
+      //  try to send the email and mark the approver list and save the request
       try {
 
         //  get the id for the approver subdoc
-        const approverId = data.approverList[i]._id
+        const approverId = requestAwaitingApproval.approverList[i]._id
         // send mail with defined transport object
         await transporter.sendMail({
           from: { name: "Purchasing Portal Notification", address:'scanner@pmcoc.com' }, // sender address
-          to: data.approverList[i].email, // list of receivers
-          subject: `PR Approval Required: REQ-${data.id.slice(-5).toUpperCase()} to ${data.vendor.name} for $${data.invoiceTotal}`, // Subject line
-          // text: JSON.stringify(data), // plain text body
+          to: requestAwaitingApproval.approverList[i].email, // list of receivers
+          subject: `PR Approval Required: REQ-${requestAwaitingApproval.id.slice(-5).toUpperCase()} to ${requestAwaitingApproval.vendor.name} for $${requestAwaitingApproval.invoiceTotal}`, // Subject line
+          // text: JSON.stringify(requestAwaitingApproval), // plain text body
           html: `<a href="${hostName}/purchasing/view/${id}/${approverId}">Click Here to View Request</a>` // html body
         });
 
-        console.log(data.approverList[i].isSent, "before")
-        data.approverList[i].isSent = true;
-        data.approverList[i].dateSent = Date.now();
-        data.markModified('approverList');
+        console.log(requestAwaitingApproval.approverList[i].isSent, "before")
+        requestAwaitingApproval.approverList[i].isSent = true;
+        requestAwaitingApproval.approverList[i].dateSent = Date.now();
+        requestAwaitingApproval.markModified('approverList');
 
-        let save = await data.save();
+        let save = await requestAwaitingApproval.save();
 
-        console.log(data.approverList[i].isSent, "hi")
+        console.log(requestAwaitingApproval.approverList[i].isSent, "hi")
         console.log(save, "save")
         break;
       } catch(error) {
