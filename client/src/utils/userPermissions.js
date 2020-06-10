@@ -14,7 +14,7 @@ export const appPermissions = {
   'PRCreator': {
     purchasing: [
       {
-        title: 'Create New Purchase Requisition',
+        title: 'Create New Purchase Request',
         subtitle: 'Submit new purchase request to follow approval workflows.',
         link: '/createform',
       },
@@ -37,7 +37,7 @@ export const appPermissions = {
   'Buyer': {
     purchasing: [
       {
-        title: 'Create New Purchase Requisition',
+        title: 'Create New Purchase Request',
         subtitle: 'Submit new purchase request to follow approval workflows.',
         link: '/createform',
       },
@@ -88,7 +88,7 @@ export const appPermissions = {
   'Accounting': {
     purchasing: [
       {
-        title: 'Create New Purchase Requisition',
+        title: 'Create New Purchase Request',
         subtitle: 'Submit new purchase request to follow approval workflows.',
         link: '/createform',
       },
@@ -142,7 +142,7 @@ export const appPermissions = {
 
     purchasing: [
       {
-        title: 'Create New Purchase Requisition',
+        title: 'Create New Purchase Request',
         subtitle: 'Submit new purchase request to follow approval workflows.',
         link: '/createform',
       },
@@ -161,6 +161,11 @@ export const appPermissions = {
         subtitle: 'Lookup any PR company wide based on ID.',
         link: '/search',
       },
+      {
+        title: 'DEMO: New Purchase Request',
+        subtitle: 'DEMO PURCHASE REQUEST UI',
+        link: '/createpr'
+      }
     ],
 
     vendors: [
@@ -200,7 +205,7 @@ export const userDashboardApps = {
   User: [],
   PRCreator: [
     {
-      title: 'Purchasing',
+      title: 'Purchasing Request',
       subtitle: 'Manage Purchasing Related Tasks',
       link: 'purchasing'
     },
@@ -217,7 +222,7 @@ export const userDashboardApps = {
   ],
   Buyer: [
     {
-      title: 'Purchasing',
+      title: 'Purchasing Request',
       subtitle: 'Manage Purchasing Related Tasks',
       link: 'purchasing'
     },
@@ -239,7 +244,7 @@ export const userDashboardApps = {
   ],
   Accounting: [
     {
-      title: 'Purchasing',
+      title: 'Purchasing Request',
       subtitle: 'Manage Purchasing Related Tasks',
       link: 'purchasing'
     },
@@ -261,7 +266,7 @@ export const userDashboardApps = {
   ],
   Admin: [
     {
-      title: 'Purchasing',
+      title: 'Purchasing Request',
       subtitle: 'Manage Purchasing Related Tasks',
       link: 'purchasing'
     },
