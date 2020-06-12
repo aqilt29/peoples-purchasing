@@ -4,16 +4,11 @@ import {
   RequestItemsForm,
   RequestPreview,
 } from '../Components/PurchaseRequestForms';
-import { Formik, Field, FieldArray } from 'formik';
-import {
-  Container,
-  Row,
-  Col,
-  Input,
-} from 'reactstrap';
+import { Formik, Field, FieldArray, Form } from 'formik';
+import { Container } from 'reactstrap';
 import { BlueButton } from '../Styles';
 import { ReactstrapInput } from 'reactstrap-formik';
-
+import * as yup from 'yup';
 
 /**
  * This is going to be a multiform component,
@@ -27,6 +22,39 @@ import { ReactstrapInput } from 'reactstrap-formik';
  * Field validation will control the move forward? need to check?
  *
  */
+
+
+/**
+ * Validation for the fields are managed at the form level
+ * here we will use
+ * {
+ *
+ * }
+ *
+ *
+ * example list of entities = [
+ *
+ * ]
+ *
+ *
+ */
+
+const exampleListOfEntities = [
+  'New Patriot Holdings',
+  'Peoples Retail - Santa Ana',
+  'Peoples Retail - Los Angeles',
+  'Peoples Retail - Riverside',
+];
+
+const validationSchema = yup.object()
+  .shape({
+    project: yup
+      .string()
+      .required('Required!'),
+    // entity: yup
+    //   .string()
+    //   .oneOf(exampleListOfEntities)
+  })
 
 
 /**
@@ -45,20 +73,50 @@ import { ReactstrapInput } from 'reactstrap-formik';
 const renderMultiForm = (step, values, errors, touched) => {
   switch (step) {
     case 0:
-      return <RequestHeaderForm />
+      return <RequestHeaderForm values={values} errors={errors} touched={touched}/>
     case 1:
-      return <RequestItemsForm />
+      return <RequestItemsForm values={values} errors={errors} touched={touched}/>
     case 2:
-      return <RequestPreview />
+      return <RequestPreview values={values} errors={errors} touched={touched}/>
   }
 }
 
 
 const CreatePurchaseRequest = () => {
   const [step, setStep] = useState(0)
+
+  const requestData = {
+    project: '',
+    deliveryAddress: {
+      street: '',
+      city: '',
+      zipCode: '',
+    },
+    entity: '',
+  }
+
   return (
     <>
-
+      <Formik
+        validateOnBlur
+        enableReinitialize
+        validationSchema={validationSchema}
+        initialValues={{ ...requestData }}
+        onSubmit={(values, { setSubmitting }) => {
+          setTimeout(() => {
+            alert(JSON.stringify(values, null, 2));
+            setSubmitting(false);
+          }, 400);
+        }}
+      >
+        {({ values, errors, touched }) => (
+          <Container>
+            <Form>
+              {renderMultiForm(step, values, errors, touched)}
+            </Form>
+          </Container>
+        )}
+      </Formik>
     </>
   )
 };

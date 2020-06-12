@@ -5,9 +5,15 @@ import Loading from './Loading';
 import { Label } from 'reactstrap';
 import { getAllEntities } from '../api/entitiesApi';
 
+import { useField } from 'formik';
 
 
-const EntitySelect = ({ width = '75%', entityId, entityChange, label = 'Select Entity:', userEntityName }) => {
+const EntitySelect = ({ width = '75%', entityId, entityChange, label = 'Select Entity:', userEntityName, ...props }) => {
+
+  const [field, meta, { setValue: setFormikField }] = useField(props);
+
+  console.log(field, meta)
+
   const [entities, setEntities] = useState(null);
   const [defaultEntity, setDefaultEntity] = useState(null);
   const [isLoading, setLoading] = useState(false);
@@ -54,7 +60,7 @@ const EntitySelect = ({ width = '75%', entityId, entityChange, label = 'Select E
     <div className="my-3">
       <Label style={{ width: width }}>{label}
         <Select
-          onChange={(data) => entityChange(data)}
+          onChange={(data) => setFormikField(data)}
           options={entities}
           defaultValue={entityId ?  _.find(entities, { value: entityId }) : defaultEntity}
         />
