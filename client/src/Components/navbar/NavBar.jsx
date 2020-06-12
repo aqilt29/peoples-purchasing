@@ -18,8 +18,8 @@ import {
 import { NavContainer, GoldButton } from '../../Styles'
 
 import { useAuth0 } from "../../react-auth0-spa";
-import LogoLink from '../../utils/LogoLink';
 import StyledNavBarTogglerButton from './NavBarTogglerButton';
+import NavBarLogo from "./NavBarLogo";
 
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -35,7 +35,7 @@ const NavBar = () => {
     <NavContainer className="nav-container">
       <Navbar expand="md">
         <Container>
-          <NavbarBrand tag={LogoLink}/>
+          <NavbarBrand tag={NavBarLogo}/>
           <StyledNavBarTogglerButton action={toggle} />
           <Collapse isOpen={isOpen} navbar>
             <Nav className="mr-auto" navbar />
