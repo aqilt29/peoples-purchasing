@@ -1,15 +1,13 @@
 import React from 'react';
-import { Media } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
-import { NavbarLogo } from '../../Styles';
 
-import PeoplesLogo from '../../Assets/PeoplesHoldingsLogo.png'
+import PeoplesLogoSvg from '../../Assets/PeoplesHoldingsLogo.svg'
 
 const NavBarLogo = () => {
   return (
     <>
       <NavLink to="/">
-        <NavbarLogo tag="img" src={PeoplesLogo} />
+        <img style={{ width: '100px'}} src={PeoplesLogoSvg} />
       </NavLink>
     </>
   )

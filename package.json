@@ -55,6 +55,7 @@
     "react-select": "^3.0.8",
     "react-svg-loader": "^3.0.3",
     "reactstrap": "^8.0.0",
+    "reactstrap-formik": "^1.0.9",
     "sanitize-filename": "^1.6.3",
     "sqs-consumer": "^5.4.0",
     "style-loader": "^1.1.3",
