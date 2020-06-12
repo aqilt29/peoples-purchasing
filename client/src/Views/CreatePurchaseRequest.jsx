@@ -6,7 +6,7 @@ import {
 } from '../Components/PurchaseRequestForms';
 import { Formik, Field, FieldArray, Form } from 'formik';
 import { Container } from 'reactstrap';
-import { BlueButton } from '../Styles';
+import { BlueButton, GoldButton } from '../Styles';
 import { ReactstrapInput } from 'reactstrap-formik';
 import * as yup from 'yup';
 
@@ -51,9 +51,13 @@ const validationSchema = yup.object()
     project: yup
       .string()
       .required('Required!'),
-    // entity: yup
-    //   .string()
-    //   .oneOf(exampleListOfEntities)
+    // deliveryAddress: yup.object().shape({
+    //   streetAddressLine: yup.string().required('We need to send it somewhere!'),
+    //   streetAddressLine2: yup.string(),
+    //   city: yup.string().required('City Required!'),
+    //   state: yup.string().required('State Required!'),
+    //   zipCode: yup.string().required('ZipCode Required!'),
+    // }),
   })
 
 
@@ -81,6 +85,19 @@ const renderMultiForm = (step, values, errors, touched) => {
   }
 }
 
+const renderButtons = (step, setStep) => {
+  const incrementStep = () => setStep(step + 1)
+  const decrementStep = () => step > 0 ? setStep(step - 1) : setStep(0)
+
+  switch (step) {
+    case 0:
+      return <BlueButton onClick={incrementStep}>next</BlueButton>
+    case 1:
+      return (<div><GoldButton onClick={decrementStep}>Back</GoldButton><BlueButton onClick={incrementStep}>next</BlueButton></div>)
+    case 2:
+      return <GoldButton onClick={decrementStep}>Back</GoldButton>
+  }
+};
 
 const CreatePurchaseRequest = () => {
   const [step, setStep] = useState(0)
@@ -88,8 +105,10 @@ const CreatePurchaseRequest = () => {
   const requestData = {
     project: '',
     deliveryAddress: {
-      street: '',
+      streetAddressLine: '',
+      streetAddressLine2: '',
       city: '',
+      state: '',
       zipCode: '',
     },
     entity: '',
@@ -114,6 +133,7 @@ const CreatePurchaseRequest = () => {
             <Form>
               {renderMultiForm(step, values, errors, touched)}
             </Form>
+            {renderButtons(step, setStep)}
           </Container>
         )}
       </Formik>
