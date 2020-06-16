@@ -3,7 +3,7 @@ import React from 'react';
 const RequestItemsForm = () => {
   return (
     <>
-      <h3>RequestItemsForm</h3>
+      <h3>Add Items to Purchase</h3>
     </>
   )
 };

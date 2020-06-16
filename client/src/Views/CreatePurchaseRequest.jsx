@@ -93,7 +93,7 @@ const renderButtons = (step, setStep) => {
     case 0:
       return <BlueButton onClick={incrementStep}>next</BlueButton>
     case 1:
-      return (<div><GoldButton onClick={decrementStep}>Back</GoldButton><BlueButton onClick={incrementStep}>next</BlueButton></div>)
+      return (<div><GoldButton onClick={decrementStep} className="mr-2">Back</GoldButton><BlueButton onClick={incrementStep}>next</BlueButton></div>)
     case 2:
       return <GoldButton onClick={decrementStep}>Back</GoldButton>
   }

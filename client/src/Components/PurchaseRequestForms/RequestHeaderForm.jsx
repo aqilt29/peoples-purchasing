@@ -29,7 +29,7 @@ const RequestHeaderForm = ({ values, errors, touched }) => {
           <h5>Purchasing Information</h5>
             <Field
               type="text"
-              label="Project Name or Reference:"
+              label="Reference or Project Name:"
               name="project"
               id="project"
               valid={(!errors.project && values.project.length > 1)}
@@ -50,7 +50,7 @@ const RequestHeaderForm = ({ values, errors, touched }) => {
                 type="textarea"
                 name="purchaseReason"
                 id="purchaseReason"
-                placeholder="Please provide detailed notes for this request"
+                placeholder="Please provide detailed information for the purpose of your purchase..."
               />
             </FormGroup>
           </Col>
