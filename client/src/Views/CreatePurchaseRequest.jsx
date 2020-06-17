@@ -9,6 +9,7 @@ import { Container } from 'reactstrap';
 import { BlueButton, GoldButton } from '../Styles';
 import { ReactstrapInput } from 'reactstrap-formik';
 import * as yup from 'yup';
+import FormikStepper from '../Components/FormikHelpers/FormikStepper';
 
 /**
  * This is going to be a multiform component,
@@ -74,31 +75,6 @@ const validationSchema = yup.object()
  *
  */
 
-const renderMultiForm = (step, values, errors, touched) => {
-  switch (step) {
-    case 0:
-      return <RequestHeaderForm values={values} errors={errors} touched={touched}/>
-    case 1:
-      return <RequestItemsForm values={values} errors={errors} touched={touched}/>
-    case 2:
-      return <RequestPreview values={values} errors={errors} touched={touched}/>
-  }
-}
-
-const renderButtons = (step, setStep) => {
-  const incrementStep = () => setStep(step + 1)
-  const decrementStep = () => step > 0 ? setStep(step - 1) : setStep(0)
-
-  switch (step) {
-    case 0:
-      return <BlueButton onClick={incrementStep}>next</BlueButton>
-    case 1:
-      return (<div><GoldButton onClick={decrementStep} className="mr-2">Back</GoldButton><BlueButton onClick={incrementStep}>next</BlueButton></div>)
-    case 2:
-      return <GoldButton onClick={decrementStep}>Back</GoldButton>
-  }
-};
-
 const CreatePurchaseRequest = () => {
   const [step, setStep] = useState(0)
 
@@ -116,11 +92,11 @@ const CreatePurchaseRequest = () => {
 
   return (
     <>
-      <Formik
+      <FormikStepper
         validateOnBlur
         enableReinitialize
         validationSchema={validationSchema}
-        initialValues={{ ...requestData }}
+        initialValues={{ hello: 'world', ...requestData }}
         onSubmit={(values, { setSubmitting }) => {
           setTimeout(() => {
             alert(JSON.stringify(values, null, 2));
@@ -128,15 +104,10 @@ const CreatePurchaseRequest = () => {
           }, 400);
         }}
       >
-        {({ values, errors, touched }) => (
-          <Container>
-            <Form>
-              {renderMultiForm(step, values, errors, touched)}
-            </Form>
-            {renderButtons(step, setStep)}
-          </Container>
-        )}
-      </Formik>
+        <RequestHeaderForm />
+        <RequestItemsForm />
+        <RequestPreview />
+      </FormikStepper>
     </>
   )
 };

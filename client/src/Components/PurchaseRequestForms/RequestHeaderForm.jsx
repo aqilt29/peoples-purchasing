@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Field } from 'formik';
+import { Field, useFormikContext } from 'formik';
 import { ReactstrapInput, ReactstrapSelect } from 'reactstrap-formik'
 import { Row, Col, FormText, Input, FormGroup, Label } from 'reactstrap';
 import EntitySelect from '../EntitySelect';
@@ -17,9 +17,6 @@ const exampleListOfEntities = [
 
 const RequestHeaderForm = ({ values, errors, touched }) => {
 
-  //  get the list of entities from the API
-  // const [entityList, setEntityList] = useState([])
-
   return (
     <>
       <h3>New Request Information</h3>
@@ -32,7 +29,6 @@ const RequestHeaderForm = ({ values, errors, touched }) => {
               label="Reference or Project Name:"
               name="project"
               id="project"
-              valid={(!errors.project && values.project.length > 1)}
               component={ReactstrapInput}
             />
             {console.log(values, errors, touched)}
