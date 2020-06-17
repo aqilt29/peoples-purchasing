@@ -17,8 +17,8 @@ const FormikStepper = ({ children, ...props }) => {
 
   const isLastStep = () => step === childrenComponentArray.length - 1;
 
-
   console.log(props)
+  console.log(currentChildForm.props)
   return (
     <Formik
       {...props}

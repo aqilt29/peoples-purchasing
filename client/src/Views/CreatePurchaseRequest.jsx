@@ -4,9 +4,7 @@ import {
   RequestItemsForm,
   RequestPreview,
 } from '../Components/PurchaseRequestForms';
-import { Formik, Field, FieldArray, Form } from 'formik';
 import { Container } from 'reactstrap';
-import { BlueButton, GoldButton } from '../Styles';
 import { ReactstrapInput } from 'reactstrap-formik';
 import * as yup from 'yup';
 import FormikStepper from '../Components/FormikHelpers/FormikStepper';
@@ -76,8 +74,6 @@ const validationSchema = yup.object()
  */
 
 const CreatePurchaseRequest = () => {
-  const [step, setStep] = useState(0)
-
   const requestData = {
     project: '',
     deliveryAddress: {
@@ -104,7 +100,11 @@ const CreatePurchaseRequest = () => {
           }, 400);
         }}
       >
-        <RequestHeaderForm />
+        <RequestHeaderForm
+          hello
+          world
+          print="line"
+        />
         <RequestItemsForm />
         <RequestPreview />
       </FormikStepper>
