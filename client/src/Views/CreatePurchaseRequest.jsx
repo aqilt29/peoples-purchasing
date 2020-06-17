@@ -8,6 +8,7 @@ import { Container } from 'reactstrap';
 import { ReactstrapInput } from 'reactstrap-formik';
 import * as yup from 'yup';
 import FormikStepper from '../Components/FormikHelpers/FormikStepper';
+import { headerValidators } from '../utils/FormValidators';
 
 /**
  * This is going to be a multiform component,
@@ -91,7 +92,7 @@ const CreatePurchaseRequest = () => {
       <FormikStepper
         validateOnBlur
         enableReinitialize
-        validationSchema={validationSchema}
+        validationSchema={headerValidators}
         initialValues={{ hello: 'world', ...requestData }}
         onSubmit={(values, { setSubmitting }) => {
           setTimeout(() => {
