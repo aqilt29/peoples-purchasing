@@ -55,30 +55,30 @@ const RequestHeaderForm = ({ values, errors, touched }) => {
           <Col>
             <h5>Shipping Information</h5>
             <FormGroup>
-              <Label for="exampleAddress">Address</Label>
-              <Input type="text" name="address" id="exampleAddress" placeholder="1234 Main St"/>
+              <Label for="deliveryAddress.streetAddressLine">Address</Label>
+              <Input type="text" name="deliveryAddress.streetAddressLine" id="deliveryAddress.streetAddressLine" placeholder="1234 Main St"/>
             </FormGroup>
             <FormGroup>
-              <Label for="exampleAddress2">Address 2</Label>
-              <Input type="text" name="address2" id="exampleAddress2" placeholder="Apartment, studio, or floor"/>
+              <Label for="deliveryAddress.streetAddressLine2">Address 2</Label>
+              <Input type="text" name="address2" id="deliveryAddress.streetAddressLine2" placeholder="Apartment, studio, or floor"/>
             </FormGroup>
             <Row form>
               <Col>
                 <FormGroup>
-                  <Label for="exampleCity">City</Label>
-                  <Input type="text" name="city" id="exampleCity"/>
+                  <Label for="deliveryAddress.city">City</Label>
+                  <Input type="text" name="city" id="deliveryAddress.city"/>
                 </FormGroup>
               </Col>
               <Col>
                 <FormGroup>
-                  <Label for="exampleState">State</Label>
-                  <Input type="text" name="state" id="exampleState"/>
+                  <Label for="deliveryAddress.state">State</Label>
+                  <Input type="text" name="state" id="deliveryAddress.state"/>
                 </FormGroup>
               </Col>
               <Col>
                 <FormGroup>
-                  <Label for="exampleZip">Zip</Label>
-                  <Input type="text" name="zip" id="exampleZip"/>
+                  <Label for="deliveryAddress.zipCode">Zip</Label>
+                  <Input type="text" name="zip" id="deliveryAddress.zipCode"/>
                 </FormGroup>
               </Col>
             </Row>
