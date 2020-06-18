@@ -31,11 +31,6 @@ const RequestHeaderForm = ({ values, errors, touched }) => {
               id="project"
               component={ReactstrapInput}
             />
-            {console.log(values, errors, touched)}
-          </Col>
-        </Row>
-        <Row>
-          <Col>
             <EntitySelect
               name="entity"
               label="Select Purchasing Entity"
