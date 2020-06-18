@@ -4,3 +4,15 @@
  * the FormikStepper
  */
 
+import React from 'react'
+// import { Formik } from 'formik';
+
+const FormikStep = ({ children }) => {
+  return (
+    <>
+      {children}
+    </>
+  )
+};
+
+export default FormikStep;

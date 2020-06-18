@@ -14,6 +14,7 @@ const FormikStepper = ({ children, ...props }) => {
   const childrenComponentArray = React.Children.toArray(children);
   const [step, setStep] = useState(0);
   const currentChildForm = childrenComponentArray[step];
+  const stepValidationSchema = currentChildForm.props.validationSchema;
 
   const isLastStep = () => step === childrenComponentArray.length - 1;
 
@@ -22,6 +23,7 @@ const FormikStepper = ({ children, ...props }) => {
   return (
     <Formik
       {...props}
+      validationSchema={stepValidationSchema}
       onSubmit={ async (values, helpers) => {
         if (isLastStep()) {
           await props.onSubmit(values, helpers);
