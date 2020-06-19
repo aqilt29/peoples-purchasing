@@ -9,12 +9,14 @@
 import React, { useState } from 'react';
 import { Formik, Form } from 'formik';
 import { BlueButton, GoldButton } from '../../Styles';
+import { Button } from 'reactstrap';
 
 const FormikStepper = ({ children, ...props }) => {
   const childrenComponentArray = React.Children.toArray(children);
   const [step, setStep] = useState(0);
   const currentChildForm = childrenComponentArray[step];
   const stepValidationSchema = currentChildForm.props.validationSchema;
+  const customOnSubmit = currentChildForm.props.onSubmit || false;
 
   const isLastStep = () => step === childrenComponentArray.length - 1;
 
@@ -28,6 +30,9 @@ const FormikStepper = ({ children, ...props }) => {
       onSubmit={ async (values, helpers) => {
         if (isLastStep()) {
           await props.onSubmit(values, helpers);
+        } else if ((customOnSubmit !== false) && (typeof customOnSubmit === "function")) {
+          console.log('CUSTOM FUNCTION')
+          helpers.resetForm()
         } else {
           setStep(isLastStep() ? step : step + 1 )
         }
@@ -38,12 +43,9 @@ const FormikStepper = ({ children, ...props }) => {
       {console.log(args.values)}
       {console.log(args)}
         {currentChildForm}
-        { (step > 0) ? <GoldButton
-            onClick={() => setStep(step - 1)}
-            className='mr-2'
-            >Back
-          </GoldButton> : null }
+        {step > 0 ? <GoldButton onClick={() => setStep(step - 1)} className='mr-2'>Back</GoldButton> : null }
         <BlueButton type="submit">{isLastStep() ? 'Submit' : 'Next' }</BlueButton>
+        {step === 1 ? (<Button color ="info" type="button" className="ml-2">{'Add Item'}</Button>) : null }
       </Form>
     )}
 

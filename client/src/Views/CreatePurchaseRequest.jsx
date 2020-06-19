@@ -70,6 +70,19 @@ const CreatePurchaseRequest = () => {
       zipCode: '',
     },
     needBuyer: undefined,
+    items: [{
+      description: '',
+      specialDetails: '',
+      expenseCategory: '',
+      price: '',
+      requestByDate: '',
+      unitOfMeasure: '',
+      link: '',
+      quantity: '',
+      receivedQty: '',
+      invoicedQty: '',
+    }],
+    friends: [{ name: 'richie', age: 23 }]
   }
 
   return (
@@ -87,7 +100,7 @@ const CreatePurchaseRequest = () => {
         <FormikStep validationSchema={headerValidators}>
           <RequestHeaderForm />
         </FormikStep>
-        <FormikStep>
+        <FormikStep onSubmit={() => { console.log(world) }}>
           <RequestItemsForm />
         </FormikStep>
         <FormikStep>
