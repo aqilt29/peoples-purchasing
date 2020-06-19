@@ -24,21 +24,6 @@ import { getAllEntities } from '../api/entitiesApi';
  */
 
 
-/**
- * Validation for the fields are managed at the form level
- * here we will use
- * {
- *
- * }
- *
- *
- * example list of entities = [
- *
- * ]
- *
- *
- */
-
 const exampleListOfEntities = [
   'New Patriot Holdings',
   'Peoples Retail - Santa Ana',
@@ -99,14 +84,8 @@ const CreatePurchaseRequest = () => {
           }, 400);
         }}
       >
-        <FormikStep
-          validationSchema={headerValidators}
-        >
-          <RequestHeaderForm
-            hello
-            world
-            print="line"
-          />
+        <FormikStep validationSchema={headerValidators}>
+          <RequestHeaderForm />
         </FormikStep>
         <FormikStep>
           <RequestItemsForm />

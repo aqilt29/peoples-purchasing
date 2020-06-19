@@ -1,27 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import _ from 'lodash'
 import Select from 'react-select'
-import Loading from './Loading';
+import Loading from '../Loading';
 import { Label } from 'reactstrap';
-import { getAllEntities } from '../api/entitiesApi';
+import { getAllEntities } from '../../api/entitiesApi';
+
+import { useField } from 'formik';
 
 
+const FormikEntitySelect = ({ width = '75%', entityId, entityChange, label = 'Select Entity:', userEntityName, ...props }) => {
 
-const EntitySelect = ({ width = '75%', entityId, entityChange, label = 'Select Entity:', userEntityName }) => {
+  const [field, meta, { setValue: setFormikField }] = useField(props);
+
+  // console.log(field, meta)
+
   const [entities, setEntities] = useState(null);
   const [defaultEntity, setDefaultEntity] = useState(null);
   const [isLoading, setLoading] = useState(false);
 
   const mapEntitiesToId = (entitiesArray) => {
-    console.log(entitiesArray)
+    // console.log(entitiesArray)
     return entitiesArray.map(({ name, _id }) => {
       return { value: _id, label: name }
     })
   }
 
-  console.log(_.find(entities, { 'label': userEntityName }))
-  console.log(userEntityName)
-  console.log(entities)
+  // console.log(_.find(entities, { 'label': userEntityName }))
+  // console.log(userEntityName)
+  // console.log(entities)
 
   useEffect(() => {
     const fn = async () => {
@@ -49,12 +55,12 @@ const EntitySelect = ({ width = '75%', entityId, entityChange, label = 'Select E
   }, [])
 
   if (isLoading) return <Loading />
-  console.log(defaultEntity)
+  // console.log(defaultEntity)
   return (
     <div className="my-3">
       <Label style={{ width: width }}>{label}
         <Select
-          onChange={(data) => entityChange(data)}
+          onChange={(data) => setFormikField(data)}
           options={entities}
           defaultValue={entityId ?  _.find(entities, { value: entityId }) : defaultEntity}
         />
@@ -63,4 +69,4 @@ const EntitySelect = ({ width = '75%', entityId, entityChange, label = 'Select E
   )
 }
 
-export default EntitySelect;
+export default FormikEntitySelect;

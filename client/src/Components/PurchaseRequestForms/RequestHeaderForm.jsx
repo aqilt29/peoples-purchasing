@@ -1,8 +1,7 @@
 import React from 'react';
 import { Field } from 'formik';
 import { Row, Col, Label } from 'reactstrap';
-import EntitySelect from '../EntitySelect';
-import { FormikReactStrapInput, FormikReactStrapRadio } from '../FormikFields';
+import { FormikReactStrapInput, FormikReactStrapRadio, FormikEntitySelect } from '../FormikFields';
 
 // const ConsoleTheHOCProps = (props) => <h5>{console.log(props)}</h5>
 
@@ -22,7 +21,7 @@ const RequestHeaderForm = ({ values, errors, touched }) => {
               id="referenceName"
               component={FormikReactStrapInput}
             />
-            <EntitySelect
+            <FormikEntitySelect
               name="entity"
               label="Select Purchasing Entity:"
             />
