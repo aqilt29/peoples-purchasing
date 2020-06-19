@@ -38,7 +38,7 @@ const FormikStepper = ({ children, ...props }) => {
       {console.log(args.values)}
       {console.log(args)}
         {currentChildForm}
-        { step > 0 ? <GoldButton
+        { (step > 0) ? <GoldButton
             onClick={() => setStep(step - 1)}
             className='mr-2'
             >Back
