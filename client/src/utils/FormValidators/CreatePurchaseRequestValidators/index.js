@@ -12,5 +12,5 @@ export const headerValidators = yup.object()
       state: yup.string().required('Required!'),
       zipCode: yup.string().required('Required!'),
     }),
-    hellow: yup.string().min(3).required('yes')
+    needBuyer: yup.boolean().required('Required!'),
   })

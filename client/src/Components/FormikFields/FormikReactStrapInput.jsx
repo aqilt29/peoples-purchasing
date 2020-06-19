@@ -9,10 +9,6 @@ const FormikReactStrapInput = (
         ...props
     }) => (
     <FormGroup>
-    {console.log('fields.name', fields.name)}
-    {console.log('touched[fields.name]', touched[fields.name])}
-    {console.log('touched[fields.name] lodash', _.get(touched, fields.name))}
-    {console.log('touched', touched)}
         <Label for={props.id} className={"label-color"}>{props.label}</Label>
         <Input {...props} {...fields} invalid={Boolean(_.get(touched, fields.name) && _.get(errors, fields.name))}/>
         {_.get(touched, fields.name) && _.get(errors, fields.name) ? <FormFeedback>{_.get(errors, fields.name)}</FormFeedback> : ''}

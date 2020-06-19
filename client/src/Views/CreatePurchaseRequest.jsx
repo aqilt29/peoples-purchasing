@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   RequestHeaderForm,
   RequestItemsForm,
@@ -7,6 +7,8 @@ import {
 import FormikStepper from '../Components/FormikHelpers/FormikStepper';
 import { headerValidators } from '../utils/FormValidators';
 import { FormikStep } from '../Components/FormikHelpers';
+import { getAllEntities } from '../api/entitiesApi';
+
 
 /**
  * This is going to be a multiform component,
@@ -47,6 +49,30 @@ const exampleListOfEntities = [
 
 
 const CreatePurchaseRequest = () => {
+  const [loading, setLoading] = useState(false);
+  const [entitiesList, setEntitiesList] = useState([])
+
+  useEffect(() => {
+    const fn = async () => {
+      setLoading(true);
+
+      let entities = [];
+      try {
+        entities = await getAllEntities();
+        console.log(entities);
+      } catch (error) {
+        window.alert(error);
+      }
+
+      setEntitiesList(entities);
+
+      setLoading(false);
+    };
+
+    fn()
+  }, [])
+
+
   const requestData = {
     referenceName: '',
     entity: '',

@@ -1,16 +1,8 @@
 import React from 'react';
 import { Field } from 'formik';
-import { ReactstrapRadio } from 'reactstrap-formik'
 import { Row, Col, Label } from 'reactstrap';
 import EntitySelect from '../EntitySelect';
-import { FormikReactStrapInput } from '../FormikFields';
-
-const exampleListOfEntities = [
-  'New Patriot Holdings',
-  'Peoples Retail - Santa Ana',
-  'Peoples Retail - Los Angeles',
-  'Peoples Retail - Riverside',
-];
+import { FormikReactStrapInput, FormikReactStrapRadio } from '../FormikFields';
 
 // const ConsoleTheHOCProps = (props) => <h5>{console.log(props)}</h5>
 
@@ -48,17 +40,18 @@ const RequestHeaderForm = ({ values, errors, touched }) => {
               value="true"
               type="radio"
               label="True"
-              component={ReactstrapRadio}
+              component={FormikReactStrapRadio}
             />
             <Field
               name="needBuyer"
               value="false"
               type="radio"
               label="False"
-              component={ReactstrapRadio}
+              component={FormikReactStrapRadio}
             />
           </Col>
         </Row>
+        <hr />
         <Row>
           <Col>
             <h5>Shipping Information</h5>
@@ -116,33 +109,3 @@ const RequestHeaderForm = ({ values, errors, touched }) => {
 
 export default RequestHeaderForm;
 
-
-
-/**
- *
- *
- * Field use to investigate formik's API
- * <Field
- *   type="text"
- *   label="Project Name or Reference:"
- *   name="project"
- *   id="project"
- *   valid={(!errors.project && values.project.length > 1)}
- *   component={ConsoleTheHOCProps}
- * />
- *
- *
- * Field used to print the Field API on screen
- * <Field
- *   type="text"
- *   label="Purchasing Entity:"
- *   name="entity"
- *   id="entity"
- *   as={Input}
- * >
- *  {({ ...props }) => (
- *      <pre>{JSON.stringify(props, null, 2)}</pre>
- *    )}
- * </Field>
- *
- */
