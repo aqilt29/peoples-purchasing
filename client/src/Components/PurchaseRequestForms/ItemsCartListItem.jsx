@@ -6,8 +6,8 @@ const ItemsCartListItem = ({ item, arrayHelpers, index }) => {
   console.log(item, index)
   return (
     <>
-    <td>{item.name}</td>
-    <td>{item.age}</td>
+    <td>{item.description}</td>
+    <td>{item.specialDetails}</td>
       {/* <td>{item.description}</td>
       <td>{item.requestByDate}</td>
       <td>${item.price}</td>

@@ -70,6 +70,18 @@ const CreatePurchaseRequest = () => {
       zipCode: '',
     },
     needBuyer: undefined,
+    itemToAdd: {
+      description: '',
+      specialDetails: '',
+      expenseCategory: '',
+      price: '',
+      requestByDate: '',
+      unitOfMeasure: '',
+      link: '',
+      quantity: '',
+      receivedQty: '',
+      invoicedQty: '',
+    },
     items: [{
       description: '',
       specialDetails: '',
