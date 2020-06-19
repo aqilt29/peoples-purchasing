@@ -32,6 +32,7 @@ const FormikStepper = ({ children, ...props }) => {
           await props.onSubmit(values, helpers);
         } else if ((customOnSubmit !== false) && (typeof customOnSubmit === "function")) {
           console.log('CUSTOM FUNCTION')
+          console.log('values:', values)
           helpers.resetForm()
         } else {
           setStep(isLastStep() ? step : step + 1 )
