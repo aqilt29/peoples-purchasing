@@ -18,13 +18,16 @@ const RequestItemsForm = () => {
                 <Col>
                   <h3>Add Items to Purchase</h3>
                   <div>
-                    <Field label="name" name={'itemToAdd.description'} component={FormikReactStrapInput}/>
-                    <Field label="age" name={'itemToAdd.specialDetails'} component={FormikReactStrapInput}/>
+                    <Field label="Item Name/Description" name={'itemToAdd.description'} component={FormikReactStrapInput}/>
+                    <Field label="Special Details" placeholder="Special Instructions or Use Case for Item" name={'itemToAdd.specialDetails'} component={FormikReactStrapInput}/>
                   </div>
 
                   <button
                       type="button"
-                      onClick={() => arrayHelpers.push(values.itemToAdd)}
+                      onClick={() => {
+                        setFieldValue('itemToAdd.specialDetails', '')
+                        arrayHelpers.push(values.itemToAdd)
+                      }}
                   >
                       +
                   </button>
