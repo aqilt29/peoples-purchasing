@@ -57,7 +57,8 @@ const CreatePurchaseRequest = () => {
       city: '',
       state: '',
       zipCode: '',
-    }
+    },
+    needBuyer: false,
   }
 
   return (

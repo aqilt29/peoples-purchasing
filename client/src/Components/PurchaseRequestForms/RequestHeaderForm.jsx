@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { Field, useFormikContext } from 'formik';
-import { ReactstrapInput, ReactstrapSelect } from 'reactstrap-formik'
-import { Row, Col, FormText, Input, FormGroup, Label } from 'reactstrap';
+import React from 'react';
+import { Field } from 'formik';
+import { ReactstrapRadio } from 'reactstrap-formik'
+import { Row, Col, Label } from 'reactstrap';
 import EntitySelect from '../EntitySelect';
-import { BlueButton } from '../../Styles';
-// import * as yup from 'yup';
+import { FormikReactStrapInput } from '../FormikFields';
 
 const exampleListOfEntities = [
   'New Patriot Holdings',
@@ -29,7 +28,7 @@ const RequestHeaderForm = ({ values, errors, touched }) => {
               label="Reference or Project Name:"
               name="referenceName"
               id="referenceName"
-              component={ReactstrapInput}
+              component={FormikReactStrapInput}
             />
             <EntitySelect
               name="entity"
@@ -41,7 +40,22 @@ const RequestHeaderForm = ({ values, errors, touched }) => {
               name="businessNeed"
               id="businessNeed"
               placeholder="Please provide detailed information for the purpose of your purchase..."
-              component={ReactstrapInput}
+              component={FormikReactStrapInput}
+            />
+            <Label className="mr-2">Request Buying Assistance?</Label>
+            <Field
+              name="needBuyer"
+              value="true"
+              type="radio"
+              label="True"
+              component={ReactstrapRadio}
+            />
+            <Field
+              name="needBuyer"
+              value="false"
+              type="radio"
+              label="False"
+              component={ReactstrapRadio}
             />
           </Col>
         </Row>
@@ -54,7 +68,7 @@ const RequestHeaderForm = ({ values, errors, touched }) => {
               placeholder="1234 Main St"
               name="shippingAddress.address"
               id="shippingAddress.address"
-              component={ReactstrapInput}
+              component={FormikReactStrapInput}
             />
             <Field
               type="text"
@@ -62,7 +76,7 @@ const RequestHeaderForm = ({ values, errors, touched }) => {
               placeholder="Apt, Suite, or Floor"
               name="shippingAddress.address2"
               id="shippingAddress.address2"
-              component={ReactstrapInput}
+              component={FormikReactStrapInput}
             />
             <Row form>
               <Col>
@@ -71,7 +85,7 @@ const RequestHeaderForm = ({ values, errors, touched }) => {
                   label="City"
                   name="shippingAddress.city"
                   id="shippingAddress.city"
-                  component={ReactstrapInput}
+                  component={FormikReactStrapInput}
                 />
               </Col>
               <Col>
@@ -80,7 +94,7 @@ const RequestHeaderForm = ({ values, errors, touched }) => {
                   label="State"
                   name="shippingAddress.state"
                   id="shippingAddress.state"
-                  component={ReactstrapInput}
+                  component={FormikReactStrapInput}
                 />
               </Col>
               <Col>
@@ -89,7 +103,7 @@ const RequestHeaderForm = ({ values, errors, touched }) => {
                   label="Zip"
                   name="shippingAddress.zipCode"
                   id="shippingAddress.zipCode"
-                  component={ReactstrapInput}
+                  component={FormikReactStrapInput}
                 />
               </Col>
             </Row>
