@@ -27,59 +27,74 @@ const RequestHeaderForm = ({ values, errors, touched }) => {
             <Field
               type="text"
               label="Reference or Project Name:"
-              name="project"
-              id="project"
+              name="referenceName"
+              id="referenceName"
               component={ReactstrapInput}
             />
             <EntitySelect
               name="entity"
-              label="Select Purchasing Entity"
+              label="Select Purchasing Entity:"
             />
-            <FormGroup>
-              <Label for="purchaseReason">Request Details</Label>
-              <Input
-                type="textarea"
-                name="purchaseReason"
-                id="purchaseReason"
-                placeholder="Please provide detailed information for the purpose of your purchase..."
-              />
-            </FormGroup>
+            <Field
+              type="textarea"
+              label="Request Details:"
+              name="businessNeed"
+              id="businessNeed"
+              placeholder="Please provide detailed information for the purpose of your purchase..."
+              component={ReactstrapInput}
+            />
           </Col>
         </Row>
         <Row>
           <Col>
             <h5>Shipping Information</h5>
-            <FormGroup>
-              <Label for="deliveryAddress.streetAddressLine">Address</Label>
-              <Input type="text" name="deliveryAddress.streetAddressLine" id="deliveryAddress.streetAddressLine" placeholder="1234 Main St"/>
-            </FormGroup>
-            <FormGroup>
-              <Label for="deliveryAddress.streetAddressLine2">Address 2</Label>
-              <Input type="text" name="address2" id="deliveryAddress.streetAddressLine2" placeholder="Apartment, studio, or floor"/>
-            </FormGroup>
+            <Field
+              type="text"
+              label="Address"
+              placeholder="1234 Main St"
+              name="shippingAddress.address"
+              id="shippingAddress.address"
+              component={ReactstrapInput}
+            />
+            <Field
+              type="text"
+              label="Address 2"
+              placeholder="Apt, Suite, or Floor"
+              name="shippingAddress.address2"
+              id="shippingAddress.address2"
+              component={ReactstrapInput}
+            />
             <Row form>
               <Col>
-                <FormGroup>
-                  <Label for="deliveryAddress.city">City</Label>
-                  <Input type="text" name="city" id="deliveryAddress.city"/>
-                </FormGroup>
+                <Field
+                  type="text"
+                  label="City"
+                  name="shippingAddress.city"
+                  id="shippingAddress.city"
+                  component={ReactstrapInput}
+                />
               </Col>
               <Col>
-                <FormGroup>
-                  <Label for="deliveryAddress.state">State</Label>
-                  <Input type="text" name="state" id="deliveryAddress.state"/>
-                </FormGroup>
+                <Field
+                  type="text"
+                  label="State"
+                  name="shippingAddress.state"
+                  id="shippingAddress.state"
+                  component={ReactstrapInput}
+                />
               </Col>
               <Col>
-                <FormGroup>
-                  <Label for="deliveryAddress.zipCode">Zip</Label>
-                  <Input type="text" name="zip" id="deliveryAddress.zipCode"/>
-                </FormGroup>
+                <Field
+                  type="text"
+                  label="Zip"
+                  name="shippingAddress.zipCode"
+                  id="shippingAddress.zipCode"
+                  component={ReactstrapInput}
+                />
               </Col>
             </Row>
           </Col>
         </Row>
-        {/* <BlueButton>Next</BlueButton> */}
       </Col>
     </>
   )

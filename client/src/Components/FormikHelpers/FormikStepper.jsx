@@ -2,8 +2,8 @@
  * This component serves as a wrapper around field content
  * The goal is to have variable steps that have their own validation
  * but the stepper is what holds the one formik component
- * that way there arent multiple formiks and combining their
- * outputs doesnt become crazy complex
+ * that way there aren't multiple formik's and combining their
+ * outputs doesn't become crazy complex
  */
 
 import React, { useState } from 'react';
@@ -35,6 +35,7 @@ const FormikStepper = ({ children, ...props }) => {
     >
     {args => (
       <Form>
+      {console.log(args.values)}
         {currentChildForm}
         { step > 0 ? <GoldButton
             onClick={() => setStep(step - 1)}

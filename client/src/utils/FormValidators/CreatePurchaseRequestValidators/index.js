@@ -7,7 +7,7 @@ export const headerValidators = yup.object()
     businessNeed: yup.string().required('Required!'),
     shippingAddress: yup.object({
       address: yup.string().required('Required!'),
-      address2: yup.string().required('Required!'),
+      address2: yup.string(),
       city: yup.string().required('Required!'),
       state: yup.string().required('Required!'),
       zipCode: yup.string().required('Required!'),

@@ -48,22 +48,23 @@ const exampleListOfEntities = [
 
 const CreatePurchaseRequest = () => {
   const requestData = {
-    project: '',
-    deliveryAddress: {
-      streetAddressLine: '',
-      streetAddressLine2: '',
+    referenceName: '',
+    entity: '',
+    businessNeed: '',
+    shippingAddress: {
+      address: '',
+      address2: '',
       city: '',
       state: '',
       zipCode: '',
-    },
-    entity: '',
+    }
   }
 
   return (
     <>
       <FormikStepper
         validateOnBlur
-        initialValues={{ hello: 'world', ...requestData }}
+        initialValues={{ ...requestData }}
         onSubmit={(values, { setSubmitting }) => {
           setTimeout(() => {
             alert(JSON.stringify(values, null, 2));
