@@ -6,13 +6,10 @@ const ItemsCartListItem = ({ item, arrayHelpers, index }) => {
   console.log(item, index)
   return (
     <>
-    <td>{item.description}</td>
-    <td>{item.specialDetails}</td>
-      {/* <td>{item.description}</td>
-      <td>{item.requestByDate}</td>
+      <td>{item.description}</td>
       <td>${item.price}</td>
-      <td>{item.quantity}</td>
-      <td>${(item.price * item.quantity)}</td> */}
+      <td>{item.quantity} units</td>
+      <td>${item.quantity * item.price}</td>
       <td><Button onClick={() => arrayHelpers.remove(index)} close style={{ float: 'none' }}/></td>
     </>
   )

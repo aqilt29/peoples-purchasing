@@ -11,7 +11,7 @@ const ItemCart = ({ items, arrayHelpers }) => {
           <tr>
             <th>#</th>
             <th>Item</th>
-            <th>Request Date</th>
+            {/* <th>Request Date</th> */}
             <th>Unit Price</th>
             <th>QTY</th>
             <th>Ext. Price</th>
