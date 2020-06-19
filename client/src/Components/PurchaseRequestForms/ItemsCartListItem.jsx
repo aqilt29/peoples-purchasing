@@ -1,12 +1,13 @@
 import React from 'react'
 import { Button } from 'reactstrap'
 
-const ItemsCartListItem = ({ item, arrayHelpers, idx: index }) => {
+const ItemsCartListItem = ({ item, arrayHelpers, index }) => {
   // const linkToOnline = item.link || '#';
-  console.log(item)
+  console.log(item, index)
   return (
     <>
     <td>{item.name}</td>
+    <td>{item.age}</td>
       {/* <td>{item.description}</td>
       <td>{item.requestByDate}</td>
       <td>${item.price}</td>

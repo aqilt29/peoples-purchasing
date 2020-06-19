@@ -31,7 +31,7 @@ const RequestItemsForm = () => {
                 ))}
                 <button
                     type="button"
-                    onClick={() => arrayHelpers.push({ name: '', age: '' })}
+                    onClick={() => arrayHelpers.push({ name: 'wotlf', age: '54' })}
                 >
                     +
                 </button>

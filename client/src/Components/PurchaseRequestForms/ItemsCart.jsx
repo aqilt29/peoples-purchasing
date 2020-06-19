@@ -21,6 +21,7 @@ const ItemCart = ({ items, arrayHelpers }) => {
         <tbody>
         {
           items.length > 0 && items.map((item, idx) => {
+            console.log(idx)
             return (
               <tr key={idx}>
                 <th scope="row">{idx + 1}</th>
