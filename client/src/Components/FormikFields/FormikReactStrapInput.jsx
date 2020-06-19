@@ -4,14 +4,14 @@ import _ from 'lodash'
 
 const FormikReactStrapInput = (
     {
-        field: {...fields},
+        field,
         form: {touched, errors, ...rest},
         ...props
     }) => (
     <FormGroup>
         <Label for={props.id} className={"label-color"}>{props.label}</Label>
-        <Input {...props} {...fields} invalid={Boolean(_.get(touched, fields.name) && _.get(errors, fields.name))}/>
-        {_.get(touched, fields.name) && _.get(errors, fields.name) ? <FormFeedback>{_.get(errors, fields.name)}</FormFeedback> : ''}
+        <Input {...props} {...field} invalid={Boolean(_.get(touched, field.name) && _.get(errors, field.name))}/>
+        {_.get(touched, field.name) && _.get(errors, field.name) ? <FormFeedback>{_.get(errors, field.name)}</FormFeedback> : ''}
     </FormGroup>
 );
 export default FormikReactStrapInput;
