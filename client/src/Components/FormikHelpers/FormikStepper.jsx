@@ -30,10 +30,6 @@ const FormikStepper = ({ children, ...props }) => {
       onSubmit={ async (values, helpers) => {
         if (isLastStep()) {
           await props.onSubmit(values, helpers);
-        } else if ((customOnSubmit !== false) && (typeof customOnSubmit === "function")) {
-          console.log('CUSTOM FUNCTION')
-          console.log('values:', values)
-          helpers.resetForm()
         } else {
           setStep(isLastStep() ? step : step + 1 )
         }
@@ -46,7 +42,6 @@ const FormikStepper = ({ children, ...props }) => {
         {currentChildForm}
         {step > 0 ? <GoldButton onClick={() => setStep(step - 1)} className='mr-2'>Back</GoldButton> : null }
         <BlueButton type="submit">{isLastStep() ? 'Submit' : 'Next' }</BlueButton>
-        {step === 1 ? (<Button color ="info" type="button" className="ml-2">{'Add Item'}</Button>) : null }
       </Form>
     )}
 

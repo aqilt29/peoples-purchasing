@@ -2,7 +2,7 @@ import React from 'react'
 import { Table } from 'reactstrap'
 import ItemsCartListItem from './ItemsCartListItem'
 
-const ItemCart = ({ items, arrayHelpers }) => {
+const ItemCart = ({ items, arrayHelpers, details }) => {
   console.log('in cart, ', items)
   return (
     <div>
@@ -12,10 +12,12 @@ const ItemCart = ({ items, arrayHelpers }) => {
             <th>#</th>
             <th>Item</th>
             {/* <th>Request Date</th> */}
+            {details && (<th>Special Details</th>)}
+            {details && (<th>Expense Category</th>)}
             <th>Unit Price</th>
             <th>QTY</th>
             <th>Ext. Price</th>
-            <th>Del</th>
+            {details || (<th>Del</th>)}
           </tr>
         </thead>
         <tbody>
@@ -25,7 +27,7 @@ const ItemCart = ({ items, arrayHelpers }) => {
             return (
               <tr key={idx}>
                 <th scope="row">{idx + 1}</th>
-                <ItemsCartListItem index={idx} item={item} arrayHelpers={arrayHelpers}/>
+                <ItemsCartListItem details index={idx} item={item} arrayHelpers={arrayHelpers}/>
               </tr>
             )
           })

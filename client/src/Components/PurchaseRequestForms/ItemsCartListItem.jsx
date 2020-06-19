@@ -1,16 +1,18 @@
 import React from 'react'
 import { Button } from 'reactstrap'
 
-const ItemsCartListItem = ({ item, arrayHelpers, index }) => {
+const ItemsCartListItem = ({ item, arrayHelpers, index, details }) => {
   // const linkToOnline = item.link || '#';
   console.log(item, index)
   return (
     <>
       <td>{item.description}</td>
+      <td>{item.specialDetails}</td>
+      <td>{item.expenseCategory}</td>
       <td>${item.price}</td>
       <td>{item.quantity} units</td>
       <td>${item.quantity * item.price}</td>
-      <td><Button onClick={() => arrayHelpers.remove(index)} close style={{ float: 'none' }}/></td>
+      {details || (<td><Button onClick={() => arrayHelpers.remove(index)} close style={{ float: 'none' }}/></td>)}
     </>
   )
 };

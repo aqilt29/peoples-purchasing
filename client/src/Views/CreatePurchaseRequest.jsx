@@ -82,20 +82,7 @@ const CreatePurchaseRequest = () => {
       receivedQty: '',
       invoicedQty: '',
     },
-    items: [{
-      description: '',
-      specialDetails: '',
-      expenseCategory: '',
-      price: '',
-      requestByDate: '',
-      unitOfMeasure: '',
-      link: '',
-      quantity: '',
-      receivedQty: '',
-      invoicedQty: '',
-    }],
-    friends: [{ name: 'richie', age: 23 }],
-    hellow: 'world',
+    items: [],
   }
 
   return (
