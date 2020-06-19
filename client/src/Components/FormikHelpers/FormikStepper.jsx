@@ -17,9 +17,6 @@ const FormikStepper = ({ children, ...props }) => {
   const stepValidationSchema = currentChildForm.props.validationSchema;
 
   const isLastStep = () => step === childrenComponentArray.length - 1;
-  // const decrementStep = () => {
-
-  // };
 
 
   console.log(props)
@@ -39,8 +36,6 @@ const FormikStepper = ({ children, ...props }) => {
     {args => (
       <Form>
         {currentChildForm}
-        {console.log(args)}
-        {console.log('is last step: ', isLastStep())}
         { step > 0 ? <GoldButton
             onClick={() => setStep(step - 1)}
             className='mr-2'

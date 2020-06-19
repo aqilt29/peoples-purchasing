@@ -14,19 +14,26 @@ const approverSchema = new Schema({
   dateSent: Date,
 })
 
+const addressSchema = new Schema({
+  address: { type: String, required: true },
+  address2: { type: String, required: true },
+  city: { type: String, required: true },
+  state: { type: String, required: true },
+  zipCode: { type: String, required: true },
+})
+
 const requestSchema = new Schema({
-  isDeleted: { type: Boolean, default: false },
+  referenceName: { type: String, default: 'noNameErr', required: true },
+  entity: { type: Schema.Types.ObjectId, ref: 'Entity', required: true },
   user: { type: Schema.Types.ObjectId, ref: 'User', required: true },
-  delegates: [
-    { type: Schema.Types.ObjectId, ref: 'User' }
-  ],
-  vendor: { type: Schema.Types.ObjectId, ref: 'Vendor', required: true },
+  businessNeed: { type: String, required: true },
+  shippingAddress: { type: addressSchema, required: true },
   address: {
-    shipTo: { type: String, required: true },
+    shipTo: { type: String },
   },
   costCenter: { type: Number, required: true },
   submittedFor: {
-    type: Schema.Types.ObjectId, ref: 'User', required: true,
+    type: Schema.Types.ObjectId, ref: 'User',
     default: function() {
       if (!this.submittedFor) {
         console.log('default submitted for', this.user._id);
@@ -35,23 +42,19 @@ const requestSchema = new Schema({
       return null;
     }
   }, //  one userId of someone with pmcoc submitted by defines routing rules
-  entity: { type: Schema.Types.ObjectId, ref: 'Entity', required: true },
   dateRequested: { type: Date, default: Date.now },
-  businessNeed: { type: String, required: true },
   invoiceTotal: { type: Number, required: true },
   approverList: [{ type: approverSchema, required: true }],
-  paymentTerms: { type: String, required: true },
   status: { type: String, default: 'Saved', enum: statuses },
-  comments: String,
-  reason: String,
   buyer: { type: Schema.Types.ObjectId, ref: 'User', required: true }, // person placing order
-  shipVia: String,
-  shippingTerms: String,
   items: [itemSchema],
   attachments: [String],
   hasPurchaseOrder: { type: Boolean, default: false },
   isBlanket: { type: Boolean, default: false },
   purchaseOrderId: { type: Schema.Types.ObjectId, ref: 'PurchaseOrder' },
+  delegates: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+  isDeleted: { type: Boolean, default: false },
+  // vendor: { type: Schema.Types.ObjectId, ref: 'Vendor', required: true },
 });
 
 //  assign approvers list and record

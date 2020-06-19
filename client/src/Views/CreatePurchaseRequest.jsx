@@ -4,9 +4,6 @@ import {
   RequestItemsForm,
   RequestPreview,
 } from '../Components/PurchaseRequestForms';
-import { Container } from 'reactstrap';
-import { ReactstrapInput } from 'reactstrap-formik';
-import * as yup from 'yup';
 import FormikStepper from '../Components/FormikHelpers/FormikStepper';
 import { headerValidators } from '../utils/FormValidators';
 import { FormikStep } from '../Components/FormikHelpers';
@@ -47,33 +44,7 @@ const exampleListOfEntities = [
   'Peoples Retail - Riverside',
 ];
 
-const validationSchema = yup.object()
-  .shape({
-    project: yup
-      .string()
-      .required('Required!'),
-    // deliveryAddress: yup.object().shape({
-    //   streetAddressLine: yup.string().required('We need to send it somewhere!'),
-    //   streetAddressLine2: yup.string(),
-    //   city: yup.string().required('City Required!'),
-    //   state: yup.string().required('State Required!'),
-    //   zipCode: yup.string().required('ZipCode Required!'),
-    // }),
-  })
 
-
-/**
- * There will be 3 sections of the form
- *
- * <RequestHeaderForm />
- *
- * <RequestItemsForm />
- *
- * <RequestPreview />
- *
- * ~Redirect to Details Page on Success Case~
- *
- */
 
 const CreatePurchaseRequest = () => {
   const requestData = {
