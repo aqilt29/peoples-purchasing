@@ -14,9 +14,9 @@ const RequestItemsForm = () => {
           name="friends"
           render={arrayHelpers => (
             <div>
-              <h3>Add Items to Purchase</h3>
               <Row>
                 <Col>
+                  <h3>Add Items to Purchase</h3>
                   <div>
                     <Field label="name" name={'itemToAdd.description'} component={FormikReactStrapInput}/>
                     <Field label="age" name={'itemToAdd.specialDetails'} component={FormikReactStrapInput}/>
