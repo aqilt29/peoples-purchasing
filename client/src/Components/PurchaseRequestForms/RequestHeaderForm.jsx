@@ -60,6 +60,7 @@ const RequestHeaderForm = ({ values, errors, touched }) => {
                 <Field
                   type="text"
                   label="City"
+                  placeholder="City..."
                   name="shippingAddress.city"
                   id="shippingAddress.city"
                   component={FormikReactStrapInput}
@@ -69,6 +70,7 @@ const RequestHeaderForm = ({ values, errors, touched }) => {
                 <Field
                   type="text"
                   label="State"
+                  placeholder="State..."
                   maxLength="2"
                   name="shippingAddress.state"
                   id="shippingAddress.state"
@@ -79,6 +81,7 @@ const RequestHeaderForm = ({ values, errors, touched }) => {
                 <Field
                   type="text"
                   label="Zip"
+                  placeholder="Zip..."
                   name="shippingAddress.zipCode"
                   id="shippingAddress.zipCode"
                   component={FormikReactStrapInput}
