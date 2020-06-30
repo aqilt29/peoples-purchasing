@@ -69,6 +69,7 @@ const RequestHeaderForm = ({ values, errors, touched }) => {
                 <Field
                   type="text"
                   label="State"
+                  maxLength="2"
                   name="shippingAddress.state"
                   id="shippingAddress.state"
                   component={FormikReactStrapInput}
