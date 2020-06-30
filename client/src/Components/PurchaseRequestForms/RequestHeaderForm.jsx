@@ -1,7 +1,7 @@
 import React from 'react';
 import { Field } from 'formik';
-import { Row, Col, Label } from 'reactstrap';
-import { FormikReactStrapInput, FormikReactStrapRadio, FormikEntitySelect } from '../FormikFields';
+import { Row, Col } from 'reactstrap';
+import { FormikReactStrapInput, FormikEntitySelect } from '../FormikFields';
 
 // const ConsoleTheHOCProps = (props) => <h5>{console.log(props)}</h5>
 
@@ -32,21 +32,6 @@ const RequestHeaderForm = ({ values, errors, touched }) => {
               id="businessNeed"
               placeholder="Please provide detailed information for the purpose of your purchase..."
               component={FormikReactStrapInput}
-            />
-            <Label className="mr-2">Request Buying Assistance?</Label>
-            <Field
-              name="needBuyer"
-              value="true"
-              type="radio"
-              label="True"
-              component={FormikReactStrapRadio}
-            />
-            <Field
-              name="needBuyer"
-              value="false"
-              type="radio"
-              label="False"
-              component={FormikReactStrapRadio}
             />
           </Col>
         </Row>

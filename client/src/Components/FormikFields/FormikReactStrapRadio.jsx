@@ -7,8 +7,6 @@ const FormikReactStrapRadio = ({
       form: { setFieldValue, touched, errors, values},
       ...props
   }) => {
-    console.log(errors, touched)
-    console.log(console.log(props))
     return (
         <FormGroup check inline>
             <Label for={props.id}>
