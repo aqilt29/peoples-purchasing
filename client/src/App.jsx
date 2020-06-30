@@ -46,7 +46,6 @@ import PurchaseOrderDetails from "./Views/PurchaseOrderDetails";
 import UserDetails from "./Views/UserDetails";
 import CreatePurchaseRequest from "./Views/CreatePurchaseRequest";
 import UserEdit from "./Views/UserEdit";
-import PRCreationMultiform from "./Views/PRCreationMultiform";
 
 
 const App = () => {
