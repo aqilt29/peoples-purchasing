@@ -9,7 +9,6 @@
 import React, { useState } from 'react';
 import { Formik, Form } from 'formik';
 import { BlueButton, GoldButton } from '../../Styles';
-import { Button } from 'reactstrap';
 
 const FormikStepper = ({ children, ...props }) => {
   const childrenComponentArray = React.Children.toArray(children);
@@ -20,9 +19,6 @@ const FormikStepper = ({ children, ...props }) => {
 
   const isLastStep = () => step === childrenComponentArray.length - 1;
 
-
-  console.log(props)
-  console.log(currentChildForm.props)
   return (
     <Formik
       {...props}
@@ -37,8 +33,6 @@ const FormikStepper = ({ children, ...props }) => {
     >
     {args => (
       <Form>
-      {console.log(args.values)}
-      {console.log(args)}
         {currentChildForm}
         {step > 0 ? <GoldButton onClick={() => setStep(step - 1)} className='mr-2'>Back</GoldButton> : null }
         <BlueButton type="submit">{isLastStep() ? 'Submit' : 'Next' }</BlueButton>

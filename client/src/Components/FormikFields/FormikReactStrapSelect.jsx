@@ -19,7 +19,6 @@ const FormikReactStrapSelect = ({ field, form: { touched, errors }, options, ...
                     return (<option value={option} key={index}>{option}</option>)
                 })}
             </Input>
-            {console.log(error)}
             {touch && error && <FormFeedback>{_.get(errors, field.name)}</FormFeedback>}
         </FormGroup>
     )
