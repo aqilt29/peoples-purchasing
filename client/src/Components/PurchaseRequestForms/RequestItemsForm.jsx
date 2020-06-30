@@ -1,5 +1,5 @@
 import React from 'react';
-import { Field, FieldArray, useFormikContext, Form } from 'formik';
+import { Field, FieldArray, useFormikContext } from 'formik';
 import { Col, Row, Button } from 'reactstrap';
 import { FormikReactStrapInput, FormikReactStrapSelect } from '../FormikFields';
 import { ItemsCart } from '.';
@@ -49,7 +49,7 @@ const RequestItemsForm = () => {
                     <Field label="Item Name/Description" name={'itemToAdd.description'} placeholder="Hand Sanitizer, Cabinets..." component={FormikReactStrapInput}/>
                     <Field label="Special Details" placeholder="Special Instructions or Use Case for Item" name={'itemToAdd.specialDetails'} component={FormikReactStrapInput}/>
                     <Field label="Online URL" placeholder="www.amazon.com/..." name={'itemToAdd.link'} component={FormikReactStrapInput}/>
-                    <Field label="Expense Category/Dept" name={'itemToAdd.expenseCategory'} defaultOption="Select..." options={expenseCategoryList} component={FormikReactStrapSelect}/>
+                    <Field label="Expense Category/Dept" name={'itemToAdd.expenseCategory'} placeholder="Select..." options={expenseCategoryList} component={FormikReactStrapSelect}/>
                     <Field label="Unit Price" name={'itemToAdd.price'} type="number" placeholder="$100.00" component={FormikReactStrapInput}/>
                     <Field label="Quantity" name={'itemToAdd.quantity'} type="number" placeholder="10" component={FormikReactStrapInput}/>
                   </div>
@@ -67,7 +67,10 @@ const RequestItemsForm = () => {
                 </Col>
                 <Col>
                   <h3>Items List...</h3>
-                  <ItemsCart items={values.items} arrayHelpers={arrayHelpers}/>
+                  <ItemsCart
+                    items={values.items}
+                    arrayHelpers={arrayHelpers}
+                  />
                 </Col>
               </Row>
             </div>

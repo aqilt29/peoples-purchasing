@@ -7,11 +7,10 @@ const ItemCart = ({ items, arrayHelpers, details }) => {
   return (
     <div>
       <Table size="sm" striped responsive>
-        <thead >
+        <thead>
           <tr>
             <th>#</th>
             <th>Item</th>
-            {/* <th>Request Date</th> */}
             {details && (<th>Special Details</th>)}
             {details && (<th>Expense Category</th>)}
             <th>Unit Price</th>
@@ -23,11 +22,15 @@ const ItemCart = ({ items, arrayHelpers, details }) => {
         <tbody>
         {
           items.length > 0 && items.map((item, idx) => {
-            console.log(idx)
             return (
               <tr key={idx}>
                 <th scope="row">{idx + 1}</th>
-                <ItemsCartListItem details index={idx} item={item} arrayHelpers={arrayHelpers}/>
+                <ItemsCartListItem
+                  details={details}
+                  index={idx}
+                  item={item}
+                  arrayHelpers={arrayHelpers}
+                />
               </tr>
             )
           })
