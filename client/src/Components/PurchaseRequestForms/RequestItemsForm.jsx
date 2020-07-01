@@ -9,7 +9,6 @@ const itemFields = [
   'specialDetails',
   'expenseCategory',
   'price',
-  'requestByDate',
   'unitOfMeasure',
   'link',
   'quantity',
@@ -34,7 +33,7 @@ const expenseCategoryList = [
 
 const RequestItemsForm = () => {
   const { values, setFieldValue, ...rest } = useFormikContext()
-  console.log(values, rest)
+  console.log(rest)
 
   return (
     <>
@@ -46,12 +45,45 @@ const RequestItemsForm = () => {
                 <Col>
                   <h3>Add Items to Purchase</h3>
                   <div>
-                    <Field label="Item Name/Description" name={'itemToAdd.description'} placeholder="Hand Sanitizer, Cabinets..." component={FormikReactStrapInput}/>
-                    <Field label="Special Details" placeholder="Special Instructions or Use Case for Item" name={'itemToAdd.specialDetails'} component={FormikReactStrapInput}/>
-                    <Field label="Online URL" placeholder="www.amazon.com/..." name={'itemToAdd.link'} component={FormikReactStrapInput}/>
-                    <Field label="Expense Category/Dept" name={'itemToAdd.expenseCategory'} placeholder="Select..." options={expenseCategoryList} component={FormikReactStrapSelect}/>
-                    <Field label="Unit Price" name={'itemToAdd.price'} type="number" placeholder="$100.00" component={FormikReactStrapInput}/>
-                    <Field label="Quantity" name={'itemToAdd.quantity'} type="number" placeholder="10" component={FormikReactStrapInput}/>
+                    <Field
+                      label="Item Name/Description"
+                      name={'itemToAdd.description'}
+                      placeholder="Hand Sanitizer, Cabinets..."
+                      component={FormikReactStrapInput}
+                    />
+                    <Field
+                      label="Special Details"
+                      placeholder="Special Instructions or Use Case for Item"
+                      name={'itemToAdd.specialDetails'}
+                      component={FormikReactStrapInput}
+                    />
+                    <Field
+                      label="Online URL"
+                      placeholder="www.amazon.com/..."
+                      name={'itemToAdd.link'}
+                      component={FormikReactStrapInput}
+                    />
+                    <Field
+                      label="Expense Category/Dept"
+                      name={'itemToAdd.expenseCategory'}
+                      placeholder="Select..."
+                      options={expenseCategoryList}
+                      component={FormikReactStrapSelect}
+                    />
+                    <Field
+                      label="Unit Price"
+                      name={'itemToAdd.price'}
+                      type="number"
+                      placeholder="$100.00"
+                      component={FormikReactStrapInput}
+                    />
+                    <Field
+                      label="Quantity"
+                      name={'itemToAdd.quantity'}
+                      type="number"
+                      placeholder="10"
+                      component={FormikReactStrapInput}
+                    />
                   </div>
                   <Button
                     className="mb-2"

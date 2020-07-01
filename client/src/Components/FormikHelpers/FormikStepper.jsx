@@ -26,6 +26,10 @@ const FormikStepper = ({ children, ...props }) => {
       onSubmit={ async (values, helpers) => {
         if (isLastStep()) {
           await props.onSubmit(values, helpers);
+        } else if (customOnSubmit !== false) {
+          await customOnSubmit();
+          console.log(helpers)
+          setStep(isLastStep() ? step : step + 1 )
         } else {
           setStep(isLastStep() ? step : step + 1 )
         }

@@ -12,4 +12,17 @@ export const headerValidators = yup.object()
       state: yup.string().required('Required!'),
       zipCode: yup.string().required('Required!'),
     }),
+  });
+
+//  Hypothesis that the validation needs to indicate the nesting
+export const itemValidation = yup.object().shape({
+  itemToAdd: yup.object().shape({
+    description: yup.string().required('Required!'),
+    specialDetails: yup.string().required('Required!'),
+    link: yup.string().required('Required!'),
+    expenseCategory: yup.string().required('Required!'),
+    price: yup.string().required('Required!'),
+    quantity: yup.string().required('Required!'),
   })
+});
+

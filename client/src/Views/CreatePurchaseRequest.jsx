@@ -5,7 +5,7 @@ import {
   RequestPreview,
 } from '../Components/PurchaseRequestForms';
 import FormikStepper from '../Components/FormikHelpers/FormikStepper';
-import { headerValidators } from '../utils/FormValidators';
+import { headerValidators, itemValidation } from '../utils/FormValidators';
 import { FormikStep } from '../Components/FormikHelpers';
 import { getAllEntities } from '../api/entitiesApi';
 
@@ -74,12 +74,8 @@ const CreatePurchaseRequest = () => {
       specialDetails: '',
       expenseCategory: '',
       price: '',
-      requestByDate: '',
-      unitOfMeasure: '',
       link: '',
       quantity: '',
-      receivedQty: '',
-      invoicedQty: '',
     },
     items: [],
   }
@@ -99,10 +95,13 @@ const CreatePurchaseRequest = () => {
         <FormikStep validationSchema={headerValidators}>
           <RequestHeaderForm />
         </FormikStep>
-        <FormikStep onSubmit={() => { console.log('world') }}>
+        <FormikStep
+          onSubmit={() => { console.log('world') }}
+          validationSchema={itemValidation}
+        >
           <RequestItemsForm />
         </FormikStep>
-        <FormikStep>
+        <FormikStep onSubmit={() => { console.log('hello') }}>
           <RequestPreview />
         </FormikStep>
       </FormikStepper>

@@ -3,7 +3,7 @@ import { Table } from 'reactstrap'
 import ItemsCartListItem from './ItemsCartListItem'
 
 const ItemCart = ({ items, arrayHelpers, details }) => {
-  console.log('in cart, ', items)
+
   return (
     <div>
       <Table size="sm" striped responsive>
