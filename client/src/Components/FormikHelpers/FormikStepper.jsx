@@ -24,6 +24,7 @@ const FormikStepper = ({ children, ...props }) => {
       {...props}
       validationSchema={stepValidationSchema}
       onSubmit={ async (values, helpers) => {
+        console.log('submit')
         if (isLastStep()) {
           await props.onSubmit(values, helpers);
         } else if (customOnSubmit !== false) {
@@ -38,7 +39,7 @@ const FormikStepper = ({ children, ...props }) => {
     {args => (
       <Form>
         {currentChildForm}
-        {/* {console.log('formik props', args)} */}
+        {console.log('formik props', args)}
         {step > 0 ? <GoldButton onClick={() => setStep(step - 1)} className='mr-2'>Back</GoldButton> : null }
         <BlueButton type="submit">{isLastStep() ? 'Submit' : 'Next' }</BlueButton>
       </Form>

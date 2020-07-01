@@ -32,8 +32,7 @@ const expenseCategoryList = [
 ];
 
 const RequestItemsForm = () => {
-  const { values, setFieldValue, ...rest } = useFormikContext()
-  console.log(rest)
+  const { values, errors, setFieldValue, setFieldError, ...rest } = useFormikContext()
 
   return (
     <>
@@ -90,9 +89,15 @@ const RequestItemsForm = () => {
                     color="info"
                     type="button"
                     onClick={() => {
-                      itemFields.forEach((field) => setFieldValue(`itemToAdd.${field}`, ''))
-                      console.log(values.items)
-                      arrayHelpers.push(values.itemToAdd)
+
+                      if (errors.itemToAdd) {
+                        console.log('errors', errors)
+                        console.log(values.items, arrayHelpers)
+                      } else if (values.items.length > 0) {
+                        itemFields.forEach((field) => setFieldValue(`itemToAdd.${field}`, ''))
+                        arrayHelpers.push(values.itemToAdd)
+                        console.log(values.items, arrayHelpers)
+                      }
                     }}
                   >
                     {'Add Item'}
