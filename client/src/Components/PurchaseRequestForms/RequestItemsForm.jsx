@@ -91,6 +91,7 @@ const RequestItemsForm = () => {
                     type="button"
                     onClick={() => {
                       itemFields.forEach((field) => setFieldValue(`itemToAdd.${field}`, ''))
+                      console.log(values.items)
                       arrayHelpers.push(values.itemToAdd)
                     }}
                   >

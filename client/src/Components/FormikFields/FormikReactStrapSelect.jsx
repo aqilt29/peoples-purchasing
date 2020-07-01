@@ -4,14 +4,14 @@ import {FormFeedback, FormGroup, Input, Label} from "reactstrap";
 
 
 const FormikReactStrapSelect = ({ field, form: { touched, errors }, options, ...props }) => {
-    let error = _.get(touched, field.name);
+    let error = _.get(errors, field.name);
     let touch = _.get(touched, field.name);
 
     return (
         <FormGroup>
             <Label for={props.id} className={"label-color"}>{props.label}</Label>
             <Input id={props.id} {...field} {...props} type="select"
-                   invalid={Boolean(touched[field.name] && errors[field.name])}>
+                   invalid={Boolean(error && touch)}>
                 <option value="">{props.placeholder}</option>
                 {options.map((option, index) => {
                     if (option.label)

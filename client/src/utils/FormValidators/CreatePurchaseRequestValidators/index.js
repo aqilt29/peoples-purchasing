@@ -19,8 +19,8 @@ export const itemValidation = yup.object().shape({
   itemToAdd: yup.object().shape({
     description: yup.string().required('Required!'),
     specialDetails: yup.string().required('Required!'),
-    link: yup.string().required('Required!'),
-    expenseCategory: yup.string().required('Required!'),
+    link: yup.string(),
+    expenseCategory: yup.string().required('!!!!'),
     price: yup.string().required('Required!'),
     quantity: yup.string().required('Required!'),
   })
