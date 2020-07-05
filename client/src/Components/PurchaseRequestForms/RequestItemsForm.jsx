@@ -89,11 +89,10 @@ const RequestItemsForm = () => {
                     color="info"
                     type="button"
                     onClick={() => {
-
+                      console.log('clicked')
                       if (errors.itemToAdd) {
                         console.log('errors', errors)
-                        console.log(values.items, arrayHelpers)
-                      } else if (values.items.length > 0) {
+                      } else {
                         itemFields.forEach((field) => setFieldValue(`itemToAdd.${field}`, ''))
                         arrayHelpers.push(values.itemToAdd)
                         console.log(values.items, arrayHelpers)

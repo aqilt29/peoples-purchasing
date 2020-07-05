@@ -25,13 +25,20 @@ const FormikStepper = ({ children, ...props }) => {
       validationSchema={stepValidationSchema}
       onSubmit={ async (values, helpers) => {
         console.log('submit')
+        //  if it is the last step, do the onSubmit passed to component
         if (isLastStep()) {
           await props.onSubmit(values, helpers);
+
+        // if it isn't the last step, and there is a custom onSubmit per the step
         } else if (customOnSubmit !== false) {
+          // do that onSubmit... maybe get rid of all the items that don't count?
           await customOnSubmit();
           console.log(helpers)
+          //  move to next step
           setStep(isLastStep() ? step : step + 1 )
+        //  if it isn't the last step and there is no custom onSubmit...
         } else {
+          //  change step ahead
           setStep(isLastStep() ? step : step + 1 )
         }
       }}
