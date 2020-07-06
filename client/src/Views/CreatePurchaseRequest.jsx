@@ -98,7 +98,7 @@ const CreatePurchaseRequest = () => {
         <FormikStep>
           <RequestItemsForm />
         </FormikStep>
-        <FormikStep onSubmit={() => { console.log('hello') }}>
+        <FormikStep>
           <RequestPreview />
         </FormikStep>
       </FormikStepper>
