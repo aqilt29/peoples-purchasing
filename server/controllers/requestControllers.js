@@ -96,10 +96,21 @@ module.exports = {
      * -  Return the object ID for re-navigation
      */
 
-    const { body } = req
+    const { body: requestAPIData } = req
+    console.log(requestAPIData)
 
-    console.log(body)
-    res.status(201).send('good')
+    //  Apply the approvalList
+
+
+    // const submittedRequest = new Request(body);
+
+    // let objectValid = submittedRequest.validateSync();
+
+    // console.log(objectValid)
+
+    // let savedRequest = await submittedRequest.save();
+
+    res.status(201).send(savedRequest)
 
 
 

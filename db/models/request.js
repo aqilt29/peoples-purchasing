@@ -2,21 +2,15 @@ const mongoose = require('mongoose');
 const _ = require('lodash')
 const Schema = mongoose.Schema;
 const itemSchema = require('./item');
-const selectApprovalOrder = require('./utils/selectApprovalOrder');
+const approverSchema = require('./approver')
+
+const { selectApprovalOrder } = require('./utils/selectApprovalOrder');
 
 const statuses = ['Pending', 'Approved', 'Denied', 'Error', 'Saved'];
 
-const approverSchema = new Schema({
-  email: String,
-  isSent: Boolean,
-  isApproved: Boolean,
-  dateApproved: Date,
-  dateSent: Date,
-})
-
 const addressSchema = new Schema({
   address: { type: String, required: true },
-  address2: { type: String, required: true },
+  address2: String,
   city: { type: String, required: true },
   state: { type: String, required: true },
   zipCode: { type: String, required: true },
