@@ -5,10 +5,11 @@ import {
   RequestPreview,
 } from '../Components/PurchaseRequestForms';
 import FormikStepper from '../Components/FormikHelpers/FormikStepper';
-import { headerValidators, itemValidation } from '../utils/FormValidators';
+import { headerValidators } from '../utils/FormValidators';
 import { FormikStep } from '../Components/FormikHelpers';
 import { getAllEntities } from '../api/entitiesApi';
 import { createNewRequest } from '../api/requestApi';
+import { useAuth0 } from '../react-auth0-spa';
 
 
 /**
@@ -37,6 +38,7 @@ const exampleListOfEntities = [
 const CreatePurchaseRequest = () => {
   const [loading, setLoading] = useState(false);
   const [entitiesList, setEntitiesList] = useState([])
+  const { dbUser } = useAuth0()
 
   useEffect(() => {
     const fn = async () => {
@@ -64,6 +66,10 @@ const CreatePurchaseRequest = () => {
 
     let submissionResponse = null;
     setLoading(true)
+
+    formData.invoiceTotal = formData.items.reduce((acc, curr) => acc += (curr.price * curr.quantity), 0);
+    formData.user = dbUser._id
+
     try {
       //  try to submit the new request
       submissionResponse = await createNewRequest(formData);
