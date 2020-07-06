@@ -103,10 +103,6 @@ const PurchaseReqDetails = (props) => {
               <Col><SmallP>{`${request.entity.name}`}</SmallP></Col>
             </Row>
             <Row>
-              <Col><strong>Business Unit:</strong></Col>
-              <Col><SmallP>{`${request.entity.businessUnit}`}</SmallP></Col>
-            </Row>
-            <Row>
               <Col><strong>Buyer Submitting Order:</strong></Col>
               <Col><SmallP>{`${request.buyer.firstName} ${request.buyer.lastName}`}</SmallP></Col>
             </Row>

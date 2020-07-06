@@ -5,7 +5,6 @@ const _ = require('lodash')
 
 const entitySchema = new Schema({
   name: String,
-  businessUnit: String,
   address: {
     street: String,
     city: String,
