@@ -16,13 +16,11 @@ export const headerValidators = yup.object()
 
 //  Hypothesis that the validation needs to indicate the nesting
 export const itemValidation = yup.object().shape({
-  itemToAdd: yup.object().shape({
-    description: yup.string(),
-    specialDetails: yup.string(),
-    link: yup.string(),
-    expenseCategory: yup.string(),
-    price: yup.string(),
-    quantity: yup.string(),
-  })
-});
+  description: yup.string().min(2, 'Please name the item.').required('Required!'),
+  specialDetails: yup.string().min(2, 'Please include special details.'),
+  link: yup.string(),
+  expenseCategory: yup.string().required('Mark an expense category!'),
+  price: yup.number().positive('Prices are not negative.').required('Required!'),
+  quantity: yup.number().positive('do not process returns here, positive quantities only').required('Required!'),
+})
 

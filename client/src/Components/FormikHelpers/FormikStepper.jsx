@@ -32,7 +32,7 @@ const FormikStepper = ({ children, ...props }) => {
         // if it isn't the last step, and there is a custom onSubmit per the step
         } else if (customOnSubmit !== false) {
           // do that onSubmit... maybe get rid of all the items that don't count?
-          await customOnSubmit();
+          await customOnSubmit(values, helpers);
           console.log(helpers)
           //  move to next step
           setStep(isLastStep() ? step : step + 1 )
@@ -46,7 +46,6 @@ const FormikStepper = ({ children, ...props }) => {
     {args => (
       <Form>
         {currentChildForm}
-        {console.log('formik props', args)}
         {step > 0 ? <GoldButton onClick={() => setStep(step - 1)} className='mr-2'>Back</GoldButton> : null }
         <BlueButton type="submit">{isLastStep() ? 'Submit' : 'Next' }</BlueButton>
       </Form>

@@ -3,6 +3,7 @@ import { Field, FieldArray, useFormikContext } from 'formik';
 import { Col, Row, Button } from 'reactstrap';
 import { FormikReactStrapInput, FormikReactStrapSelect } from '../FormikFields';
 import { ItemsCart } from '.';
+import { itemValidation } from '../../utils/FormValidators';
 
 const itemFields = [
   'description',
@@ -43,6 +44,7 @@ const RequestItemsForm = () => {
               <Row>
                 <Col>
                   <h3>Add Items to Purchase</h3>
+                  <p>Please fill out all fields, or entry is invalid.</p>
                   <div>
                     <Field
                       label="Item Name/Description"
@@ -88,15 +90,27 @@ const RequestItemsForm = () => {
                     className="mb-2"
                     color="info"
                     type="button"
-                    onClick={() => {
+                    onClick={async () => {
                       console.log('clicked')
-                      if (errors.itemToAdd) {
-                        console.log('errors', errors)
-                      } else {
+                      let valid;
+
+                      //  try to see if the object is valid
+                      try {
+                        //  check the object is valid
+                        valid = await itemValidation.validate(values.itemToAdd, { abortEarly: false })
+                        console.log(valid, 'validate result')
+
+                        //  clear the form
                         itemFields.forEach((field) => setFieldValue(`itemToAdd.${field}`, ''))
+
+                        //  add it to the itemsList
                         arrayHelpers.push(values.itemToAdd)
-                        console.log(values.items, arrayHelpers)
+
+                      } catch(error) {
+                        //  else do not add it to the list and window error it
+                        window.alert(error.errors.join(' / '))
                       }
+
                     }}
                   >
                     {'Add Item'}

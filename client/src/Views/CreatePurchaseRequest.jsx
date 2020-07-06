@@ -95,10 +95,7 @@ const CreatePurchaseRequest = () => {
         <FormikStep validationSchema={headerValidators}>
           <RequestHeaderForm />
         </FormikStep>
-        <FormikStep
-          onSubmit={() => { console.log('world') }}
-          validationSchema={itemValidation}
-        >
+        <FormikStep>
           <RequestItemsForm />
         </FormikStep>
         <FormikStep onSubmit={() => { console.log('hello') }}>
