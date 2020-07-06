@@ -37,7 +37,6 @@ module.exports = {
       .where('isDeleted')
       .ne(true)
       .populate('user')
-      .populate('submittedFor')
       .populate('entity')
       .populate('vendor')
       .populate('buyer')
@@ -59,7 +58,6 @@ module.exports = {
         .populate('vendor')
         .populate('user')
         .populate('entity')
-        .populate('submittedFor')
         .populate('buyer')
 
     } catch (error) {
@@ -73,12 +71,10 @@ module.exports = {
     const { params: { userId }, query: { email } } = req;
 
     const data = await Request.find()
-      .or([{ user: userId }, { submittedFor: userId }, { 'approverList.email': email }])
-      .where('user != submittedFor')
+      .or([{ user: userId }, { 'approverList.email': email }])
       .where('isDeleted').ne(true)
       .populate({ path: 'vendor', select: 'name -_id'})
       .populate({ path: 'entity', select: 'name -_id'})
-      .populate({ path: 'submittedFor', select: 'firstName lastName -_id'})
       .sort({ dateRequested: 'desc'})
 
     res.send(data)
@@ -90,75 +86,90 @@ module.exports = {
   },
 
   createRequest: async (req, res) => {
-    //  get the document from the body
-    const { body } = req;
-    console.log(body, '<---- body')
-    //  create document model
 
-    console.log(body.editedId, '<--- edited id')
+    /**
+     * To create a request, we need to
+     * -  Apply the approval list
+     * -  Save the entry
+     *  - If entry is not valid, return error
+     * -  Email first approver
+     * -  Return the object ID for re-navigation
+     */
 
-    const submitRequest = new Request(body)
-    let saveData;
+    const { body } = req
 
-    console.log('this is submittedFor', submitRequest.submittedFor)
+    console.log(body)
+    res.status(201).send('good')
 
-    //  try to get the cost center for the submitted for.
-    try {
-      let { costCenter } = await User.findById(submitRequest.submittedFor);
-      console.log(costCenter, "<--- in controller")
 
-      submitRequest.set('costCenter', costCenter)
-    } catch (error) {
 
-      console.log(error)
-      return res.status(501).json(error)
-    }
+  //   //  get the document from the body
+  //   const { body } = req;
+  //   console.log(body, '<---- body')
+  //   //  create document model
 
-    //  try to save to database
-    try {
-      console.log('Attempting to save document', submitRequest.submittedFor)
-      saveData = await submitRequest.save()
-      console.log(saveData)
-    } catch (error) {
-      console.log(error)
-      return res.status(502).json(error)
+  //   console.log(body.editedId, '<--- edited id')
 
-    }
+  //   const submitRequest = new Request(body)
+  //   let saveData;
 
-    console.log('Document Saved!')
 
-    //  try to mark the old one as deleted if it is an edit
-    if (body.editedId) {
-      try {
-        const { editedId } = body;
-        const requestToDelete = await Request.findById(editedId)
-        requestToDelete.isDeleted = true;
-        await requestToDelete.save()
-        console.log(requestToDelete, '<-- we are deleting this one')
-        console.log(editedId, '<--- this was deleted')
-      } catch (error) {
-        console.log(error)
-        return res.status(504).json(error)
-      }
-    }
+  //   //  try to get the cost center for the submitted for.
+  //   try {
+  //     let { costCenter } = await User.findById(submitRequest.submittedFor);
+  //     console.log(costCenter, "<--- in controller")
 
-    //  try to populate the related data to send back
+  //     submitRequest.set('costCenter', costCenter)
+  //   } catch (error) {
 
-    let dataToReturn;
-    try {
-      dataToReturn = await Request.findById(saveData._id)
-        .populate('user')
-        .populate('submittedFor')
-        .populate('entity')
-        .populate('vendor')
-        .populate('buyer')
+  //     console.log(error)
+  //     return res.status(501).json(error)
+  //   }
 
-    } catch (error) {
-      console.log(error)
-      return res.status(503).json(error)
-    }
+  //   //  try to save to database
+  //   try {
+  //     console.log('Attempting to save document', submitRequest.submittedFor)
+  //     saveData = await submitRequest.save()
+  //     console.log(saveData)
+  //   } catch (error) {
+  //     console.log(error)
+  //     return res.status(502).json(error)
 
-    res.status(201).json(dataToReturn);
+  //   }
+
+  //   console.log('Document Saved!')
+
+  //   //  try to mark the old one as deleted if it is an edit
+  //   if (body.editedId) {
+  //     try {
+  //       const { editedId } = body;
+  //       const requestToDelete = await Request.findById(editedId)
+  //       requestToDelete.isDeleted = true;
+  //       await requestToDelete.save()
+  //       console.log(requestToDelete, '<-- we are deleting this one')
+  //       console.log(editedId, '<--- this was deleted')
+  //     } catch (error) {
+  //       console.log(error)
+  //       return res.status(504).json(error)
+  //     }
+  //   }
+
+  //   //  try to populate the related data to send back
+
+  //   let dataToReturn;
+  //   try {
+  //     dataToReturn = await Request.findById(saveData._id)
+  //       .populate('user')
+  //       .populate('entity')
+  //       .populate('vendor')
+  //       .populate('buyer')
+
+  //   } catch (error) {
+  //     console.log(error)
+  //     return res.status(503).json(error)
+  //   }
+
+  //   res.status(201).json(dataToReturn);
   },
 
   routeRequestForApproval: async (req, res) => {

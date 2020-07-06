@@ -8,6 +8,7 @@ import FormikStepper from '../Components/FormikHelpers/FormikStepper';
 import { headerValidators, itemValidation } from '../utils/FormValidators';
 import { FormikStep } from '../Components/FormikHelpers';
 import { getAllEntities } from '../api/entitiesApi';
+import { createNewRequest } from '../api/requestApi';
 
 
 /**
@@ -58,6 +59,24 @@ const CreatePurchaseRequest = () => {
   }, [])
 
 
+  //  function to submit and then call the loader
+  const submitNewRequest = async (formData) => {
+
+    let submissionResponse = null;
+    setLoading(true)
+    try {
+      //  try to submit the new request
+      submissionResponse = await createNewRequest(formData);
+      console.log('success')
+    } catch (error) {
+      //  else notify the use of the error
+      window.alert(error)
+    }
+
+    setLoading(false)
+  }
+
+  //  the formik model needs an object for initial values
   const requestData = {
     referenceName: '',
     entity: '',
@@ -85,12 +104,7 @@ const CreatePurchaseRequest = () => {
       <FormikStepper
         validateOnBlur
         initialValues={{ ...requestData }}
-        onSubmit={(values, { setSubmitting }) => {
-          setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
-            setSubmitting(false);
-          }, 400);
-        }}
+        onSubmit={submitNewRequest}
       >
         <FormikStep validationSchema={headerValidators}>
           <RequestHeaderForm />
@@ -99,7 +113,7 @@ const CreatePurchaseRequest = () => {
           <RequestItemsForm />
         </FormikStep>
         <FormikStep>
-          <RequestPreview />
+          <RequestPreview entitiesList={entitiesList} />
         </FormikStep>
       </FormikStepper>
     </>

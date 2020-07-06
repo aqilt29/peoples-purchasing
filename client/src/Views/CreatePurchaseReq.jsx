@@ -13,7 +13,6 @@ class CreatePurchaseReq extends Component {
       invoiceTotal: this.props.requestToEdit ? this.props.requestToEdit.invoiceTotal : 0,
       vendor: this.props.requestToEdit ? this.props.requestToEdit.vendor._id : '',
       entity: this.props.requestToEdit ? this.props.requestToEdit.entity._id : '',
-      submittedFor: this.props.requestToEdit ? this.props.requestToEdit.submittedFor._id : '',
       buyer: this.props.requestToEdit ? this.props.requestToEdit.buyer._id : '',
       paymentTerms: this.props.requestToEdit ? this.props.requestToEdit.paymentTerms : '',
       shipTo: this.props.requestToEdit ? this.props.requestToEdit.address.shipTo : '',
@@ -109,7 +108,6 @@ class CreatePurchaseReq extends Component {
       isLoading,
       vendor,
       entity,
-      submittedFor,
       paymentTerms,
       buyer,
       shipTo,
@@ -126,7 +124,7 @@ class CreatePurchaseReq extends Component {
           step === 0 ? <PurchaseReqHeaders
             requestToEdit={requestToEdit}
             setHeaders={this.setHeaders}
-            headers={{ vendor, entity, submittedFor, paymentTerms, buyer, shipTo, businessNeed }}
+            headers={{ vendor, entity, paymentTerms, buyer, shipTo, businessNeed }}
           /> : null
         }
         {

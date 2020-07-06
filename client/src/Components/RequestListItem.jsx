@@ -24,7 +24,6 @@ const RequestListItem = ({ request, idx }) => {
       <td>${request.invoiceTotal}</td>
       <td>{request.status !== 'Approved' ? getNextApprover(request).email : 'Approved' }</td>
       <td>{request.vendor.name}</td>
-      <td>{`${request.submittedFor.firstName} ${request.submittedFor.lastName}`}</td>
       <td><Button tag={Link} to={`/purchasing/details/${request._id}`} color="link" style={{ float: 'none' }}>View</Button></td>
     </tr>
   )

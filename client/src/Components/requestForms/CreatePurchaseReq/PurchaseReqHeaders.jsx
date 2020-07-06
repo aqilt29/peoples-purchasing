@@ -13,7 +13,7 @@ export const PurchaseReqHeaders = ({ setHeaders, requestToEdit, decrementStep, h
 
   const [vendor, setVendor] = useState(requestToEdit ? requestToEdit.vendor._id : headers.vendor)
   const [entity, setEntity] = useState(requestToEdit ? requestToEdit.entity._id : headers.entity)
-  const [user, setUser] = useState(requestToEdit ? requestToEdit.user._id : (headers.submittedFor || currentUserId))
+  const [user, setUser] = useState(requestToEdit ? requestToEdit.user._id : currentUserId)
   const [buyer, setBuyer] = useState(requestToEdit ? requestToEdit.buyer._id : headers.buyer)
 
   const [customTerms, setCustomTerms] = useState(null)
@@ -46,7 +46,7 @@ export const PurchaseReqHeaders = ({ setHeaders, requestToEdit, decrementStep, h
       vendor: vendor.value || vendor || requestToEdit.vendor._id,
       buyer: buyer.value || buyer || requestToEdit.buyer._id,
       entity: entity.value || entity || requestToEdit.entity._id,
-      submittedFor: user.value || user || requestToEdit.submittedFor._id,
+      submittedFor: user.value || user,
       paymentTerms: paymentTerms === 'Other' ? customTerms : paymentTerms,
       shipTo: shipTo === 'Other' ? customShipTo : shipTo,
       businessNeed,
@@ -72,7 +72,7 @@ export const PurchaseReqHeaders = ({ setHeaders, requestToEdit, decrementStep, h
         <Row>
           <Col>
             <VendorSelect vendorId={requestToEdit ? requestToEdit.vendor._id : vendor } label="Select Vendor for Order:" vendorChange={setVendor} />
-            <UserSelect userId={requestToEdit ? requestToEdit.submittedFor._id  : user } label="Request on behalf of:" userChange={setUser} />
+            <UserSelect userId={requestToEdit ? user  : user } label="Request on behalf of:" userChange={setUser} />
             <EntitySelect entityId={requestToEdit ? requestToEdit.entity._id : entity } entityChange={setEntity} userEntityName={userEntityName} />
             <UserSelect userId={requestToEdit ? requestToEdit.buyer._id  : buyer } label="Person placing the order:" userChange={setBuyer} />
           </Col>

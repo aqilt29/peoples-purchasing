@@ -28,33 +28,16 @@ const requestSchema = new Schema({
   user: { type: Schema.Types.ObjectId, ref: 'User', required: true },
   businessNeed: { type: String, required: true },
   shippingAddress: { type: addressSchema, required: true },
-  address: {
-    shipTo: { type: String },
-  },
-  costCenter: { type: Number, required: true },
-  submittedFor: {
-    type: Schema.Types.ObjectId, ref: 'User',
-    default: function() {
-      if (!this.submittedFor) {
-        console.log('default submitted for', this.user._id);
-        return this.user._id;
-      }
-      return null;
-    }
-  }, //  one userId of someone with pmcoc submitted by defines routing rules
   dateRequested: { type: Date, default: Date.now },
   invoiceTotal: { type: Number, required: true },
   approverList: [{ type: approverSchema, required: true }],
   status: { type: String, default: 'Saved', enum: statuses },
-  buyer: { type: Schema.Types.ObjectId, ref: 'User', required: true }, // person placing order
   items: [itemSchema],
   attachments: [String],
   hasPurchaseOrder: { type: Boolean, default: false },
-  isBlanket: { type: Boolean, default: false },
   purchaseOrderId: { type: Schema.Types.ObjectId, ref: 'PurchaseOrder' },
   delegates: [{ type: Schema.Types.ObjectId, ref: 'User' }],
   isDeleted: { type: Boolean, default: false },
-  // vendor: { type: Schema.Types.ObjectId, ref: 'Vendor', required: true },
 });
 
 //  assign approvers list and record

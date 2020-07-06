@@ -93,10 +93,6 @@ const PurchaseReqDetails = (props) => {
               <Col><SmallP>{`${request.user.email}`}</SmallP></Col>
             </Row>
             <Row>
-              <Col><strong>Submitted on Behalf Of:</strong></Col>
-              <Col><SmallP>{`${request.submittedFor.firstName} ${request.submittedFor.lastName}`}</SmallP></Col>
-            </Row>
-            <Row>
               <Col><strong>Requested Delivery Address:</strong></Col>
               <Col><SmallP>{`${request.address.shipTo}`}</SmallP></Col>
             </Row>

@@ -102,8 +102,6 @@ const PurchasingView = () => {
           </div>
           <h6>Ship To Address:</h6>
           <p>{requestData.address.shipTo}</p>
-          <h6>Submitted on Behalf of:</h6>
-          <p>{requestData.submittedFor.firstName} {requestData.submittedFor.lastName}</p>
           <h6>Entity Billed:</h6>
           <p>{requestData.entity.name}</p>
           <h6>Business Justification:</h6>
