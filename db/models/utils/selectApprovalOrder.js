@@ -823,10 +823,6 @@ function demoSelectApprovalOrder(context) {
 
 }
 
-const newSelectApprovalOrder = () => {
-
-};
-
 module.exports = {
   selectApprovalOrder,
 };

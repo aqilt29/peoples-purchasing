@@ -64,7 +64,7 @@ const CreatePurchaseRequest = () => {
   //  function to submit and then call the loader
   const submitNewRequest = async (formData) => {
 
-    let submissionResponse = null;
+    // let submissionResponse = null;
     setLoading(true)
 
     formData.invoiceTotal = formData.items.reduce((acc, curr) => acc += (curr.price * curr.quantity), 0);
@@ -72,8 +72,8 @@ const CreatePurchaseRequest = () => {
 
     try {
       //  try to submit the new request
-      submissionResponse = await createNewRequest(formData);
-      console.log('success')
+      let { data: submissionResponse } = await createNewRequest(formData);
+      console.log('success', submissionResponse)
     } catch (error) {
       //  else notify the use of the error
       window.alert(error)

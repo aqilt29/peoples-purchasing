@@ -1,63 +1,58 @@
 module.exports = [
   {
-    name: 'Lean Green Industries-Ins, LLC',
+    name: 'Direct/ Retail OC',
     approverList: {
-      approverOne: [],
-      approverTwo: [],
+      approverOne: { email :'kerry@pmcoc.com' },
+      approverTwo: { email :'jay@pmcoc.com' },
     }
   },
   {
-    name: 'MOG (Monterey Ocean Grown – GH, LLC)',
+    name: 'IT',
     approverList: {
-
+      approverOne: { email :'bill@pmcoc.com' },
+      approverTwo: { email :'jay@pmcoc.com' },
     }
   },
   {
-    name: 'MVP (Monterey Valley Pride, LLC)',
+    name: 'New Patriot - Facilities',
     approverList: {
-
+      approverOne: { email :'anthony@pmcoc.com' },
+      approverTwo: { email :'jay@pmcoc.com' },
     }
   },
   {
-    name: 'New Patriot Holdings, Inc.',
+    name: 'New Patriot - Marketing',
     approverList: {
-
+      approverOne: { email :'greta@pmcoc.com' },
+      approverTwo: { email :'jay@pmcoc.com' },
     }
   },
   {
-    name: 'People’s Aviation',
+    name: 'Hero Oak - Distro/Sales',
     approverList: {
-
+      approverOne: { email :'anthony@pmcoc.com' },
+      approverTwo: { email :'jay@pmcoc.com' },
     }
   },
   {
-    name: 'People’s First Choice',
+    name: 'Hero Oak - Manufacturing',
     approverList: {
-
+      approverOne: { email :'habib@pmcoc.com' },
+      approverTwo: { email :'jay@pmcoc.com' },
     }
   },
   {
-    name: 'People’s Properties, LLC',
+    name: 'Farming',
     approverList: {
-
+      approverOne: { email :'jim@pmcoc.com' },
+      approverTwo: { email :'jay@pmcoc.com' },
     }
   },
   {
-    name: 'People’s Refinery – Hero Oak, LLC',
+    name: 'TC Lab',
     approverList: {
-
-    }
-  },
-  {
-    name: 'People’s Riverside',
-    approverList: {
-
-    }
-  },
-  {
-    name: 'TC Lab (PF – People’s Grand TC, LLC)',
-    approverList: {
-
+      approverOne: { email :'jim@pmcoc.com' },
+      approverTwo: { email :'jay@pmcoc.com' },
     }
   },
 ];

@@ -1,9 +1,11 @@
 const path = require('path');
 const mongoose = require('mongoose')
 const Request = require('../../db/models/request');
+const Entity = require('../../db/models/entity');
 const User = require('../../db/models/user');
 const aws = require('aws-sdk')
 const _ = require('lodash');
+
 
 //  configure aws sdk with credentials for user
 aws.config.loadFromPath(path.resolve(__dirname, '../../aws_config.json'));
@@ -96,59 +98,44 @@ module.exports = {
      * -  Return the object ID for re-navigation
      */
 
+    const newSelectApprovalOrder = async ({ entity, invoiceTotal }) => {
+      const approverListToAdd = [];
+
+      //  look up the entity
+      const { approverList: { approverOne, approverTwo } } = await Entity.findById(entity);
+
+      //  push appropriate approvers into array
+      if (invoiceTotal > 250) approverListToAdd.push(approverOne);
+      if (invoiceTotal > 2500) approverListToAdd.push(approverTwo);
+
+      //  return the array
+      return approverListToAdd;
+    };
+
+
     const { body: requestAPIData } = req
-    console.log(requestAPIData)
+    // console.log(requestAPIData)
 
     //  Apply the approvalList
+    try {
+      requestAPIData.approverList = await newSelectApprovalOrder(requestAPIData);
+    } catch (error) {
+      return res.status(502).send(error)
+    }
 
+    // console.log(requestAPIData)
+    const submittedRequest = new Request(requestAPIData);
 
-    // const submittedRequest = new Request(body);
+    let savedRequest;
 
-    // let objectValid = submittedRequest.validateSync();
+    try {
+      savedRequest = await submittedRequest.save();
+    } catch (error) {
+      return res.status(503).send(error)
+    }
 
-    // console.log(objectValid)
-
-    // let savedRequest = await submittedRequest.save();
 
     res.status(201).send(savedRequest)
-
-
-
-  //   //  get the document from the body
-  //   const { body } = req;
-  //   console.log(body, '<---- body')
-  //   //  create document model
-
-  //   console.log(body.editedId, '<--- edited id')
-
-  //   const submitRequest = new Request(body)
-  //   let saveData;
-
-
-  //   //  try to get the cost center for the submitted for.
-  //   try {
-  //     let { costCenter } = await User.findById(submitRequest.submittedFor);
-  //     console.log(costCenter, "<--- in controller")
-
-  //     submitRequest.set('costCenter', costCenter)
-  //   } catch (error) {
-
-  //     console.log(error)
-  //     return res.status(501).json(error)
-  //   }
-
-  //   //  try to save to database
-  //   try {
-  //     console.log('Attempting to save document', submitRequest.submittedFor)
-  //     saveData = await submitRequest.save()
-  //     console.log(saveData)
-  //   } catch (error) {
-  //     console.log(error)
-  //     return res.status(502).json(error)
-
-  //   }
-
-  //   console.log('Document Saved!')
 
   //   //  try to mark the old one as deleted if it is an edit
   //   if (body.editedId) {
@@ -165,22 +152,6 @@ module.exports = {
   //     }
   //   }
 
-  //   //  try to populate the related data to send back
-
-  //   let dataToReturn;
-  //   try {
-  //     dataToReturn = await Request.findById(saveData._id)
-  //       .populate('user')
-  //       .populate('entity')
-  //       .populate('vendor')
-  //       .populate('buyer')
-
-  //   } catch (error) {
-  //     console.log(error)
-  //     return res.status(503).json(error)
-  //   }
-
-  //   res.status(201).json(dataToReturn);
   },
 
   routeRequestForApproval: async (req, res) => {
