@@ -16,7 +16,7 @@ export const appPermissions = {
       {
         title: 'Create New Purchase Request',
         subtitle: 'Submit new purchase request to follow approval workflows.',
-        link: '/createform',
+        link: '/createpr',
       },
       {
         title: 'My Pending PRs',
@@ -39,7 +39,7 @@ export const appPermissions = {
       {
         title: 'Create New Purchase Request',
         subtitle: 'Submit new purchase request to follow approval workflows.',
-        link: '/createform',
+        link: '/createpr',
       },
       {
         title: 'My Pending PRs',
@@ -90,7 +90,7 @@ export const appPermissions = {
       {
         title: 'Create New Purchase Request',
         subtitle: 'Submit new purchase request to follow approval workflows.',
-        link: '/createform',
+        link: '/createpr',
       },
       {
         title: 'My Pending PRs',
@@ -144,7 +144,7 @@ export const appPermissions = {
       {
         title: 'Create New Purchase Request',
         subtitle: 'Submit new purchase request to follow approval workflows.',
-        link: '/createform',
+        link: '/createpr',
       },
       {
         title: 'My Pending PRs',
@@ -161,11 +161,11 @@ export const appPermissions = {
         subtitle: 'Lookup any PR company wide based on ID.',
         link: '/search',
       },
-      {
-        title: 'DEMO: New Purchase Request',
-        subtitle: 'DEMO PURCHASE REQUEST UI',
-        link: '/createpr'
-      }
+      // {
+      //   title: 'DEMO: New Purchase Request',
+      //   subtitle: 'DEMO PURCHASE REQUEST UI',
+      //   link: '/createpr'
+      // }
     ],
 
     vendors: [
