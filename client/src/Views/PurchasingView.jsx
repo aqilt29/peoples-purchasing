@@ -23,13 +23,18 @@ const PurchasingView = () => {
   const [approvedToRedirect, setRedirect] = useState(false)
 
   const approveRequestAndRedirect = async (_id, email, approverId) => {
-    try {
-      await approveRequest(_id, email, approverId)
-      console.log('approved')
-      setRedirect(true)
-    } catch (error) {
-      window.alert(error)
-      console.error(error)
+
+    const shouldApprove = window.confirm(`Approve ${requestData._id.slice(-5)}?`)
+
+    if (shouldApprove) {
+      try {
+        await approveRequest(_id, email, approverId)
+        console.log('approved')
+        setRedirect(true)
+      } catch (error) {
+        window.alert(error)
+        console.error(error)
+      }
     }
   }
 
