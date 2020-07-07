@@ -159,7 +159,7 @@ const PurchaseReqDetails = (props) => {
                 console.log(URL);
                 return (
                   <div>
-                    <a target="_blank" href={URL}>Attachment {index + 1}</a>
+                    <a target="_blank" key={index} href={URL}>Attachment {index + 1}</a>
                   </div>
                 )
               }) : <p>No Attachments</p>
