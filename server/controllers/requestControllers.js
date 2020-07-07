@@ -94,7 +94,6 @@ module.exports = {
      * -  Apply the approval list
      * -  Save the entry
      *  - If entry is not valid, return error
-     * -  Email first approver
      * -  Return the object ID for re-navigation
      */
 

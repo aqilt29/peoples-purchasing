@@ -21,15 +21,20 @@ const PurchaseReqDetails = (props) => {
 
     let reason = window.prompt('Rejection Explanation:')
 
-    try {
-      await denyRequest(_id, _, approverId, reason)
-      console.log('denied')
-      window.alert('PR Denied')
-      setRedirect(true)
-    } catch (error) {
-      window.alert(error)
-      console.error(error)
+    console.log(reason)
+    if (reason !== null) {
+      try {
+        await denyRequest(_id, _, approverId, reason)
+        console.log('denied')
+        window.alert('PR Denied')
+        setRedirect(true)
+      } catch (error) {
+        window.alert(error)
+        console.error(error)
+      }
     }
+
+
   }
 
 
