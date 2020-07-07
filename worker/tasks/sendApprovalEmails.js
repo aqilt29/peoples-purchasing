@@ -8,7 +8,7 @@ const Entity = require('../../db/models/entity');
 
 const sendApprovalEmails = async ({ MessageAttributes: { documentId: { StringValue: id }}}) => {
   console.log(id, ' <--- id')
-  const data = await Request.findById(id).populate('vendor').populate('user').populate('entity').populate('buyer');
+  const data = await Request.findById(id).populate('user').populate('entity');
 
   //  iterate over the approver list
   for (let i = 0; i < data.approverList.length; i++) {
@@ -22,7 +22,7 @@ const sendApprovalEmails = async ({ MessageAttributes: { documentId: { StringVal
         await transporter.sendMail({
           from: { name: "Purchasing Portal Notification", address:'scanner@pmcoc.com' }, // sender address
           to: data.approverList[i].email, // list of receivers
-          subject: `PR Approval Required: REQ-${data.id.slice(-5).toUpperCase()} to ${data.vendor.name} for $${data.invoiceTotal}`, // Subject line
+          subject: `PR Approval Required: REQ-${data.id.slice(-5).toUpperCase()} for $${data.invoiceTotal}`, // Subject line
           // text: JSON.stringify(data), // plain text body
           html: `<a href="${hostName}/purchasing/view/${id}/${approverId}">Click Here to View Request</a>` // html body
         });

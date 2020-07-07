@@ -16,6 +16,7 @@ const ItemCart = ({ items, arrayHelpers, details }) => {
             <th>Unit Price</th>
             <th>QTY</th>
             <th>Ext. Price</th>
+            {details && (<th>Link</th>)}
             {details || (<th>Del</th>)}
           </tr>
         </thead>
