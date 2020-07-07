@@ -8,6 +8,7 @@ import { format } from 'date-fns'
 import ItemList from '../Components/requestForms/ItemList'
 import DocumentUploader from '../Components/DocumentUploader';
 import { attachUploadLocation } from '../api/requestApi';
+import { ItemsCart } from '../Components/PurchaseRequestForms';
 
 
 const PurchaseReqDetails = (props) => {
@@ -92,10 +93,6 @@ const PurchaseReqDetails = (props) => {
               <Col><strong>User Email:</strong></Col>
               <Col><SmallP>{`${request.user.email}`}</SmallP></Col>
             </Row>
-            <Row>
-              <Col><strong>Requested Delivery Address:</strong></Col>
-              <Col><SmallP>{`${request.address.shipTo}`}</SmallP></Col>
-            </Row>
           </Col>
           <Col>
             <Row>
@@ -103,16 +100,8 @@ const PurchaseReqDetails = (props) => {
               <Col><SmallP>{`${request.entity.name}`}</SmallP></Col>
             </Row>
             <Row>
-              <Col><strong>Buyer Submitting Order:</strong></Col>
-              <Col><SmallP>{`${request.buyer.firstName} ${request.buyer.lastName}`}</SmallP></Col>
-            </Row>
-            <Row>
               <Col><strong>Invoice Total Amount:</strong></Col>
               <Col><SmallP>{`$${request.invoiceTotal}`}</SmallP></Col>
-            </Row>
-            <Row>
-              <Col><strong>Payment Terms:</strong></Col>
-              <Col><SmallP>{`${request.paymentTerms}`}</SmallP></Col>
             </Row>
             <Row>
               <Col><strong>Business Justification:</strong></Col>
@@ -183,11 +172,9 @@ const PurchaseReqDetails = (props) => {
         <Row>
           <Col>
             <h6>Items on List</h6>
-            <ItemList
-              documentId={id}
+            <ItemsCart
               items={request.items}
-              deleteItem={() => {}}
-              detailsPage
+              details
             />
           </Col>
         </Row>

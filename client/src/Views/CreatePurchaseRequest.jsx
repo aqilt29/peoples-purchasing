@@ -10,6 +10,7 @@ import { FormikStep } from '../Components/FormikHelpers';
 import { getAllEntities } from '../api/entitiesApi';
 import { createNewRequest } from '../api/requestApi';
 import { useAuth0 } from '../react-auth0-spa';
+import { useHistory } from 'react-router-dom';
 
 
 /**
@@ -38,6 +39,7 @@ const exampleListOfEntities = [
 const CreatePurchaseRequest = () => {
   const [loading, setLoading] = useState(false);
   const [entitiesList, setEntitiesList] = useState([])
+  const history = useHistory()
   const { dbUser } = useAuth0()
 
   useEffect(() => {
@@ -74,6 +76,7 @@ const CreatePurchaseRequest = () => {
       //  try to submit the new request
       let { data: submissionResponse } = await createNewRequest(formData);
       console.log('success', submissionResponse)
+      history.push(`/purchasing/details/${submissionResponse._id}`)
     } catch (error) {
       //  else notify the use of the error
       window.alert(error)
