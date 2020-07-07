@@ -205,7 +205,7 @@ export const userDashboardApps = {
   User: [],
   PRCreator: [
     {
-      title: 'Purchasing Request',
+      title: 'Purchase Requests',
       subtitle: 'Manage Purchasing Related Tasks',
       link: 'purchasing'
     },
@@ -222,7 +222,7 @@ export const userDashboardApps = {
   ],
   Buyer: [
     {
-      title: 'Purchasing Request',
+      title: 'Purchase Requests',
       subtitle: 'Manage Purchasing Related Tasks',
       link: 'purchasing'
     },
@@ -244,7 +244,7 @@ export const userDashboardApps = {
   ],
   Accounting: [
     {
-      title: 'Purchasing Request',
+      title: 'Purchase Requests',
       subtitle: 'Manage Purchasing Related Tasks',
       link: 'purchasing'
     },
@@ -266,7 +266,7 @@ export const userDashboardApps = {
   ],
   Admin: [
     {
-      title: 'Purchasing Request',
+      title: 'Purchase Requests',
       subtitle: 'Manage Purchasing Related Tasks',
       link: 'purchasing'
     },
