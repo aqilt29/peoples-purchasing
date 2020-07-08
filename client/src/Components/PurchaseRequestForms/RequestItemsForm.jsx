@@ -18,11 +18,12 @@ const itemFields = [
 ];
 
 const expenseCategoryList = [
+  'Store & Office Supplies',
+  'Covid Supplies',
   'Raw Material',
   'Fixed Asset',
   'Facility Utilities & Services',
   'Repairs & Maintenance',
-  'Store & Office Supplies',
   'Lab Supplies',
   'Warehouse Supplies',
   'Manufacturing Supplies',

@@ -25,13 +25,13 @@ export const appPermissions = {
       },
     ],
 
-    vendors: [
-      {
-        title: 'Add Vendors',
-        subtitle: 'Add new vendors',
-        link: '/add',
-      },
-    ]
+    // vendors: [
+    //   {
+    //     title: 'Add Vendors',
+    //     subtitle: 'Add new vendors',
+    //     link: '/add',
+    //   },
+    // ]
   },
 
   'Buyer': {
@@ -58,13 +58,13 @@ export const appPermissions = {
       },
     ],
 
-    vendors: [
-      {
-        title: 'Add Vendors',
-        subtitle: 'Add new vendors',
-        link: '/add',
-      },
-    ],
+    // vendors: [
+    //   {
+    //     title: 'Add Vendors',
+    //     subtitle: 'Add new vendors',
+    //     link: '/add',
+    //   },
+    // ],
 
     purchaseorders: [
       {
@@ -109,13 +109,13 @@ export const appPermissions = {
       },
     ],
 
-    vendors: [
-      {
-        title: 'Add Vendors',
-        subtitle: 'Add new vendors',
-        link: '/add',
-      },
-    ],
+    // vendors: [
+    //   {
+    //     title: 'Add Vendors',
+    //     subtitle: 'Add new vendors',
+    //     link: '/add',
+    //   },
+    // ],
 
     purchaseorders: [
       {
@@ -168,18 +168,18 @@ export const appPermissions = {
       // }
     ],
 
-    vendors: [
-      {
-        title: 'View All Vendors',
-        subtitle: 'View a list of all vendors',
-        link: '/viewall',
-      },
-      {
-        title: 'Add Vendors',
-        subtitle: 'Add new vendors',
-        link: '/add',
-      },
-    ],
+    // vendors: [
+    //   {
+    //     title: 'View All Vendors',
+    //     subtitle: 'View a list of all vendors',
+    //     link: '/viewall',
+    //   },
+    //   {
+    //     title: 'Add Vendors',
+    //     subtitle: 'Add new vendors',
+    //     link: '/add',
+    //   },
+    // ],
 
     purchaseorders: [
       {
@@ -209,11 +209,11 @@ export const userDashboardApps = {
       subtitle: 'Manage Purchasing Related Tasks',
       link: 'purchasing'
     },
-    {
-      title: 'Vendors',
-      subtitle: 'Manage Vendor Related Information',
-      link: 'vendors'
-    },
+    // {
+    //   title: 'Vendors',
+    //   subtitle: 'Manage Vendor Related Information',
+    //   link: 'vendors'
+    // },
     {
       title: 'Resources',
       subtitle: 'Company Information and related SOPs',
@@ -226,11 +226,11 @@ export const userDashboardApps = {
       subtitle: 'Manage Purchasing Related Tasks',
       link: 'purchasing'
     },
-    {
-      title: 'Vendors',
-      subtitle: 'Manage Vendor Related Information',
-      link: 'vendors'
-    },
+    // {
+    //   title: 'Vendors',
+    //   subtitle: 'Manage Vendor Related Information',
+    //   link: 'vendors'
+    // },
     {
       title: 'Purchase Orders',
       subtitle: 'Manage Your/Company Purchase Orders Here',
@@ -248,11 +248,11 @@ export const userDashboardApps = {
       subtitle: 'Manage Purchasing Related Tasks',
       link: 'purchasing'
     },
-    {
-      title: 'Vendors',
-      subtitle: 'Manage Vendor Related Information',
-      link: 'vendors'
-    },
+    // {
+    //   title: 'Vendors',
+    //   subtitle: 'Manage Vendor Related Information',
+    //   link: 'vendors'
+    // },
     {
       title: 'Purchase Orders',
       subtitle: 'Manage Your/Company Purchase Orders Here',
@@ -270,11 +270,11 @@ export const userDashboardApps = {
       subtitle: 'Manage Purchasing Related Tasks',
       link: 'purchasing'
     },
-    {
-      title: 'Vendors',
-      subtitle: 'Manage Vendor Related Information',
-      link: 'vendors'
-    },
+    // {
+    //   title: 'Vendors',
+    //   subtitle: 'Manage Vendor Related Information',
+    //   link: 'vendors'
+    // },
     {
       title: 'Purchase Orders',
       subtitle: 'Manage Your/Company Purchase Orders Here',
