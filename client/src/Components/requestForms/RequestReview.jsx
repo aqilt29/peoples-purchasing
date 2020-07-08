@@ -23,8 +23,6 @@ const RequestReview = ({ submitNewForm, ...props}) => {
           <p>{findNameById(props.listOfVendors, props.vendor, 'name')}</p>
           <h6>Ship To Address:</h6>
           <p>{props.shipTo}</p>
-          <h6>Submitted on Behalf of:</h6>
-          <p>{props.submittedFor ? findNameById(props.listOfUsers, props.submittedFor, 'email') : dbUser.email}</p>
           <h6>Business Justification:</h6>
           <p>{props.businessNeed}</p>
         </Col>

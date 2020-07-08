@@ -1,3 +1,6 @@
+/**
+ * This is a reference deprecated webpack config, currently only uses common and prod/dev
+ */
 const path = require('path');
 const SRC_DIR = path.join(__dirname, './client/src');
 const DIST_DIR = path.join(__dirname, './client/dist');

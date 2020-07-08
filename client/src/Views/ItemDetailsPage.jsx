@@ -54,10 +54,10 @@ const ItemDetailsPage = (props) => {
               <Col><strong>Material Group:</strong></Col>
               <Col><SmallP>{item.materialGroup}</SmallP></Col>
             </Row>
-            <Row>
+            {/* <Row>
               <Col><strong>Requested Delivery:</strong></Col>
               <Col><SmallP>{format(new Date(item.requestByDate), 'MM/dd/yyyy')}</SmallP></Col>
-            </Row>
+            </Row> */}
           </Col>
           <Col md={6}>
             <Row>

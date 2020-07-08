@@ -11,19 +11,6 @@ const RequestHeaders = ({ handleEntityChange, listOfVendors, handleChange, listO
         <AvField
           onChange={(e) => handleChange(e)}
           type="select"
-          value={props.submittedFor}
-          name="submittedFor"
-          label="Request on behalf of:"
-          helpMessage="Select if you're submitting this on behalf of anyone else..."
-        >
-          <option value="">Optional: Select A User...</option>
-          {
-            listOfUsers.map((user) => <option value={user._id}>{user.firstName} {user.lastName}</option>)
-          }
-        </AvField>
-        <AvField
-          onChange={(e) => handleChange(e)}
-          type="select"
           value={props.buyer}
           name="buyer"
           label="Employee Placing the Order"

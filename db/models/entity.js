@@ -1,17 +1,16 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const _ = require('lodash')
+const _ = require('lodash');
+const approverSchema = require('./approver');
+
 
 
 const entitySchema = new Schema({
   name: String,
-  businessUnit: String,
-  address: {
-    street: String,
-    city: String,
-    state: String,
-    zip: String
-  }
+  approverList: {
+    approverOne: { type: approverSchema },
+    approverTwo: { type: approverSchema },
+  },
 })
 
 module.exports = mongoose.model('Entity', entitySchema);

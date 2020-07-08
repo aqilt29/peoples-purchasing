@@ -4,6 +4,7 @@ import { getAllRequestsByUser } from '../api/requestApi';
 import Loading from '../Components/Loading';
 import { Container, Row, Col, Table } from 'reactstrap';
 import RequestListItem from '../Components/RequestListItem';
+import RequestList from '../Components/RequestList';
 
 const PurchasingViewAll = () => {
   const { dbUser } = useAuth0()
@@ -25,36 +26,9 @@ const PurchasingViewAll = () => {
 
   return (
     <>
-      <h4>All Purchase Requests</h4>
-      <Container>
-        <Row>
-          <Col>
-            <Table striped size="sm" responsive>
-              <thead >
-                <tr>
-                  <th>#</th>
-                  <th>Req#</th>
-                  <th>PR Status</th>
-                  <th>Date</th>
-                  <th>Entity</th>
-                  <th>Total Amt</th>
-                  <th>Approval Awaiting</th>
-                  <th>Vendor</th>
-                  <th>Submitted For</th>
-                  <th>Details</th>
-                </tr>
-              </thead>
-              <tbody>
-                {
-                  requestData.length > 0 && requestData.map((request, idx) => {
-                    return <RequestListItem key={idx} idx={idx} request={request} />
-                  })
-                }
-              </tbody>
-            </Table>
-          </Col>
-        </Row>
-      </Container>
+      <RequestList
+        listOfRequests={requestData}
+      />
     </>
   )
 };

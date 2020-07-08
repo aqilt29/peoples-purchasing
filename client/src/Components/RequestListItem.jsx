@@ -12,19 +12,18 @@ const RequestListItem = ({ request, idx }) => {
     return _.find(approverList, function(o) { return o.isApproved === false})
   };
 
-  console.log(request._id)
+  console.log(request.entity)
 
   return (
     <tr>
       <td>{(idx + 1)}</td>
       <td>{request._id.slice(-5).toUpperCase()}</td>
       <td>{request.status}</td>
+      <td>{request.referenceName}</td>
       <td>{format(new Date(request.dateRequested), 'MM/dd/yyyy')}</td>
       <td>{request.entity.name}</td>
       <td>${request.invoiceTotal}</td>
-      <td>{request.status !== 'Approved' ? getNextApprover(request).email : 'Approved' }</td>
-      <td>{request.vendor.name}</td>
-      <td>{`${request.submittedFor.firstName} ${request.submittedFor.lastName}`}</td>
+      {/* <td>{request.status !== 'Approved' ? getNextApprover(request).email : 'Approved' }</td> */}
       <td><Button tag={Link} to={`/purchasing/details/${request._id}`} color="link" style={{ float: 'none' }}>View</Button></td>
     </tr>
   )

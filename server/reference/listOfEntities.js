@@ -1,102 +1,58 @@
 module.exports = [
   {
-    name: 'Lean Green Industries-Ins, LLC',
-    businessUnit: 'Manufacturing',
-    address: {
-      street: '3843 S Bristol St #607',
-      city: 'Santa Ana',
-      state: 'CA',
-      zip: '92704',
+    name: 'Direct/ Retail OC',
+    approverList: {
+      approverOne: { email :'kerry@pmcoc.com' },
+      approverTwo: { email :'jay@pmcoc.com' },
     }
   },
   {
-    name: 'MOG (Monterey Ocean Grown – GH, LLC)',
-    businessUnit: 'Manufacturing',
-    address: {
-      street: '3843 S Bristol St #607',
-      city: 'Santa Ana',
-      state: 'CA',
-      zip: '92704',
+    name: 'IT',
+    approverList: {
+      approverOne: { email :'bill@pmcoc.com' },
+      approverTwo: { email :'jay@pmcoc.com' },
     }
   },
   {
-    name: 'MVP (Monterey Valley Pride, LLC)',
-    businessUnit: 'Manufacturing',
-    address: {
-      street: '3843 S Bristol St #607',
-      city: 'Santa Ana',
-      state: 'CA',
-      zip: '92704',
+    name: 'New Patriot - Facilities',
+    approverList: {
+      approverOne: { email :'anthony@pmcoc.com' },
+      approverTwo: { email :'jay@pmcoc.com' },
     }
   },
   {
-    name: 'New Patriot Holdings, Inc.',
-    businessUnit: 'Manufacturing',
-    address: {
-      street: '3843 S Bristol St #607',
-      city: 'Santa Ana',
-      state: 'CA',
-      zip: '92704',
+    name: 'New Patriot - Marketing',
+    approverList: {
+      approverOne: { email :'greta@pmcoc.com' },
+      approverTwo: { email :'jay@pmcoc.com' },
     }
   },
   {
-    name: 'People’s Aviation',
-    businessUnit: 'Manufacturing',
-    address: {
-      street: '3843 S Bristol St #607',
-      city: 'Santa Ana',
-      state: 'CA',
-      zip: '92704',
+    name: 'Hero Oak - Distro/Sales',
+    approverList: {
+      approverOne: { email :'anthony@pmcoc.com' },
+      approverTwo: { email :'jay@pmcoc.com' },
     }
   },
   {
-    name: 'People’s First Choice',
-    businessUnit: 'Manufacturing',
-    address: {
-      street: '3843 S Bristol St #607',
-      city: 'Santa Ana',
-      state: 'CA',
-      zip: '92704',
+    name: 'Hero Oak - Manufacturing',
+    approverList: {
+      approverOne: { email :'habib@pmcoc.com' },
+      approverTwo: { email :'jay@pmcoc.com' },
     }
   },
   {
-    name: 'People’s Properties, LLC',
-    businessUnit: 'Manufacturing',
-    address: {
-      street: '3843 S Bristol St #607',
-      city: 'Santa Ana',
-      state: 'CA',
-      zip: '92704',
+    name: 'Farming',
+    approverList: {
+      approverOne: { email :'jim@pmcoc.com' },
+      approverTwo: { email :'jay@pmcoc.com' },
     }
   },
   {
-    name: 'People’s Refinery – Hero Oak, LLC',
-    businessUnit: 'Manufacturing',
-    address: {
-      street: '3843 S Bristol St #607',
-      city: 'Santa Ana',
-      state: 'CA',
-      zip: '92704',
-    }
-  },
-  {
-    name: 'People’s Riverside',
-    businessUnit: 'Manufacturing',
-    address: {
-      street: '3843 S Bristol St #607',
-      city: 'Santa Ana',
-      state: 'CA',
-      zip: '92704',
-    }
-  },
-  {
-    name: 'TC Lab (PF – People’s Grand TC, LLC)',
-    businessUnit: 'Manufacturing',
-    address: {
-      street: '3843 S Bristol St #607',
-      city: 'Santa Ana',
-      state: 'CA',
-      zip: '92704',
+    name: 'TC Lab',
+    approverList: {
+      approverOne: { email :'jim@pmcoc.com' },
+      approverTwo: { email :'jay@pmcoc.com' },
     }
   },
 ];

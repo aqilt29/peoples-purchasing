@@ -1,27 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import _ from 'lodash'
-import Select from 'react-select'
-import Loading from './Loading';
-import { Label } from 'reactstrap';
-import { getAllEntities } from '../api/entitiesApi';
+import Loading from '../Loading';
+import { getAllEntities } from '../../api/entitiesApi';
+
+import { Field } from 'formik';
+import FormikReactStrapSelect from './FormikReactStrapSelect';
 
 
+const FormikEntitySelect = ({ width = '75%', entityId, entityChange, userEntityName, ...props }) => {
 
-const EntitySelect = ({ width = '75%', entityId, entityChange, label = 'Select Entity:', userEntityName }) => {
   const [entities, setEntities] = useState(null);
   const [defaultEntity, setDefaultEntity] = useState(null);
   const [isLoading, setLoading] = useState(false);
 
   const mapEntitiesToId = (entitiesArray) => {
-    console.log(entitiesArray)
+
     return entitiesArray.map(({ name, _id }) => {
       return { value: _id, label: name }
     })
   }
-
-  console.log(_.find(entities, { 'label': userEntityName }))
-  console.log(userEntityName)
-  console.log(entities)
 
   useEffect(() => {
     const fn = async () => {
@@ -48,19 +45,21 @@ const EntitySelect = ({ width = '75%', entityId, entityChange, label = 'Select E
     fn()
   }, [])
 
-  if (isLoading) return <Loading />
-  console.log(defaultEntity)
+  if (isLoading || (entities === null)) return <Loading />
+
   return (
     <div className="my-3">
-      <Label style={{ width: width }}>{label}
-        <Select
-          onChange={(data) => entityChange(data)}
+        <Field
+          placeholder="Select..."
+          type="select"
+          label="Select Purchasing Entity"
+          id="entity"
+          name="entity"
           options={entities}
-          defaultValue={entityId ?  _.find(entities, { value: entityId }) : defaultEntity}
+          component={FormikReactStrapSelect}
         />
-      </Label>
     </div>
   )
 }
 
-export default EntitySelect;
+export default FormikEntitySelect;

@@ -8,6 +8,7 @@ import { format } from 'date-fns'
 import ItemList from '../Components/requestForms/ItemList'
 import DocumentUploader from '../Components/DocumentUploader';
 import { attachUploadLocation } from '../api/requestApi';
+import { ItemsCart } from '../Components/PurchaseRequestForms';
 
 
 const PurchaseReqDetails = (props) => {
@@ -20,15 +21,20 @@ const PurchaseReqDetails = (props) => {
 
     let reason = window.prompt('Rejection Explanation:')
 
-    try {
-      await denyRequest(_id, _, approverId, reason)
-      console.log('denied')
-      window.alert('PR Denied')
-      setRedirect(true)
-    } catch (error) {
-      window.alert(error)
-      console.error(error)
+    console.log(reason)
+    if (reason !== null) {
+      try {
+        await denyRequest(_id, _, approverId, reason)
+        console.log('denied')
+        window.alert('PR Denied')
+        setRedirect(true)
+      } catch (error) {
+        window.alert(error)
+        console.error(error)
+      }
     }
+
+
   }
 
 
@@ -92,14 +98,6 @@ const PurchaseReqDetails = (props) => {
               <Col><strong>User Email:</strong></Col>
               <Col><SmallP>{`${request.user.email}`}</SmallP></Col>
             </Row>
-            <Row>
-              <Col><strong>Submitted on Behalf Of:</strong></Col>
-              <Col><SmallP>{`${request.submittedFor.firstName} ${request.submittedFor.lastName}`}</SmallP></Col>
-            </Row>
-            <Row>
-              <Col><strong>Requested Delivery Address:</strong></Col>
-              <Col><SmallP>{`${request.address.shipTo}`}</SmallP></Col>
-            </Row>
           </Col>
           <Col>
             <Row>
@@ -107,20 +105,8 @@ const PurchaseReqDetails = (props) => {
               <Col><SmallP>{`${request.entity.name}`}</SmallP></Col>
             </Row>
             <Row>
-              <Col><strong>Business Unit:</strong></Col>
-              <Col><SmallP>{`${request.entity.businessUnit}`}</SmallP></Col>
-            </Row>
-            <Row>
-              <Col><strong>Buyer Submitting Order:</strong></Col>
-              <Col><SmallP>{`${request.buyer.firstName} ${request.buyer.lastName}`}</SmallP></Col>
-            </Row>
-            <Row>
               <Col><strong>Invoice Total Amount:</strong></Col>
               <Col><SmallP>{`$${request.invoiceTotal}`}</SmallP></Col>
-            </Row>
-            <Row>
-              <Col><strong>Payment Terms:</strong></Col>
-              <Col><SmallP>{`${request.paymentTerms}`}</SmallP></Col>
             </Row>
             <Row>
               <Col><strong>Business Justification:</strong></Col>
@@ -139,9 +125,10 @@ const PurchaseReqDetails = (props) => {
               request.status === 'Saved' ? <BlueButton style={{ transform: 'translateY(25px)' }} onClick={() => submitAskForApproval(id)} >Send For Approval</BlueButton> : null
             }
             {" "}
-            {
+            {/* Removing the editing functionality 7/7/2020 for refactoring downstream to use new multiform */}
+            {/* {
               (request.status === 'Saved' || request.status === 'Denied') ? <BlueButton style={{ transform: 'translateY(25px)' }} tag={Link} to={`/purchasing/edit/${id}`} >Edit Purchase Req</BlueButton> : null
-            }
+            } */}
             {
               request.status === 'Pending' ? <Button color="danger" style={{ transform: 'translateY(25px)' }} onClick={() => denyRequestAndRedirect(id, _,'self') }>Cancel Request</Button> : null
             }
@@ -177,7 +164,7 @@ const PurchaseReqDetails = (props) => {
                 console.log(URL);
                 return (
                   <div>
-                    <a target="_blank" href={URL}>Attachment {index + 1}</a>
+                    <a target="_blank" key={index} href={URL}>Attachment {index + 1}</a>
                   </div>
                 )
               }) : <p>No Attachments</p>
@@ -191,11 +178,9 @@ const PurchaseReqDetails = (props) => {
         <Row>
           <Col>
             <h6>Items on List</h6>
-            <ItemList
-              documentId={id}
+            <ItemsCart
               items={request.items}
-              deleteItem={() => {}}
-              detailsPage
+              details
             />
           </Col>
         </Row>

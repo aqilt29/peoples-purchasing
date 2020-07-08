@@ -13,7 +13,6 @@ const sendDeniedNotifications = async ({ MessageAttributes: { documentId: { Stri
 
   const deniedRequest = await Request.findById(id)
     .populate('user')
-    .populate('submittedFor');
 
   console.log('denied request reason -> ', deniedRequest.reason);
 
@@ -28,7 +27,6 @@ const sendDeniedNotifications = async ({ MessageAttributes: { documentId: { Stri
   // deniedRequest.approverList.forEach(({ email }) => emailAddresses.push(email));
 
   emailAddresses.push(deniedRequest.user.email)
-  emailAddresses.push(deniedRequest.submittedFor.email)
 
   deniedRequest.status = 'Denied';
   deniedRequest.markModified('status');

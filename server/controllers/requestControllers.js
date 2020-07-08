@@ -1,9 +1,11 @@
 const path = require('path');
 const mongoose = require('mongoose')
 const Request = require('../../db/models/request');
+const Entity = require('../../db/models/entity');
 const User = require('../../db/models/user');
 const aws = require('aws-sdk')
 const _ = require('lodash');
+
 
 //  configure aws sdk with credentials for user
 aws.config.loadFromPath(path.resolve(__dirname, '../../aws_config.json'));
@@ -37,7 +39,6 @@ module.exports = {
       .where('isDeleted')
       .ne(true)
       .populate('user')
-      .populate('submittedFor')
       .populate('entity')
       .populate('vendor')
       .populate('buyer')
@@ -59,7 +60,6 @@ module.exports = {
         .populate('vendor')
         .populate('user')
         .populate('entity')
-        .populate('submittedFor')
         .populate('buyer')
 
     } catch (error) {
@@ -73,12 +73,10 @@ module.exports = {
     const { params: { userId }, query: { email } } = req;
 
     const data = await Request.find()
-      .or([{ user: userId }, { submittedFor: userId }, { 'approverList.email': email }])
-      .where('user != submittedFor')
+      .or([{ user: userId }, { 'approverList.email': email }])
       .where('isDeleted').ne(true)
       .populate({ path: 'vendor', select: 'name -_id'})
       .populate({ path: 'entity', select: 'name -_id'})
-      .populate({ path: 'submittedFor', select: 'firstName lastName -_id'})
       .sort({ dateRequested: 'desc'})
 
     res.send(data)
@@ -90,75 +88,69 @@ module.exports = {
   },
 
   createRequest: async (req, res) => {
-    //  get the document from the body
-    const { body } = req;
-    console.log(body, '<---- body')
-    //  create document model
 
-    console.log(body.editedId, '<--- edited id')
+    /**
+     * To create a request, we need to
+     * -  Apply the approval list
+     * -  Save the entry
+     *  - If entry is not valid, return error
+     * -  Return the object ID for re-navigation
+     */
 
-    const submitRequest = new Request(body)
-    let saveData;
+    const newSelectApprovalOrder = async ({ entity, invoiceTotal }) => {
+      const approverListToAdd = [];
 
-    console.log('this is submittedFor', submitRequest.submittedFor)
+      //  look up the entity
+      const { approverList: { approverOne, approverTwo } } = await Entity.findById(entity);
 
-    //  try to get the cost center for the submitted for.
+      //  push appropriate approvers into array
+      if (invoiceTotal > 250) approverListToAdd.push(approverOne);
+      if (invoiceTotal > 2500) approverListToAdd.push(approverTwo);
+
+      //  return the array
+      return approverListToAdd;
+    };
+
+
+    const { body: requestAPIData } = req
+    // console.log(requestAPIData)
+
+    //  Apply the approvalList
     try {
-      let { costCenter } = await User.findById(submitRequest.submittedFor);
-      console.log(costCenter, "<--- in controller")
-
-      submitRequest.set('costCenter', costCenter)
+      requestAPIData.approverList = await newSelectApprovalOrder(requestAPIData);
     } catch (error) {
-
-      console.log(error)
-      return res.status(501).json(error)
+      return res.status(502).send(error)
     }
 
-    //  try to save to database
+    // console.log(requestAPIData)
+    const submittedRequest = new Request(requestAPIData);
+
+    let savedRequest;
+
     try {
-      console.log('Attempting to save document', submitRequest.submittedFor)
-      saveData = await submitRequest.save()
-      console.log(saveData)
+      savedRequest = await submittedRequest.save();
     } catch (error) {
-      console.log(error)
-      return res.status(502).json(error)
-
+      return res.status(503).send(error)
     }
 
-    console.log('Document Saved!')
 
-    //  try to mark the old one as deleted if it is an edit
-    if (body.editedId) {
-      try {
-        const { editedId } = body;
-        const requestToDelete = await Request.findById(editedId)
-        requestToDelete.isDeleted = true;
-        await requestToDelete.save()
-        console.log(requestToDelete, '<-- we are deleting this one')
-        console.log(editedId, '<--- this was deleted')
-      } catch (error) {
-        console.log(error)
-        return res.status(504).json(error)
-      }
-    }
+    res.status(201).send(savedRequest)
 
-    //  try to populate the related data to send back
+  //   //  try to mark the old one as deleted if it is an edit
+  //   if (body.editedId) {
+  //     try {
+  //       const { editedId } = body;
+  //       const requestToDelete = await Request.findById(editedId)
+  //       requestToDelete.isDeleted = true;
+  //       await requestToDelete.save()
+  //       console.log(requestToDelete, '<-- we are deleting this one')
+  //       console.log(editedId, '<--- this was deleted')
+  //     } catch (error) {
+  //       console.log(error)
+  //       return res.status(504).json(error)
+  //     }
+  //   }
 
-    let dataToReturn;
-    try {
-      dataToReturn = await Request.findById(saveData._id)
-        .populate('user')
-        .populate('submittedFor')
-        .populate('entity')
-        .populate('vendor')
-        .populate('buyer')
-
-    } catch (error) {
-      console.log(error)
-      return res.status(503).json(error)
-    }
-
-    res.status(201).json(dataToReturn);
   },
 
   routeRequestForApproval: async (req, res) => {

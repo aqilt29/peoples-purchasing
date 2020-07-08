@@ -9,6 +9,7 @@ import { getRequestById, approveRequest, denyRequest, askForRequestApproval } fr
 import { Container, Row, Col, Button, Alert } from 'reactstrap';
 import { useAuth0 } from '../react-auth0-spa';
 import { SmallP, BlueButton } from '../Styles';
+import ItemCart from '../Components/PurchaseRequestForms/ItemsCart';
 
 const PurchasingView = () => {
   const { id, approverId = false } = useParams();
@@ -22,13 +23,18 @@ const PurchasingView = () => {
   const [approvedToRedirect, setRedirect] = useState(false)
 
   const approveRequestAndRedirect = async (_id, email, approverId) => {
-    try {
-      await approveRequest(_id, email, approverId)
-      console.log('approved')
-      setRedirect(true)
-    } catch (error) {
-      window.alert(error)
-      console.error(error)
+
+    const shouldApprove = window.confirm(`Approve ${requestData._id.slice(-5)}?`)
+
+    if (shouldApprove) {
+      try {
+        await approveRequest(_id, email, approverId)
+        console.log('approved')
+        setRedirect(true)
+      } catch (error) {
+        window.alert(error)
+        console.error(error)
+      }
     }
   }
 
@@ -36,13 +42,17 @@ const PurchasingView = () => {
 
     let reason = window.prompt('Rejection Explanation:')
 
-    try {
-      await denyRequest(_id, email, approverId, reason)
-      console.log('denied')
-      setRedirect(true)
-    } catch (error) {
-      window.alert(error)
-      console.error(error)
+    console.log(reason)
+    if (reason !== null) {
+      try {
+        await denyRequest(_id, _, approverId, reason)
+        console.log('denied')
+        window.alert('PR Denied')
+        setRedirect(true)
+      } catch (error) {
+        window.alert(error)
+        console.error(error)
+      }
     }
   }
 
@@ -86,48 +96,35 @@ const PurchasingView = () => {
       <h4>REQ-{requestData._id.slice(-5).toUpperCase()}</h4>
       <Container>
         <Row>
-        <Col>
-          <div className="mb-2">
-            <div><h6>Vendor Name:</h6></div>
-            <SmallP>{requestData.vendor.name}</SmallP>
-            <div><h6>Address:</h6></div>
-            <span>
-              <SmallP>{requestData.vendor.address.street}</SmallP>
-            </span>
-            <div>
-              <SmallP>{requestData.vendor.address.city}</SmallP>
-              <SmallP>, {requestData.vendor.address.state}</SmallP>
-              <SmallP> {requestData.vendor.address.zipCode}</SmallP>
-            </div>
-          </div>
-          <h6>Ship To Address:</h6>
-          <p>{requestData.address.shipTo}</p>
-          <h6>Submitted on Behalf of:</h6>
-          <p>{requestData.submittedFor.firstName} {requestData.submittedFor.lastName}</p>
-          <h6>Entity Billed:</h6>
-          <p>{requestData.entity.name}</p>
-          <h6>Business Justification:</h6>
-          <p>{requestData.businessNeed}</p>
-        </Col>
-        <Col>
-          <h6>Buyer Submitting order:</h6>
-          <p>{requestData.user.firstName}</p>
-          <h6>Invoice Total Estimate:</h6>
-          <p>${requestData.invoiceTotal}</p>
-          <h6>Payment Terms:</h6>
-          <p>{requestData.paymentTerms}</p>
-          <h6>Date Requested:</h6>
-          <p>{format(new Date(requestData.dateRequested), 'MM/dd/yyyy')}</p>
-          <h6>Request Status:</h6>
-          <Alert color={alertColor}>{requestData.status}</Alert>
-          {
-            requestData.status === 'Saved' ? <BlueButton onClick={() => submitAskForApproval(id)} >Send For Approval</BlueButton> : null
-          }
-          {" "}
-          {
-            requestData.status === 'Saved' ? <BlueButton tag={Link} to={`/purchasing/edit/${id}`} >Edit Purchase Req</BlueButton> : null
-          }
-        </Col>
+          {/* row for header details */}
+          <Col>
+            <Row>
+              <Col><strong>Date Requested:</strong></Col>
+              <Col><SmallP>{format(new Date(requestData.dateRequested), 'MM/dd/yyyy')}</SmallP></Col>
+            </Row>
+            <Row>
+              <Col><strong>User Submitted:</strong></Col>
+              <Col><SmallP>{`${requestData.user.firstName} ${requestData.user.lastName}`}</SmallP></Col>
+            </Row>
+            <Row>
+              <Col><strong>User Email:</strong></Col>
+              <Col><SmallP>{`${requestData.user.email}`}</SmallP></Col>
+            </Row>
+          </Col>
+          <Col>
+            <Row>
+              <Col><strong>Entity Billed:</strong></Col>
+              <Col><SmallP>{`${requestData.entity.name}`}</SmallP></Col>
+            </Row>
+            <Row>
+              <Col><strong>Invoice Total Amount:</strong></Col>
+              <Col><SmallP>{`$${requestData.invoiceTotal}`}</SmallP></Col>
+            </Row>
+            <Row>
+              <Col><strong>Business Justification:</strong></Col>
+              <Col><SmallP>{`${requestData.businessNeed}`}</SmallP></Col>
+            </Row>
+          </Col>
         </Row>
         <hr />
         <Row>
@@ -142,6 +139,17 @@ const PurchasingView = () => {
                   </div>
                 )
               }) : <p>No Attachments</p>
+            }
+          </Col>
+          <Col>
+            <h6>Request Status:</h6>
+            <Alert color={alertColor}>{requestData.status}</Alert>
+            {
+              requestData.status === 'Saved' ? <BlueButton onClick={() => submitAskForApproval(id)} >Send For Approval</BlueButton> : null
+            }
+            {" "}
+            {
+              requestData.status === 'Saved' ? <BlueButton tag={Link} to={`/purchasing/edit/${id}`} >Edit Purchase Req</BlueButton> : null
             }
           </Col>
         </Row>
@@ -175,7 +183,7 @@ const PurchasingView = () => {
         <Row>
         <Col>
           <h6>Items on List</h6>
-          <ItemList items={requestData.items} documentId={requestData._id} approverPage deleteItem={() => {}}/>
+          <ItemCart items={requestData.items} details />
         </Col>
       </Row>
       </Container>

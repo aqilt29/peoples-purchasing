@@ -12,10 +12,7 @@ const _ = require('lodash');
 const sendApprovalNotifications = async ({ MessageAttributes: { documentId: { StringValue: id }}}) => {
   console.log('approved Document ID', id)
 
-  const approvedRequest = await Request.findById(id)
-    .populate('user')
-    .populate('buyer')
-    .populate('submittedFor');
+  const approvedRequest = await Request.findById(id).populate('user')
 
   console.log('approved request ->', approvedRequest);
 
@@ -26,12 +23,11 @@ const sendApprovalNotifications = async ({ MessageAttributes: { documentId: { St
 
   const emailAddresses = [];
 
+  //  do we really need to let the approvers know that they just approved something?
   // loop through the approver list and add emailAddresses
-  approvedRequest.approverList.forEach(({ email }) => emailAddresses.push(email));
+  // approvedRequest.approverList.forEach(({ email }) => emailAddresses.push(email));
 
   emailAddresses.push(approvedRequest.user.email)
-  emailAddresses.push(approvedRequest.buyer.email)
-  emailAddresses.push(approvedRequest.submittedFor.email)
 
   approvedRequest.status = 'Approved';
   approvedRequest.markModified('status');
@@ -40,6 +36,7 @@ const sendApprovalNotifications = async ({ MessageAttributes: { documentId: { St
   await transporter.sendMail({
     from: { name: "Purchasing Portal Notification", address:'scanner@pmcoc.com' }, // sender address
     to:  _.uniq(emailAddresses), // list of receivers
+    replyTo: 'requestinbox@pmcoc.com',
     subject: `REQ-${approvedRequest.id.slice(-5).toUpperCase()}`, // Subject line
     // text: JSON.stringify(data), // plain text body
     html: `<a href="${hostName}/purchasing/view/${id}">REQ-${approvedRequest.id.slice(-5).toUpperCase()} Approved, Click Here to View</a>` // html body

@@ -14,9 +14,9 @@ export const appPermissions = {
   'PRCreator': {
     purchasing: [
       {
-        title: 'Create New Purchase Requisition',
+        title: 'Create New Purchase Request',
         subtitle: 'Submit new purchase request to follow approval workflows.',
-        link: '/createform',
+        link: '/createpr',
       },
       {
         title: 'My Pending PRs',
@@ -25,21 +25,21 @@ export const appPermissions = {
       },
     ],
 
-    vendors: [
-      {
-        title: 'Add Vendors',
-        subtitle: 'Add new vendors',
-        link: '/add',
-      },
-    ]
+    // vendors: [
+    //   {
+    //     title: 'Add Vendors',
+    //     subtitle: 'Add new vendors',
+    //     link: '/add',
+    //   },
+    // ]
   },
 
   'Buyer': {
     purchasing: [
       {
-        title: 'Create New Purchase Requisition',
+        title: 'Create New Purchase Request',
         subtitle: 'Submit new purchase request to follow approval workflows.',
-        link: '/createform',
+        link: '/createpr',
       },
       {
         title: 'My Pending PRs',
@@ -58,13 +58,13 @@ export const appPermissions = {
       },
     ],
 
-    vendors: [
-      {
-        title: 'Add Vendors',
-        subtitle: 'Add new vendors',
-        link: '/add',
-      },
-    ],
+    // vendors: [
+    //   {
+    //     title: 'Add Vendors',
+    //     subtitle: 'Add new vendors',
+    //     link: '/add',
+    //   },
+    // ],
 
     purchaseorders: [
       {
@@ -88,9 +88,9 @@ export const appPermissions = {
   'Accounting': {
     purchasing: [
       {
-        title: 'Create New Purchase Requisition',
+        title: 'Create New Purchase Request',
         subtitle: 'Submit new purchase request to follow approval workflows.',
-        link: '/createform',
+        link: '/createpr',
       },
       {
         title: 'My Pending PRs',
@@ -109,13 +109,13 @@ export const appPermissions = {
       },
     ],
 
-    vendors: [
-      {
-        title: 'Add Vendors',
-        subtitle: 'Add new vendors',
-        link: '/add',
-      },
-    ],
+    // vendors: [
+    //   {
+    //     title: 'Add Vendors',
+    //     subtitle: 'Add new vendors',
+    //     link: '/add',
+    //   },
+    // ],
 
     purchaseorders: [
       {
@@ -142,9 +142,9 @@ export const appPermissions = {
 
     purchasing: [
       {
-        title: 'Create New Purchase Requisition',
+        title: 'Create New Purchase Request',
         subtitle: 'Submit new purchase request to follow approval workflows.',
-        link: '/createform',
+        link: '/createpr',
       },
       {
         title: 'My Pending PRs',
@@ -161,20 +161,25 @@ export const appPermissions = {
         subtitle: 'Lookup any PR company wide based on ID.',
         link: '/search',
       },
+      // {
+      //   title: 'DEMO: New Purchase Request',
+      //   subtitle: 'DEMO PURCHASE REQUEST UI',
+      //   link: '/createpr'
+      // }
     ],
 
-    vendors: [
-      {
-        title: 'View All Vendors',
-        subtitle: 'View a list of all vendors',
-        link: '/viewall',
-      },
-      {
-        title: 'Add Vendors',
-        subtitle: 'Add new vendors',
-        link: '/add',
-      },
-    ],
+    // vendors: [
+    //   {
+    //     title: 'View All Vendors',
+    //     subtitle: 'View a list of all vendors',
+    //     link: '/viewall',
+    //   },
+    //   {
+    //     title: 'Add Vendors',
+    //     subtitle: 'Add new vendors',
+    //     link: '/add',
+    //   },
+    // ],
 
     purchaseorders: [
       {
@@ -200,15 +205,15 @@ export const userDashboardApps = {
   User: [],
   PRCreator: [
     {
-      title: 'Purchasing',
+      title: 'Purchase Requests',
       subtitle: 'Manage Purchasing Related Tasks',
       link: 'purchasing'
     },
-    {
-      title: 'Vendors',
-      subtitle: 'Manage Vendor Related Information',
-      link: 'vendors'
-    },
+    // {
+    //   title: 'Vendors',
+    //   subtitle: 'Manage Vendor Related Information',
+    //   link: 'vendors'
+    // },
     {
       title: 'Resources',
       subtitle: 'Company Information and related SOPs',
@@ -217,15 +222,15 @@ export const userDashboardApps = {
   ],
   Buyer: [
     {
-      title: 'Purchasing',
+      title: 'Purchase Requests',
       subtitle: 'Manage Purchasing Related Tasks',
       link: 'purchasing'
     },
-    {
-      title: 'Vendors',
-      subtitle: 'Manage Vendor Related Information',
-      link: 'vendors'
-    },
+    // {
+    //   title: 'Vendors',
+    //   subtitle: 'Manage Vendor Related Information',
+    //   link: 'vendors'
+    // },
     {
       title: 'Purchase Orders',
       subtitle: 'Manage Your/Company Purchase Orders Here',
@@ -239,15 +244,15 @@ export const userDashboardApps = {
   ],
   Accounting: [
     {
-      title: 'Purchasing',
+      title: 'Purchase Requests',
       subtitle: 'Manage Purchasing Related Tasks',
       link: 'purchasing'
     },
-    {
-      title: 'Vendors',
-      subtitle: 'Manage Vendor Related Information',
-      link: 'vendors'
-    },
+    // {
+    //   title: 'Vendors',
+    //   subtitle: 'Manage Vendor Related Information',
+    //   link: 'vendors'
+    // },
     {
       title: 'Purchase Orders',
       subtitle: 'Manage Your/Company Purchase Orders Here',
@@ -261,15 +266,15 @@ export const userDashboardApps = {
   ],
   Admin: [
     {
-      title: 'Purchasing',
+      title: 'Purchase Requests',
       subtitle: 'Manage Purchasing Related Tasks',
       link: 'purchasing'
     },
-    {
-      title: 'Vendors',
-      subtitle: 'Manage Vendor Related Information',
-      link: 'vendors'
-    },
+    // {
+    //   title: 'Vendors',
+    //   subtitle: 'Manage Vendor Related Information',
+    //   link: 'vendors'
+    // },
     {
       title: 'Purchase Orders',
       subtitle: 'Manage Your/Company Purchase Orders Here',

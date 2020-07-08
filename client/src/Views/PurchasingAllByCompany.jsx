@@ -3,6 +3,12 @@ import { Container, Col, Row, Table } from 'reactstrap';
 import { searchRequestById, getAllRequests } from '../api/requestApi';
 import Loading from '../Components/Loading';
 import RequestListItem from '../Components/RequestListItem';
+import RequestList from '../Components/RequestList';
+
+/**
+ * This component at some time in the future needs to
+ * be able to search the PRs and somehow sort them.
+ */
 
 const PurchasingAllByCompany = () => {
   const [foundRequests, setFoundRequests] = useState([]);
@@ -39,39 +45,9 @@ const PurchasingAllByCompany = () => {
 
   return (
     <>
-      <h4>All Purchase Requests</h4>
-      <Container>
-        <Row>
-          <Col>
-            <Table striped size="sm" responsive>
-              <thead >
-                <tr>
-                  <th>#</th>
-                  <th>ID</th>
-                  <th>Status</th>
-                  <th>Date</th>
-                  <th>Entity</th>
-                  <th>Invoice Amt</th>
-                  <th>Waiting On</th>
-                  <th>Vendor</th>
-                  <th>Submitted For</th>
-                  <th>Details</th>
-                </tr>
-              </thead>
-              <tbody>
-                {
-                  foundRequests.length > 0 && foundRequests.map((request, idx) => {
-                    return <RequestListItem key={idx} idx={idx} request={request} />
-                  })
-                }
-                {
-                  foundRequests.length < 1 && <h3>No Entries</h3>
-                }
-              </tbody>
-            </Table>
-          </Col>
-        </Row>
-      </Container>
+      <RequestList
+        listOfRequests={foundRequests}
+      />
     </>
   )
 };

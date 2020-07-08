@@ -16,13 +16,10 @@ const RequestList = ({ listOfRequests, isPoScreen = false }) => {
                   <th>#</th>
                   <th>ID</th>
                   {isPoScreen || <th>Status</th>}
-                  <th>Business Need</th>
+                  <th>Project Name</th>
                   <th>Date</th>
+                  <th>Entity</th>
                   <th>Invoice Amt</th>
-                  <th>Terms</th>
-                  <th>Waiting On</th>
-                  <th>Vendor</th>
-                  <th>Submitted For</th>
                   <th>Details</th>
                 </tr>
               </thead>

@@ -9,7 +9,7 @@ const DisplayItem = ({ documentId = undefined, item, index, deleteItem, detailsP
   return (
     <>
       <td>{item.description}</td>
-      <td>{item.requestByDate}</td>
+      {/* <td>{item.requestByDate}</td> */}
       <td>${item.price}/{item.unitOfMeasure}</td>
       <td>{item.quantity}</td>
       <td>{item.classCode}</td>

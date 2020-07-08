@@ -823,4 +823,6 @@ function demoSelectApprovalOrder(context) {
 
 }
 
-module.exports = selectApprovalOrder;
+module.exports = {
+  selectApprovalOrder,
+};

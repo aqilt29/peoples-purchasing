@@ -30,9 +30,9 @@ export const listOfUserApps = [
 
 export const listOfPurchasingApps = [
   {
-    title: 'Create New Purchase Requisition',
+    title: 'Create New Purchase Request',
     subtitle: 'Submit new purchase request to follow approval workflows.',
-    link: '/createform',
+    link: '/createpr',
   },
   {
     title: 'My Pending PRs',

@@ -2,56 +2,36 @@ const mongoose = require('mongoose');
 const _ = require('lodash')
 const Schema = mongoose.Schema;
 const itemSchema = require('./item');
-const selectApprovalOrder = require('./utils/selectApprovalOrder');
+const approverSchema = require('./approver')
+
+const { selectApprovalOrder } = require('./utils/selectApprovalOrder');
 
 const statuses = ['Pending', 'Approved', 'Denied', 'Error', 'Saved'];
 
-const approverSchema = new Schema({
-  email: String,
-  isSent: Boolean,
-  isApproved: Boolean,
-  dateApproved: Date,
-  dateSent: Date,
+const addressSchema = new Schema({
+  address: { type: String, required: true },
+  address2: String,
+  city: { type: String, required: true },
+  state: { type: String, required: true },
+  zipCode: { type: String, required: true },
 })
 
 const requestSchema = new Schema({
-  isDeleted: { type: Boolean, default: false },
-  user: { type: Schema.Types.ObjectId, ref: 'User', required: true },
-  delegates: [
-    { type: Schema.Types.ObjectId, ref: 'User' }
-  ],
-  vendor: { type: Schema.Types.ObjectId, ref: 'Vendor', required: true },
-  address: {
-    shipTo: { type: String, required: true },
-  },
-  costCenter: { type: Number, required: true },
-  submittedFor: {
-    type: Schema.Types.ObjectId, ref: 'User', required: true,
-    default: function() {
-      if (!this.submittedFor) {
-        console.log('default submitted for', this.user._id);
-        return this.user._id;
-      }
-      return null;
-    }
-  }, //  one userId of someone with pmcoc submitted by defines routing rules
+  referenceName: { type: String, default: 'noNameErr', required: true },
   entity: { type: Schema.Types.ObjectId, ref: 'Entity', required: true },
-  dateRequested: { type: Date, default: Date.now },
+  user: { type: Schema.Types.ObjectId, ref: 'User', required: true },
   businessNeed: { type: String, required: true },
+  shippingAddress: { type: addressSchema, required: true },
+  dateRequested: { type: Date, default: Date.now },
   invoiceTotal: { type: Number, required: true },
   approverList: [{ type: approverSchema, required: true }],
-  paymentTerms: { type: String, required: true },
   status: { type: String, default: 'Saved', enum: statuses },
-  comments: String,
-  reason: String,
-  buyer: { type: Schema.Types.ObjectId, ref: 'User', required: true }, // person placing order
-  shipVia: String,
-  shippingTerms: String,
   items: [itemSchema],
   attachments: [String],
   hasPurchaseOrder: { type: Boolean, default: false },
-  isBlanket: { type: Boolean, default: false },
   purchaseOrderId: { type: Schema.Types.ObjectId, ref: 'PurchaseOrder' },
+  delegates: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+  isDeleted: { type: Boolean, default: false },
 });
 
 //  assign approvers list and record
