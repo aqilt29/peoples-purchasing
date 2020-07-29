@@ -41,6 +41,7 @@ module.exports = {
       .populate('entity')
       .populate('vendor')
       .populate('buyer')
+      .sort({ dateRequested: 'desc'})
 
     } catch (error) {
       res.status(404).send(error)

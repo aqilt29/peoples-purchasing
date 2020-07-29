@@ -39,7 +39,7 @@ const NavBar = () => {
         <Container>
           <NavbarBrand tag={NavBarLogo}/>
           {/* <StyledNavBarTogglerButton action={toggle} /> */}
-          <HamburgerMenu isOpen={isOpen} menuClicked={toggle} strokeWidth={3} color="#1a4086" />
+          <HamburgerMenu className="d-md-none" isOpen={isOpen} menuClicked={toggle} strokeWidth={3} color="#1a4086" />
           <Collapse isOpen={isOpen} navbar>
             <Nav className="mr-auto" navbar />
             <Nav className="d-none d-md-block" navbar>
