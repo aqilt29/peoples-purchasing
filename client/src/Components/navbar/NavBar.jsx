@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { NavLink as RouterNavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import BlueHamburger from '../../Assets/blueHamburger.svg'
+import HamburgerMenu from 'react-hamburger-menu';
 
 import {
   Collapse,
@@ -36,7 +38,8 @@ const NavBar = () => {
       <Navbar expand="md">
         <Container>
           <NavbarBrand tag={NavBarLogo}/>
-          <StyledNavBarTogglerButton action={toggle} />
+          {/* <StyledNavBarTogglerButton action={toggle} /> */}
+          <HamburgerMenu isOpen={isOpen} menuClicked={toggle} strokeWidth={3} color="#1a4086" />
           <Collapse isOpen={isOpen} navbar>
             <Nav className="mr-auto" navbar />
             <Nav className="d-none d-md-block" navbar>
