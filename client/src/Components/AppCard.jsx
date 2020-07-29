@@ -17,7 +17,6 @@ const AppCard = ({ title, subtitle, link }) => {
           <CardText>{subtitle}</CardText>
           <BlueButton tag={Link} to={`${url}${link}`}>ENTER</BlueButton>
         </CardBody>
-        {/* <FontAwesomeIcon icon="link" /> */}
       </Card>
     </>
   );

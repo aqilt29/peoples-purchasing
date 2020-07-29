@@ -16,16 +16,7 @@ const sendApprovalNotifications = async ({ MessageAttributes: { documentId: { St
 
   console.log('approved request ->', approvedRequest);
 
-  console.log('approved request approverList', approvedRequest.approverList);
-
-  //  the people that need to know it has been approved are all on the approver list
-  //  and the person who made it and the person who it was submitted for
-
   const emailAddresses = [];
-
-  //  do we really need to let the approvers know that they just approved something?
-  // loop through the approver list and add emailAddresses
-  // approvedRequest.approverList.forEach(({ email }) => emailAddresses.push(email));
 
   emailAddresses.push(approvedRequest.user.email)
 
@@ -37,9 +28,9 @@ const sendApprovalNotifications = async ({ MessageAttributes: { documentId: { St
     from: { name: "Purchasing Portal Notification", address:'scanner@pmcoc.com' }, // sender address
     to:  _.uniq(emailAddresses), // list of receivers
     replyTo: 'requestinbox@pmcoc.com',
-    subject: `REQ-${approvedRequest.id.slice(-5).toUpperCase()}`, // Subject line
+    subject: `REQ-${approvedRequest.id.slice(-5).toUpperCase()} Approved, Take Action`, // Subject line
     // text: JSON.stringify(data), // plain text body
-    html: `<a href="${hostName}/purchasing/view/${id}">REQ-${approvedRequest.id.slice(-5).toUpperCase()} Approved, Click Here to View</a>` // html body
+    html: `<a href="${hostName}/purchasing/details/${id}">REQ-${approvedRequest.id.slice(-5).toUpperCase()} Approved, Click Here to View</a>` // html body
   });
 
 
