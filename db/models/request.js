@@ -24,26 +24,15 @@ const requestSchema = new Schema({
   shippingAddress: { type: addressSchema, required: true },
   dateRequested: { type: Date, default: Date.now },
   invoiceTotal: { type: Number, required: true },
-  approverList: [{ type: approverSchema, required: true }],
+  approverList: [{ type: approverSchema }],
   status: { type: String, default: 'Saved', enum: statuses },
   items: [itemSchema],
   attachments: [String],
+  reason: String,
   hasPurchaseOrder: { type: Boolean, default: false },
   purchaseOrderId: { type: Schema.Types.ObjectId, ref: 'PurchaseOrder' },
   delegates: [{ type: Schema.Types.ObjectId, ref: 'User' }],
   isDeleted: { type: Boolean, default: false },
 });
-
-//  assign approvers list and record
-requestSchema.post('validate', { document: true }, async function() {
-  if (this.approverList.length < 1) {
-    let listName = selectApprovalOrder(this);
-
-    this.approverList = _.cloneDeep(listName);
-
-    console.log(listName, '<--- approval order');
-  }
-})
-
 
 module.exports = mongoose.model('Request', requestSchema);

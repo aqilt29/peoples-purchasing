@@ -14,9 +14,7 @@ const sendDeniedNotifications = async ({ MessageAttributes: { documentId: { Stri
   const deniedRequest = await Request.findById(id)
     .populate('user')
 
-  console.log('denied request reason -> ', deniedRequest.reason);
-
-  console.log('denied request approverList', deniedRequest.approverList);
+  console.log('denied request -> ', deniedRequest);
 
   //  the people that need to know it has been denied are all on the approver list
   //  and the person who made it and the person who it was submitted for

@@ -4,7 +4,6 @@ const Request = require('../../db/models/request');
 const Entity = require('../../db/models/entity');
 const User = require('../../db/models/user');
 const aws = require('aws-sdk')
-const _ = require('lodash');
 
 
 //  configure aws sdk with credentials for user
@@ -113,43 +112,56 @@ module.exports = {
 
 
     const { body: requestAPIData } = req
-    // console.log(requestAPIData)
 
-    //  Apply the approvalList
-    try {
-      requestAPIData.approverList = await newSelectApprovalOrder(requestAPIData);
-    } catch (error) {
-      return res.status(502).send(error)
-    }
-
-    // console.log(requestAPIData)
-    const submittedRequest = new Request(requestAPIData);
-
-    let savedRequest;
+    let submittedRequest;
 
     try {
-      savedRequest = await submittedRequest.save();
+      submittedRequest = await new Request(requestAPIData).save();
+
     } catch (error) {
+      console.log('request cant be saved error:', error)
       return res.status(503).send(error)
+
     }
 
 
-    res.status(201).send(savedRequest)
+    if (submittedRequest.invoiceTotal < 251) {
+      console.log('here')
 
-  //   //  try to mark the old one as deleted if it is an edit
-  //   if (body.editedId) {
-  //     try {
-  //       const { editedId } = body;
-  //       const requestToDelete = await Request.findById(editedId)
-  //       requestToDelete.isDeleted = true;
-  //       await requestToDelete.save()
-  //       console.log(requestToDelete, '<-- we are deleting this one')
-  //       console.log(editedId, '<--- this was deleted')
-  //     } catch (error) {
-  //       console.log(error)
-  //       return res.status(504).json(error)
-  //     }
-  //   }
+      try {
+
+        submittedRequest.status = 'Approved';
+        submittedRequest.markModified('status');
+
+        await submittedRequest.save();
+        await sqs.sendMessage(queueParams(`sendApprovalNotifications`, submittedRequest.id)).promise()
+
+
+        return res.status(201).send(submittedRequest)
+
+      } catch (error) {
+        console.log('request cannot be preapproved:', error)
+        return res.status(504).send(error)
+      }
+
+    } else {
+      console.log('applying approver list')
+      //  Apply the approvalList
+      try {
+        submittedRequest.approverList = await newSelectApprovalOrder(submittedRequest);
+
+        submittedRequest.markModified('approverList')
+        await submittedRequest.save();
+
+
+      } catch (error) {
+
+        return res.status(502).send(error)
+      }
+
+    }
+
+    res.status(201).send(submittedRequest)
 
   },
 
@@ -214,6 +226,33 @@ module.exports = {
     }
 
     res.status(201).send(requestResults)
+  },
+
+  approvePurchaseRequest: async (req, res) => {
+    /**
+     * This is supposed to approve a request
+     * Input: request id
+     * Effect: send to SQS to send approval notification
+     * Output: request
+     *
+    */
+
+    const { params: { id } } = req;
+
+    const requestToUpdate = await Request.findById(id);
+
+    if (requestToUpdate.status === 'Approved') {
+      console.log('the request has already been approved')
+      return res.status(203).send('already approved')
+    }
+
+    requestToUpdate.status = 'Approved';
+    requestToUpdate.markModified('status');
+
+    await requestToUpdate.save();
+    await sqs.sendMessage(queueParams(`sendApprovalNotifications`, id)).promise()
+
+    return res.status(201).send(requestToUpdate)
   },
 
   approveRequest: async (req, res) => {
@@ -296,10 +335,16 @@ module.exports = {
     }
 
     //  set a reason for denial property
-    await requestToUpdate.set('reason', reason)
+    console.log('set reason', reason)
+    requestToUpdate.reason = reason
     requestToUpdate.markModified('reason')
 
-    await requestToUpdate.save()
+    try {
+
+      await requestToUpdate.save()
+    } catch (error) {
+      console.log(error)
+    }
 
     try {
       await sqs.sendMessage(queueParams(`sendDeniedNotifications`, id)).promise()

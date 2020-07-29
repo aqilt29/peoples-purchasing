@@ -121,6 +121,10 @@ const PurchaseReqDetails = (props) => {
             <Alert color={alertColor}>{request.status}</Alert>
           </Col>
           <Col>
+
+            {
+              request.status === 'Denied' && (<div><h6>Denied Explanation</h6><SmallP>{request.reason}</SmallP></div>)
+            }
             {
               request.status === 'Saved' ? <BlueButton style={{ transform: 'translateY(25px)' }} onClick={() => submitAskForApproval(id)} >Send For Approval</BlueButton> : null
             }

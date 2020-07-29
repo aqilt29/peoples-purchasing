@@ -2,6 +2,10 @@ const router = require('express').Router({ strict: true });
 const controller = require('../controllers/requestControllers');
 
 router
+  .route('/preapprove/:id')
+  .get(controller.approvePurchaseRequest)
+
+router
   .route('/')
   .get(controller.getAllRequests)
   .post(controller.createRequest)
