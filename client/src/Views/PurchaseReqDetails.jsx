@@ -129,12 +129,13 @@ const PurchaseReqDetails = (props) => {
               request.status === 'Saved' ? <BlueButton style={{ transform: 'translateY(25px)' }} onClick={() => submitAskForApproval(id)} >Send For Approval</BlueButton> : null
             }
             {" "}
-            {/* Removing the editing functionality 7/7/2020 for refactoring downstream to use new multiform */}
-            {/* {
-              (request.status === 'Saved' || request.status === 'Denied') ? <BlueButton style={{ transform: 'translateY(25px)' }} tag={Link} to={`/purchasing/edit/${id}`} >Edit Purchase Req</BlueButton> : null
-            } */}
             {
               request.status === 'Pending' ? <Button color="danger" style={{ transform: 'translateY(25px)' }} onClick={() => denyRequestAndRedirect(id, _,'self') }>Cancel Request</Button> : null
+            }
+          </Col>
+          <Col>
+            {
+              <BlueButton tag={Link} to={`/purchasing/edit/${id}`} >Copy Request</BlueButton>
             }
           </Col>
         </Row>

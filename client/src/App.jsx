@@ -84,7 +84,7 @@ const App = () => {
             <PrivateRoute exact path="/purchasing/view/:id" component={PurchasingView} />
             <PrivateRoute exact path="/purchasing/details/item/:itemId/:documentId" component={ItemDetailsPage} />
             <PrivateRoute exact path="/purchasing/details/:id" component={PurchaseReqDetails} />
-            <PrivateRoute exact path="/purchasing/edit/:id" component={EditPurchaseReqDetails} />
+            <PrivateRoute exact path="/purchasing/edit/:id" render={ props => <CreatePurchaseRequest {...props} edit /> } />
             <PrivateRoute exact path="/purchasing/viewforms" component={PurchasingViewAll} />
             <PrivateRoute exact path="/purchasing/viewallrequests" component={PurchasingAllByCompany} />
             <PrivateRoute exact path="/purchasing/createform" render={(props) => <CreatePurchaseReq {...props} user={dbUser}/>} />

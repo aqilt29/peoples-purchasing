@@ -11,6 +11,7 @@ import { getAllEntities } from '../api/entitiesApi';
 import { createNewRequest } from '../api/requestApi';
 import { useAuth0 } from '../react-auth0-spa';
 import { useHistory } from 'react-router-dom';
+import Loading from '../Components/Loading';
 
 
 /**
@@ -36,8 +37,8 @@ const exampleListOfEntities = [
 
 
 
-const CreatePurchaseRequest = () => {
-  const [loading, setLoading] = useState(false);
+const CreatePurchaseRequest = (props) => {
+  const [isLoading, setLoading] = useState(false);
   const [entitiesList, setEntitiesList] = useState([])
   const history = useHistory()
   const { dbUser } = useAuth0()
@@ -58,7 +59,7 @@ const CreatePurchaseRequest = () => {
 
       setLoading(false);
     };
-
+    console.log(props)
     fn()
   }, [])
 
@@ -107,6 +108,8 @@ const CreatePurchaseRequest = () => {
     },
     items: [],
   }
+
+  if (isLoading) return <Loading />
 
   return (
     <>

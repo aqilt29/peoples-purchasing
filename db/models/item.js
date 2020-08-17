@@ -12,6 +12,8 @@ const itemSchema = new Schema({
   quantity: { type: Number, required: true },
   receivedQty: { type: Number, default: 0 },
   invoicedQty: { type: Number, default: 0 },
+  // isRecurring denotes item is billed on a schedule
+  isRecurring: { type: Boolean, default: false },
 });
 
 
